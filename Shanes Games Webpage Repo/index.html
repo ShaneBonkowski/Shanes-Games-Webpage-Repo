@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Shane's Games</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Font Awesome CDN for GitHub icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="dark-overlay"></div>
+
+    <!-- Include the scripts used -->
+    <script src="js/header.js"></script>
+    <script src="js/game_box.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/game_box_hover_handling.js"></script>
+
+    <!-- Call JS functions -->
+    <script>
+      // Wait for DOMContentLoaded before calling scripts
+      document.addEventListener("DOMContentLoaded", function () {
+        createHeader();
+        createGameBox(
+          "jpgs/Test_Image.jpg",
+          "https://github.com/ShaneBonkowski",
+          "Test Game 1",
+          "This is a game where you do this and that and this and that and this and that"
+        );
+        createGameBox(
+          "jpgs/Test_Image.jpg",
+          "https://github.com/ShaneBonkowski",
+          "Test Game 1",
+          "Placeholder text 2"
+        );
+        createGameBox(
+          "jpgs/Test_Image.jpg",
+          "https://github.com/ShaneBonkowski",
+          "Test Game 1",
+          "Placeholder text 2"
+        );
+        createGameBox(
+          "jpgs/Test_Image.jpg",
+          "https://github.com/ShaneBonkowski",
+          "Test Game 1",
+          "Placeholder text 2"
+        );
+        createGameBox(
+          "jpgs/Test_Image.jpg",
+          "https://github.com/ShaneBonkowski",
+          "Test Game 1",
+          "Placeholder text 2"
+        );
+        createGameBox(
+          "jpgs/Test_Image.jpg",
+          "https://github.com/ShaneBonkowski",
+          "Test Game 1",
+          "Placeholder text 2"
+        );
+        createFooter();
+
+        // Ensure that all game boxes are able to animate as intended when hovered
+        handleGameBoxHover();
+      });
+    </script>
+  </body>
+</html>
