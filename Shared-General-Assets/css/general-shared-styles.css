@@ -1,3 +1,8 @@
+/* Define CONSTANT variables */
+:root {
+  --main-background-overlay-color: rgba(0, 0, 0, 0.9);
+}
+
 /* Fade in dark screen */
 .black-overlay {
   position: fixed;
@@ -19,4 +24,14 @@
   to {
     opacity: 0;
   }
+}
+
+.dark-overlay {
+  position: fixed; /* fixed so we always see it in the background */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--main-background-overlay-color);
+  z-index: -1; /* Ensure the overlay behind everything and only on top of the background */
 }

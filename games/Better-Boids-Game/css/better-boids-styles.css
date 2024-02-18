@@ -42,8 +42,9 @@ body {
   font-family: MyCustomFont, sans-serif;
   position: relative;
   background-image: url("../../../Shared-General-Assets/pngs/Sky_starry_blurred.png");
-  background-repeat: repeat;
-  background-position: center;
+  background-repeat: repeat-y; /* Repeat the image vertically */
+  background-position: top center; /* position relative to the top or center */
+  background-size: 100% auto; /* Auto width, 100% height */
 }
 
 /* Testing */

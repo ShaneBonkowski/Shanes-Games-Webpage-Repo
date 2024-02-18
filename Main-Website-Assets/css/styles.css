@@ -6,7 +6,6 @@
   --hide-color: rgba(0, 0, 0, 0);
   --button-hover-color: #555555b0;
   --main-text-color: white;
-  --main-background-overlay-color: rgba(0, 0, 0, 0.9);
   --panel-color: rgba(20, 20, 20, 0.75);
   /* Transformations */
   --centering-translation: -50%;
@@ -184,46 +183,14 @@ body {
   font-family: MyCustomFont, sans-serif;
   position: relative;
   background-image: url("../../Shared-General-Assets/pngs/Sky_starry_blurred.png");
-  background-repeat: repeat;
-  background-position: center;
+  background-repeat: repeat-y; /* Repeat the image vertically */
+  background-position: top center; /* position relative to the top or center */
+  background-size: 100% auto; /* Auto width, 100% height */
 }
 
 html {
   margin: 0;
   padding: 0;
-}
-
-.dark-overlay {
-  position: fixed; /* fixed so we always see it in the background */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--main-background-overlay-color);
-  z-index: -1; /* Ensure the overlay behind everything and only on top of the background */
-}
-
-/* Fade in dark screen */
-.black-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  opacity: 1; /* Initially fully opaque */
-  z-index: 9999; /* Ensure it's on top of other content */
-  animation: fadeOutOverlay 2.5s forwards; /* Play fade-out animation */
-  pointer-events: none; /* Make the overlay non-interactable */
-}
-
-@keyframes fadeOutOverlay {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
 }
 
 /* header.js styling */
