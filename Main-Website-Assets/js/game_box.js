@@ -11,7 +11,6 @@ function createGameBox(imageSrc, linkUrl, titleText, gameDescriptionText) {
   // Create an anchor element for the button link
   var buttonLinkElement = document.createElement("a");
   buttonLinkElement.href = linkUrl;
-  buttonLinkElement.target = "_blank"; // Open link in a new tab
   buttonLinkElement.classList.add("button-link-anchor");
 
   // Create an image element for the button
@@ -23,7 +22,6 @@ function createGameBox(imageSrc, linkUrl, titleText, gameDescriptionText) {
   // Create an anchor element for the title link
   var titleLinkElement = document.createElement("a");
   titleLinkElement.href = linkUrl;
-  titleLinkElement.target = "_blank"; // Open link in a new tab
   titleLinkElement.classList.add("title-link-anchor");
 
   // Create a div for the title

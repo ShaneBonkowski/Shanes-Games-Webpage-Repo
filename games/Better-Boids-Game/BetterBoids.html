@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Better Boids</title>
+    <!-- Set icon on the browser tab -->
+    <link rel="icon" href="../../Shared-General-Assets/pngs/Mars_circle.png" />
+    <link rel="stylesheet" href="css/main-styles.css" />
+    <link
+      rel="stylesheet"
+      href="../../Shared-General-Assets/css/general-styles.css"
+    />
+    <link rel="stylesheet" href="../Shared-Game-Assets/css/shared-styles.css" />
+  </head>
+  <body>
+    <!-- Screen starts black and fades when page is openned -->
+    <div class="black-overlay"></div>
+
+    <!-- Include the scripts used -->
+    <script src="../Shared-Game-Assets/js/game_header.js"></script>
+
+    <!-- Call JS functions -->
+    <script>
+      // Wait for DOMContentLoaded before calling scripts
+      document.addEventListener("DOMContentLoaded", function () {
+        createGameHeader("better boids", "pngs/better_boids_logo.png");
+      });
+    </script>
+
+    <!-- Things we want after the scripts -->
+    <div class="hello-world-box">Hello, world!</div>
+  </body>
+</html>

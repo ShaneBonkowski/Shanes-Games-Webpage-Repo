@@ -1,0 +1,49 @@
+/* Define variables */
+:root {
+  /* Colors */
+  --main-color: rgb(7, 7, 7);
+  --secondary-color: #333;
+  --main-text-color: white;
+  /* Edge Margins */
+  --main-left-margin: 3%;
+  --small-top-margin: 23%;
+  --general-top-margin: 50%;
+  --general-left-margin: 50%;
+}
+
+/* Main page attributes, such as background, font, etc. */
+@font-face {
+  font-family: MyCustomFont;
+  src: url("../../../Shared-General-Assets/fonts/Ronysiswadi15Bold-6YAwY.ttf")
+    format("truetype");
+  font-weight: bold;
+}
+@font-face {
+  font-family: MyCustomFont;
+  src: url("../../../Shared-General-Assets/fonts/Ronysiswadi15-51Dv8.ttf")
+    format("truetype");
+  font-weight: normal;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: MyCustomFont, sans-serif;
+  position: relative;
+  background-image: url("../../../Shared-General-Assets/pngs/Sky_starry_blurred.png");
+  background-repeat: repeat;
+  background-position: center;
+}
+
+/* Testing */
+.hello-world-box {
+  position: relative;
+  text-align: left;
+  font-size: calc(10vw * 0.2);
+  color: var(--main-text-color);
+  white-space: nowrap;
+  left: var(--main-left-margin);
+  top: var(--main-top-margin);
+  transform: translate(0%, 500%);
+  font-weight: normal;
+}

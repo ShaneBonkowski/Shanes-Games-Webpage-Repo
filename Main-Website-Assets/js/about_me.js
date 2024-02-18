@@ -5,7 +5,7 @@ function createAboutMe() {
 
   // Create an image element
   var imageAboutMe = document.createElement("img");
-  imageAboutMe.src = "pngs/Radiohead.png";
+  imageAboutMe.src = "Main-Website-Assets/pngs/Radiohead.png";
   imageAboutMe.classList.add("about-me-image");
 
   // Create a container div for the image (where we will rendrer the light blue space helmet for the radio dude)

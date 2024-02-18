@@ -1,0 +1,22 @@
+/* Fade in dark screen */
+.black-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 1; /* Initially fully opaque */
+  z-index: 9999; /* Ensure it's on top of other content */
+  animation: fadeOutOverlay 2.5s forwards; /* Play fade-out animation */
+  pointer-events: none; /* Make the overlay non-interactable */
+}
+
+@keyframes fadeOutOverlay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

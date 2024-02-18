@@ -4,8 +4,12 @@
     <meta charset="UTF-8" />
     <title>Shane's Games</title>
     <!-- Set icon on the browser tab -->
-    <link rel="icon" href="pngs/Mars_circle.png" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="Shared-General-Assets/pngs/Mars_circle.png" />
+    <link rel="stylesheet" href="Main-Website-Assets/css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="Shared-General-Assets/css/general-styles.css"
+    />
     <!-- Load in Font Awesome CDN to access GitHub, linkedin, etc. icons -->
     <link
       rel="stylesheet"
@@ -20,10 +24,10 @@
     <div class="black-overlay"></div>
 
     <!-- Include the scripts used -->
-    <script src="js/header.js"></script>
-    <script src="js/game_box.js"></script>
-    <script src="js/footer.js"></script>
-    <script src="js/game_box_hover_handling.js"></script>
+    <script src="Main-Website-Assets/js/header.js"></script>
+    <script src="Main-Website-Assets/js/game_box.js"></script>
+    <script src="Main-Website-Assets/js/footer.js"></script>
+    <script src="Main-Website-Assets/js/game_box_hover_handling.js"></script>
 
     <!-- Call JS functions -->
     <script>
@@ -31,40 +35,17 @@
       document.addEventListener("DOMContentLoaded", function () {
         createHeader();
         createGameBox(
-          "jpgs/Test_Image.jpg",
-          "https://github.com/ShaneBonkowski",
-          "Test Game 1",
-          "This is a game where you do this and that and this and that and this and that"
+          "Shared-General-Assets/jpgs/Test_Image.jpg",
+          "games/Better-Boids-Game/BetterBoids.html",
+          "Better Boids",
+          "(IN DEVELOPMENT) A unique twist to the classic Boids algorithm. Obstacle avoidance, predator-prey relationships, customizable toggles"
         );
+        // Placeholder for More Games Coming Soon. Always have this box at the end!!!!
         createGameBox(
-          "jpgs/Test_Image.jpg",
+          "Shared-General-Assets/jpgs/Test_Image.jpg",
           "https://github.com/ShaneBonkowski",
-          "Test Game 1",
-          "Placeholder text 2"
-        );
-        createGameBox(
-          "jpgs/Test_Image.jpg",
-          "https://github.com/ShaneBonkowski",
-          "Test Game 1",
-          "Placeholder text 2"
-        );
-        createGameBox(
-          "jpgs/Test_Image.jpg",
-          "https://github.com/ShaneBonkowski",
-          "Test Game 1",
-          "Placeholder text 2"
-        );
-        createGameBox(
-          "jpgs/Test_Image.jpg",
-          "https://github.com/ShaneBonkowski",
-          "Test Game 1",
-          "Placeholder text 2"
-        );
-        createGameBox(
-          "jpgs/Test_Image.jpg",
-          "https://github.com/ShaneBonkowski",
-          "Test Game 1",
-          "Placeholder text 2"
+          "More Games Coming Soon...",
+          "Nothing much here for now. Just a link to my GitHub. Keep an eye out for new games on the way!"
         );
         createFooter();
 

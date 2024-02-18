@@ -13,7 +13,7 @@ function createHeader() {
 
   // Create an image element for the logo
   var logoImage = document.createElement("img");
-  logoImage.src = "pngs/Mars_circle.png";
+  logoImage.src = "Shared-General-Assets/pngs/Mars_circle.png";
   logoImage.classList.add("logo-image");
 
   // Create an h1 element for the title
@@ -71,7 +71,7 @@ function createHeader() {
 
   var homeText = document.createElement("div");
   homeText.classList.add("home-text");
-  homeText.textContent = "Home";
+  homeText.textContent = "Games";
 
   homeButtonContainer.appendChild(homeText);
   homeLinkElement.appendChild(homeButtonContainer);
