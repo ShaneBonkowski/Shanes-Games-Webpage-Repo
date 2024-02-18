@@ -1,2 +1,2 @@
-# Shanes Games Web Dev Scripts and Assets
-Repository for all of the files needed for webdev on ShanesGames
+# Shane's Games Web Development Scripts and Assets
+Repository for all of the files needed for ShanesGames to run
