@@ -20,13 +20,19 @@ function createAboutMe() {
   // Create a div for the sub title text
   var subTitleTextDiv = document.createElement("div");
   subTitleTextDiv.textContent =
-    "I am an Aerospace Engineer, Game Developer, and ...";
+    "Engineering, Software Development, Game Development, Data Analysis, and really anything in between.";
   subTitleTextDiv.classList.add("about-me-sub-title-text");
 
   // Create a div for the rest of the text
   var mainTextDiv = document.createElement("div");
-  mainTextDiv.textContent =
-    "My name is Shane, and I like to make games. I have been doing this for a while at this point. Testing the rest here. Testing the rest here. Testing the rest here. Testing the rest here. ";
+  const aboutMeParagraph = `
+I'm a lifelong learner with a degree in Aerospace Engineering from the University of Maryland, College Park. Despite my formal education, my journey into programming and game development has been almost entirely "self-taught" on the internet. 
+
+Hench why I'm a firm believer in the power of open source and collaboration. In making the decision to open source all of the games I create here on GitHub, I hope to empower others to modify, enhance, and maybe even learn a thing or two from my work. Together, we can foster a community of creativity and innovation. 
+  
+If you'd like to connect or learn more about my professional background, feel free to visit my LinkedIn profile. I'm always eager to collaborate, connect, and share ideas.
+`;
+  mainTextDiv.textContent = aboutMeParagraph;
   mainTextDiv.classList.add("about-me-main-text");
 
   // Append elements to their containers
@@ -41,6 +47,6 @@ function createAboutMe() {
 
   // Create and append blank space after
   var blankSpace = document.createElement("div");
-  blankSpace.classList.add("game-box-blank-space");
+  blankSpace.classList.add("about-me-blank-space");
   document.body.appendChild(blankSpace);
 }
