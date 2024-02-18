@@ -5,15 +5,37 @@
   --hide-color: rgba(0, 0, 0, 0);
   /* Transformations */
   --centering-translation: -50%;
+  --main-logo-title-translate-x: 35%;
+  --main-logo-title-translate-y: -120%;
+  --main-logo-subtitle-translate-x: 180%;
+  --main-logo-subtitle-translate-y: 50%;
+  --game-title-translate-x: 50%;
+  --game-title-translate-y: -100%;
   /* Sizes */
-  --header-height: 8vw;
+  --header-height: 10vw;
+  --header-icon-size: calc(var(--header-height) * (1 / 3));
+  /* Font Sizes */
+  --logo-title-font-size: calc(var(--header-height) * 0.125);
+  --logo-subtitle-font-size: calc(var(--header-height) * 0.0625);
   /* Edge Margins */
   --main-left-margin: 3%;
   --small-top-margin: 10%;
   --general-top-margin: 50%;
   --general-left-margin: 50%;
+  --game-logo-container-left-margin: 83%;
   /* Radii */
   --standard-edge_radius: 10%;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    /* Sizes */
+    --header-height: 24vw;
+    /* Edge Margins */
+    --game-logo-container-left-margin: 64%;
+    --small-top-margin: 15%;
+  }
 }
 
 /* Game Header Banner */
@@ -42,28 +64,34 @@
 .main-logo-image {
   position: absolute; /* Position wrt to its parent */
   border-radius: var(--standard-edge_radius);
-  width: calc(var(--header-height) * (1 / 3));
-  height: calc(var(--header-height) * (1 / 3));
+  width: var(--header-icon-size);
+  height: var(--header-icon-size);
   transform: translateY(var(--centering-translation));
 }
 
 .main-logo-title {
   position: absolute; /* Position wrt to its parent */
   text-align: left;
-  font-size: calc(var(--header-height) * 0.125);
+  font-size: var(--logo-title-font-size);
   color: var(--main-text-color);
   white-space: nowrap;
-  transform: translate(35%, -120%);
+  transform: translate(
+    var(--main-logo-title-translate-x),
+    var(--main-logo-title-translate-y)
+  );
   font-weight: bold;
 }
 
 .main-logo-subtitle {
   position: absolute; /* Position wrt to its parent */
   text-align: left;
-  font-size: calc(var(--header-height) * 0.0625);
+  font-size: var(--logo-subtitle-font-size);
   color: var(--main-text-color);
   white-space: nowrap;
-  transform: translate(180%, 50%);
+  transform: translate(
+    var(--main-logo-subtitle-translate-x),
+    var(--main-logo-subtitle-translate-y)
+  );
   font-weight: normal;
 }
 
@@ -71,7 +99,7 @@
 .game-logo-container {
   position: absolute; /* Position wrt to its parent */
   margin: 0;
-  left: 86%;
+  left: var(--game-logo-container-left-margin);
   top: var(--small-top-margin);
   transform: translate(0%, var(--centering-translation));
   background-color: white;
@@ -80,17 +108,20 @@
 .game-logo-image {
   position: absolute; /* Position wrt to its parent */
   border-radius: var(--standard-edge_radius);
-  width: calc(var(--header-height) * (1 / 3));
-  height: calc(var(--header-height) * (1 / 3));
+  width: var(--header-icon-size);
+  height: var(--header-icon-size);
   transform: translateY(var(--centering-translation));
 }
 
 .game-title {
   position: absolute; /* Position wrt to its parent */
   text-align: left;
-  font-size: calc(var(--header-height) * 0.125);
+  font-size: var(--logo-title-font-size);
   color: var(--main-text-color);
   white-space: nowrap;
-  transform: translate(50%, -100%);
+  transform: translate(
+    var(--game-title-translate-x),
+    var(--game-title-translate-y)
+  );
   font-weight: bold;
 }

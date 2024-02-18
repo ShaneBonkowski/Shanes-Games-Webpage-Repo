@@ -1,4 +1,4 @@
-/* Define variables */
+/* Define CONSTANT variables */
 :root {
   /* Colors */
   --main-color: rgb(7, 7, 7);
@@ -10,8 +10,82 @@
   --panel-color: rgba(20, 20, 20, 0.75);
   /* Transformations */
   --centering-translation: -50%;
-  --header-button-separation: 150%;
-  --left-header-button-translation: 1400%;
+  --about-me-TITLE-text-centering-translation: -26%;
+  --about-me-text-centering-translation: -50%;
+  --header-button-separation: 120%;
+  --left-header-button-translation-original: 1100%;
+  --header-button-vertical-translation: 65%;
+  --left-header-button-translation: var(
+    --left-header-button-translation-original
+  );
+  /* Sizes */
+  --header-height-original: 8vw;
+  --header-height: var(--header-height-original);
+  --footer-height-original: 14vw;
+  --footer-height: var(--footer-height-original);
+  --game-box-width-original: 90vw;
+  --game-box-width: var(--game-box-width-original);
+  --game-box-height-original: 20vw;
+  --game-box-height: var(--game-box-height-original);
+  --about-me-box-width-og: 90vw;
+  --about-me-box-width: var(--about-me-box-width-og);
+  --about-me-box-height-og: 35vw;
+  --about-me-box-height: var(--about-me-box-height-og);
+  --about-me-image-width: 30vw;
+  --about-me-image-height: 30vw;
+  /* Edge Margins */
+  --main-left-margin: 3%;
+  --title-container-left-margin: 3%;
+  --general-top-margin: 50%;
+  --general-left-margin: 50%;
+  --game-button-left-margin: 20%;
+  --game-desc-text-left-margin: 5%;
+  --game-title-text-top-margin: 10%;
+  --game-desc-text-top-margin: 30%;
+  --footer-text-left-margin: 50%;
+  --footer-text-top-margin: 30%;
+  --about-me-title-text-top-margin: 7%;
+  --about-me-sub-title-text-top-margin: 29%;
+  --about-me-main-text-top-margin: 41%;
+  /* Radii */
+  --standard-edge_radius: 10%;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    /* Portrait mode scaling */
+    --portrait-game-box-scale-factor-y: 1.8;
+    --portrait-game-box-scale-factor-x: 1.075;
+    --game-desc-width-scale-factor-y: 0.85;
+    /* Transformations */
+    --left-header-button-translation: calc(
+      var(--left-header-button-translation-original) - 630%
+    );
+    --about-me-TITLE-text-centering-translation: -16%;
+    --about-me-text-centering-translation: -30%;
+    /* Sizes */
+    --header-height: calc(var(--header-height-original) * 1.8);
+    --footer-height: calc(var(--footer-height-original) * 1.8);
+    --game-box-height: calc(
+      var(--game-box-height-original) * var(--portrait-game-box-scale-factor-y)
+    );
+    --game-box-width: calc(
+      var(--game-box-width-original) * var(--portrait-game-box-scale-factor-x)
+    );
+    --about-me-box-width: calc(var(--about-me-box-width-og));
+    --about-me-box-height: calc(var(--about-me-box-height-og) * 3.7);
+    /* Edge Margins */
+    --main-left-margin: 0%;
+    --about-me-title-text-top-margin: 5%;
+    --about-me-sub-title-text-top-margin: 18.5%;
+    --about-me-main-text-top-margin: 30.5%;
+  }
+}
+
+/* Define DERIVED variables (aka ones based on others) */
+:root {
+  /* Transformations */
   --middle-header-button-translation: calc(
     var(--left-header-button-translation) + var(--header-button-separation)
   );
@@ -19,33 +93,75 @@
     var(--middle-header-button-translation) + var(--header-button-separation)
   );
   /* Sizes */
-  --header-height: 8vw;
-  --footer-height: 14vw;
-  --game-box-width: 90vw;
-  --game-box-height: 20vw;
   --game-button-width: calc(var(--game-box-width) / 3);
   --game-button-height: calc(var(--game-box-height) * 0.95);
-  --game-desc-width: calc(var(--game-box-width) * (1 / 2));
+  --game-desc-width: calc(var(--game-box-width) * (0.6));
   --game-desc-height: calc(var(--game-box-height) * 0.95);
-  --header-button-text-size: calc(var(--header-height) * 0.08);
-  --footer-button-text-size: calc(var(--footer-height) * 0.08);
-  --about-me-box-width: 90vw;
-  --about-me-box-height: 35vw;
-  --about-me-image-width: 30vw;
-  --about-me-image-height: 30vw;
+  --logo-image-size: calc(var(--header-height) * (2 / 3));
+  --linkedin-button-width: calc(var(--footer-height) * 0.8);
+  --linkedin-button-height: calc(var(--footer-height) * 0.4);
+  --header-button-width: calc(var(--header-height) * 0.83);
+  --header-button-height: calc(var(--header-height) * 0.45);
+  --github-icon-size: calc(var(--header-height) * 0.2);
+  --game-desc-text-width: calc(var(--game-desc-width) * 0.9);
+  --about-me-title-font-width-og: calc(var(--about-me-box-width) * 0.5);
+  --about-me-title-font-width: var(--about-me-title-font-width-og);
+  --about-me-subtitle-font-width-og: calc(var(--about-me-box-width) * 0.5);
+  --about-me-subtitle-font-width: var(--about-me-subtitle-font-width-og);
+  --about-me-main-text-font-width-og: calc(var(--about-me-box-width) * 0.5);
+  --about-me-main-text-font-width: var(--about-me-main-text-font-width-og);
+  --game-box-blank-space-height: calc(var(--game-box-height) * 0.07);
+  /* Font Sizes */
+  --gamedesc-title-font-size-original: calc(var(--game-button-width) * 0.06);
+  --gamedesc-title-font-size: var(--gamedesc-title-font-size-original);
+  --gamedesc-body-text-font-size-original: calc(
+    var(--game-button-width) * 0.06
+  );
+  --title-text-font-size: calc(var(--header-height) * 0.25);
+  --subtitle-text-font-size: calc(var(--header-height) * 0.125);
+  --gamedesc-body-text-font-size: var(--gamedesc-body-text-font-size-original);
+  --linkedin-icon-size: calc(var(--linkedin-button-height) * 0.45);
+  --footer-main-text-font-size: calc(var(--footer-height) * 0.125);
+  --about-me-title-font-size-og: calc(var(--about-me-box-width) * 0.035);
+  --about-me-title-font-size: var(--about-me-title-font-size-og);
+  --about-me-subtitle-font-size-og: calc(var(--about-me-box-width) * 0.015);
+  --about-me-subtitle-font-size: var(--about-me-subtitle-font-size-og);
+  --about-me-main-text-font-size-og: calc(var(--about-me-box-width) * 0.011);
+  --about-me-main-text-font-size: var(--about-me-main-text-font-size-og);
+  --header-button-text-size: calc(var(--header-button-width) * 0.16);
+  --linkedin-text-font-size: calc(var(--linkedin-button-height) * 0.24);
   /* Edge Margins */
-  --main-left-margin: 3%;
-  --general-top-margin: 50%;
-  --general-left-margin: 50%;
-  --game-button-left-margin: 20%;
-  --game-description-left-margin: calc(var(--game-button-left-margin) + 45%);
-  --game-desc-text-left-margin: 5%;
-  --game-title-text-top-margin: 10%;
-  --game-desc-text-top-margin: 30%;
-  --footer-text-left-margin: 50%;
-  --footer-text-top-margin: 30%;
-  /* Radii */
-  --standard-edge_radius: 10%;
+  --game-description-left-margin: calc(var(--game-button-left-margin) + 50%);
+}
+
+/* Media query to override DERIVED values for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    /* Font Sizes */
+    --gamedesc-title-font-size: calc(
+      var(--gamedesc-title-font-size-original) * 1.5
+    );
+    --gamedesc-body-text-font-size: calc(
+      var(--gamedesc-body-text-font-size-original) * 1.5
+    );
+    --about-me-main-text-font-size: calc(
+      var(--about-me-main-text-font-size-og) * 2.8
+    );
+    --about-me-title-font-size: calc(var(--about-me-title-font-size-og) * 2.3);
+    --about-me-subtitle-font-size: calc(
+      var(--about-me-subtitle-font-size-og) * 2.8
+    );
+    /* Sizes */
+    --about-me-subtitle-font-width: calc(
+      var(--about-me-subtitle-font-width-og) * 1.8
+    );
+    --about-me-main-text-font-width: calc(
+      var(--about-me-main-text-font-width-og) * 1.8
+    );
+    --about-me-title-font-width: calc(
+      var(--about-me-title-font-width-og) * 1.8
+    );
+  }
 }
 
 /* Main page attributes, such as background, font, etc. */
@@ -122,7 +238,7 @@ html {
 .title-container {
   position: absolute; /* Position wrt to its parent */
   margin: 0;
-  left: var(--main-left-margin);
+  left: var(--title-container-left-margin);
   top: var(--general-top-margin);
   transform: translateY(var(--centering-translation));
 }
@@ -130,15 +246,15 @@ html {
 .logo-image {
   position: absolute; /* Position wrt to its parent */
   border-radius: var(--standard-edge_radius);
-  width: calc(var(--header-height) * (2 / 3));
-  height: calc(var(--header-height) * (2 / 3));
+  width: var(--logo-image-size);
+  height: var(--logo-image-size);
   transform: translateY(var(--centering-translation));
 }
 
 h1.title-text-style {
   position: absolute; /* Position wrt to its parent */
   text-align: left;
-  font-size: calc(var(--header-height) * 0.25);
+  font-size: var(--title-text-font-size);
   color: var(--main-text-color);
   white-space: nowrap;
   transform: translate(35%, -120%);
@@ -148,7 +264,7 @@ h1.title-text-style {
 .sub-title-text {
   position: absolute; /* Position wrt to its parent */
   text-align: left;
-  font-size: calc(var(--header-height) * 0.125);
+  font-size: var(--subtitle-text-font-size);
   color: var(--main-text-color);
   white-space: nowrap;
   transform: translate(180%, 50%);
@@ -162,15 +278,18 @@ h1.title-text-style {
 
 .github-button-container {
   position: absolute; /* Position wrt to its parent */
-  width: calc(var(--header-height) * (2 / 3));
-  height: calc(var(--header-height) * (1 / 3));
+  width: var(--header-button-width);
+  height: var(--header-button-height);
   background-color: var(--panel-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
   top: var(--general-top-margin);
   left: var(--general-left-margin);
-  transform: translate(var(--middle-header-button-translation), 100%);
+  transform: translate(
+    var(--middle-header-button-translation),
+    var(--header-button-vertical-translation)
+  );
 }
 
 .github-button-container:hover {
@@ -186,13 +305,15 @@ h1.title-text-style {
   left: var(--general-left-margin);
   transform: translate(-20%, var(--centering-translation));
   font-size: var(--header-button-text-size);
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .fab.fa-github {
   position: absolute; /* Position wrt to its parent */
   color: #ffffff; /* Set the color of the GitHub icon */
-  font-size: calc(var(--header-height) * 0.15);
+  font-size: var(
+    --github-icon-size
+  ); /* Called font, but its really the size of the GitHub icon */
   top: var(--general-top-margin);
   left: var(--general-left-margin);
   transform: translate(-185%, calc(var(--centering-translation) - 5%));
@@ -205,15 +326,18 @@ h1.title-text-style {
 
 .about-me-button-container {
   position: absolute; /* Position wrt to its parent */
-  width: calc(var(--header-height) * (2 / 3));
-  height: calc(var(--header-height) * (1 / 3));
+  width: var(--header-button-width);
+  height: var(--header-button-height);
   background-color: var(--panel-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
   top: var(--general-top-margin);
   left: var(--general-left-margin);
-  transform: translate(var(--left-header-button-translation), 100%);
+  transform: translate(
+    var(--left-header-button-translation),
+    var(--header-button-vertical-translation)
+  );
 }
 
 .about-me-button-container:hover {
@@ -233,7 +357,7 @@ h1.title-text-style {
   );
   font-size: var(--header-button-text-size);
   white-space: nowrap;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 /* home button styling */
@@ -243,15 +367,18 @@ h1.title-text-style {
 
 .home-button-container {
   position: absolute; /* Position wrt to its parent */
-  width: calc(var(--header-height) * (2 / 3));
-  height: calc(var(--header-height) * (1 / 3));
+  width: var(--header-button-width);
+  height: var(--header-button-height);
   background-color: var(--panel-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
   top: var(--general-top-margin);
   left: var(--general-left-margin);
-  transform: translate(var(--right-header-button-translation), 100%);
+  transform: translate(
+    var(--right-header-button-translation),
+    var(--header-button-vertical-translation)
+  );
 }
 
 .home-button-container:hover {
@@ -270,7 +397,7 @@ h1.title-text-style {
     var(--centering-translation)
   );
   font-size: var(--header-button-text-size);
-  font-weight: bold;
+  font-weight: normal;
 }
 
 /* game_box.js Game Box Styling */
@@ -280,18 +407,18 @@ h1.title-text-style {
   height: var(--game-box-height);
   left: var(--main-left-margin);
   /* border-radius: 2%; */
-  /* border: calc(var(--game-box-height) * 0.01) solid var(--main-color); */
+  /* border: 4px solid var(--main-color); */
 }
 
 .game-box-blank-space {
-  height: calc(var(--game-box-height) * 0.07);
+  height: var(--game-box-blank-space-height);
 }
 
 .button-container {
   position: absolute; /* Position with respect to its parent */
   width: var(--game-button-width);
   height: var(--game-button-height);
-  /* border: calc(var(--game-box-height) * 0.01) solid var(--main-color); */
+  /* border: 4px solid var(--main-color); */
   left: var(--game-button-left-margin);
   top: var(--general-top-margin);
   transform: translate(
@@ -321,7 +448,7 @@ a.button-link-anchor {
   position: absolute; /* Position with respect to its parent */
   width: var(--game-desc-width);
   height: var(--game-desc-height);
-  /* border: calc(var(--game-box-height) * 0.01) solid var(--main-color); */
+  /* border: 4px solid var(--main-color); */
   border-radius: var(--standard-edge_radius);
   left: var(--game-description-left-margin);
   top: var(--general-top-margin);
@@ -340,7 +467,7 @@ a.title-link-anchor {
 
 .game-title {
   position: absolute; /* Position wrt to its parent */
-  font-size: calc(var(--game-button-width) * 0.06);
+  font-size: var(--gamedesc-title-font-size);
   text-align: left;
   color: var(--main-text-color);
   white-space: nowrap;
@@ -354,12 +481,13 @@ a.title-link-anchor {
 
 .game-description-text {
   position: absolute; /* Position wrt to its parent */
-  font-size: calc(var(--game-button-width) * 0.04);
+  font-size: var(--gamedesc-body-text-font-size);
   text-align: left;
   left: var(--game-desc-text-left-margin);
   color: var(--main-text-color);
   top: var(--game-desc-text-top-margin);
   font-weight: normal;
+  width: var(--game-desc-text-width);
 }
 
 /* footer.js Styling */
@@ -376,7 +504,7 @@ a.title-link-anchor {
 
 .footer-main-text {
   position: absolute; /* Position wrt to its parent */
-  font-size: calc(var(--game-button-width) * 0.05);
+  font-size: var(--footer-main-text-font-size);
   text-align: center;
   color: var(--main-text-color);
   left: var(--footer-text-left-margin);
@@ -386,6 +514,7 @@ a.title-link-anchor {
     var(--centering-translation),
     var(--centering-translation)
   );
+  width: 100%;
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
 }
@@ -397,8 +526,8 @@ a.title-link-anchor {
 
 .linkedIn-button-container {
   position: absolute; /* Position wrt to its parent */
-  width: calc(var(--footer-height) * (2 / 3));
-  height: calc(var(--footer-height) * (1 / 3));
+  width: var(--linkedin-button-width);
+  height: var(--linkedin-button-height);
   background-color: var(--panel-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
@@ -420,14 +549,14 @@ a.title-link-anchor {
   top: var(--general-top-margin);
   left: var(--general-left-margin);
   transform: translate(-20%, var(--centering-translation));
-  font-size: var(--footer-button-text-size);
-  font-weight: bold;
+  font-size: var(--linkedin-text-font-size);
+  font-weight: normal;
 }
 
 .fab.fa-linkedin {
   position: absolute; /* Position wrt to its parent */
   color: #ffffff; /* Set the color of the GitHub icon */
-  font-size: calc(var(--footer-height) * 0.15);
+  font-size: var(--linkedin-icon-size); /* icon size */
   top: var(--general-top-margin);
   left: var(--general-left-margin);
   transform: translate(-195%, calc(var(--centering-translation) - 8%));
@@ -451,8 +580,8 @@ a.title-link-anchor {
 
 .about-me-image-container {
   position: absolute; /* Position wrt to its parent */
-  left: 83%;
-  top: 9%;
+  left: 85%;
+  top: 7%;
   transform: translate(var(--centering-translation), 5%);
   width: var(--about-me-image-width);
   height: var(--about-me-image-height);
@@ -503,42 +632,52 @@ a.title-link-anchor {
   height: var(--about-me-image-height);
 }
 
+/* Media query to hide the about me image for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    .about-me-image-container {
+      display: none; /* Hide this so that it cannot be seen */
+    }
+  }
+}
+
 .about-me-title {
   position: absolute; /* Position wrt to its parent */
-  font-size: calc(var(--about-me-box-width) * 0.035);
+  font-size: var(--about-me-title-font-size);
   text-align: left;
   color: var(--main-text-color);
   white-space: nowrap;
   font-weight: bold;
+  width: var(--about-me-title-font-width);
   left: 20%;
-  top: 7%;
-  transform: translate(var(--centering-translation), 0%);
+  top: var(--about-me-title-text-top-margin);
+  transform: translate(var(--about-me-TITLE-text-centering-translation), 0%);
 }
 
 .about-me-sub-title-text {
   position: absolute; /* Position wrt to its parent */
-  font-size: calc(var(--about-me-box-width) * 0.015);
+  font-size: var(--about-me-subtitle-font-size);
   text-align: left;
   color: var(--main-text-color);
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
   font-weight: normal;
-  width: calc(var(--about-me-box-width) * 0.5);
+  width: var(--about-me-subtitle-font-width);
   left: 32%;
-  top: 29%;
-  transform: translate(var(--centering-translation), 0%);
+  top: var(--about-me-sub-title-text-top-margin);
+  transform: translate(var(--about-me-text-centering-translation), 0%);
 }
 
 .about-me-main-text {
   position: absolute; /* Position wrt to its parent */
-  font-size: calc(var(--about-me-box-width) * 0.011);
+  font-size: var(--about-me-main-text-font-size);
   text-align: left;
   color: var(--main-text-color);
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
   font-weight: normal;
-  width: calc(var(--about-me-box-width) * 0.5);
+  width: var(--about-me-main-text-font-width);
   left: 32%;
-  top: 41%;
-  transform: translate(var(--centering-translation), 0%);
+  top: var(--about-me-main-text-top-margin);
+  transform: translate(var(--about-me-text-centering-translation), 0%);
 }

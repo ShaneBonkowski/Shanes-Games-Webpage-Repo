@@ -9,6 +9,17 @@
   --small-top-margin: 23%;
   --general-top-margin: 50%;
   --general-left-margin: 50%;
+  /* Font Sizes */
+  --test-font-size-og: calc(10vw * 0.2);
+  --test-font-size: var(--test-font-size-og);
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    /* Font Sizes */
+    --test-font-size: calc(var(--test-font-size-og) * 1.6);
+  }
 }
 
 /* Main page attributes, such as background, font, etc. */
@@ -39,7 +50,7 @@ body {
 .hello-world-box {
   position: relative;
   text-align: left;
-  font-size: calc(10vw * 0.2);
+  font-size: var(--test-font-size);
   color: var(--main-text-color);
   white-space: nowrap;
   left: var(--main-left-margin);
