@@ -28,7 +28,7 @@ function createAboutMe() {
   const aboutMeParagraph = `
 I'm a lifelong learner with a degree in Aerospace Engineering from the University of Maryland, College Park. Despite my formal education, my journey into programming and game development has been almost entirely "self-taught" on the internet. 
 
-Hench why I'm a firm believer in the power of open source and collaboration. In making the decision to open source all of the games I create here on GitHub, I hope to empower others to modify, enhance, and maybe even learn a thing or two from my work. Together, we can foster a community of creativity and innovation. 
+Hence why I'm a firm believer in the power of open source and collaboration. In making the decision to open source all of the games I create here on GitHub, I hope to empower others to modify, enhance, and maybe even learn a thing or two from my work. Together, we can foster a community of creativity and innovation. 
   
 If you'd like to connect or learn more about my professional background, feel free to visit my LinkedIn profile. I'm always eager to collaborate, connect, and share ideas.
 `;

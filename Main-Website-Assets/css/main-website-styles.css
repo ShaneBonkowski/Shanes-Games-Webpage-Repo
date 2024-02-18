@@ -1,14 +1,9 @@
+/* Import constants */
+@import "../../Shared-General-Assets/css/general-shared-constants.css";
+
 /* Define CONSTANT variables */
 :root {
-  /* Colors */
-  --main-color: rgb(7, 7, 7);
-  --secondary-color: #333;
-  --hide-color: rgba(0, 0, 0, 0);
-  --button-hover-color: #555555b0;
-  --main-text-color: white;
-  --panel-color: rgba(20, 20, 20, 0.75);
   /* Transformations */
-  --centering-translation: -50%;
   --about-me-TITLE-text-centering-translation: -26%;
   --about-me-text-centering-translation: -50%;
   --header-button-separation: 120%;
@@ -33,11 +28,8 @@
   --about-me-image-width: 30vw;
   --about-me-image-height: 30vw;
   /* Edge Margins */
-  --main-left-margin: 3%;
   --title-container-left-margin: 3%;
-  --general-top-margin: 50%;
-  --general-left-margin: 50%;
-  --game-button-left-margin: 20%;
+  --game-button-left-margin: 17%;
   --game-desc-text-left-margin: 5%;
   --game-title-text-top-margin: 10%;
   --game-desc-text-top-margin: 30%;
@@ -46,8 +38,6 @@
   --about-me-title-text-top-margin: 7%;
   --about-me-sub-title-text-top-margin: 29%;
   --about-me-main-text-top-margin: 41%;
-  /* Radii */
-  --standard-edge_radius: 10%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -75,7 +65,6 @@
     --about-me-box-width: calc(var(--about-me-box-width-og));
     --about-me-box-height: calc(var(--about-me-box-height-og) * 3.7);
     /* Edge Margins */
-    --main-left-margin: 0%;
     --about-me-title-text-top-margin: 5%;
     --about-me-sub-title-text-top-margin: 18.5%;
     --about-me-main-text-top-margin: 30.5%;

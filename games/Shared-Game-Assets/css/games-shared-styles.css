@@ -1,10 +1,9 @@
+/* Import constants */
+@import "../../../Shared-General-Assets/css/general-shared-constants.css";
+
 /* Define variables */
 :root {
-  /* Colors */
-  --main-text-color: white;
-  --hide-color: rgba(0, 0, 0, 0);
   /* Transformations */
-  --centering-translation: -50%;
   --main-logo-title-translate-x: 35%;
   --main-logo-title-translate-y: -120%;
   --main-logo-subtitle-translate-x: 180%;
@@ -12,26 +11,21 @@
   --game-title-translate-x: 50%;
   --game-title-translate-y: -100%;
   /* Sizes */
-  --header-height: 10vw;
-  --header-icon-size: calc(var(--header-height) * (1 / 3));
+  --game-header-height: 10vw;
+  --header-icon-size: calc(var(--game-header-height) * (1 / 3));
   /* Font Sizes */
-  --logo-title-font-size: calc(var(--header-height) * 0.125);
-  --logo-subtitle-font-size: calc(var(--header-height) * 0.0625);
+  --logo-title-font-size: calc(var(--game-header-height) * 0.125);
+  --logo-subtitle-font-size: calc(var(--game-header-height) * 0.0625);
   /* Edge Margins */
-  --main-left-margin: 3%;
   --small-top-margin: 10%;
-  --general-top-margin: 50%;
-  --general-left-margin: 50%;
   --game-logo-container-left-margin: 83%;
-  /* Radii */
-  --standard-edge_radius: 10%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (max-width: 600px) {
   :root {
     /* Sizes */
-    --header-height: 24vw;
+    --game-header-height: 24vw;
     /* Edge Margins */
     --game-logo-container-left-margin: 64%;
     --small-top-margin: 15%;
@@ -44,7 +38,7 @@
   background-color: var(--hide-color); /*Banner color*/
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
-  height: var(--header-height);
+  height: var(--game-header-height);
 }
 
 /* Shanes Games Logo */

@@ -1,7 +1,5 @@
-/* Define CONSTANT variables */
-:root {
-  --main-background-overlay-color: rgba(0, 0, 0, 0.9);
-}
+/* Import constants */
+@import "../../Shared-General-Assets/css/general-shared-constants.css";
 
 /* Fade in dark screen */
 .black-overlay {

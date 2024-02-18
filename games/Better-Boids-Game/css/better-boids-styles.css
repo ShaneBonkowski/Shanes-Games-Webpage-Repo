@@ -1,14 +1,10 @@
+/* Import constants */
+@import "../../../Shared-General-Assets/css/general-shared-constants.css";
+
 /* Define variables */
 :root {
-  /* Colors */
-  --main-color: rgb(7, 7, 7);
-  --secondary-color: #333;
-  --main-text-color: white;
   /* Edge Margins */
-  --main-left-margin: 3%;
   --small-top-margin: 23%;
-  --general-top-margin: 50%;
-  --general-left-margin: 50%;
   /* Font Sizes */
   --test-font-size-og: calc(10vw * 0.2);
   --test-font-size: var(--test-font-size-og);
