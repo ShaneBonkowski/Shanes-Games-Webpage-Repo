@@ -10,8 +10,8 @@ function InitGame() {
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
-      preload: preload, // Load assets
-      create: create, // Create game objects
+      preload: preload,
+      create: create,
     },
   };
 
@@ -28,19 +28,17 @@ function InitGame() {
 
   // Create game objects
   function create() {
-    // Add the background image
+    // Add the background image to the scene
     let backgroundImage = this.add.image(0, 0, "game-background").setOrigin(0);
+    backgroundImage.setSize(window.innerWidth, window.innerHeight);
 
-    // Update the background size when the window is resized
+    // Add a listener such that the background auto-sizes on resize
     this.scale.on("resize", function (gameSize) {
       // Resize the background image to fill the entire game canvas
       backgroundImage.setSize(gameSize.width, gameSize.height);
     });
 
-    // Initially set the background size to fill the entire screen
-    backgroundImage.setSize(window.innerWidth, window.innerHeight);
-
-    // Create a box in the middle of the screen
+    // Create a test box in the middle of the screen
     var graphics = this.add.graphics();
     graphics.fillStyle(0xffffff, 1); // White color
     graphics.fillRect(0, 0, 100, 100);
@@ -61,7 +59,7 @@ function InitGame() {
     var gameHeader = document.querySelector(".game-header-banner");
     var helloWorldBox = document.querySelector(".hello-world-box ");
 
-    // Set the z-index property
+    // Set the z-index property for all other objs
     gameHeader.style.zIndex = "2";
     helloWorldBox.style.zIndex = "3";
   }
