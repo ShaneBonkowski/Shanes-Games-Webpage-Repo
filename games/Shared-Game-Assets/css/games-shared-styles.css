@@ -10,6 +10,8 @@
   --main-logo-subtitle-translate-y: 50%;
   --game-title-translate-x: 50%;
   --game-title-translate-y: -100%;
+  --loading-logo-translate-x: 0%;
+  --loading-logo-translate-y: 20%;
   /* Sizes */
   --game-header-height: 10vw;
   --header-icon-size: calc(var(--game-header-height) * (1 / 3));
@@ -20,6 +22,8 @@
   /* Edge Margins */
   --small-top-margin: 10%;
   --game-logo-container-left-margin: 83%;
+  /* Other */
+  --load-screen-dur: 5s;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -133,7 +137,7 @@
   background-color: black;
   opacity: 1; /* Initially fully opaque */
   z-index: 9999; /* Ensure it's on top of other content */
-  animation: fadeOutOverlay 3s forwards; /* Play fade-out animation */
+  animation: fadeOutOverlay var(--load-screen-dur) forwards; /* Play fade-out animation */
   pointer-events: none; /* Make the overlay non-interactable */
 }
 
@@ -143,11 +147,15 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  transform: translate(0%, 20%);
   text-align: center;
   color: white;
   opacity: 1; /* Initially fully opaque */
-  transition: opacity 0.5s; /* Apply smooth transition for opacity changes */
+  animation: loadingAnim var(--load-screen-dur) forwards;
+  transform: translate(
+      var(--loading-logo-translate-x),
+      var(--loading-logo-translate-y)
+    )
+    scale(1);
 }
 
 .loading-content img {
@@ -164,5 +172,29 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes loadingAnim {
+  0% {
+    transform: translate(
+        var(--loading-logo-translate-x),
+        var(--loading-logo-translate-y)
+      )
+      scale(1);
+  }
+  50% {
+    transform: translate(
+        var(--loading-logo-translate-x),
+        var(--loading-logo-translate-y)
+      )
+      scale(1.05);
+  }
+  100% {
+    transform: translate(
+        var(--loading-logo-translate-x),
+        var(--loading-logo-translate-y)
+      )
+      scale(1);
   }
 }
