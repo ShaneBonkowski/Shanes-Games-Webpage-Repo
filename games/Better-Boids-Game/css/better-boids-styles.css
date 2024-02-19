@@ -53,5 +53,7 @@ body {
   left: var(--main-left-margin);
   top: var(--main-top-margin);
   transform: translate(0%, 500%);
+  width: 90vw;
   font-weight: normal;
+  pointer-events: none; /* No pointer events on the hellow world text */
 }

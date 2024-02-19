@@ -13,6 +13,7 @@
   /* Sizes */
   --game-header-height: 10vw;
   --header-icon-size: calc(var(--game-header-height) * (1 / 3));
+  --loading-content-size: 25vw;
   /* Font Sizes */
   --logo-title-font-size: calc(var(--game-header-height) * 0.125);
   --logo-subtitle-font-size: calc(var(--game-header-height) * 0.0625);
@@ -39,6 +40,7 @@
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
   height: var(--game-header-height);
+  pointer-events: none; /* Disable pointer events for the banner itself */
 }
 
 /* Shanes Games Logo */
@@ -48,6 +50,7 @@
   left: var(--main-left-margin);
   top: var(--small-top-margin);
   transform: translateY(var(--centering-translation));
+  pointer-events: auto;
   cursor: pointer; /* hover pointer */
 }
 
@@ -118,4 +121,48 @@
     var(--game-title-translate-y)
   );
   font-weight: bold;
+}
+
+/* Game fade in dark screen */
+.game-load-in-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 1; /* Initially fully opaque */
+  z-index: 9999; /* Ensure it's on top of other content */
+  animation: fadeOutOverlay 3s forwards; /* Play fade-out animation */
+  pointer-events: none; /* Make the overlay non-interactable */
+}
+
+.loading-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(0%, 20%);
+  text-align: center;
+  color: white;
+  opacity: 1; /* Initially fully opaque */
+  transition: opacity 0.5s; /* Apply smooth transition for opacity changes */
+}
+
+.loading-content img {
+  width: var(--loading-content-size); /* Adjust size as needed */
+  height: auto;
+}
+
+@keyframes fadeOutOverlay {
+  0% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
