@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!-- Init metadata -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Better Boids</title>
-    <!-- Set icon on the browser tab -->
     <link rel="icon" href="../../Shared-General-Assets/pngs/Mars_circle.png" />
+    <!-- Set up css files used -->
     <link
       rel="stylesheet"
       href="../../Shared-General-Assets/css/general-shared-styles.css"
@@ -17,7 +18,7 @@
     <link rel="stylesheet" href="css/better-boids-styles.css" />
   </head>
   <body>
-    <!-- Screen starts black and fades when page is openned -->
+    <!-- Screen starts black with a loading screen and fades when page is openned -->
     <div class="game-load-in-overlay">
       <div class="loading-content">
         <img
@@ -28,24 +29,26 @@
       </div>
     </div>
 
-    <!-- Include the scripts used -->
+    <!-- Include the non-module scripts used -->
     <script src="../Shared-Game-Assets/js/game_header.js"></script>
     <script src="../Libraries/phaser.js"></script>
-    <script src="js/game-initializer.js"></script>
 
-    <!-- Call JS functions -->
-    <script>
-      // Wait for DOMContentLoaded before calling scripts
-      document.addEventListener("DOMContentLoaded", function () {
+    <!-- Call JS functions (using module so that we can import and call modules) -->
+    <script type="module">
+      // Import modules
+      import { LaunchGame } from "./js/game.js";
+
+      // Wait for the module(s) to be fully loaded before calling LaunchGame()
+      window.addEventListener("load", function () {
         createGameHeader("better boids", "pngs/better_boids_logo.png");
-        InitGame();
+        LaunchGame();
       });
     </script>
 
     <!-- Things we want after the scripts -->
     <div class="hello-world-box">
-      Hello, world! This game is still under development. But at least I have a
-      floating square!
+      Hello, world! This game is still under development. But at least I have
+      floating squares!
     </div>
   </body>
 </html>
