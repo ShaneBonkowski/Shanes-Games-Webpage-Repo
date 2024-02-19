@@ -41,7 +41,17 @@ function InitGame() {
     // Create a test box in the middle of the screen
     var graphics = this.add.graphics();
     graphics.fillStyle(0xffffff, 1); // White color
-    graphics.fillRect(0, 0, 100, 100);
+    var rectSize = 100;
+    var centerX = window.innerWidth / 2 - rectSize / 2; // Subtract half of the rectangle's width
+    var centerY = window.innerHeight / 2 - rectSize / 2; // Subtract half of the rectangle's height
+    graphics.fillRect(
+      (-1 * rectSize) / 2,
+      (-1 * rectSize) / 2,
+      rectSize,
+      rectSize
+    );
+    graphics.x = centerX;
+    graphics.y = centerY;
 
     // Make the box follow the mouse
     this.input.on("pointermove", function (pointer) {
