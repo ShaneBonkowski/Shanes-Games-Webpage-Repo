@@ -15,6 +15,7 @@
       rel="stylesheet"
       href="../Shared-Game-Assets/css/games-shared-styles.css"
     />
+    <link rel="stylesheet" href="css/boids-sliders.css" />
     <link rel="stylesheet" href="css/better-boids-styles.css" />
   </head>
   <body>
@@ -37,10 +38,12 @@
     <script type="module">
       // Import modules
       import { LaunchGame } from "./js/game.js";
+      import { addBoidSliders } from "./js/boid-slider.js";
 
       // Wait for the module(s) to be fully loaded before calling LaunchGame()
       window.addEventListener("load", function () {
         createGameHeader("better boids", "pngs/better_boids_logo.png");
+        addBoidSliders();
         LaunchGame();
       });
     </script>

@@ -1,4 +1,7 @@
-import { getRandomFloat } from "./boid-utils.js";
+import { Physics } from "../../Shared-Game-Assets/js/physics.js";
+import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
+import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+import { BoidFactors } from "./boid-utils.js";
 
 export class Boid {
   constructor(scene, size, color, spawnX, spawnY) {
@@ -6,11 +9,8 @@ export class Boid {
     this.scene = scene;
     this.size = size;
     this.color = color;
-    this.speed = 3;
-    this.velocity = {
-      x: getRandomFloat(0.1, 0.9) * this.speed,
-      y: getRandomFloat(0.1, 0.9) * this.speed,
-    };
+    this.speed = 0.2;
+    this.velocity = this.initVelocity();
     this.mainBoid = false;
 
     // Create a graphics object for the boid
@@ -21,6 +21,24 @@ export class Boid {
     // Init at provided location, and centered
     this.graphic.x = spawnX - size / 2;
     this.graphic.y = spawnY - size / 2;
+  }
+
+  initVelocity() {
+    // Set velocity in a random direction
+    let velocity_desired = new Vec2(
+      more_math.getRandomFloat(0.1, 1),
+      more_math.getRandomFloat(0.1, 1)
+    );
+
+    velocity_desired = this.cleanupVelocity(velocity_desired);
+    return velocity_desired;
+  }
+
+  cleanupVelocity(velocity_desired) {
+    // Cleans up velocity such the provided value is normalized and then set in magnitude to the speed
+    velocity_desired = Vec2.normalize(velocity_desired);
+    velocity_desired = Vec2.scale(velocity_desired, this.speed);
+    return velocity_desired;
   }
 
   // makes this boid directly follow the pointer on the screen
@@ -36,108 +54,109 @@ export class Boid {
 
   // Physics for boid
   handlePhysics(boids) {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
 
-    if (this.mainBoid == false) {
+    if (!this.mainBoid) {
       // Boid Behavior
       this.handleBoidFlocking(boids);
 
-      // handle collisions
+      // Handle collisions
       this.handleCollisions(boids, screenWidth, screenHeight);
 
-      // Normalize velocity back to regular speed
-      const velocityMagnitude = Math.sqrt(
-        this.velocity.x ** 2 + this.velocity.y ** 2
-      );
-      if (velocityMagnitude > 0) {
-        this.velocity.x = (this.velocity.x / velocityMagnitude) * this.speed;
-        this.velocity.y = (this.velocity.y / velocityMagnitude) * this.speed;
-      } else {
-        this.velocity.x = 0;
-        this.velocity.y = 0;
-      }
-
       // Position update
-      this.graphic.x += this.velocity.x;
-      this.graphic.y += this.velocity.y;
+      this.graphic.x += this.velocity.x * Physics.physicsUpdateInterval; // x = vx * t
+      this.graphic.y += this.velocity.y * Physics.physicsUpdateInterval;
     }
   }
 
   handleBoidFlocking(boids) {
-    // Define constants for the boids rules
-    const alignmentFactor = 1;
-    const cohesionFactor = 1;
-    const flockSearchRadius = 200;
-    const separationFactor = 0.2;
-
     // Initialize variables to compute the new velocity
-    let alignment = { x: 0, y: 0 }; // how similar all boids veloc are (try to converge to same heading)
-    let cohesion = { x: 0, y: 0 }; // how similar all boids pos are (i.e. try to head toward a center of mass)
-    let separation = { x: 0, y: 0 }; // how far apart all boids are on avg (try to stay a certain distance apart)
+    let alignment = new Vec2(0, 0); // how similar all boids veloc are (try to converge to same heading)
+    let cohesion = new Vec2(0, 0); // how similar all boids pos are (i.e. try to head toward a center of mass)
+    let separation = new Vec2(0, 0); // how far apart all boids are on avg (try to stay a certain distance apart)
     let neighborsCount = 0;
 
     // Loop through all other boids in the scene
     for (let otherBoid of boids) {
       if (otherBoid !== this) {
         // Calculate distance between this boid and the other
-        const dx = otherBoid.graphic.x - this.graphic.x;
-        const dy = otherBoid.graphic.y - this.graphic.y;
-        const distanceSquared = dx * dx + dy * dy;
+        let dx = otherBoid.graphic.x - this.graphic.x;
+        let dy = otherBoid.graphic.y - this.graphic.y;
+        let distanceSquared = dx * dx + dy * dy;
 
         // Update separation if otherBoid is within separation radius
-        if (distanceSquared < flockSearchRadius * flockSearchRadius) {
-          const distance = Math.sqrt(distanceSquared);
+        if (
+          distanceSquared <
+          BoidFactors.flockSearchRadius * BoidFactors.flockSearchRadius
+        ) {
+          let distance = Math.sqrt(distanceSquared);
           if (distance > 0) {
-            // Subtract so we move oppisite to separate
-            separation.x -= dx;
-            separation.y -= dy;
+            // Subtract so we move opposite to separate
+            separation = Vec2.subtract(separation, new Vec2(dx, dy));
           }
           neighborsCount++;
 
           // Accumulate alignment and cohesion vectors (add so we go toward these)
-          alignment.x += otherBoid.velocity.x - this.velocity.x;
-          alignment.y += otherBoid.velocity.y - this.velocity.y;
-          cohesion.x += otherBoid.graphic.x - this.graphic.x;
-          cohesion.y += otherBoid.graphic.y - this.graphic.y;
+          alignment = Vec2.add(
+            alignment,
+            Vec2.subtract(otherBoid.velocity, this.velocity)
+          );
+          cohesion = Vec2.add(
+            cohesion,
+            Vec2.subtract(
+              new Vec2(otherBoid.graphic.x, otherBoid.graphic.y),
+              new Vec2(this.graphic.x, this.graphic.y)
+            )
+          );
         }
       }
     }
 
     if (neighborsCount > 0) {
       // Calculate average alignment and cohesion
-      alignment.x /= neighborsCount;
-      alignment.y /= neighborsCount;
-      cohesion.x /= neighborsCount;
-      cohesion.y /= neighborsCount;
+      alignment = new Vec2(
+        alignment.x / neighborsCount,
+        alignment.y / neighborsCount
+      );
+      cohesion = new Vec2(
+        cohesion.x / neighborsCount,
+        cohesion.y / neighborsCount
+      );
 
-      // Calculate the new velocity based on the three rules
-      this.velocity.x +=
-        alignment.x * alignmentFactor +
-        cohesion.x * cohesionFactor +
-        separation.x * separationFactor;
-      this.velocity.y +=
-        alignment.y * alignmentFactor +
-        cohesion.y * cohesionFactor +
-        separation.y * separationFactor;
+      // Calculate and update the new velocity based on the rules
+      let new_velocity = new Vec2(0, 0);
+      new_velocity.x +=
+        alignment.x * BoidFactors.alignmentFactor +
+        cohesion.x * BoidFactors.cohesionFactor +
+        separation.x * BoidFactors.separationFactor;
+      new_velocity.y +=
+        alignment.y * BoidFactors.alignmentFactor +
+        cohesion.y * BoidFactors.cohesionFactor +
+        separation.y * BoidFactors.separationFactor;
+      this.velocity = this.cleanupVelocity(new_velocity);
     }
   }
 
   handleCollisions(boids, screenWidth, screenHeight) {
-    // Collision handling for screen edges
-    const edgeMargin = 10;
-    const boidForceMagnitude = 1;
+    this.checkCollideScreenEdge(screenWidth, screenHeight);
+    this.checkCollideWithOtherBoids(boids);
+  }
 
+  checkCollideScreenEdge(screenWidth, screenHeight) {
+    const edgeMargin = 10;
     // Check if the boid is too close to the left or right edge
     if (
       this.graphic.x <= edgeMargin + this.size / 2 ||
       this.graphic.x >= screenWidth - edgeMargin - this.size / 2
     ) {
-      // Check if the boid is too close to the left edge
+      // If left, teleport to right side of screen
       if (this.graphic.x <= edgeMargin + this.size / 2) {
-        this.graphic.x = screenWidth - edgeMargin - this.size / 2; // Move to the right edge
-      } else {
-        this.graphic.x = edgeMargin + this.size / 2; // Move to the left edge
+        this.graphic.x = screenWidth - edgeMargin - this.size / 2;
+      }
+      // If right, teleport to left side of screen
+      else {
+        this.graphic.x = edgeMargin + this.size / 2;
       }
     }
 
@@ -146,36 +165,41 @@ export class Boid {
       this.graphic.y <= edgeMargin + this.size / 2 ||
       this.graphic.y >= screenHeight - edgeMargin - this.size / 2
     ) {
-      // Check if the boid is too close to the top edge
+      // If top, move to bottom
       if (this.graphic.y <= edgeMargin + this.size / 2) {
-        this.graphic.y = screenHeight - edgeMargin - this.size / 2; // Move to the bottom edge
-      } else {
-        this.graphic.y = edgeMargin + this.size / 2; // Move to the top edge
+        this.graphic.y = screenHeight - edgeMargin - this.size / 2;
+      }
+      // If bottom, move to top
+      else {
+        this.graphic.y = edgeMargin + this.size / 2;
       }
     }
+  }
+
+  checkCollideWithOtherBoids(boids) {
+    const boidForceMagnitude = 1;
 
     // Collisions with other boids
     for (let otherBoid of boids) {
       if (otherBoid !== this) {
-        // Calculate distance between this boid and the other
-        const dx = otherBoid.graphic.x - this.graphic.x;
-        const dy = otherBoid.graphic.y - this.graphic.y;
-        const distanceSquared = dx * dx + dy * dy;
+        let dx = otherBoid.graphic.x - this.graphic.x;
+        let dy = otherBoid.graphic.y - this.graphic.y;
+        let distanceSquared = dx * dx + dy * dy;
 
         // Check if there's a collision
         if (distanceSquared < (this.size / 2 + otherBoid.size / 2) ** 2) {
-          const directionX = dx / Math.sqrt(distanceSquared); // normalize
-          const directionY = dy / Math.sqrt(distanceSquared);
-
-          // Calculate the magnitude of the repulsive force (inverse proportional to distance)
-          const repulsiveForce =
-            boidForceMagnitude * (1 / Math.sqrt(distanceSquared));
+          // Calculate the repulsive force (inversely proportional to distance)
+          let direction = Vec2.normalize(new Vec2(dx, dy));
+          let repulsiveForceMag =
+            boidForceMagnitude / Math.sqrt(distanceSquared);
+          let repulsiveForce = Vec2.scale(direction, repulsiveForceMag);
 
           // Adjust velocities of both boids to move away from each other
-          this.velocity.x -= directionX * repulsiveForce;
-          this.velocity.y -= directionY * repulsiveForce;
-          otherBoid.velocity.x += directionX * repulsiveForce;
-          otherBoid.velocity.y += directionY * repulsiveForce;
+          let new_velocity = Vec2.subtract(this.velocity, repulsiveForce);
+          this.velocity = this.cleanupVelocity(new_velocity);
+
+          new_velocity = Vec2.add(otherBoid.velocity, repulsiveForce);
+          otherBoid.velocity = otherBoid.cleanupVelocity(new_velocity);
         }
       }
     }

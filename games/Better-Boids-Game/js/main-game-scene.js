@@ -1,18 +1,18 @@
 import { instantiateBoids } from "./boid-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
+import { Physics } from "../../Shared-Game-Assets/js/physics.js";
+import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 
 // Export so other scripts can access this
 export class MainGameScene extends Phaser.Scene {
   constructor() {
     super({ key: "MainGameScene" });
     this.boids = [];
+    this.gameStarted = false;
 
     // Store the last known window size so we can update boids positions etc.
     // based on this as the screen size changes
-    this.lastKnownWindowSize = {
-      x: 0,
-      y: 0,
-    };
+    this.lastKnownWindowSize = new Vec2(0, 0);
   }
 
   preload() {
@@ -23,34 +23,51 @@ export class MainGameScene extends Phaser.Scene {
     // Set the Z order of all elements
     setZOrderForMainGameElements(this.game);
 
-    // Spawn in 10 random boids, counting 1 main boid that follows pointer
-    this.boids = instantiateBoids(this, 15);
-
     // Observe window resizing with ResizeObserver since it works
     // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
     // Seems to be more responsive to quick snaps and changes.
-    this.lastKnownWindowSize = {
-      x: window.innerWidth,
-      y: window.innerHeight,
-    };
+    this.lastKnownWindowSize = new Vec2(window.innerWidth, window.innerHeight);
     const resizeObserver = new ResizeObserver((entries) => {
       this.handleWindowResize();
     });
     resizeObserver.observe(document.documentElement);
+
+    // Spawn in 10 random boids as a Promise (so that we can run this async), and then
+    // when that promise is fufilled, we can move on to other init logic
+    instantiateBoids(this, 15).then((boids) => {
+      this.boids = boids;
+
+      // Continue with other initialization logic after boids are instantiated:
+      // more code here eventually ...
+
+      // After everything is loaded in, we can begin the game
+      this.gameStarted = true;
+      console.log("boids init'd!");
+    });
   }
 
-  update() {
-    // Handle the boid physics
-    for (let boid of this.boids) {
-      boid.handlePhysics(this.boids);
+  update(time, delta) {
+    if (this.gameStarted) {
+      // Check if it's time to perform a physics update
+      if (
+        time - Physics.lastPhysicsUpdateTime >=
+        Physics.physicsUpdateInterval
+      ) {
+        Physics.performPhysicsUpdate(this.boids, time);
+
+        // Handle the boid physics
+        for (let boid of this.boids) {
+          boid.handlePhysics(this.boids);
+        }
+      }
     }
   }
 
   // Function to handle window resize event
   handleWindowResize() {
     // Get the new screen dimensions
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
 
     // Update positions of all boids based on new screen dimensions.
     // We want to retain the general location of the boid, so we try to position it
@@ -66,9 +83,6 @@ export class MainGameScene extends Phaser.Scene {
     }
 
     // Update lastKnownWindowSize to current screen dimensions
-    this.lastKnownWindowSize = {
-      x: screenWidth,
-      y: screenHeight,
-    };
+    this.lastKnownWindowSize = new Vec2(screenWidth, screenHeight);
   }
 }

@@ -1,0 +1,10 @@
+.slider-container {
+  margin: 20px;
+  pointer-events: none;
+}
+
+input[type="range"] {
+  width: 200px;
+  cursor: pointer;
+  pointer-events: auto;
+}
