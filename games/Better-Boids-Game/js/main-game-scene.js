@@ -75,10 +75,12 @@ export class MainGameScene extends Phaser.Scene {
     for (let boid of this.boids) {
       if (boid.mainBoid == false) {
         // Calculate new position based on percentage of old position
-        boid.graphic.x =
-          (boid.graphic.x / this.lastKnownWindowSize.x) * screenWidth;
-        boid.graphic.y =
+        let new_x = (boid.graphic.x / this.lastKnownWindowSize.x) * screenWidth;
+        let new_y =
           (boid.graphic.y / this.lastKnownWindowSize.y) * screenHeight;
+
+        // handle re-sizing etc. of boid
+        boid.handleWindowResize(new_x, new_y);
       }
     }
 

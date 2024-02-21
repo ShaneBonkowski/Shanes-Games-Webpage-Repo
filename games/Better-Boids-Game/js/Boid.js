@@ -4,23 +4,56 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { BoidFactors } from "./boid-utils.js";
 
 export class Boid {
-  constructor(scene, size, color, spawnX, spawnY) {
+  constructor(scene, color, spawnX, spawnY) {
     // Store some attributes about this boid
     this.scene = scene;
-    this.size = size;
     this.color = color;
     this.speed = 0.2;
     this.velocity = this.initVelocity();
     this.mainBoid = false;
 
     // Create a graphics object for the boid
-    this.graphic = scene.add.graphics();
-    this.graphic.fillStyle(color, 1); // Set the fill color
-    this.graphic.fillRect((-1 * size) / 2, (-1 * size) / 2, size, size);
+    this.graphic = null;
+    this.initBoid();
 
     // Init at provided location, and centered
-    this.graphic.x = spawnX - size / 2;
-    this.graphic.y = spawnY - size / 2;
+    this.graphic.x = spawnX - this.size / 2;
+    this.graphic.y = spawnY - this.size / 2;
+  }
+
+  initBoid() {
+    this.size = this.calculateBoidSize();
+
+    // Clear existing graphic if it is not null
+    if (this.graphic) {
+      this.graphic.clear();
+    }
+
+    // Spawn in graphic of size provided, and center the graphic on itself
+    this.graphic = this.scene.add.graphics();
+    this.graphic.fillStyle(this.color, 1);
+    this.graphic.fillRect(
+      (-1 * this.size) / 2,
+      (-1 * this.size) / 2,
+      this.size,
+      this.size
+    );
+  }
+
+  calculateBoidSize() {
+    // Calculate the boid size based on the screen width
+    const screenWidth = window.innerWidth;
+    const boidSize = screenWidth * 0.01;
+
+    return boidSize;
+  }
+
+  handleWindowResize(new_x, new_y) {
+    // Reinitialize the boid and its graphic on resize
+    this.initBoid();
+
+    this.graphic.x = new_x - this.size / 2;
+    this.graphic.y = new_y - this.size / 2;
   }
 
   initVelocity() {

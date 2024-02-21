@@ -1,10 +1,90 @@
+/* Import constants */
+@import "../../../Shared-General-Assets/css/general-shared-constants.css";
+
+/* Define CONSTANT variables */
+:root {
+  /* Size */
+  --input-slider-width-og: 15vw;
+  --input-slider-width: var(--input-slider-width-og);
+  --input-slider-height-og: 5vh;
+  --input-slider-height: var(--input-slider-height-og);
+  --slider-blank-space-height: 10vh;
+  /* Margins */
+  --slider-top-margin: 10vh;
+  --hover-slider-label-top-margin-og: 25%;
+  --hover-slider-label-top-margin: var(--hover-slider-label-top-margin-og);
+  --hover-slider-label-left-margin: 120%;
+  /* Translations */
+  --slider-label-x-shift: -80%;
+  /* Font Sizes */
+  --slider-font-size-og: calc(10vw * 0.14);
+  --slider-font-size: var(--slider-font-size-og);
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    /* Size */
+    --input-slider-width: calc(var(--input-slider-width-og) * 1.9);
+    /* Margins */
+    --hover-slider-label-top-margin: calc(
+      var(--hover-slider-label-top-margin-og) * 1.5
+    );
+    /* Font Sizes */
+    --slider-font-size: calc(var(--slider-font-size-og) * 1.9);
+  }
+}
+
+.slider-blank-space {
+  height: var(--slider-blank-space-height);
+}
+
 .slider-container {
-  margin: 20px;
+  position: relative;
+  left: var(--main-left-margin);
+  top: var(--slider-top-margin);
   pointer-events: none;
+  height: var(--input-slider-height);
+  width: var(--input-slider-width);
+}
+
+.slider-label {
+  position: absolute;
+  left: 0;
+  transform: translate(0%, var(--slider-label-x-shift));
+  pointer-events: none;
+  font-size: var(--slider-font-size);
+  white-space: nowrap;
+}
+
+.slider-hover-label {
+  position: absolute;
+  top: var(--hover-slider-label-top-margin);
+  left: var(--hover-slider-label-left-margin);
+  display: none; /* Hide the label until we hover on it below */
+  font-size: var(--slider-font-size);
+  white-space: nowrap;
+}
+
+/* for hovering on computer */
+.slider-container:hover .slider-hover-label {
+  display: block; /* Show the hover label when hovering over the slider container */
+}
+
+/* for touching on phone (see the eventListenerAdding that needs to occur in boid-slider.js for this to work) */
+.touch-hover .slider-hover-label {
+  display: block;
 }
 
 input[type="range"] {
-  width: 200px;
+  position: absolute;
+  height: 100%;
+  width: 100%;
   cursor: pointer;
   pointer-events: auto;
+}
+
+/* Define styles for when the slider is being interacted with */
+input[type="range"]:active {
+  transform: scale(1.25); /* Increase the scale of the slider */
 }
