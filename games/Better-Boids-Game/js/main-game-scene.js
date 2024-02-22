@@ -68,29 +68,43 @@ export class MainGameScene extends Phaser.Scene {
 
   initIsPlayerInteracting() {
     // Event listener to detect when the user interacts with the game
-    document.addEventListener("mousedown", () => {
-      this.isInteracting = true;
-    });
+    document.addEventListener(
+      "pointerdown",
+      () => {
+        this.isInteracting = true;
+      },
+      { capture: true }
+    );
 
-    document.addEventListener("touchstart", () => {
-      this.isInteracting = true;
-    });
+    document.addEventListener(
+      "pointerup",
+      () => {
+        this.isInteracting = false;
+      },
+      { capture: true }
+    );
 
-    // Event listener to detect when the user stops interacting with the game
-    document.addEventListener("mouseup", () => {
-      this.isInteracting = false;
-    });
+    // Event listener to prevent default scrolling behavior while player is interacting with the game
+    document.addEventListener(
+      "scroll",
+      (event) => {
+        if (this.isInteracting) {
+          event.preventDefault();
+        }
+      },
+      { capture: true }
+    );
 
-    document.addEventListener("touchend", () => {
-      this.isInteracting = false;
-    });
-
-    // Event listener to prevent default scrolling behavior while player si interacting with the game
-    document.addEventListener("scroll", (event) => {
-      if (this.isInteracting) {
-        event.preventDefault();
-      }
-    });
+    // Prevent scrolling on touch screen
+    document.addEventListener(
+      "touchmove",
+      function (event) {
+        if (this.isInteracting) {
+          event.preventDefault();
+        }
+      },
+      { capture: true, passive: false }
+    );
   }
 
   // Function to handle window resize event
