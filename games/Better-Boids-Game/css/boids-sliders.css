@@ -51,6 +51,10 @@
   pointer-events: none;
   height: var(--input-slider-height);
   width: var(--input-slider-width);
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .slider-label {
@@ -60,6 +64,10 @@
   pointer-events: none;
   font-size: var(--slider-font-size);
   white-space: nowrap;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .slider-hover-label {
@@ -69,6 +77,10 @@
   display: none; /* Hide the label until we hover on it below */
   font-size: var(--slider-font-size);
   white-space: nowrap;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 /* for hovering on computer */
@@ -87,6 +99,10 @@ input[type="range"] {
   width: 100%;
   cursor: pointer;
   pointer-events: auto;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 /* Define styles for when the slider is being interacted with */

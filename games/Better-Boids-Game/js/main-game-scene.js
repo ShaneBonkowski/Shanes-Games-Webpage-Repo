@@ -34,6 +34,7 @@ export class MainGameScene extends Phaser.Scene {
     resizeObserver.observe(document.documentElement);
 
     this.initIsPlayerInteracting();
+    this.disableScroll();
 
     // Spawn in 10 random boids as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
@@ -66,6 +67,29 @@ export class MainGameScene extends Phaser.Scene {
     }
   }
 
+  // Disable scrolling
+  disableScroll() {
+    document.body.style.overflow = "hidden"; // this prevents the page from being able to overflow (aka have more content out of view that you can see via scrolling)
+    document.addEventListener("touchmove", this.preventDefault, {
+      passive: false,
+    });
+    document.addEventListener("mousewheel", this.preventDefault, {
+      passive: false,
+    });
+  }
+
+  // Enable scrolling
+  enableScroll() {
+    document.body.style.overflow = "";
+    document.removeEventListener("touchmove", preventDefault);
+    document.removeEventListener("mousewheel", preventDefault);
+  }
+
+  // Prevent default behavior of events (used in this case for disabling scroll)
+  preventDefault(event) {
+    //event.preventDefault();
+  }
+
   initIsPlayerInteracting() {
     // Event listener to detect when the user interacts with the game
     document.addEventListener(
@@ -82,28 +106,6 @@ export class MainGameScene extends Phaser.Scene {
         this.isInteracting = false;
       },
       { capture: true }
-    );
-
-    // Event listener to prevent default scrolling behavior while player is interacting with the game
-    document.addEventListener(
-      "scroll",
-      (event) => {
-        if (this.isInteracting) {
-          event.preventDefault();
-        }
-      },
-      { capture: true }
-    );
-
-    // Prevent scrolling on touch screen
-    document.addEventListener(
-      "touchmove",
-      function (event) {
-        if (this.isInteracting) {
-          event.preventDefault();
-        }
-      },
-      { capture: true, passive: false }
     );
   }
 
