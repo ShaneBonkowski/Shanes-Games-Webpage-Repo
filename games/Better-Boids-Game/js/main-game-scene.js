@@ -9,6 +9,7 @@ export class MainGameScene extends Phaser.Scene {
     super({ key: "MainGameScene" });
     this.boids = [];
     this.gameStarted = false;
+    this.isInteracting = false; // is the  player actively interacting with the game?
 
     // Store the last known window size so we can update boids positions etc.
     // based on this as the screen size changes
@@ -31,6 +32,8 @@ export class MainGameScene extends Phaser.Scene {
       this.handleWindowResize();
     });
     resizeObserver.observe(document.documentElement);
+
+    this.initIsPlayerInteracting();
 
     // Spawn in 10 random boids as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
@@ -61,6 +64,33 @@ export class MainGameScene extends Phaser.Scene {
         }
       }
     }
+  }
+
+  initIsPlayerInteracting() {
+    // Event listener to detect when the user interacts with the game
+    document.addEventListener("mousedown", () => {
+      this.isInteracting = true;
+    });
+
+    document.addEventListener("touchstart", () => {
+      this.isInteracting = true;
+    });
+
+    // Event listener to detect when the user stops interacting with the game
+    document.addEventListener("mouseup", () => {
+      this.isInteracting = false;
+    });
+
+    document.addEventListener("touchend", () => {
+      this.isInteracting = false;
+    });
+
+    // Event listener to prevent default scrolling behavior while player si interacting with the game
+    document.addEventListener("scroll", (event) => {
+      if (this.isInteracting) {
+        event.preventDefault();
+      }
+    });
   }
 
   // Function to handle window resize event
