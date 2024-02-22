@@ -167,14 +167,8 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: MyCustomFont, sans-serif;
-  position: relative;
-  background-image: url("../../Shared-General-Assets/pngs/Sky_starry_blurred.png");
-  background-repeat: repeat-y; /* Repeat the image vertically */
-  background-position: top center; /* position relative to the top or center */
-  background-size: 100% auto; /* Auto width, 100% height */
+  /* Background-related styles for body are defined in the .html file since they are urgent and we want to guarentee those render in */
 }
 
 html {

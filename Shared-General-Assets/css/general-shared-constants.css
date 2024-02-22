@@ -1,7 +1,7 @@
 /* Define variables */
 :root {
   /* Colors */
-  --main-color: rgb(7, 7, 7);
+  --main-color: rgb(0, 0, 0);
   --hide-color: rgba(0, 0, 0, 0);
   --secondary-color: #333;
   --main-text-color: white;
