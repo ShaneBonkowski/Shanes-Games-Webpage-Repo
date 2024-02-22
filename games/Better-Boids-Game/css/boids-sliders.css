@@ -40,6 +40,16 @@
   }
 }
 
+html,
+body {
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  position: relative;
+}
+
 .slider-blank-space {
   height: var(--slider-blank-space-height);
 }
