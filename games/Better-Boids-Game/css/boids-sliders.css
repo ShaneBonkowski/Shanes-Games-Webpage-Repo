@@ -42,12 +42,12 @@
 
 html,
 body {
-  overflow: hidden;
+  overflow: hidden; /* Prevents scroll on browser */
   height: 100%;
 }
 
 body {
-  position: relative;
+  position: relative; /* ABOVE SCROLL PREVENTION DOES NOT WORK IF THIS IS NOT RELATIVE ... idk why see this https://stackoverflow.com/questions/10592411/disable-scrolling-in-all-mobile-devices */
 }
 
 .slider-blank-space {

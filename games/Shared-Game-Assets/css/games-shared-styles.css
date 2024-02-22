@@ -45,6 +45,10 @@
   width: 100%;
   height: var(--game-header-height);
   pointer-events: none; /* Disable pointer events for the banner itself */
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 /* Shanes Games Logo */
@@ -56,6 +60,10 @@
   transform: translateY(var(--centering-translation));
   pointer-events: auto;
   cursor: pointer; /* hover pointer */
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .shanes-games-logo-container:hover {
@@ -68,6 +76,10 @@
   width: var(--header-icon-size);
   height: var(--header-icon-size);
   transform: translateY(var(--centering-translation));
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .main-logo-title {
@@ -81,6 +93,10 @@
     var(--main-logo-title-translate-y)
   );
   font-weight: bold;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .main-logo-subtitle {
@@ -94,6 +110,10 @@
     var(--main-logo-subtitle-translate-y)
   );
   font-weight: normal;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 /* Generic Game Logo */
@@ -104,6 +124,10 @@
   top: var(--small-top-margin);
   transform: translate(0%, var(--centering-translation));
   background-color: white;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .game-logo-image {
@@ -112,6 +136,10 @@
   width: var(--header-icon-size);
   height: var(--header-icon-size);
   transform: translateY(var(--centering-translation));
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .game-title {
@@ -125,6 +153,10 @@
     var(--game-title-translate-y)
   );
   font-weight: bold;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 /* Game fade in dark screen */
@@ -139,6 +171,10 @@
   z-index: 9999; /* Ensure it's on top of other content */
   animation: fadeOutOverlay var(--load-screen-dur) forwards; /* Play fade-out animation */
   pointer-events: none; /* Make the overlay non-interactable */
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .loading-content {
@@ -156,11 +192,19 @@
       var(--loading-logo-translate-y)
     )
     scale(1);
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 .loading-content img {
   width: var(--loading-content-size); /* Adjust size as needed */
   height: auto;
+  user-select: none; /* disable text selection on all browsers for this */
+  -moz-user-select: none; /* disable text selection on all browsers for this */
+  -webkit-user-select: none; /* disable text selection on all browsers for this */
+  -ms-user-select: none; /* disable text selection on all browsers for this */
 }
 
 @keyframes fadeOutOverlay {
