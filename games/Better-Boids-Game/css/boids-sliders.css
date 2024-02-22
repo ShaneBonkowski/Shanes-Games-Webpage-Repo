@@ -11,6 +11,8 @@
   --slider-blank-space-height: 10vh;
   /* Margins */
   --slider-top-margin: 10vh;
+  --slider-container-left-margin-og: 4%;
+  --slider-container-left-margin: var(--slider-container-left-margin-og);
   --hover-slider-label-top-margin-og: 25%;
   --hover-slider-label-top-margin: var(--hover-slider-label-top-margin-og);
   --hover-slider-label-left-margin: 120%;
@@ -30,6 +32,9 @@
     --hover-slider-label-top-margin: calc(
       var(--hover-slider-label-top-margin-og) * 1.5
     );
+    --slider-container-left-margin: calc(
+      var(--slider-container-left-margin-og) * 1.5
+    );
     /* Font Sizes */
     --slider-font-size: calc(var(--slider-font-size-og) * 1.9);
   }
@@ -41,7 +46,7 @@
 
 .slider-container {
   position: relative;
-  left: var(--main-left-margin);
+  left: var(--slider-container-left-margin);
   top: var(--slider-top-margin);
   pointer-events: none;
   height: var(--input-slider-height);
