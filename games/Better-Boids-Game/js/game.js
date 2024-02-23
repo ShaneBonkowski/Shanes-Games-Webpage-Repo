@@ -20,6 +20,21 @@ export function LaunchGame() {
 
   var game = new Phaser.Game(config);
 
+  updateBodySizeWithWindowResize();
+
   // Set the Z order of all elements that are shared among scenes (e.g. canvas, header, etc.)
   setZOrderForSharedElements(game);
+}
+
+function updateBodySizeWithWindowResize() {
+  // Want body of document to == inner width / height.
+  // This is so that banners / search bar etc. dont affect screen size.
+  document.body.style.width = window.innerWidth + "px";
+  document.body.style.height = window.innerHeight + "px";
+
+  // Handle resize events to adjust body size
+  window.addEventListener("resize", function () {
+    document.body.style.width = window.innerWidth + "px";
+    document.body.style.height = window.innerHeight + "px";
+  });
 }
