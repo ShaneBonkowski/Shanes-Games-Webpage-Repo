@@ -13,6 +13,7 @@ export function setZOrderForSharedElements(game) {
   var infoBoxContainers = document.querySelector(".info-box-container");
   var closeButton = document.querySelector(".close-button");
   var infoButton = document.querySelector(".info-button");
+  var infoBox = document.querySelector(".info-box");
 
   // Set the z-index property for all other objs\
   // helloWorldBox.style.zIndex = "-1"; // far back
@@ -23,8 +24,9 @@ export function setZOrderForSharedElements(game) {
     sliderContainer.style.zIndex = "2"; // bring to the far front
   });
   infoBoxContainers.style.zIndex = "3"; // bring to the far, far front
-  closeButton.style.zIndex = "4"; // bring to the far, far front
-  infoButton.style.zIndex = "4"; // bring to the far, far front
+  infoButton.style.zIndex = "3"; // bring to the far, far front
+  infoBox.style.zIndex = "4"; // bring to the far, far front
+  closeButton.style.zIndex = "5"; // bring to the far, far front
 }
 
 export function setZOrderForMainGameElements(game) {
