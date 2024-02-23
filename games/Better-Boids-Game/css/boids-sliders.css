@@ -61,10 +61,7 @@ body {
   pointer-events: none;
   height: var(--input-slider-height);
   width: var(--input-slider-width);
-  user-select: none; /* disable text selection on all browsers for this */
-  -moz-user-select: none; /* disable text selection on all browsers for this */
-  -webkit-user-select: none; /* disable text selection on all browsers for this */
-  -ms-user-select: none; /* disable text selection on all browsers for this */
+  @apply --visual-click-prevention;
 }
 
 .slider-label {
@@ -74,10 +71,7 @@ body {
   pointer-events: none;
   font-size: var(--slider-font-size);
   white-space: nowrap;
-  user-select: none; /* disable text selection on all browsers for this */
-  -moz-user-select: none; /* disable text selection on all browsers for this */
-  -webkit-user-select: none; /* disable text selection on all browsers for this */
-  -ms-user-select: none; /* disable text selection on all browsers for this */
+  @apply --visual-click-prevention;
 }
 
 .slider-hover-label {
@@ -87,10 +81,7 @@ body {
   display: none; /* Hide the label until we hover on it below */
   font-size: var(--slider-font-size);
   white-space: nowrap;
-  user-select: none; /* disable text selection on all browsers for this */
-  -moz-user-select: none; /* disable text selection on all browsers for this */
-  -webkit-user-select: none; /* disable text selection on all browsers for this */
-  -ms-user-select: none; /* disable text selection on all browsers for this */
+  @apply --visual-click-prevention;
 }
 
 /* for hovering on computer */
@@ -108,11 +99,8 @@ input[type="range"] {
   height: 100%;
   width: 100%;
   cursor: pointer;
-  pointer-events: auto;
-  user-select: none; /* disable text selection on all browsers for this */
-  -moz-user-select: none; /* disable text selection on all browsers for this */
-  -webkit-user-select: none; /* disable text selection on all browsers for this */
-  -ms-user-select: none; /* disable text selection on all browsers for this */
+  pointer-events: auto; /* Can click on this */
+  @apply --visual-click-prevention;
 }
 
 /* Define styles for when the slider is being interacted with */
