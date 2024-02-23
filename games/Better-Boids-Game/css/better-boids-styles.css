@@ -96,11 +96,11 @@ body {
 }
 
 .info-box {
-  display: none;
+  display: none; /* Hide this to start */
   position: absolute;
   top: var(--general-top-margin);
   left: var(--general-left-margin);
-  transform: translate(var(--centering-translation), -100%);
+  transform: translate(var(--centering-translation), -50%);
   width: 100vw;
   height: 100vh;
   background-color: var(--panel-color);
@@ -111,9 +111,6 @@ body {
   position: relative;
   left: var(--info-header-x-button-margin-left);
   top: var(--info-header-x-button-margin-top);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-size: var(--test-font-size);
   color: var(--main-text-color);
   pointer-events: auto;
