@@ -116,12 +116,8 @@ export function addBoidSliders() {
 
     // On input, update the flock radius circle to be visible
     inputRange.addEventListener("input", function (event) {
-      // By checking if event.isTrusted, this ensures that the updateFlockRadiusIndicator function is only called
-      // when the input event is trusted, which typically indicates user interaction.
-      if (event.isTrusted) {
-        var radiusValue = parseFloat(inputRange.value);
-        updateFlockRadiusIndicator(circle, radiusValue);
-      }
+      var radiusValue = parseFloat(inputRange.value);
+      updateFlockRadiusIndicator(circle, radiusValue);
     });
 
     // Listen for pointer event to hide the circle when the slider is released.
