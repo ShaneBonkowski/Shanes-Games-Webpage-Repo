@@ -29,12 +29,15 @@ export function LaunchGame() {
 function updateBodySizeWithWindowResize() {
   // Want body of document to == inner width / height.
   // This is so that banners / search bar etc. dont affect screen size.
-  document.body.style.width = window.innerWidth + "px";
-  document.body.style.height = window.innerHeight + "px";
-
-  // Handle resize events to adjust body size
-  window.addEventListener("resize", function () {
+  function updateBodySize() {
     document.body.style.width = window.innerWidth + "px";
     document.body.style.height = window.innerHeight + "px";
-  });
+  }
+
+  // Initial update
+  updateBodySize();
+
+  // Handle resize events to adjust body size
+  window.addEventListener("resize", updateBodySize);
+  window.addEventListener("orientationchange", updateBodySize);
 }
