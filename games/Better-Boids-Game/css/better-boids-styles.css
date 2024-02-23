@@ -104,13 +104,11 @@ body {
   width: 100vw;
   height: 100vh;
   background-color: var(--panel-color);
-  /* border: 1px solid black; */
-  padding: 10px;
   pointer-events: auto;
 }
 
 .info-header {
-  position: absolute;
+  position: relative;
   left: var(--info-header-x-button-margin-left);
   top: var(--info-header-x-button-margin-top);
   display: flex;
@@ -121,16 +119,6 @@ body {
   pointer-events: auto;
 }
 
-.close-button {
-  cursor: pointer;
-  pointer-events: auto;
-  transform: scale(1.6);
-}
-
-.close-button:hover {
-  transform: scale(2.2);
-}
-
 .info-content {
   position: absolute;
   padding: 4vw;
@@ -139,6 +127,17 @@ body {
   font-size: var(--test-font-size);
   color: var(--main-text-color);
   pointer-events: auto;
+}
+
+.close-button {
+  position: absolute;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: scale(1.6);
+}
+
+.close-button:hover {
+  transform: scale(2.2);
 }
 
 /* Testing */
