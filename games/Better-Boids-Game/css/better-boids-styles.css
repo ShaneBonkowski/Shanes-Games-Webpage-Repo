@@ -6,7 +6,7 @@
   /* Edge Margins */
   --small-top-margin: 23%;
   --info-button-margin-left: 93vw;
-  --info-button-margin-top: 2vh;
+  --info-button-margin-top: 90vh;
   --info-header-x-button-margin-left: 95%;
   --info-header-x-button-margin-top: 5%;
   /* Font Sizes */
@@ -21,7 +21,7 @@
     --test-font-size: calc(var(--test-font-size-og) * 1.9);
     /* Edge Margins */
     --info-button-margin-left: 80vw;
-    --info-button-margin-top: 0vh;
+    --info-button-margin-top: 87vh;
     --info-header-x-button-margin-left: 90%;
     --info-header-x-button-margin-top: 5%;
   }
@@ -70,7 +70,7 @@ a:hover {
 
 /* Info screen styles */
 .info-button-container {
-  position: relative;
+  position: absolute;
   left: var(--info-button-margin-left);
   top: var(--info-button-margin-top);
 }
