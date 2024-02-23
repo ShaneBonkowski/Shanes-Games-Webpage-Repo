@@ -1,13 +1,74 @@
-// Get references to the button and info box
-const infoButton = document.getElementById("infoButton");
-const infoBox = document.getElementById("infoBox");
+function addInfoBox() {
+  // Create info Button
+  const infoButtonContainer = document.createElement("div");
+  infoButtonContainer.id = "infoButtonContainer";
+  infoButtonContainer.classList.add("info-button-container");
 
-// Show the info box when the button is clicked
-infoButton.addEventListener("click", () => {
-  infoBox.style.display = "block";
-});
+  const infoButton = document.createElement("button");
+  infoButton.id = "infoButton";
+  infoButton.classList.add("info-button");
 
-// Close the info box when the close button is clicked
-function closeInfoBox() {
-  infoBox.style.display = "none";
+  const infoIcon = document.createElement("span");
+  infoIcon.classList.add("info-icon");
+  infoIcon.textContent = "i";
+
+  // Append elements to create button
+  infoButton.appendChild(infoIcon);
+  infoButtonContainer.appendChild(infoButton);
+
+  // Create infoBox and content
+  const infoBox = document.createElement("div");
+  infoBox.id = "infoBox";
+  infoBox.classList.add("info-box");
+
+  const infoHeader = document.createElement("div");
+  infoHeader.classList.add("info-header");
+
+  const closeButton = document.createElement("span");
+  closeButton.classList.add("close-button");
+  closeButton.textContent = "x";
+  closeButton.onclick = closeInfoBox;
+
+  const infoContent = document.createElement("div");
+  infoContent.classList.add("info-content");
+
+  // Create heading and paragraphs for infoContent
+  infoContent.innerHTML = `
+  <h2>About Boids</h2>
+  <p>
+    The
+    <a href="https://en.wikipedia.org/wiki/Boids" target="_blank">
+      Boids algorithm
+    </a>, devised by Craig Reynolds, mimics the flocking behavior seen in birds and other animals. 
+    In general, Boids typically have three rules:
+  </p>
+  <ul>
+    <li>Alignment: Boids try to align their direction with other nearby Boids</li>
+    <li>Cohesion: Boids move towards the average position of nearby Boids</li>
+    <li>Separation: Boids avoid crowding together</li>
+  </ul>
+  <p>
+    From these three simple rules, complex emergent behavior and intricate patterns can arise. 
+    This little game is an attempt to display the beauty in the Boids algorithm, while expanding on it with novel concepts where applicable.
+  </p>
+`;
+
+  // Append elements to create infoBox
+  infoHeader.appendChild(closeButton);
+  infoBox.appendChild(infoHeader);
+  infoBox.appendChild(infoContent);
+
+  // Append infoButtonContainer and infoBox to document body
+  document.body.appendChild(infoButtonContainer);
+  document.body.appendChild(infoBox);
+
+  // Show the info box when the button is clicked
+  infoButton.addEventListener("click", () => {
+    infoBox.style.display = "block";
+  });
+
+  // Close the info box when the close button is clicked
+  function closeInfoBox() {
+    infoBox.style.display = "none";
+  }
 }
