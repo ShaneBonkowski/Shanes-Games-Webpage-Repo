@@ -106,15 +106,38 @@ export function addBoidSliders() {
     // Find the input range element within the container
     var inputRange = radiusSliderContainer.querySelector("input[type='range']");
 
-    // On iput, update the flock radius circle
-    inputRange.addEventListener("input", function () {
-      var radiusValue = parseFloat(inputRange.value);
-      updateFlockRadiusIndicator(circle, radiusValue);
+    // On input, update the flock radius circle to be visible
+    inputRange.addEventListener("input", function (event) {
+      // By checking if event.isTrusted, this ensures that the updateFlockRadiusIndicator function is only called
+      // when the input event is trusted, which typically indicates user interaction.
+      if (event.isTrusted) {
+        var radiusValue = parseFloat(inputRange.value);
+        updateFlockRadiusIndicator(circle, radiusValue);
+      }
     });
 
-    // Listen for mouseup event to hide the circle when the slider is released
+    // Listen for pointer event to hide the circle when the slider is released.
+    // This tries to catch the general case of a finger or a mouse.
     inputRange.addEventListener("pointerup", function () {
-      circle.style.display = "none";
+      if (circle.style.display !== "none") {
+        circle.style.display = "none";
+      }
+    });
+
+    // Listen for touchend event to hide the circle when the slider is released.
+    // This is backup if a browser cannot detect pointerup.
+    inputRange.addEventListener("touchend", function () {
+      if (circle.style.display !== "none") {
+        circle.style.display = "none";
+      }
+    });
+
+    // Listen for mouseup event to hide the circle when the slider is released.
+    // This is backup if a browser cannot detect pointerup.
+    inputRange.addEventListener("mouseup", function () {
+      if (circle.style.display !== "none") {
+        circle.style.display = "none";
+      }
     });
   }
 
@@ -134,7 +157,9 @@ export function addBoidSliders() {
     circle.style.backgroundColor = `rgba(255, 0, 0, ${transparency})`;
 
     // Show the circle
-    circle.style.display = "block";
+    if (circle.style.display !== "block") {
+      circle.style.display = "block";
+    }
   }
 
   // Function to update the factor values
