@@ -37,10 +37,11 @@ export function addBoidSliders() {
   addTouchEventListenersToSliders();
 
   function addTouchEventListenersToSliders() {
-    // Add touch event listeners to slider containers
+    // Add touch event listeners to slider containers so that we can show the hover text
+    // if someone on a phone touches on a slider.
     var sliderContainers = document.querySelectorAll(".slider-container");
 
-    // When someone touches the slider, add the touch-hoever class to it so it can hover,
+    // When someone touches the slider, add the touch-hover class to it so it can hover,
     // then on touch end remove this class so it doesnt interfere with anything
     sliderContainers.forEach(function (container) {
       // Add when touch starts
@@ -78,18 +79,11 @@ export function addBoidSliders() {
     // Slide value hover label
     var hoverLabel = document.createElement("div");
     hoverLabel.classList.add("slider-hover-label");
+    hoverLabel.textContent = slider.value; // init hover text
     sliderContainer.appendChild(hoverLabel);
 
-    // Add event listeners to each slider
-    slider.addEventListener("input", function () {
-      // Update the value of the actual variable as the slider changes
-      updateFactor(name, parseFloat(this.value));
-
-      // Update hover label text
-      hoverLabel.textContent = this.value;
-    });
-
-    // Append sliders to the document body or another appropriate element
+    // Append sliders to the document body
+    initSliderEvents(slider, name, hoverLabel);
     document.body.appendChild(sliderContainer);
 
     // Create and append blank space after the slider
@@ -161,5 +155,54 @@ export function addBoidSliders() {
       default:
         break;
     }
+  }
+
+  function initSliderEvents(slider, name, hoverLabel) {
+    // When a user clicks on the slider, update the handle of the slider to be where the player touched
+    slider.addEventListener("pointerdown", function (event) {
+      updateSliderHandle(event, slider);
+    });
+
+    slider.addEventListener("pointermove", function (event) {
+      // If we left-click and drag with a mouse, OR if it is not a mouse (aka it is a pointer for a phone)
+      // then assume this is a drag event where we want the slider to be dragged.
+      if (event.pointerType === "mouse" ? event.buttons === 1 : true) {
+        updateSliderHandle(event, slider);
+      }
+    });
+
+    // Add event listeners to each slider
+    slider.addEventListener("input", function () {
+      // Update the value of the actual variable as the slider changes
+      updateFactor(name, parseFloat(this.value));
+
+      // Update hover label text
+      hoverLabel.textContent = this.value;
+    });
+  }
+
+  function updateSliderHandle(event, slider) {
+    // Calculate and update slider value based on pointer location
+    var newValue = calculateNewValue(event.clientX, slider);
+    slider.value = newValue;
+
+    // Dispatch the input event to trigger any input event listeners (such as the updateFactor() for e.g. function that gets triggered during input events)
+    slider.dispatchEvent(new Event("input"));
+  }
+
+  function calculateNewValue(clientX, slider) {
+    // Calculate the position of the click or touch relative to the slider
+    var rect = slider.getBoundingClientRect();
+    var offsetX = clientX - rect.left;
+    var sliderWidth = rect.width;
+
+    // Calculate the new value based on the position of the click or touch
+    var min = parseFloat(slider.min);
+    var max = parseFloat(slider.max);
+    var range = max - min;
+    var ratio = Math.min(1, Math.max(0, offsetX / sliderWidth));
+    var newValue = min + ratio * range;
+
+    return newValue;
   }
 }
