@@ -8,17 +8,19 @@ export class Boid {
     // Store some attributes about this boid
     this.scene = scene;
     this.color = color;
-    this.speed = 0.2;
-    this.velocity = this.initVelocity();
     this.mainBoid = false;
 
     // Create a graphics object for the boid
     this.graphic = null;
     this.initBoid();
+    this.velocity = this.initVelocity();
 
     // Init at provided location, and centered
     this.graphic.x = spawnX - this.size / 2;
     this.graphic.y = spawnY - this.size / 2;
+
+    // Subscribe to relevant events
+    this.subscribeToEvents();
   }
 
   initBoid() {
@@ -38,6 +40,13 @@ export class Boid {
       this.size,
       this.size
     );
+  }
+
+  subscribeToEvents() {
+    // Ensure that the boid updates its own speed when the speed value changes
+    document.addEventListener("onSpeedChange", (event) => {
+      this.updateBoidSpeed();
+    });
   }
 
   calculateBoidSize() {
@@ -67,10 +76,16 @@ export class Boid {
     return velocity_desired;
   }
 
+  updateBoidSpeed() {
+    // Update's boid speed (mostly used so that when the "speed" value is changed by the slider, each boid can adjust their velocity to be
+    // capped at the new speed)
+    this.velocity = this.cleanupVelocity(this.velocity);
+  }
+
   cleanupVelocity(velocity_desired) {
     // Cleans up velocity such the provided value is normalized and then set in magnitude to the speed
     velocity_desired = Vec2.normalize(velocity_desired);
-    velocity_desired = Vec2.scale(velocity_desired, this.speed);
+    velocity_desired = Vec2.scale(velocity_desired, BoidFactors.speed);
     return velocity_desired;
   }
 
@@ -110,12 +125,39 @@ export class Boid {
     let separation = new Vec2(0, 0); // how far apart all boids are on avg (try to stay a certain distance apart)
     let neighborsCount = 0;
 
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
+
     // Loop through all other boids in the scene
     for (let otherBoid of boids) {
       if (otherBoid !== this) {
         // Calculate distance between this boid and the other
         let dx = otherBoid.graphic.x - this.graphic.x;
         let dy = otherBoid.graphic.y - this.graphic.y;
+
+        // Because boids can overflow to the other side of the screen, we need to check the
+        // "torus" distance as well to see if the boids are closer in that direction.
+        // To do so, we can assume the shorter route from one boid to another is through the edge of a screen if
+        // their distance in a given direction (x or y) is greater than half the respective size of the screen.
+        if (Math.abs(dx) > screenWidth / 2) {
+          // If "other" is to the right of "this", then we subtract screen width since
+          // in the land of "torus" geometry "other" is really to the left of "this" in their closest distance
+          if (dx > 0) {
+            dx -= screenWidth;
+          } else {
+            dx += screenWidth;
+          }
+        }
+        if (Math.abs(dy) > screenHeight / 2) {
+          // If "other" is above "this", then we subtract screen height since
+          // in the land of "torus" geometry "other" is really below "this" in their closest distance
+          if (dy > 0) {
+            dy -= screenHeight;
+          } else {
+            dy += screenHeight;
+          }
+        }
+
         let distanceSquared = dx * dx + dy * dy;
 
         // Update separation if otherBoid is within separation radius
@@ -177,7 +219,7 @@ export class Boid {
   }
 
   checkCollideScreenEdge(screenWidth, screenHeight) {
-    const edgeMargin = 10;
+    const edgeMargin = 1;
     // Check if the boid is too close to the left or right edge
     if (
       this.graphic.x <= edgeMargin + this.size / 2 ||

@@ -3,10 +3,15 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 
 // Define constants for the boids rules
 export const BoidFactors = {
-  alignmentFactor: 0.7,
-  cohesionFactor: 0.8,
-  flockSearchRadius: 70,
-  separationFactor: 0.6,
+  speed: 0.3,
+  alignmentFactor: 0.9,
+  cohesionFactor: 0.5,
+  flockSearchRadius: 50,
+  separationFactor: 0.8,
+};
+
+export const customEvents = {
+  speedChangeEvent: new Event("onSpeedChange"),
 };
 
 export function instantiateBoids(scene, boidCount) {
