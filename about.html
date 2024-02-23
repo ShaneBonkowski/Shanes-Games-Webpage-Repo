@@ -47,11 +47,13 @@
 
     <!-- Include the non-module scripts used -->
     <script src="Main-Website-Assets/js/header.js"></script>
-    <script src="Main-Website-Assets/js/about_me.js"></script>
     <script src="Main-Website-Assets/js/footer.js"></script>
 
-    <!-- Call JS functions -->
-    <script>
+    <!-- Call JS functions (using module so that we can import and call modules) -->
+    <script type="module">
+      // Import modules
+      import { createAboutMe } from "./Main-Website-Assets/js/about_me.js";
+
       // Wait for DOMContentLoaded before calling scripts
       document.addEventListener("DOMContentLoaded", function () {
         createHeader();

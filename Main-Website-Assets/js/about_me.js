@@ -1,4 +1,4 @@
-function createAboutMe() {
+export function createAboutMe() {
   // Create a container div for the box
   var boxContainer = document.createElement("div");
   boxContainer.classList.add("about-me-box");
