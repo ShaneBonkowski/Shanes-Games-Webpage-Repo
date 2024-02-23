@@ -3,8 +3,13 @@
 
 /* Define variables */
 :root {
+  /* Transforms */
+  --info-button-translate-x: -50%;
+  --info-button-translate-y: -200%;
   /* Edge Margins */
   --small-top-margin: 23%;
+  --info-header-x-button-margin-left: 95%;
+  --info-header-x-button-margin-top: 5%;
   /* Font Sizes */
   --test-font-size-og: calc(10vw * 0.2);
   --test-font-size: var(--test-font-size-og);
@@ -14,7 +19,13 @@
 @media screen and (max-width: 600px) {
   :root {
     /* Font Sizes */
-    --test-font-size: calc(var(--test-font-size-og) * 1.6);
+    --test-font-size: calc(var(--test-font-size-og) * 1.9);
+    /* Transforms */
+    --info-button-translate-x: -100%;
+    --info-button-translate-y: -150%;
+    /* Edge Margins */
+    --info-header-x-button-margin-left: 90%;
+    --info-header-x-button-margin-top: 5%;
   }
 }
 
@@ -47,6 +58,87 @@ body {
   user-select: none;
   outline: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+
+/* Info box and button */
+.info-box-container {
+  position: relative;
+  top: 100%;
+  pointer-events: none;
+}
+
+.info-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--main-text-color);
+  border: none;
+  color: var(--main-color);
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  left: 95%;
+  top: 0%;
+  transform: translate(
+    var(--info-button-translate-x),
+    var(--info-button-translate-y)
+  );
+  pointer-events: auto;
+}
+
+.info-button:hover {
+  transform: translate(
+      var(--info-button-translate-x),
+      var(--info-button-translate-y)
+    )
+    scale(1.3);
+  background-color: var(--button-hover-color);
+}
+
+.info-box {
+  display: none;
+  position: absolute;
+  top: var(--general-top-margin);
+  left: var(--general-left-margin);
+  transform: translate(var(--centering-translation), -100%);
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--panel-color);
+  /* border: 1px solid black; */
+  padding: 10px;
+  pointer-events: auto;
+}
+
+.info-header {
+  position: absolute;
+  left: var(--info-header-x-button-margin-left);
+  top: var(--info-header-x-button-margin-top);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--test-font-size);
+  color: var(--main-text-color);
+  pointer-events: auto;
+}
+
+.close-button {
+  cursor: pointer;
+  pointer-events: auto;
+  transform: scale(1.6);
+}
+
+.close-button:hover {
+  transform: scale(2.2);
+}
+
+.info-content {
+  position: absolute;
+  padding: 4vw;
+  left: var(--main-left-margin);
+  top: 0%;
+  font-size: var(--test-font-size);
+  color: var(--main-text-color);
+  pointer-events: auto;
 }
 
 /* Testing */
