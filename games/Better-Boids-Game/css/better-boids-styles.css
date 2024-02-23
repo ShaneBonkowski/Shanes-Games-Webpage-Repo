@@ -35,6 +35,18 @@
 body {
   font-family: MyCustomFont, sans-serif;
   /* Background-related styles for body are defined in the .html file since they are urgent and we want to guarentee those render in */
+
+  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
+  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 /* Testing */
