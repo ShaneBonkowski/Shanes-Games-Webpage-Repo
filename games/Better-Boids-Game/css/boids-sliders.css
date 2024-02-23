@@ -10,7 +10,7 @@
   --input-slider-height: var(--input-slider-height-og);
   --slider-blank-space-height: 8vh;
   /* Margins */
-  --slider-top-margin: 15vh;
+  --slider-top-margin: 0vh;
   --slider-container-left-margin-og: 4%;
   --slider-container-left-margin: var(--slider-container-left-margin-og);
   --hover-slider-label-top-margin-og: 25%;
@@ -35,7 +35,7 @@
     --slider-container-left-margin: calc(
       var(--slider-container-left-margin-og) * 1.5
     );
-    --slider-top-margin: 25vh;
+    --slider-top-margin: 0vh;
     /* Font Sizes */
     --slider-font-size: calc(var(--slider-font-size-og) * 1.9);
   }
