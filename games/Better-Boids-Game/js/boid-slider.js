@@ -159,6 +159,7 @@ export function addBoidSliders() {
     circle.style.top = "50%";
     circle.style.left = "50%";
     circle.style.transform = "translate(-50%, -50%)";
+    circle.style.zIndex = "6";
 
     // Adjust transparency based on radius value
     var transparency = 0.5;
