@@ -61,17 +61,6 @@ body {
   pointer-events: none;
   height: var(--input-slider-height);
   width: var(--input-slider-width);
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .slider-label {
@@ -81,17 +70,6 @@ body {
   pointer-events: none;
   font-size: var(--slider-font-size);
   white-space: nowrap;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .slider-hover-label {
@@ -101,17 +79,6 @@ body {
   display: none; /* Hide the label until we hover on it below */
   font-size: var(--slider-font-size);
   white-space: nowrap;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 /* for hovering on computer */
@@ -130,17 +97,6 @@ input[type="range"] {
   width: 100%;
   cursor: pointer;
   pointer-events: auto; /* Can click on this */
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 /* Define styles for when the slider is being interacted with */
