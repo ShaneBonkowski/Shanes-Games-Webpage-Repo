@@ -1,6 +1,14 @@
-import { BoidFactors } from "./boid-utils.js";
+import { BoidFactors, customEvents } from "./boid-utils.js";
 export function addBoidSliders() {
   // Create sliders and their containers
+  var speedSliderContainer = instantiateSlider(
+    "Speed",
+    BoidFactors.speed,
+    "0.05",
+    "1",
+    "0.05"
+  );
+
   var alignmentSliderContainer = instantiateSlider(
     "Alignment",
     BoidFactors.alignmentFactor,
@@ -165,6 +173,12 @@ export function addBoidSliders() {
   // Function to update the factor values
   function updateFactor(factorName, value) {
     switch (factorName) {
+      case "Speed":
+        BoidFactors.speed = value;
+
+        // Dispatch a custom event for specifically the speed slider
+        document.dispatchEvent(customEvents.speedChangeEvent);
+        break;
       case "Alignment":
         BoidFactors.alignmentFactor = value;
         break;
@@ -185,18 +199,18 @@ export function addBoidSliders() {
   function initSliderEvents(slider, name, hoverLabel) {
     // When a user clicks on the slider, update the handle of the slider to be where the player touched
     slider.addEventListener("pointerdown", function (event) {
-      updateSliderHandle(event, slider);
+      updateSliderHandle(event, slider, name);
     });
 
     slider.addEventListener("pointermove", function (event) {
       // If we left-click and drag with a mouse, OR if it is not a mouse (aka it is a pointer for a phone)
       // then assume this is a drag event where we want the slider to be dragged.
       if (event.pointerType === "mouse" ? event.buttons === 1 : true) {
-        updateSliderHandle(event, slider);
+        updateSliderHandle(event, slider, name);
       }
     });
 
-    // Add event listeners to each slider
+    // Add input event listeners to each slider to update slider value
     slider.addEventListener("input", function () {
       // Update the value of the actual variable as the slider changes
       updateFactor(name, parseFloat(this.value));
@@ -206,7 +220,7 @@ export function addBoidSliders() {
     });
   }
 
-  function updateSliderHandle(event, slider) {
+  function updateSliderHandle(event, slider, name) {
     // Calculate and update slider value based on pointer location
     var newValue = calculateNewValue(event.clientX, slider);
     slider.value = newValue;

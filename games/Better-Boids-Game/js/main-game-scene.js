@@ -36,9 +36,9 @@ export class MainGameScene extends Phaser.Scene {
     this.initIsPlayerInteracting();
     this.disableScroll();
 
-    // Spawn in 10 random boids as a Promise (so that we can run this async), and then
+    // Spawn in x random boids as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
-    instantiateBoids(this, 15).then((boids) => {
+    instantiateBoids(this, 25).then((boids) => {
       this.boids = boids;
 
       // Continue with other initialization logic after boids are instantiated:

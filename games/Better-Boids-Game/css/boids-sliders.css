@@ -8,7 +8,7 @@
   --input-slider-width: var(--input-slider-width-og);
   --input-slider-height-og: 5vh;
   --input-slider-height: var(--input-slider-height-og);
-  --slider-blank-space-height: 10vh;
+  --slider-blank-space-height: 8vh;
   /* Margins */
   --slider-top-margin: 10vh;
   --slider-container-left-margin-og: 4%;
