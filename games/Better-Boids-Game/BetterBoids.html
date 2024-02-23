@@ -64,41 +64,38 @@
         text-decoration: underline;
       }
     </style>
-    <div class="info-box-container">
-      <button id="infoButton" class="info-button">
-        <span class="info-icon">i</span>
-      </button>
-      <div id="infoBox" class="info-box">
-        <div class="info-header">
-          <span class="close-button" onclick="closeInfoBox()">x</span>
-        </div>
-        <div class="info-content">
-          <h2>About Boids</h2>
-          <p>
-            The
-            <a href="https://en.wikipedia.org/wiki/Boids" target="_blank"
-              >Boids algorithm</a
-            >, devised by Craig Reynolds, mimics the flocking behavior seen in
-            birds and other animals. In general, Boids typically have three
-            rules:
-          </p>
-          <ul>
-            <li>
-              Alignment: Boids try to align their direction with other nearby
-              Boids
-            </li>
-            <li>
-              Cohesion: Boids move towards the average position of nearby Boids
-            </li>
-            <li>Separation: Boids avoid crowding together</li>
-          </ul>
-          <p>
-            From these three simple rules, complex emergent behavior and
-            intricate patterns can arise. This little game is an attempt to
-            display the beauty in the Boids algorithm, while expanding on it
-            with novel concepts where applicable.
-          </p>
-        </div>
+    <button id="infoButton" class="info-button">
+      <span class="info-icon">i</span>
+    </button>
+    <div id="infoBox" class="info-box">
+      <div class="info-header">
+        <span class="close-button" onclick="closeInfoBox()">x</span>
+      </div>
+      <div class="info-content">
+        <h2>About Boids</h2>
+        <p>
+          The
+          <a href="https://en.wikipedia.org/wiki/Boids" target="_blank"
+            >Boids algorithm</a
+          >, devised by Craig Reynolds, mimics the flocking behavior seen in
+          birds and other animals. In general, Boids typically have three rules:
+        </p>
+        <ul>
+          <li>
+            Alignment: Boids try to align their direction with other nearby
+            Boids
+          </li>
+          <li>
+            Cohesion: Boids move towards the average position of nearby Boids
+          </li>
+          <li>Separation: Boids avoid crowding together</li>
+        </ul>
+        <p>
+          From these three simple rules, complex emergent behavior and intricate
+          patterns can arise. This little game is an attempt to display the
+          beauty in the Boids algorithm, while expanding on it with novel
+          concepts where applicable.
+        </p>
       </div>
     </div>
     <script src="../Better-Boids-Game/js/info_box.js"></script>
