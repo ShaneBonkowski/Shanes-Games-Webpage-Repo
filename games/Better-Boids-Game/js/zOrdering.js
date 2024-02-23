@@ -4,7 +4,6 @@ export function setZOrderForSharedElements(game) {
   game.canvas.style.position = "absolute";
   game.canvas.style.left = "0";
   game.canvas.style.top = "0";
-  game.canvas.style.zIndex = "0";
 
   // Get a reference to the css objects we want to position
   var gameHeader = document.querySelector(".game-header-banner");
@@ -16,15 +15,15 @@ export function setZOrderForSharedElements(game) {
 
   // Set the z-index property for all other objs\
   // helloWorldBox.style.zIndex = "-1"; // far back
-  // 0 is reserved for the canvas
-  gameHeader.style.zIndex = "1"; // far front
+  game.canvas.style.zIndex = "0";
+  gameHeader.style.zIndex = "2";
 
   sliderContainers.forEach((sliderContainer) => {
-    sliderContainer.style.zIndex = "2"; // bring to the far front
+    sliderContainer.style.zIndex = "3";
   });
-  infoButton.style.zIndex = "4"; // bring to the far, far front
-  infoBox.style.zIndex = "5"; // bring to the far, far front
-  closeButton.style.zIndex = "6"; // bring to the far, far front
+  infoButton.style.zIndex = "4";
+  infoBox.style.zIndex = "5";
+  closeButton.style.zIndex = "6";
 }
 
 export function setZOrderForMainGameElements(game) {
