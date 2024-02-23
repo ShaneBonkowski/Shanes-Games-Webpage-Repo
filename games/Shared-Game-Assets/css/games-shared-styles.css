@@ -44,6 +44,7 @@
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
   height: var(--game-header-height);
+  top: -5%;
   pointer-events: none; /* Disable pointer events for the banner itself */
   /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
   /* E.g. this will disable things like double click to zoom, highlighting, etc. */
