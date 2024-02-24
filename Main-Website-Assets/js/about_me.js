@@ -1,29 +1,23 @@
 export function createAboutMe() {
-  // Create a container div for the box
   var boxContainer = document.createElement("div");
   boxContainer.classList.add("about-me-box");
 
-  // Create an image element
   var imageAboutMe = document.createElement("img");
   imageAboutMe.src = "Main-Website-Assets/pngs/Radiohead.png";
   imageAboutMe.classList.add("about-me-image");
 
-  // Create a container div for the image (where we will rendrer the light blue space helmet for the radio dude)
   var imageContainer = document.createElement("div");
   imageContainer.classList.add("about-me-image-container");
 
-  // Create an h1 element for the title
   var titleElement = document.createElement("h1");
   titleElement.textContent = "About Shane";
   titleElement.classList.add("about-me-title");
 
-  // Create a div for the sub title text
   var subTitleTextDiv = document.createElement("div");
   subTitleTextDiv.textContent =
     "Engineering, Software Development, Game Development, Data Analysis, and really anything in between.";
   subTitleTextDiv.classList.add("about-me-sub-title-text");
 
-  // Create a div for the rest of the text
   var mainTextDiv = document.createElement("div");
   const aboutMeParagraph = `
 I'm a lifelong learner with a degree in Aerospace Engineering from the University of Maryland, College Park. Despite my formal education, my journey into programming and game development has been almost entirely "self-taught" on the internet. 

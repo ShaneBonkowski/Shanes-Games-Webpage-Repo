@@ -2,7 +2,7 @@ import { BoidFactors, customEvents } from "./boid-utils.js";
 export function addBoidSliders() {
   // Create sliders and their containers
   var speedSliderContainer = instantiateSlider(
-    "Speed",
+    "Max Speed",
     BoidFactors.speed,
     "0.05",
     "1",
@@ -14,7 +14,7 @@ export function addBoidSliders() {
     BoidFactors.alignmentFactor,
     "0",
     "1",
-    "0.05"
+    "0.001"
   );
 
   var cohesionSliderContainer = instantiateSlider(
@@ -22,14 +22,14 @@ export function addBoidSliders() {
     BoidFactors.cohesionFactor,
     "0",
     "1",
-    "0.05"
+    "0.001"
   );
 
   var radiusSliderContainer = instantiateSlider(
     "Flock Radius",
     BoidFactors.flockSearchRadius,
-    "0",
-    "200",
+    `${BoidFactors.boidProtectedRadius + 5}`, // Cannot go smaller than protected radius with some buffer
+    "100",
     "1"
   );
 
@@ -38,7 +38,7 @@ export function addBoidSliders() {
     BoidFactors.separationFactor,
     "0",
     "1",
-    "0.05"
+    "0.001"
   );
 
   addFlockRadiusIndicator(radiusSliderContainer);
@@ -170,7 +170,7 @@ export function addBoidSliders() {
   // Function to update the factor values
   function updateFactor(factorName, value) {
     switch (factorName) {
-      case "Speed":
+      case "Max Speed":
         BoidFactors.speed = value;
 
         // Dispatch a custom event for specifically the speed slider

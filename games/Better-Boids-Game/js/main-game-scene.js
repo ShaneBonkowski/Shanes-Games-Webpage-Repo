@@ -38,7 +38,7 @@ export class MainGameScene extends Phaser.Scene {
 
     // Spawn in x random boids as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
-    instantiateBoids(this, 25).then((boids) => {
+    instantiateBoids(this, 40).then((boids) => {
       this.boids = boids;
 
       // Continue with other initialization logic after boids are instantiated:
@@ -57,7 +57,7 @@ export class MainGameScene extends Phaser.Scene {
         time - Physics.lastPhysicsUpdateTime >=
         Physics.physicsUpdateInterval
       ) {
-        Physics.performPhysicsUpdate(this.boids, time);
+        Physics.performPhysicsUpdate(time);
 
         // Handle the boid physics
         for (let boid of this.boids) {

@@ -4,10 +4,13 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 // Define constants for the boids rules
 export const BoidFactors = {
   speed: 0.3,
-  alignmentFactor: 0.9,
-  cohesionFactor: 0.5,
-  flockSearchRadius: 50,
+  alignmentFactor: 0.4,
+  cohesionFactor: 0.15,
   separationFactor: 0.8,
+  leaderFollowFactor: 5,
+  leaderFollowRadius: 200,
+  flockSearchRadius: 50,
+  boidProtectedRadius: 20,
 };
 
 export const customEvents = {
@@ -21,12 +24,13 @@ export function instantiateBoids(scene, boidCount) {
     let boids = [];
     let boidsInitialized = 0;
 
-    //   // Spawn in the main boid at the middle of the screen, and have it follow mouse
-    //   let spawnX = window.innerWidth / 2;
-    //   let spawnY = window.innerHeight / 2;
-    //   let mainBoid = new Boid(scene, boidColor, spawnX, spawnY);
-    //   mainBoid.makeFollowPointer();
-    //   boids.push(mainBoid); // Add the main boid to the list
+    // Spawn in the main boid at the middle of the screen, and have it follow mouse
+    let spawnX = window.innerWidth / 2;
+    let spawnY = window.innerHeight / 2;
+    const leaderColor = 0x000000;
+    let mainBoid = new Boid(scene, leaderColor, spawnX, spawnY);
+    mainBoid.makeFollowPointer();
+    boids.push(mainBoid); // Add the main boid to the list
 
     // Function to check if all boids are initialized
     function checkInitialization() {
