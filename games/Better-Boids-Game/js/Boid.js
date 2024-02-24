@@ -9,6 +9,7 @@ export class Boid {
     this.scene = scene;
     this.color = color;
     this.mainBoid = false;
+    this.mainBoidActivated = false;
 
     // Create a graphics object for the boid
     this.graphic = null;
@@ -47,6 +48,15 @@ export class Boid {
     document.addEventListener("onSpeedChange", (event) => {
       this.updateBoidSpeed();
     });
+
+    // Leader is activated if pointer is down (aka player is clicking) on the canvas
+    document.addEventListener("pointerdown", (event) => {
+      this.mainBoidActivated = true;
+    });
+
+    document.addEventListener("pointerup", () => {
+      this.mainBoidActivated = false;
+    });
   }
 
   calculateBoidSize() {
@@ -72,20 +82,28 @@ export class Boid {
       more_math.getRandomFloat(0.1, 1)
     );
 
-    velocity_desired = this.cleanupVelocity(velocity_desired);
+    velocity_desired = this.clampVelocity(velocity_desired);
     return velocity_desired;
   }
 
   updateBoidSpeed() {
     // Update's boid speed (mostly used so that when the "speed" value is changed by the slider, each boid can adjust their velocity to be
     // capped at the new speed)
-    this.velocity = this.cleanupVelocity(this.velocity);
+    this.velocity = this.clampVelocity(this.velocity);
   }
 
-  cleanupVelocity(velocity_desired) {
-    // Cleans up velocity such the provided value is normalized and then set in magnitude to the speed
-    velocity_desired = Vec2.normalize(velocity_desired);
-    velocity_desired = Vec2.scale(velocity_desired, BoidFactors.speed);
+  clampVelocity(velocity_desired) {
+    // Cleans up velocity such if the provided value is not within min and max speed,
+    // it is normalized and then set in magnitude to the speed limit it is at.
+    let normalized_veloc = Vec2.normalize(velocity_desired);
+    if (Vec2.magnitude(velocity_desired) > BoidFactors.speed) {
+      velocity_desired = Vec2.scale(normalized_veloc, BoidFactors.speed);
+    }
+    // Min speed is defined at 10% max speed
+    else if (Vec2.magnitude(velocity_desired) < BoidFactors.speed * 0.1) {
+      velocity_desired = Vec2.scale(normalized_veloc, BoidFactors.speed * 0.1);
+    }
+
     return velocity_desired;
   }
 
@@ -107,10 +125,28 @@ export class Boid {
 
     if (!this.mainBoid) {
       // Boid Behavior
-      this.handleBoidFlocking(boids);
+      let desired_velocity = this.handleBoidFlocking(boids);
 
       // Handle collisions
-      this.handleCollisions(boids, screenWidth, screenHeight);
+      desired_velocity = this.handleCollisions(
+        boids,
+        desired_velocity,
+        screenWidth,
+        screenHeight
+      );
+
+      // Lerp toward desired velocity
+      let lerpFactor = 0.1;
+      this.velocity.x = more_math.lerp(
+        this.velocity.x,
+        desired_velocity.x,
+        lerpFactor
+      );
+      this.velocity.y = more_math.lerp(
+        this.velocity.y,
+        desired_velocity.y,
+        lerpFactor
+      );
 
       // Position update
       this.graphic.x += this.velocity.x * Physics.physicsUpdateInterval; // x = vx * t
@@ -119,14 +155,17 @@ export class Boid {
   }
 
   handleBoidFlocking(boids) {
-    // Initialize variables to compute the new velocity
-    let alignment = new Vec2(0, 0); // how similar all boids veloc are (try to converge to same heading)
-    let cohesion = new Vec2(0, 0); // how similar all boids pos are (i.e. try to head toward a center of mass)
+    // Initialize variables to compute the new velocity based on boid rules
+    let veloc_sum = new Vec2(0, 0);
+    let pos_sum = new Vec2(0, 0);
     let separation = new Vec2(0, 0); // how far apart all boids are on avg (try to stay a certain distance apart)
     let neighborsCount = 0;
 
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
+
+    let followLeader = false;
+    let leader_pos = new Vec2(0, 0);
 
     // Loop through all other boids in the scene
     for (let otherBoid of boids) {
@@ -160,62 +199,97 @@ export class Boid {
 
         let distanceSquared = dx * dx + dy * dy;
 
-        // Update separation if otherBoid is within separation radius
+        // Update boid flock measurements if otherBoid is within search radius
         if (
           distanceSquared <
           BoidFactors.flockSearchRadius * BoidFactors.flockSearchRadius
         ) {
           let distance = Math.sqrt(distanceSquared);
           if (distance > 0) {
-            // Subtract so we move opposite to separate
-            separation = Vec2.subtract(separation, new Vec2(dx, dy));
-          }
-          neighborsCount++;
+            neighborsCount++;
 
-          // Accumulate alignment and cohesion vectors (add so we go toward these)
-          alignment = Vec2.add(
-            alignment,
-            Vec2.subtract(otherBoid.velocity, this.velocity)
-          );
-          cohesion = Vec2.add(
-            cohesion,
-            Vec2.subtract(
-              new Vec2(otherBoid.graphic.x, otherBoid.graphic.y),
-              new Vec2(this.graphic.x, this.graphic.y)
-            )
-          );
+            // Total up avg veloc and position for neighboring boids
+            veloc_sum = Vec2.add(veloc_sum, otherBoid.velocity);
+            pos_sum = Vec2.add(
+              pos_sum,
+              new Vec2(otherBoid.graphic.x, otherBoid.graphic.y)
+            );
+
+            // If any boids are within the protected radius of a boid, steer away from them
+            if (distance < BoidFactors.boidProtectedRadius) {
+              // By doing 0 - distance, this allows us to have this boid move away from other boid
+              separation = Vec2.add(
+                separation,
+                Vec2.subtract(new Vec2(0, 0), new Vec2(dx, dy))
+              );
+            }
+          }
+        }
+
+        // If otherBoid is the main boid and the main boid is activated, follow the leader if within leader follow radius!
+        if (otherBoid.mainBoid == true && otherBoid.mainBoidActivated) {
+          if (
+            distanceSquared <
+            BoidFactors.leaderFollowRadius * BoidFactors.leaderFollowRadius
+          ) {
+            followLeader = true;
+            leader_pos = new Vec2(otherBoid.graphic.x, otherBoid.graphic.y);
+          }
         }
       }
     }
 
+    // Calculate and update the new velocity based on the rules
+    let desired_velocity = new Vec2(0, 0);
     if (neighborsCount > 0) {
-      // Calculate average alignment and cohesion
-      alignment = new Vec2(
-        alignment.x / neighborsCount,
-        alignment.y / neighborsCount
+      // Alignment: Steer toward average neighboring boid heading (aka velocity)
+      let avg_veloc = new Vec2(0, 0);
+      avg_veloc = new Vec2(
+        veloc_sum.x / neighborsCount,
+        veloc_sum.y / neighborsCount
       );
-      cohesion = new Vec2(
-        cohesion.x / neighborsCount,
-        cohesion.y / neighborsCount
-      );
+      desired_velocity.x +=
+        (avg_veloc.x - this.velocity.x) * BoidFactors.alignmentFactor;
+      desired_velocity.y +=
+        (avg_veloc.y - this.velocity.y) * BoidFactors.alignmentFactor;
 
-      // Calculate and update the new velocity based on the rules
-      let new_velocity = new Vec2(0, 0);
-      new_velocity.x +=
-        alignment.x * BoidFactors.alignmentFactor +
-        cohesion.x * BoidFactors.cohesionFactor +
-        separation.x * BoidFactors.separationFactor;
-      new_velocity.y +=
-        alignment.y * BoidFactors.alignmentFactor +
-        cohesion.y * BoidFactors.cohesionFactor +
-        separation.y * BoidFactors.separationFactor;
-      this.velocity = this.cleanupVelocity(new_velocity);
+      // Cohesion: Steer toward average neighboring boid position (aka center of mass)
+      let avg_pos = new Vec2(0, 0);
+      avg_pos = new Vec2(
+        pos_sum.x / neighborsCount,
+        pos_sum.y / neighborsCount
+      );
+      desired_velocity.x +=
+        (avg_pos.x - this.graphic.x) * BoidFactors.cohesionFactor;
+      desired_velocity.y +=
+        (avg_pos.y - this.graphic.y) * BoidFactors.cohesionFactor;
+
+      // Separation: boids steer away from boids within their boidProtectedRadius
+      desired_velocity.x += separation.x * BoidFactors.separationFactor;
+      desired_velocity.y += separation.y * BoidFactors.separationFactor;
+
+      // Follow the leader if told to do so!
+      if (followLeader) {
+        desired_velocity.x +=
+          (leader_pos.x - this.graphic.x) * BoidFactors.leaderFollowFactor;
+        desired_velocity.y +=
+          (leader_pos.y - this.graphic.y) * BoidFactors.leaderFollowFactor;
+      }
+    } else {
+      desired_velocity = this.velocity;
     }
+
+    // Cleanup veloc so we dont exceed speed limit
+    desired_velocity = this.clampVelocity(desired_velocity);
+
+    return desired_velocity;
   }
 
-  handleCollisions(boids, screenWidth, screenHeight) {
+  handleCollisions(boids, desired_velocity, screenWidth, screenHeight) {
     this.checkCollideScreenEdge(screenWidth, screenHeight);
-    this.checkCollideWithOtherBoids(boids);
+    // desired_velocity = this.checkCollideWithOtherBoids(boids, desired_velocity);
+
+    return desired_velocity;
   }
 
   checkCollideScreenEdge(screenWidth, screenHeight) {
@@ -251,7 +325,7 @@ export class Boid {
     }
   }
 
-  checkCollideWithOtherBoids(boids) {
+  checkCollideWithOtherBoids(boids, desired_velocity) {
     const boidForceMagnitude = 1;
 
     // Collisions with other boids
@@ -262,21 +336,30 @@ export class Boid {
         let distanceSquared = dx * dx + dy * dy;
 
         // Check if there's a collision
-        if (distanceSquared < (this.size / 2 + otherBoid.size / 2) ** 2) {
+        if (
+          Physics.checkCircleCollision(
+            distanceSquared,
+            this.size / 2,
+            otherBoid.size / 2
+          )
+        ) {
           // Calculate the repulsive force (inversely proportional to distance)
           let direction = Vec2.normalize(new Vec2(dx, dy));
           let repulsiveForceMag =
             boidForceMagnitude / Math.sqrt(distanceSquared);
           let repulsiveForce = Vec2.scale(direction, repulsiveForceMag);
 
-          // Adjust velocities of both boids to move away from each other
-          let new_velocity = Vec2.subtract(this.velocity, repulsiveForce);
-          this.velocity = this.cleanupVelocity(new_velocity);
-
-          new_velocity = Vec2.add(otherBoid.velocity, repulsiveForce);
-          otherBoid.velocity = otherBoid.cleanupVelocity(new_velocity);
+          // Adjust velocity so that current boid moves away from boid it collided into (hence why we subtract).
+          // Only update current boid's veloc since other boid should be calling this fucntion as well and moving away on its own.
+          let desired_velocity = Vec2.subtract(
+            desired_velocity,
+            repulsiveForce
+          );
+          desired_velocity = this.clampVelocity(desired_velocity);
         }
       }
     }
+
+    return desired_velocity;
   }
 }
