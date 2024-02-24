@@ -3,13 +3,13 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 
 // Define constants for the boids rules
 export const BoidFactors = {
-  speed: 0.3,
-  alignmentFactor: 0.4,
-  cohesionFactor: 0.15,
-  separationFactor: 0.8,
+  speed: 0.6,
+  alignmentFactor: 0.2,
+  cohesionFactor: 0.075,
+  separationFactor: 0.9,
   leaderFollowFactor: 5,
   leaderFollowRadius: 200,
-  flockSearchRadius: 50,
+  flockSearchRadius: 40,
   boidProtectedRadius: 20,
 };
 
