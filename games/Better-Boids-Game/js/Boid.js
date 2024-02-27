@@ -4,21 +4,25 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { BoidFactors } from "./boid-utils.js";
 
 export class Boid {
-  constructor(scene, color, spawnX, spawnY) {
+  constructor(scene, spawnX, spawnY, leaderBoid) {
     // Store some attributes about this boid
     this.scene = scene;
-    this.color = color;
-    this.mainBoid = false;
+    this.mainBoid = leaderBoid;
     this.mainBoidActivated = false;
+    this.initBoidType();
+    this.velocity = this.initVelocity();
+
+    if (this.mainBoid == true) {
+      this.makeLeader();
+    }
 
     // Create a graphics object for the boid
     this.graphic = null;
     this.initBoid();
-    this.velocity = this.initVelocity();
 
     // Init at provided location, and centered
-    this.graphic.x = spawnX - this.size / 2;
-    this.graphic.y = spawnY - this.size / 2;
+    this.graphic.x = spawnX;
+    this.graphic.y = spawnY;
 
     // Subscribe to relevant events
     this.subscribeToEvents();
@@ -27,20 +31,43 @@ export class Boid {
   initBoid() {
     this.size = this.calculateBoidSize();
 
-    // Clear existing graphic if it is not null
-    if (this.graphic) {
-      this.graphic.clear();
+    let boidAnimName = "";
+    // Spawn in graphic of size provided, and center the graphic on itself
+    if (this.boid_type == "Good") {
+      boidAnimName = "Good Boid Anim";
+    } else if (this.boid_type == "Bad") {
+      boidAnimName = "Bad Boid Anim";
+    } else {
+      boidAnimName = "Leader Boid Anim";
     }
 
-    // Spawn in graphic of size provided, and center the graphic on itself
-    this.graphic = this.scene.add.graphics();
-    this.graphic.fillStyle(this.color, 1);
-    this.graphic.fillRect(
-      (-1 * this.size) / 2,
-      (-1 * this.size) / 2,
-      this.size,
-      this.size
-    );
+    this.graphic = this.scene.add.sprite(0, 0, boidAnimName); // spawn at 0,0 to start
+
+    // Define an animation for the sprite
+    this.graphic.anims.create({
+      key: "boidAnimation",
+      frames: this.graphic.anims.generateFrameNumbers(boidAnimName, {
+        start: 0,
+        end: -1,
+      }), // -1 to use all frames
+      frameRate: 6, // Adjust frame rate as needed
+      repeat: -1, // Repeat indefinitely
+    });
+
+    // Play the animation
+    this.graphic.anims.play("boidAnimation");
+
+    // Set the scale and origin
+    this.graphic.setScale(this.size);
+    this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
+  }
+
+  initBoidType() {
+    if (more_math.getRandomFloat(0, 1) < 0.8) {
+      this.boid_type = "Good";
+    } else {
+      this.boid_type = "Bad";
+    }
   }
 
   subscribeToEvents() {
@@ -57,22 +84,31 @@ export class Boid {
     document.addEventListener("pointerup", () => {
       this.mainBoidActivated = false;
     });
+
+    // Leader boid movement
+    if (this.mainBoid) {
+      this.scene.input.on("pointermove", (pointer) => {
+        this.graphic.x = pointer.worldX;
+        this.graphic.y = pointer.worldY;
+      });
+    }
   }
 
   calculateBoidSize() {
     // Calculate the boid size based on the screen width
     const screenWidth = window.innerWidth;
-    const boidSize = screenWidth * 0.01;
+    const boidSize = screenWidth * 0.00009;
 
     return boidSize;
   }
 
   handleWindowResize(new_x, new_y) {
     // Reinitialize the boid and its graphic on resize
-    this.initBoid();
+    this.size = this.calculateBoidSize();
+    this.graphic.setScale(this.size);
 
-    this.graphic.x = new_x - this.size / 2;
-    this.graphic.y = new_y - this.size / 2;
+    this.graphic.x = new_x;
+    this.graphic.y = new_y;
   }
 
   initVelocity() {
@@ -107,15 +143,11 @@ export class Boid {
     return velocity_desired;
   }
 
-  // makes this boid directly follow the pointer on the screen
-  makeFollowPointer() {
-    // This makes this boid become the "main boid"
+  // Turns this boid into the main boid
+  // (makes this boid directly follow the pointer on the screen)
+  makeLeader() {
     this.mainBoid = true;
-
-    this.scene.input.on("pointermove", (pointer) => {
-      this.graphic.x = pointer.worldX;
-      this.graphic.y = pointer.worldY;
-    });
+    this.boid_type = "Leader";
   }
 
   // Physics for boid

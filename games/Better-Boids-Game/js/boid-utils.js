@@ -20,16 +20,14 @@ export const customEvents = {
 export function instantiateBoids(scene, boidCount) {
   // Allows for async behavior
   return new Promise((resolve, reject) => {
-    const boidColor = 0xffffff;
     let boids = [];
     let boidsInitialized = 0;
 
     // Spawn in the main boid at the middle of the screen, and have it follow mouse
     let spawnX = window.innerWidth / 2;
     let spawnY = window.innerHeight / 2;
-    const leaderColor = 0x000000;
-    let mainBoid = new Boid(scene, leaderColor, spawnX, spawnY);
-    mainBoid.makeFollowPointer();
+    let leaderBoid = true;
+    let mainBoid = new Boid(scene, spawnX, spawnY, leaderBoid);
     boids.push(mainBoid); // Add the main boid to the list
 
     // Function to check if all boids are initialized
@@ -40,10 +38,11 @@ export function instantiateBoids(scene, boidCount) {
     }
 
     // Spawn in other boids randomly
+    leaderBoid = false;
     for (let i = 0; i < boidCount; i++) {
       let randomX = more_math.getRandomFloat(0.1, 0.9) * window.innerWidth;
       let randomY = more_math.getRandomFloat(0.1, 0.9) * window.innerHeight;
-      let boid = new Boid(scene, boidColor, randomX, randomY);
+      let boid = new Boid(scene, randomX, randomY, leaderBoid);
       boids.push(boid);
 
       // Increment the count of initialized boids

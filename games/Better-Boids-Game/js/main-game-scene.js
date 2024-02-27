@@ -18,6 +18,24 @@ export class MainGameScene extends Phaser.Scene {
 
   preload() {
     // Preload assets if needed
+    this.load.image("Bad Boid", "./pngs/Bad_Boid.png");
+    this.load.image("Good Boid", "./pngs/Good_Boid.png");
+    this.load.image("Leader Boid", "./pngs/Leader_Boid.png");
+    this.load.spritesheet(
+      "Bad Boid Anim",
+      "./pngs/Bad_Boid_Anim_Spritesheet.png",
+      { frameWidth: 600, frameHeight: 600 }
+    );
+    this.load.spritesheet(
+      "Good Boid Anim",
+      "./pngs/Good_Boid_Anim_Spritesheet.png",
+      { frameWidth: 600, frameHeight: 600 }
+    );
+    this.load.spritesheet(
+      "Leader Boid Anim",
+      "./pngs/Leader_Boid_Anim_Spritesheet.png",
+      { frameWidth: 600, frameHeight: 600 }
+    );
   }
 
   create() {
@@ -38,6 +56,7 @@ export class MainGameScene extends Phaser.Scene {
 
     // Spawn in x random boids as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
+
     instantiateBoids(this, 40).then((boids) => {
       this.boids = boids;
 
@@ -119,6 +138,7 @@ export class MainGameScene extends Phaser.Scene {
     // We want to retain the general location of the boid, so we try to position it
     // the same screen % it was before on the new screen.
     for (let boid of this.boids) {
+      // Everything but main boid:
       if (boid.mainBoid == false) {
         // Calculate new position based on percentage of old position
         let new_x = (boid.graphic.x / this.lastKnownWindowSize.x) * screenWidth;
@@ -127,6 +147,11 @@ export class MainGameScene extends Phaser.Scene {
 
         // handle re-sizing etc. of boid
         boid.handleWindowResize(new_x, new_y);
+      }
+      // Main boid only:
+      else {
+        // handle re-sizing etc. of boid ONLY... no new position like other boids
+        boid.handleWindowResize(boid.graphic.x, boid.graphic.y);
       }
     }
 
