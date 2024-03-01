@@ -3,6 +3,11 @@ import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 
+// Used to determine if pointer is held down
+let pointerDownTime = 0;
+const holdThreshold = 0.1; // seconds
+let holdTimer = null;
+
 // Export so other scripts can access this
 export class MainGameScene extends Phaser.Scene {
   constructor() {
@@ -18,6 +23,24 @@ export class MainGameScene extends Phaser.Scene {
 
   preload() {
     // Preload assets if needed
+    this.load.image("Bad Boid", "./pngs/Bad_Boid.png");
+    this.load.image("Good Boid", "./pngs/Good_Boid.png");
+    this.load.image("Leader Boid", "./pngs/Leader_Boid.png");
+    this.load.spritesheet(
+      "Bad Boid Anim",
+      "./pngs/Bad_Boid_Anim_Spritesheet.png",
+      { frameWidth: 600, frameHeight: 600 }
+    );
+    this.load.spritesheet(
+      "Good Boid Anim",
+      "./pngs/Good_Boid_Anim_Spritesheet.png",
+      { frameWidth: 600, frameHeight: 600 }
+    );
+    this.load.spritesheet(
+      "Leader Boid Anim",
+      "./pngs/Leader_Boid_Anim_Spritesheet.png",
+      { frameWidth: 600, frameHeight: 600 }
+    );
   }
 
   create() {
@@ -33,11 +56,12 @@ export class MainGameScene extends Phaser.Scene {
     });
     resizeObserver.observe(document.documentElement);
 
-    this.initIsPlayerInteracting();
+    this.subscribeToEvents();
     this.disableScroll();
 
     // Spawn in x random boids as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
+
     instantiateBoids(this, 40).then((boids) => {
       this.boids = boids;
 
@@ -90,7 +114,7 @@ export class MainGameScene extends Phaser.Scene {
     //event.preventDefault();
   }
 
-  initIsPlayerInteracting() {
+  subscribeToEvents() {
     // Event listener to detect when the user interacts with the game
     document.addEventListener(
       "pointerdown",
@@ -107,6 +131,44 @@ export class MainGameScene extends Phaser.Scene {
       },
       { capture: true }
     );
+
+    // Custom event that fires whenever pointer is held down longer than threshold during a click.
+    // Pretty much for any "long" click tasks, like hold for this long to call this function.
+    document.addEventListener(
+      "pointerdown",
+      () => {
+        // Define holdTimer if it is not already (note that it gets cleared on pointerup below)
+        pointerDownTime = Date.now();
+        if (!holdTimer) {
+          // Check holdThreshold seconds from now if we are still holding down pointer.
+          holdTimer = setTimeout(() => {
+            // If we are still holding down, dispatch pointerholdclick to tell the event listeners that we are held down
+            let holdDuration = Date.now() - pointerDownTime;
+            if (holdDuration >= holdThreshold) {
+              document.dispatchEvent(new Event("pointerholdclick"));
+            }
+
+            // Reset holdTimer after it's triggered
+            holdTimer = null;
+          }, holdThreshold * 1000); // sec -> millisec
+        }
+
+        // When the pointer is released, clear the hold timer
+        const pointerUpListener = () => {
+          // Reset holdTimer when pointer is released
+          clearTimeout(holdTimer);
+          holdTimer = null;
+
+          // Remove the event listener so that we only listen for pointerup once.
+          // For reference, we re-listen for pointerup each time we hold down again.
+          document.removeEventListener("pointerup", pointerUpListener);
+        };
+        document.addEventListener("pointerup", pointerUpListener, {
+          once: true,
+        });
+      },
+      { capture: true }
+    );
   }
 
   // Function to handle window resize event
@@ -119,6 +181,7 @@ export class MainGameScene extends Phaser.Scene {
     // We want to retain the general location of the boid, so we try to position it
     // the same screen % it was before on the new screen.
     for (let boid of this.boids) {
+      // Everything but main boid:
       if (boid.mainBoid == false) {
         // Calculate new position based on percentage of old position
         let new_x = (boid.graphic.x / this.lastKnownWindowSize.x) * screenWidth;
@@ -127,6 +190,11 @@ export class MainGameScene extends Phaser.Scene {
 
         // handle re-sizing etc. of boid
         boid.handleWindowResize(new_x, new_y);
+      }
+      // Main boid only:
+      else {
+        // handle re-sizing etc. of boid ONLY... no new position like other boids
+        boid.handleWindowResize(boid.graphic.x, boid.graphic.y);
       }
     }
 

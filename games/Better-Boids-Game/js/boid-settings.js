@@ -1,5 +1,49 @@
 import { BoidFactors, customEvents } from "./boid-utils.js";
-export function addBoidSliders() {
+export function addBoidSettings() {
+  // Create box to hold the settings and sliders in (basically a window)
+  const settingsBox = document.createElement("div");
+  settingsBox.id = "settingsBox";
+  settingsBox.classList.add("info-box"); // same as info box
+
+  // Add some header(s) and info to this screen
+  const settingsHeader = document.createElement("div");
+  settingsHeader.classList.add("info-header"); // same as info header for now
+
+  const settingsContent = document.createElement("div");
+  settingsContent.classList.add("info-content"); // same as info header for now
+
+  // Create heading and paragraphs for settingsContent
+  settingsContent.innerHTML = `
+  <h2>Settings:</h2>
+  <p>
+    Add settings here:
+  </p>
+`;
+
+  // Add close button
+  const closeButton = document.createElement("span");
+  closeButton.classList.add("close-button");
+  closeButton.textContent = "x";
+  closeButton.onclick = closeSettingsBox;
+  settingsBox.appendChild(closeButton);
+
+  // Add an open settings Button
+  const settingsButtonContainer = document.createElement("div");
+  settingsButtonContainer.id = "settingsButtonContainer";
+  settingsButtonContainer.classList.add("settings-button-container");
+
+  const settingsButton = document.createElement("button");
+  settingsButton.id = "settingsButton";
+  settingsButton.classList.add("info-button"); // use the info button for positoning and styles
+
+  const settingsIcon = document.createElement("span");
+  settingsIcon.classList.add("info-icon"); // use the info icon for positoning and styles
+  settingsIcon.textContent = "u";
+
+  // Append elements to create button
+  settingsButton.appendChild(settingsIcon);
+  settingsButtonContainer.appendChild(settingsButton);
+
   // Create sliders and their containers
   var speedSliderContainer = instantiateSlider(
     "Max Speed",
@@ -43,6 +87,41 @@ export function addBoidSliders() {
 
   addFlockRadiusIndicator(radiusSliderContainer);
   addTouchEventListenersToSliders();
+
+  // Set up parenting structure and append to body of document
+  settingsHeader.appendChild(closeButton);
+  settingsBox.appendChild(settingsHeader);
+  settingsBox.appendChild(settingsContent);
+
+  settingsBox.appendChild(speedSliderContainer);
+  appendBlankSpace(settingsBox);
+  settingsBox.appendChild(alignmentSliderContainer);
+  appendBlankSpace(settingsBox);
+  settingsBox.appendChild(cohesionSliderContainer);
+  appendBlankSpace(settingsBox);
+  settingsBox.appendChild(radiusSliderContainer);
+  appendBlankSpace(settingsBox);
+  settingsBox.appendChild(separationSliderContainer);
+  appendBlankSpace(settingsBox);
+
+  document.body.appendChild(settingsBox);
+  document.body.appendChild(settingsButtonContainer);
+
+  // Show the settings box when the button is clicked
+  settingsButton.addEventListener("click", () => {
+    settingsBox.style.display = "block";
+  });
+
+  // Close the settings box when the close button is clicked
+  function closeSettingsBox() {
+    settingsBox.style.display = "none";
+  }
+
+  function appendBlankSpace(parent) {
+    var blankSpace = document.createElement("div");
+    blankSpace.classList.add("slider-blank-space");
+    parent.appendChild(blankSpace);
+  }
 
   function addTouchEventListenersToSliders() {
     // Add touch event listeners to slider containers so that we can show the hover text
@@ -92,12 +171,6 @@ export function addBoidSliders() {
 
     // Append sliders to the document body
     initSliderEvents(slider, name, hoverLabel);
-    document.body.appendChild(sliderContainer);
-
-    // Create and append blank space after the slider
-    var blankSpace = document.createElement("div");
-    blankSpace.classList.add("slider-blank-space");
-    document.body.appendChild(blankSpace);
 
     return sliderContainer;
   }
