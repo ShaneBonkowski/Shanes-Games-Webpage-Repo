@@ -4,17 +4,22 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { BoidFactors } from "./boid-utils.js";
 
 export class Boid {
-  constructor(scene, spawnX, spawnY, leaderBoid) {
+  constructor(scene, spawnX, spawnY, leaderBoid, boidNumber) {
     // Store some attributes about this boid
+
     this.scene = scene;
     this.mainBoid = leaderBoid;
-    this.mainBoidActivated = false;
+    this.boidNumber = boidNumber;
+
+    // Leader is disabled to start
+    if (this.mainBoid == true) {
+      this.disabled = true;
+    } else {
+      this.disabled = false;
+    }
+
     this.initBoidType();
     this.velocity = this.initVelocity();
-
-    if (this.mainBoid == true) {
-      this.makeLeader();
-    }
 
     // Create a graphics object for the boid
     this.graphic = null;
@@ -60,13 +65,20 @@ export class Boid {
     // Set the scale and origin
     this.graphic.setScale(this.size);
     this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
+
+    // If disabled, hide. If not disabled, reveal
+    this.graphic.setVisible(!this.disabled);
   }
 
   initBoidType() {
-    if (more_math.getRandomFloat(0, 1) < 0.8) {
-      this.boid_type = "Good";
+    if (this.mainBoid == true) {
+      this.boid_type = "Leader";
     } else {
-      this.boid_type = "Bad";
+      if (more_math.getRandomFloat(0, 1) < 0.8) {
+        this.boid_type = "Good";
+      } else {
+        this.boid_type = "Bad";
+      }
     }
   }
 
@@ -76,22 +88,42 @@ export class Boid {
       this.updateBoidSpeed();
     });
 
-    // Leader is activated if pointer is down (aka player is clicking) on the canvas
-    document.addEventListener("pointerdown", (event) => {
-      this.mainBoidActivated = true;
-    });
-
-    document.addEventListener("pointerup", () => {
-      this.mainBoidActivated = false;
-    });
-
-    // Leader boid movement
+    // Leader boid movement etc.
     if (this.mainBoid) {
+      // Follow pointer
       this.scene.input.on("pointermove", (pointer) => {
         this.graphic.x = pointer.worldX;
         this.graphic.y = pointer.worldY;
       });
+      // Hide / reveal leader on pointer up / down
+      document.addEventListener(
+        "pointerholdclick",
+        () => {
+          this.enable();
+        },
+        { capture: true }
+      );
+
+      document.addEventListener(
+        "pointerup",
+        () => {
+          this.disable();
+        },
+        { capture: true }
+      );
     }
+  }
+
+  // Method to disable the boid
+  disable() {
+    this.disabled = true;
+    this.graphic.setVisible(false);
+  }
+
+  // Method to enable the boid
+  enable() {
+    this.disabled = false;
+    this.graphic.setVisible(true);
   }
 
   calculateBoidSize() {
@@ -143,15 +175,13 @@ export class Boid {
     return velocity_desired;
   }
 
-  // Turns this boid into the main boid
-  // (makes this boid directly follow the pointer on the screen)
-  makeLeader() {
-    this.mainBoid = true;
-    this.boid_type = "Leader";
-  }
-
   // Physics for boid
   handlePhysics(boids) {
+    // Skip physics calculation if the boid is disabled
+    if (this.disabled) {
+      return;
+    }
+
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
 
@@ -180,6 +210,9 @@ export class Boid {
         lerpFactor
       );
 
+      // We can lerp, but never exceed speed limits
+      this.velocity = this.clampVelocity(this.velocity);
+
       // Position update
       this.graphic.x += this.velocity.x * Physics.physicsUpdateInterval; // x = vx * t
       this.graphic.y += this.velocity.y * Physics.physicsUpdateInterval;
@@ -191,7 +224,9 @@ export class Boid {
     let veloc_sum = new Vec2(0, 0);
     let pos_sum = new Vec2(0, 0);
     let separation = new Vec2(0, 0); // how far apart all boids are on avg (try to stay a certain distance apart)
-    let neighborsCount = 0;
+    let opposing_pos_sum = new Vec2(0, 0); // avg pos of opposing neighbors
+    let similarNeighborsCount = 0;
+    let opposingNeighborsCount = 0;
 
     let screenWidth = window.innerWidth;
     let screenHeight = window.innerHeight;
@@ -201,65 +236,19 @@ export class Boid {
 
     // Loop through all other boids in the scene
     for (let otherBoid of boids) {
-      if (otherBoid !== this) {
-        // Calculate distance between this boid and the other
-        let dx = otherBoid.graphic.x - this.graphic.x;
-        let dy = otherBoid.graphic.y - this.graphic.y;
+      if (otherBoid !== this && !otherBoid.disabled) {
+        // Get distance attrs between this and other boid
+        var distObj = this.getBoidDistance(
+          otherBoid,
+          screenWidth,
+          screenHeight
+        );
+        let dx = distObj.dx;
+        let dy = distObj.dy;
+        let distanceSquared = distObj.distanceSquared;
 
-        // Because boids can overflow to the other side of the screen, we need to check the
-        // "torus" distance as well to see if the boids are closer in that direction.
-        // To do so, we can assume the shorter route from one boid to another is through the edge of a screen if
-        // their distance in a given direction (x or y) is greater than half the respective size of the screen.
-        if (Math.abs(dx) > screenWidth / 2) {
-          // If "other" is to the right of "this", then we subtract screen width since
-          // in the land of "torus" geometry "other" is really to the left of "this" in their closest distance
-          if (dx > 0) {
-            dx -= screenWidth;
-          } else {
-            dx += screenWidth;
-          }
-        }
-        if (Math.abs(dy) > screenHeight / 2) {
-          // If "other" is above "this", then we subtract screen height since
-          // in the land of "torus" geometry "other" is really below "this" in their closest distance
-          if (dy > 0) {
-            dy -= screenHeight;
-          } else {
-            dy += screenHeight;
-          }
-        }
-
-        let distanceSquared = dx * dx + dy * dy;
-
-        // Update boid flock measurements if otherBoid is within search radius
-        if (
-          distanceSquared <
-          BoidFactors.flockSearchRadius * BoidFactors.flockSearchRadius
-        ) {
-          let distance = Math.sqrt(distanceSquared);
-          if (distance > 0) {
-            neighborsCount++;
-
-            // Total up avg veloc and position for neighboring boids
-            veloc_sum = Vec2.add(veloc_sum, otherBoid.velocity);
-            pos_sum = Vec2.add(
-              pos_sum,
-              new Vec2(otherBoid.graphic.x, otherBoid.graphic.y)
-            );
-
-            // If any boids are within the protected radius of a boid, steer away from them
-            if (distance < BoidFactors.boidProtectedRadius) {
-              // By doing 0 - distance, this allows us to have this boid move away from other boid
-              separation = Vec2.add(
-                separation,
-                Vec2.subtract(new Vec2(0, 0), new Vec2(dx, dy))
-              );
-            }
-          }
-        }
-
-        // If otherBoid is the main boid and the main boid is activated, follow the leader if within leader follow radius!
-        if (otherBoid.mainBoid == true && otherBoid.mainBoidActivated) {
+        // If otherBoid is the main boid and the player is interacting (aka pointer is down), have this boid follow the leader if within leader follow radius!
+        if (otherBoid.mainBoid == true && this.scene.isInteracting) {
           if (
             distanceSquared <
             BoidFactors.leaderFollowRadius * BoidFactors.leaderFollowRadius
@@ -268,17 +257,66 @@ export class Boid {
             leader_pos = new Vec2(otherBoid.graphic.x, otherBoid.graphic.y);
           }
         }
+
+        // If other boid is the same type as this boid, use regular boid logic!
+        else if (this.boid_type == otherBoid.boid_type) {
+          // Update boid flock measurements if otherBoid is within search radius
+          if (
+            distanceSquared <
+            BoidFactors.flockSearchRadius * BoidFactors.flockSearchRadius
+          ) {
+            let distance = Math.sqrt(distanceSquared);
+            if (distance > 0) {
+              similarNeighborsCount++;
+
+              // Total up avg veloc and position for neighboring boids
+              veloc_sum = Vec2.add(veloc_sum, otherBoid.velocity);
+              pos_sum = Vec2.add(
+                pos_sum,
+                new Vec2(otherBoid.graphic.x, otherBoid.graphic.y)
+              );
+
+              // If any boids are within the protected radius of a boid, steer away from them
+              if (distance < BoidFactors.boidProtectedRadius) {
+                // By doing 0 - distance, this allows us to have this boid move away from other boid
+                separation = Vec2.add(
+                  separation,
+                  Vec2.subtract(new Vec2(0, 0), new Vec2(dx, dy))
+                );
+              }
+            }
+          }
+        }
+
+        // if boid types conflict, have good boid run from bad boid and bad boid chase good boid!
+        // Take avg position of opposing neighbors, and then either go toward or away from that based on boid type.
+        else if (this.boid_type != otherBoid.boid_type) {
+          if (
+            distanceSquared <
+            BoidFactors.flockSearchRadius * BoidFactors.flockSearchRadius
+          ) {
+            opposingNeighborsCount += 1;
+            opposing_pos_sum = Vec2.add(
+              opposing_pos_sum,
+              new Vec2(otherBoid.graphic.x, otherBoid.graphic.y)
+            );
+          }
+        }
       }
     }
 
-    // Calculate and update the new velocity based on the rules
-    let desired_velocity = new Vec2(0, 0);
-    if (neighborsCount > 0) {
+    // Calculate and update the new velocity based on the rules.
+    // Using Object.assign({}, this.velocity); makes desired_velocity a copy of
+    // this.velocity instead of pointing to the same loc in memory
+    let desired_velocity = Object.assign({}, this.velocity);
+
+    // Follow the alignment, cohesion, and separation rules for similar (same boid_type) neighbors
+    if (similarNeighborsCount > 0) {
       // Alignment: Steer toward average neighboring boid heading (aka velocity)
       let avg_veloc = new Vec2(0, 0);
       avg_veloc = new Vec2(
-        veloc_sum.x / neighborsCount,
-        veloc_sum.y / neighborsCount
+        veloc_sum.x / similarNeighborsCount,
+        veloc_sum.y / similarNeighborsCount
       );
       desired_velocity.x +=
         (avg_veloc.x - this.velocity.x) * BoidFactors.alignmentFactor;
@@ -288,8 +326,8 @@ export class Boid {
       // Cohesion: Steer toward average neighboring boid position (aka center of mass)
       let avg_pos = new Vec2(0, 0);
       avg_pos = new Vec2(
-        pos_sum.x / neighborsCount,
-        pos_sum.y / neighborsCount
+        pos_sum.x / similarNeighborsCount,
+        pos_sum.y / similarNeighborsCount
       );
       desired_velocity.x +=
         (avg_pos.x - this.graphic.x) * BoidFactors.cohesionFactor;
@@ -299,22 +337,89 @@ export class Boid {
       // Separation: boids steer away from boids within their boidProtectedRadius
       desired_velocity.x += separation.x * BoidFactors.separationFactor;
       desired_velocity.y += separation.y * BoidFactors.separationFactor;
+    }
 
-      // Follow the leader if told to do so!
-      if (followLeader) {
+    // Follow the leader if told to do so!
+    if (followLeader) {
+      // Follow Leader
+      desired_velocity.x +=
+        (leader_pos.x - this.graphic.x) * BoidFactors.leaderFollowFactor;
+      desired_velocity.y +=
+        (leader_pos.y - this.graphic.y) * BoidFactors.leaderFollowFactor;
+    }
+
+    // Perform opposing boid velocity updates
+    if (opposingNeighborsCount > 0) {
+      // Predator-prey: Steer toward average opposing boid position (aka center of mass) if predator (bad boid), and run away from this if prey (good boid)
+      let opposing_avg_pos = new Vec2(0, 0);
+      opposing_avg_pos = new Vec2(
+        opposing_pos_sum.x / opposingNeighborsCount,
+        opposing_pos_sum.y / opposingNeighborsCount
+      );
+
+      // Bad boid chases
+      if (this.boid_type == "Bad") {
         desired_velocity.x +=
-          (leader_pos.x - this.graphic.x) * BoidFactors.leaderFollowFactor;
+          (opposing_avg_pos.x - this.graphic.x) *
+          BoidFactors.predatorPreyFactor;
         desired_velocity.y +=
-          (leader_pos.y - this.graphic.y) * BoidFactors.leaderFollowFactor;
+          (opposing_avg_pos.y - this.graphic.y) *
+          BoidFactors.predatorPreyFactor;
       }
-    } else {
-      desired_velocity = this.velocity;
+      // good boid runs away
+      else if (this.boid_type == "Good") {
+        desired_velocity.x +=
+          -1 *
+          (opposing_avg_pos.x - this.graphic.x) *
+          BoidFactors.predatorPreyFactor;
+        desired_velocity.y +=
+          -1 *
+          (opposing_avg_pos.y - this.graphic.y) *
+          BoidFactors.predatorPreyFactor;
+      }
     }
 
     // Cleanup veloc so we dont exceed speed limit
     desired_velocity = this.clampVelocity(desired_velocity);
 
     return desired_velocity;
+  }
+
+  getBoidDistance(otherBoid, screenWidth, screenHeight) {
+    // Calculate distance between this boid and the other
+    let dx = otherBoid.graphic.x - this.graphic.x;
+    let dy = otherBoid.graphic.y - this.graphic.y;
+
+    // Because boids can overflow to the other side of the screen, we need to check the
+    // "torus" distance as well to see if the boids are closer in that direction.
+    // To do so, we can assume the shorter route from one boid to another is through the edge of a screen if
+    // their distance in a given direction (x or y) is greater than half the respective size of the screen.
+    if (Math.abs(dx) > screenWidth / 2) {
+      // If "other" is to the right of "this", then we subtract screen width since
+      // in the land of "torus" geometry "other" is really to the left of "this" in their closest distance
+      if (dx > 0) {
+        dx -= screenWidth;
+      } else {
+        dx += screenWidth;
+      }
+    }
+    if (Math.abs(dy) > screenHeight / 2) {
+      // If "other" is above "this", then we subtract screen height since
+      // in the land of "torus" geometry "other" is really below "this" in their closest distance
+      if (dy > 0) {
+        dy -= screenHeight;
+      } else {
+        dy += screenHeight;
+      }
+    }
+
+    let distanceSquared = dx * dx + dy * dy;
+
+    return {
+      dx: dx,
+      dy: dy,
+      distanceSquared: distanceSquared,
+    };
   }
 
   handleCollisions(boids, desired_velocity, screenWidth, screenHeight) {
@@ -362,7 +467,7 @@ export class Boid {
 
     // Collisions with other boids
     for (let otherBoid of boids) {
-      if (otherBoid !== this) {
+      if (otherBoid !== this && !otherBoid.disabled) {
         let dx = otherBoid.graphic.x - this.graphic.x;
         let dy = otherBoid.graphic.y - this.graphic.y;
         let distanceSquared = dx * dx + dy * dy;

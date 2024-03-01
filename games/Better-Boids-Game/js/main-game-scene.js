@@ -3,6 +3,11 @@ import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 
+// Used to determine if pointer is held down
+let pointerDownTime = 0;
+const holdThreshold = 0.1; // seconds
+let holdTimer = null;
+
 // Export so other scripts can access this
 export class MainGameScene extends Phaser.Scene {
   constructor() {
@@ -51,7 +56,7 @@ export class MainGameScene extends Phaser.Scene {
     });
     resizeObserver.observe(document.documentElement);
 
-    this.initIsPlayerInteracting();
+    this.subscribeToEvents();
     this.disableScroll();
 
     // Spawn in x random boids as a Promise (so that we can run this async), and then
@@ -109,7 +114,7 @@ export class MainGameScene extends Phaser.Scene {
     //event.preventDefault();
   }
 
-  initIsPlayerInteracting() {
+  subscribeToEvents() {
     // Event listener to detect when the user interacts with the game
     document.addEventListener(
       "pointerdown",
@@ -123,6 +128,44 @@ export class MainGameScene extends Phaser.Scene {
       "pointerup",
       () => {
         this.isInteracting = false;
+      },
+      { capture: true }
+    );
+
+    // Custom event that fires whenever pointer is held down longer than threshold during a click.
+    // Pretty much for any "long" click tasks, like hold for this long to call this function.
+    document.addEventListener(
+      "pointerdown",
+      () => {
+        // Define holdTimer if it is not already (note that it gets cleared on pointerup below)
+        pointerDownTime = Date.now();
+        if (!holdTimer) {
+          // Check holdThreshold seconds from now if we are still holding down pointer.
+          holdTimer = setTimeout(() => {
+            // If we are still holding down, dispatch pointerholdclick to tell the event listeners that we are held down
+            let holdDuration = Date.now() - pointerDownTime;
+            if (holdDuration >= holdThreshold) {
+              document.dispatchEvent(new Event("pointerholdclick"));
+            }
+
+            // Reset holdTimer after it's triggered
+            holdTimer = null;
+          }, holdThreshold * 1000); // sec -> millisec
+        }
+
+        // When the pointer is released, clear the hold timer
+        const pointerUpListener = () => {
+          // Reset holdTimer when pointer is released
+          clearTimeout(holdTimer);
+          holdTimer = null;
+
+          // Remove the event listener so that we only listen for pointerup once.
+          // For reference, we re-listen for pointerup each time we hold down again.
+          document.removeEventListener("pointerup", pointerUpListener);
+        };
+        document.addEventListener("pointerup", pointerUpListener, {
+          once: true,
+        });
       },
       { capture: true }
     );

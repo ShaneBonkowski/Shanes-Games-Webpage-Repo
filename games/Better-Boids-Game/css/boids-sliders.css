@@ -8,9 +8,9 @@
   --input-slider-width: var(--input-slider-width-og);
   --input-slider-height-og: 5vh;
   --input-slider-height: var(--input-slider-height-og);
-  --slider-blank-space-height: 8vh;
+  --slider-blank-space-height: 3vh;
   /* Margins */
-  --slider-top-margin: 0vh;
+  --slider-top-margin: 30vh;
   --slider-container-left-margin-og: 4%;
   --slider-container-left-margin: var(--slider-container-left-margin-og);
   --hover-slider-label-top-margin-og: 25%;
@@ -35,7 +35,7 @@
     --slider-container-left-margin: calc(
       var(--slider-container-left-margin-og) * 1.5
     );
-    --slider-top-margin: 0vh;
+    --slider-top-margin: 30vh;
     /* Font Sizes */
     --slider-font-size: calc(var(--slider-font-size-og) * 1.9);
   }
@@ -87,7 +87,7 @@ body {
   display: block; /* Show the hover label when hovering over the slider container */
 }
 
-/* for touching on phone (see the eventListenerAdding that needs to occur in boid-slider.js for this to work) */
+/* for touching on phone (see the eventListenerAdding that needs to occur in boid-settings.js for this to work) */
 .touch-hover .slider-hover-label {
   display: block;
 }
