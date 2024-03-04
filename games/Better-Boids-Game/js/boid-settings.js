@@ -337,16 +337,13 @@ export function addBoidSettings() {
     );
 
     // Add input event listeners to each slider to update slider value
-    slider.addEventListener(
-      "input",
-      function () {
-        // Update the value of the actual variable as the slider changes
-        updateFactor(name, parseFloat(this.value));
+    slider.addEventListener("input", function () {
+      // Update the value of the actual variable as the slider changes
+      updateFactor(name, parseFloat(slider.value));
 
-        // Update hover label text
-        hoverLabel.textContent = this.value;
-      }.bind(this)
-    );
+      // Update hover label text
+      hoverLabel.textContent = slider.value;
+    });
   }
 
   function updateSliderHandle(event, slider, name) {
