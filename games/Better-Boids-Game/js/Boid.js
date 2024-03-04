@@ -105,6 +105,10 @@ export class Boid {
           // Enable leader boid if ui menu is closed
           if (!this.scene.uiMenuOpen) {
             this.enable();
+
+            // Make sure leader is on mouse location
+            this.graphic.x = pointer.worldX;
+            this.graphic.y = pointer.worldY;
           }
         }.bind(this),
         { capture: true }
