@@ -15,6 +15,7 @@ export class MainGameScene extends Phaser.Scene {
     this.boids = [];
     this.gameStarted = false;
     this.isInteracting = false; // is the  player actively interacting with the game?
+    this.uiMenuOpen = false;
 
     // Store the last known window size so we can update boids positions etc.
     // based on this as the screen size changes
@@ -94,12 +95,17 @@ export class MainGameScene extends Phaser.Scene {
   // Disable scrolling
   disableScroll() {
     //document.body.style.overflow = "hidden"; // this prevents the page from being able to overflow (aka have more content out of view that you can see via scrolling)
-    document.addEventListener("touchmove", this.preventDefault, {
+    document.addEventListener("touchmove", this.preventDefault.bind(this), {
       passive: false,
     });
-    document.addEventListener("mousewheel", this.preventDefault, {
-      passive: false,
-    });
+
+    document.addEventListener(
+      "mousewheel",
+      this.preventDefault.bind(this), // Bind 'this' to refer to the class instance
+      {
+        passive: false,
+      }
+    );
   }
 
   // Enable scrolling
@@ -115,28 +121,48 @@ export class MainGameScene extends Phaser.Scene {
   }
 
   subscribeToEvents() {
+    // Event listener for ui menu open / closed
+    document.addEventListener(
+      "uiMenuOpen",
+      function (event) {
+        if (this.uiMenuOpen == false) {
+          this.uiMenuOpen = true;
+          console.log("menu open");
+        }
+      }.bind(this)
+    ); // Bind 'this' to refer to the class instance
+    document.addEventListener(
+      "uiMenuClosed",
+      function (event) {
+        if (this.uiMenuOpen == true) {
+          this.uiMenuOpen = false;
+          console.log("menu closed");
+        }
+      }.bind(this)
+    ); // Bind 'this' to refer to the class instance
+
     // Event listener to detect when the user interacts with the game
     document.addEventListener(
       "pointerdown",
-      () => {
+      function () {
         this.isInteracting = true;
-      },
+      }.bind(this),
       { capture: true }
     );
 
     document.addEventListener(
       "pointerup",
-      () => {
+      function () {
         this.isInteracting = false;
-      },
+      }.bind(this),
       { capture: true }
-    );
+    ); // Bind 'this' to refer to the class instance
 
     // Custom event that fires whenever pointer is held down longer than threshold during a click.
     // Pretty much for any "long" click tasks, like hold for this long to call this function.
     document.addEventListener(
       "pointerdown",
-      () => {
+      function () {
         // Define holdTimer if it is not already (note that it gets cleared on pointerup below)
         pointerDownTime = Date.now();
         if (!holdTimer) {

@@ -17,6 +17,15 @@ function addInfoBox() {
   infoImgElement.src = "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png";
   infoImgElement.alt = "Info Icon";
 
+  infoButton.addEventListener("click", function () {
+    var customEvent = new CustomEvent("uiMenuOpen", {
+      detail: {
+        message: "Info Menu Opened",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  });
+
   // Append elements to create button
   infoButton.appendChild(infoImgElement);
   infoButton.appendChild(infoIconText);
@@ -34,6 +43,16 @@ function addInfoBox() {
   closeButton.classList.add("close-button");
   closeButton.textContent = "x";
   closeButton.onclick = closeInfoBox;
+
+  closeButton.addEventListener("click", function () {
+    var customEvent = new CustomEvent("uiMenuClosed", {
+      detail: {
+        message: "Info Menu Closed",
+      },
+    });
+
+    document.dispatchEvent(customEvent);
+  });
 
   const infoContent = document.createElement("div");
   infoContent.classList.add("info-content");
