@@ -1,0 +1,94 @@
+/* Import constants */
+@import "../../Shared-General-Assets/css/main-website-styles.css";
+
+/* Common styles for game box elements */
+a.game-box-button-link-anchor,
+.game-box-button-container,
+.game-button,
+.game-desc-container,
+a.title-link-anchor,
+.game-title,
+.game-description-text {
+  position: absolute; /* Position wrt to its parent */
+}
+
+.game-box-button-container,
+.game-desc-container {
+  transform: translate(
+    var(--centering-translation),
+    var(--centering-translation)
+  );
+}
+
+/* game_box.js Game Box Styling */
+.game-box {
+  position: relative; /* Position this wherever (this is the origin for all game-box's children */
+  width: var(--game-box-width);
+  height: var(--game-box-height);
+  left: var(--main-left-margin);
+}
+
+.game-box-blank-space {
+  height: var(--game-box-blank-space-height);
+}
+
+.game-box-button-container {
+  width: var(--game-button-width);
+  height: var(--game-button-height);
+  left: var(--game-button-left-margin);
+  top: var(--general-top-margin);
+}
+
+a.game-box-button-link-anchor {
+  /* Add styles if needed */
+}
+
+.game-button {
+  cursor: pointer;
+  transition: transform 0.3s, opacity 0.3s;
+  border-radius: var(--standard-edge_radius);
+  width: var(--game-button-width);
+  height: var(--game-button-height);
+  transition: transform 0.3s ease;
+}
+
+.game-button-hover-effect {
+  transform: scale(1.05);
+}
+
+.game-desc-container {
+  width: var(--game-desc-width);
+  height: var(--game-desc-height);
+  border-radius: var(--standard-edge_radius);
+  left: var(--game-description-left-margin);
+  top: var(--general-top-margin);
+  background-color: var(--panel-color);
+}
+
+a.title-link-anchor {
+  left: var(--game-desc-text-left-margin);
+  top: var(--game-title-text-top-margin);
+}
+
+.game-title {
+  font-size: var(--gamedesc-title-font-size);
+  text-align: left;
+  color: var(--main-text-color);
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.game-title-hover-effect {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.game-description-text {
+  font-size: var(--gamedesc-body-text-font-size);
+  text-align: left;
+  left: var(--game-desc-text-left-margin);
+  color: var(--main-text-color);
+  top: var(--game-desc-text-top-margin);
+  font-weight: normal;
+  width: var(--game-desc-text-width);
+}

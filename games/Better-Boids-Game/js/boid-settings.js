@@ -36,12 +36,18 @@ export function addBoidSettings() {
   settingsButton.id = "settingsButton";
   settingsButton.classList.add("info-button"); // use the info button for positoning and styles
 
-  const settingsIcon = document.createElement("span");
-  settingsIcon.classList.add("info-icon"); // use the info icon for positoning and styles
-  settingsIcon.textContent = "u";
+  const settingsImgElement = document.createElement("img");
+  settingsImgElement.classList.add("info-icon-img");
+  settingsImgElement.src = "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png";
+  settingsImgElement.alt = "Settings Icon";
+
+  const settingsIconText = document.createElement("span");
+  settingsIconText.classList.add("info-icon-text"); // use the info icon for positoning and styles
+  settingsIconText.textContent = "u";
 
   // Append elements to create button
-  settingsButton.appendChild(settingsIcon);
+  settingsButton.appendChild(settingsImgElement);
+  settingsButton.appendChild(settingsIconText);
   settingsButtonContainer.appendChild(settingsButton);
 
   // Create sliders and their containers

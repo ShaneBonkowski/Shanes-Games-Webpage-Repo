@@ -5,9 +5,9 @@
 :root {
   /* Edge Margins */
   --small-top-margin: 23%;
-  --info-button-margin-left: 93vw;
+  --info-button-margin-left: 88vw;
   --settings-button-margin-left: 4vw;
-  --info-button-margin-top: 85vh;
+  --info-button-margin-top: 55vh;
   --info-header-x-button-margin-left: 95%;
   --info-header-x-button-margin-top: 5%;
   /* Font Sizes */
@@ -21,9 +21,9 @@
     /* Font Sizes */
     --test-font-size: calc(var(--test-font-size-og) * 1.9);
     /* Edge Margins */
-    --info-button-margin-left: 80vw;
-    --settings-button-margin-left: 7vw;
-    --info-button-margin-top: 80vh;
+    --info-button-margin-left: 64vw;
+    --settings-button-margin-left: 4vw;
+    --info-button-margin-top: 60vh;
     --info-header-x-button-margin-left: 90%;
     --info-header-x-button-margin-top: 5%;
   }
@@ -46,18 +46,6 @@
 body {
   font-family: MyCustomFont, sans-serif;
   /* Background-related styles for body are defined in the .html file since they are urgent and we want to guarentee those render in */
-
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 /* Define style for link */
@@ -71,40 +59,57 @@ a:hover {
 }
 
 /* Info and settings screen styles */
+.info-button-container,
+.settings-button-container {
+  position: relative;
+  left: var(--info-button-margin-left);
+  top: var(--info-button-margin-top);
+}
+
 .info-button-container {
-  position: absolute;
   left: var(--info-button-margin-left);
   top: var(--info-button-margin-top);
 }
 
 .settings-button-container {
-  position: absolute;
   left: var(--settings-button-margin-left);
   top: var(--info-button-margin-top);
 }
 
 .info-button {
   position: absolute;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: var(--main-text-color);
+  width: 120px;
+  height: 120px;
   border: none;
+  background-color: transparent;
   color: var(--main-color);
   font-size: 24px;
+  transform: translate(0%, 0%);
+  transition: transform 0.3s ease;
   cursor: pointer;
   pointer-events: auto;
-  transform: translate(0%, 0%);
-}
-
-.info-icon {
-  position: relative;
-  transform: translate(0%, 0%);
 }
 
 .info-button:hover {
-  transform: translate(0%, 0%), scale(1.3);
-  background-color: var(--button-hover-color);
+  transform: translate(0%, 0%) scale(1.2);
+}
+
+.info-icon-img,
+.info-icon-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease;
+}
+
+.info-icon-text {
+  color: var(--main-text-color);
+}
+
+.info-icon-img {
+  width: 100%;
+  height: 100%;
 }
 
 .info-box {
@@ -142,23 +147,9 @@ a:hover {
   cursor: pointer;
   pointer-events: auto;
   transform: scale(1.6);
+  transition: transform 0.3s ease;
 }
 
 .close-button:hover {
   transform: scale(2.2);
-}
-
-/* Testing */
-.hello-world-box {
-  position: absolute;
-  text-align: left;
-  font-size: var(--test-font-size);
-  color: var(--secondary-color);
-  white-space: wrap;
-  left: var(--main-left-margin);
-  top: var(--main-top-margin);
-  transform: translate(0%, 300%);
-  width: 95vw;
-  font-weight: normal;
-  pointer-events: none; /* No pointer events on the hellow world text */
 }

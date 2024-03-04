@@ -6,12 +6,12 @@ function createGameBox(imageSrc, linkUrl, titleText, gameDescriptionText) {
 
   // Create a container div for the button
   var buttonContainer = document.createElement("div");
-  buttonContainer.classList.add("button-container");
+  buttonContainer.classList.add("game-box-button-container");
 
   // Create an anchor element for the button link
   var buttonLinkElement = document.createElement("a");
   buttonLinkElement.href = linkUrl;
-  buttonLinkElement.classList.add("button-link-anchor");
+  buttonLinkElement.classList.add("game-box-button-link-anchor");
 
   // Create an image element for the button
   var imageButton = document.createElement("img");

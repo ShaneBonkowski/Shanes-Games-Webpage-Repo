@@ -1,0 +1,103 @@
+/* Import constants */
+@import "../../Shared-General-Assets/css/main-website-styles.css";
+
+/* About me section */
+.about-me-blank-space {
+  height: 1vw;
+}
+
+.about-me-box {
+  position: relative; /* Position this wherever (this is the origin for all of this obj's children */
+  width: var(--about-me-box-width);
+  height: var(--about-me-box-height);
+  border-radius: var(--standard-edge_radius);
+  left: var(--general-left-margin);
+  top: var(--general-top-margin);
+  transform: translate(var(--centering-translation), -5%);
+}
+
+.about-me-image-container {
+  position: absolute; /* Position wrt to its parent */
+  left: 85%;
+  top: 7%;
+  transform: translate(var(--centering-translation), 5%);
+  width: var(--about-me-image-width);
+  height: var(--about-me-image-height);
+}
+
+.about-me-image-container::before,
+.about-me-image-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-62%, -105%);
+  width: 45%;
+  height: 45%;
+  border-radius: 50%;
+}
+
+.about-me-image-container::before {
+  background-color: rgba(104, 220, 255, 0.377);
+  z-index: -1;
+}
+
+.about-me-image-container::after {
+  background-color: rgba(104, 220, 255, 0.322);
+  z-index: 1;
+}
+
+.about-me-image {
+  position: absolute; /* Position wrt to its parent */
+  border-radius: var(--standard-edge_radius);
+  width: var(--about-me-image-width);
+  height: var(--about-me-image-height);
+}
+
+/* Media query to hide the about me image for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    .about-me-image-container {
+      display: none; /* Hide this so that it cannot be seen */
+    }
+  }
+}
+
+.about-me-title,
+.about-me-page-text-styler,
+.about-me-sub-title-text,
+.about-me-main-text {
+  position: absolute;
+  color: var(--main-text-color);
+  text-align: left;
+}
+
+.about-me-title {
+  font-size: var(--about-me-title-font-size);
+  white-space: nowrap;
+  font-weight: bold;
+  width: var(--about-me-title-font-width);
+  left: 20%;
+  top: var(--about-me-title-text-top-margin);
+  transform: translate(var(--about-me-TITLE-text-centering-translation), 0%);
+}
+
+.about-me-page-text-styler {
+  white-space: pre-wrap; /* Preserve newline characters */
+  display: block;
+  font-weight: normal;
+  left: 32%;
+  transform: translate(var(--about-me-text-centering-translation), 0%);
+}
+
+.about-me-sub-title-text {
+  font-size: var(--about-me-subtitle-font-size);
+  width: var(--about-me-subtitle-font-width);
+  top: var(--about-me-sub-title-text-top-margin);
+}
+
+.about-me-main-text {
+  font-size: var(--about-me-main-text-font-size);
+  width: var(--about-me-main-text-font-width);
+  top: var(--about-me-main-text-top-margin);
+}

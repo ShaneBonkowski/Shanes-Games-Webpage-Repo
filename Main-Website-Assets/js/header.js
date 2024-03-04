@@ -30,12 +30,14 @@ function createHeader() {
   var githubLinkElement = document.createElement("a");
   githubLinkElement.href = "https://github.com/ShaneBonkowski";
   githubLinkElement.target = "_blank"; // Open link in a new tab
-  githubLinkElement.classList.add("github-button-link");
+  githubLinkElement.classList.add("header-button-link");
 
   var githubButtonContainer = document.createElement("div");
+  githubButtonContainer.classList.add("header-button-container");
   githubButtonContainer.classList.add("github-button-container");
 
   var githubText = document.createElement("div");
+  githubText.classList.add("header-button-text");
   githubText.classList.add("github-text");
   githubText.textContent = "GitHub";
 
@@ -49,12 +51,14 @@ function createHeader() {
   // About me button
   var aboutMeLinkElement = document.createElement("a");
   aboutMeLinkElement.href = "about.html";
-  aboutMeLinkElement.classList.add("header-button-about-link");
+  aboutMeLinkElement.classList.add("header-button-link");
 
   var aboutMeButtonContainer = document.createElement("div");
+  aboutMeButtonContainer.classList.add("header-button-container");
   aboutMeButtonContainer.classList.add("about-me-button-container");
 
   var aboutMeText = document.createElement("div");
+  aboutMeText.classList.add("header-button-text");
   aboutMeText.classList.add("about-me-text");
   aboutMeText.textContent = "About Me";
 
@@ -64,12 +68,14 @@ function createHeader() {
   // home button
   var homeLinkElement = document.createElement("a");
   homeLinkElement.href = "index.html";
-  homeLinkElement.classList.add("home-button-about-link");
+  homeLinkElement.classList.add("header-button-link");
 
   var homeButtonContainer = document.createElement("div");
+  homeButtonContainer.classList.add("header-button-container");
   homeButtonContainer.classList.add("home-button-container");
 
   var homeText = document.createElement("div");
+  homeText.classList.add("header-button-text");
   homeText.classList.add("home-text");
   homeText.textContent = "Games";
 

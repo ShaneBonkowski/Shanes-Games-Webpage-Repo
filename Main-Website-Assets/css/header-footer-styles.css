@@ -1,0 +1,211 @@
+/* Import constants */
+@import "../../Shared-General-Assets/css/main-website-styles.css";
+
+/* header.js styling */
+.header-banner {
+  position: relative; /* Position this wherever (this is the origin for all of this obj's children */
+  background-color: var(--hide-color); /*Banner color*/
+  color: var(--main-text-color); /*Text color on the banner*/
+  width: 100%;
+  height: var(--header-height);
+}
+
+.title-container,
+.logo-image,
+h1.title-text-style,
+.sub-title-text,
+.header-button-link,
+.header-button-container,
+.header-button-text,
+.fab.fa-github,
+.footer-main-text,
+.linkedIn-button-about-link,
+.linkedIn-button-container,
+.linkedIn-text,
+.fab.fa-linkedin {
+  position: absolute;
+}
+
+.title-container {
+  margin: 0;
+  left: var(--title-container-left-margin);
+  top: var(--general-top-margin);
+  transform: translateY(var(--centering-translation));
+}
+
+h1.title-text-style,
+.sub-title-text {
+  color: var(--main-text-color);
+  white-space: nowrap;
+  text-align: left;
+}
+
+.logo-image {
+  border-radius: var(--standard-edge_radius);
+  width: var(--logo-image-size);
+  height: var(--logo-image-size);
+  transform: translateY(var(--centering-translation));
+}
+
+h1.title-text-style {
+  font-size: var(--title-text-font-size);
+  transform: translate(35%, -120%);
+  font-weight: bold;
+}
+
+.sub-title-text {
+  font-size: var(--subtitle-text-font-size);
+  transform: translate(180%, 50%);
+  font-weight: normal;
+}
+
+/* Header button styling */
+.header-button-link {
+  /* Add styles here eventually */
+}
+
+.header-button-container {
+  width: var(--header-button-width);
+  height: var(--header-button-height);
+  background-color: var(--panel-color); /* Button Color */
+  border-radius: var(--standard-edge_radius);
+  transition: background-color 0.3s ease;
+  text-align: center;
+  top: var(--general-top-margin);
+  left: var(--general-left-margin);
+}
+
+.header-button-container:hover {
+  background-color: var(--button-hover-color);
+  color: var(--main-text-color);
+}
+
+.header-button-text {
+  color: var(--main-text-color);
+  text-align: center;
+  top: var(--general-top-margin);
+  left: var(--general-left-margin);
+  font-size: var(--header-button-text-size);
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+/* github button styling */
+.github-button-container {
+  transform: translate(
+    var(--middle-header-button-translation),
+    var(--header-button-vertical-translation)
+  );
+}
+
+.github-text {
+  transform: translate(-20%, var(--centering-translation));
+}
+
+.fab.fa-github {
+  color: #ffffff; /* Set the color of the GitHub icon */
+  font-size: var(
+    --github-icon-size
+  ); /* Called font, but its really the size of the GitHub icon */
+  top: var(--general-top-margin);
+  left: var(--general-left-margin);
+  transform: translate(-185%, calc(var(--centering-translation) - 5%));
+}
+
+/* about me button styling */
+.about-me-button-container {
+  transform: translate(
+    var(--left-header-button-translation),
+    var(--header-button-vertical-translation)
+  );
+}
+
+.about-me-text {
+  transform: translate(
+    var(--centering-translation),
+    var(--centering-translation)
+  );
+}
+
+/* home button styling */
+.home-button-container {
+  transform: translate(
+    var(--right-header-button-translation),
+    var(--header-button-vertical-translation)
+  );
+}
+
+.home-text {
+  transform: translate(
+    var(--centering-translation),
+    var(--centering-translation)
+  );
+}
+
+/* footer.js Styling */
+.footer-banner {
+  position: relative; /* Position this wherever (this is the origin for all of this obj's children */
+  background-color: var(--hide-color); /*Banner color*/
+  color: var(--main-text-color); /*Text color on the banner*/
+  width: 100%;
+  height: var(--footer-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-main-text {
+  font-size: var(--footer-main-text-font-size);
+  text-align: center;
+  color: var(--main-text-color);
+  left: var(--footer-text-left-margin);
+  top: var(--footer-text-top-margin);
+  font-weight: normal;
+  transform: translate(
+    var(--centering-translation),
+    var(--centering-translation)
+  );
+  width: 100%;
+  white-space: pre-wrap; /* Preserve newline characters */
+  display: block;
+}
+
+/* LinkedIn footer button styling */
+.linkedIn-button-about-link {
+  /* Add things eventually */
+}
+
+.linkedIn-button-container {
+  width: var(--linkedin-button-width);
+  height: var(--linkedin-button-height);
+  background-color: var(--panel-color); /* Button Color */
+  border-radius: var(--standard-edge_radius);
+  transition: background-color 0.3s ease;
+  text-align: center;
+  top: var(--general-top-margin);
+  left: var(--general-left-margin);
+  transform: translate(-50%, 10%);
+}
+
+.linkedIn-button-container:hover {
+  background-color: var(--button-hover-color);
+  color: var(--main-text-color);
+}
+
+.linkedIn-text {
+  color: var(--main-text-color);
+  text-align: center;
+  top: var(--general-top-margin);
+  left: var(--general-left-margin);
+  transform: translate(-20%, var(--centering-translation));
+  font-size: var(--linkedin-text-font-size);
+  font-weight: normal;
+}
+
+.fab.fa-linkedin {
+  color: #ffffff; /* Set the color of the GitHub icon */
+  font-size: var(--linkedin-icon-size); /* icon size */
+  top: var(--general-top-margin);
+  left: var(--general-left-margin);
+  transform: translate(-195%, calc(var(--centering-translation) - 8%));
+}
