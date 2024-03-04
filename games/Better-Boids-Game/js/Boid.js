@@ -84,9 +84,12 @@ export class Boid {
 
   subscribeToEvents() {
     // Ensure that the boid updates its own speed when the speed value changes
-    document.addEventListener("onSpeedChange", (event) => {
-      this.updateBoidSpeed();
-    });
+    document.addEventListener(
+      "onSpeedChange",
+      function (event) {
+        this.updateBoidSpeed();
+      }.bind(this)
+    );
 
     // Leader boid movement etc.
     if (this.mainBoid) {
@@ -98,17 +101,20 @@ export class Boid {
       // Hide / reveal leader on pointer up / down
       document.addEventListener(
         "pointerholdclick",
-        () => {
-          this.enable();
-        },
+        function () {
+          // Enable leader boid if ui menu is closed
+          if (!this.scene.uiMenuOpen) {
+            this.enable();
+          }
+        }.bind(this),
         { capture: true }
       );
 
       document.addEventListener(
         "pointerup",
-        () => {
+        function () {
           this.disable();
-        },
+        }.bind(this),
         { capture: true }
       );
     }
@@ -253,7 +259,11 @@ export class Boid {
         let distanceSquared = distObj.distanceSquared;
 
         // If otherBoid is the main boid and the player is interacting (aka pointer is down), have this boid follow the leader if within leader follow radius!
-        if (otherBoid.mainBoid == true && this.scene.isInteracting) {
+        if (
+          otherBoid.mainBoid == true &&
+          this.scene.isInteracting &&
+          !this.scene.uiMenuOpen
+        ) {
           if (
             distanceSquared <
             BoidFactors.leaderFollowRadius * BoidFactors.leaderFollowRadius

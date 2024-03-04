@@ -27,6 +27,18 @@ export function addBoidSettings() {
   closeButton.onclick = closeSettingsBox;
   settingsBox.appendChild(closeButton);
 
+  closeButton.addEventListener(
+    "click",
+    function () {
+      var customEvent = new CustomEvent("uiMenuClosed", {
+        detail: {
+          message: "Settings Menu Closed",
+        },
+      });
+      document.dispatchEvent(customEvent);
+    }.bind(this)
+  );
+
   // Add an open settings Button
   const settingsButtonContainer = document.createElement("div");
   settingsButtonContainer.id = "settingsButtonContainer";
@@ -44,6 +56,18 @@ export function addBoidSettings() {
   const settingsIconText = document.createElement("span");
   settingsIconText.classList.add("info-icon-text"); // use the info icon for positoning and styles
   settingsIconText.textContent = "u";
+
+  settingsButton.addEventListener(
+    "click",
+    function () {
+      var customEvent = new CustomEvent("uiMenuOpen", {
+        detail: {
+          message: "Settings Menu Opened",
+        },
+      });
+      document.dispatchEvent(customEvent);
+    }.bind(this)
+  );
 
   // Append elements to create button
   settingsButton.appendChild(settingsImgElement);
@@ -114,9 +138,12 @@ export function addBoidSettings() {
   document.body.appendChild(settingsButtonContainer);
 
   // Show the settings box when the button is clicked
-  settingsButton.addEventListener("click", () => {
-    settingsBox.style.display = "block";
-  });
+  settingsButton.addEventListener(
+    "click",
+    function () {
+      settingsBox.style.display = "block";
+    }.bind(this)
+  );
 
   // Close the settings box when the close button is clicked
   function closeSettingsBox() {
@@ -136,17 +163,22 @@ export function addBoidSettings() {
 
     // When someone touches the slider, add the touch-hover class to it so it can hover,
     // then on touch end remove this class so it doesnt interfere with anything
-    sliderContainers.forEach(function (container) {
-      // Add when touch starts
-      container.addEventListener("touchstart", function (event) {
-        container.classList.add("touch-hover");
-      });
+    sliderContainers.forEach(
+      function (container) {
+        // Add when touch starts
+        container.addEventListener(
+          "touchstart",
+          function (event) {
+            container.classList.add("touch-hover");
+          }.bind(this)
+        );
 
-      // Remove when the touch ends
-      container.addEventListener("touchend", function (event) {
-        container.classList.remove("touch-hover");
-      });
-    });
+        // Remove when the touch ends
+        container.addEventListener("touchend", function (event) {
+          container.classList.remove("touch-hover");
+        });
+      }.bind(this)
+    );
   }
 
   function instantiateSlider(name, value, min, max, step) {
@@ -194,34 +226,46 @@ export function addBoidSettings() {
     var inputRange = radiusSliderContainer.querySelector("input[type='range']");
 
     // On input, update the flock radius circle to be visible
-    inputRange.addEventListener("input", function (event) {
-      var radiusValue = parseFloat(inputRange.value);
-      updateFlockRadiusIndicator(circle, radiusValue);
-    });
+    inputRange.addEventListener(
+      "input",
+      function (event) {
+        var radiusValue = parseFloat(inputRange.value);
+        updateFlockRadiusIndicator(circle, radiusValue);
+      }.bind(this)
+    );
 
     // Listen for pointer event to hide the circle when the slider is released.
     // This tries to catch the general case of a finger or a mouse.
-    inputRange.addEventListener("pointerup", function () {
-      if (circle.style.display !== "none") {
-        circle.style.display = "none";
-      }
-    });
+    inputRange.addEventListener(
+      "pointerup",
+      function () {
+        if (circle.style.display !== "none") {
+          circle.style.display = "none";
+        }
+      }.bind(this)
+    );
 
     // Listen for touchend event to hide the circle when the slider is released.
     // This is backup if a browser cannot detect pointerup.
-    inputRange.addEventListener("touchend", function () {
-      if (circle.style.display !== "none") {
-        circle.style.display = "none";
-      }
-    });
+    inputRange.addEventListener(
+      "touchend",
+      function () {
+        if (circle.style.display !== "none") {
+          circle.style.display = "none";
+        }
+      }.bind(this)
+    );
 
     // Listen for mouseup event to hide the circle when the slider is released.
     // This is backup if a browser cannot detect pointerup.
-    inputRange.addEventListener("mouseup", function () {
-      if (circle.style.display !== "none") {
-        circle.style.display = "none";
-      }
-    });
+    inputRange.addEventListener(
+      "mouseup",
+      function () {
+        if (circle.style.display !== "none") {
+          circle.style.display = "none";
+        }
+      }.bind(this)
+    );
   }
 
   function updateFlockRadiusIndicator(circle, radius) {
@@ -274,26 +318,35 @@ export function addBoidSettings() {
 
   function initSliderEvents(slider, name, hoverLabel) {
     // When a user clicks on the slider, update the handle of the slider to be where the player touched
-    slider.addEventListener("pointerdown", function (event) {
-      updateSliderHandle(event, slider, name);
-    });
-
-    slider.addEventListener("pointermove", function (event) {
-      // If we left-click and drag with a mouse, OR if it is not a mouse (aka it is a pointer for a phone)
-      // then assume this is a drag event where we want the slider to be dragged.
-      if (event.pointerType === "mouse" ? event.buttons === 1 : true) {
+    slider.addEventListener(
+      "pointerdown",
+      function (event) {
         updateSliderHandle(event, slider, name);
-      }
-    });
+      }.bind(this)
+    );
+
+    slider.addEventListener(
+      "pointermove",
+      function (event) {
+        // If we left-click and drag with a mouse, OR if it is not a mouse (aka it is a pointer for a phone)
+        // then assume this is a drag event where we want the slider to be dragged.
+        if (event.pointerType === "mouse" ? event.buttons === 1 : true) {
+          updateSliderHandle(event, slider, name);
+        }
+      }.bind(this)
+    );
 
     // Add input event listeners to each slider to update slider value
-    slider.addEventListener("input", function () {
-      // Update the value of the actual variable as the slider changes
-      updateFactor(name, parseFloat(this.value));
+    slider.addEventListener(
+      "input",
+      function () {
+        // Update the value of the actual variable as the slider changes
+        updateFactor(name, parseFloat(this.value));
 
-      // Update hover label text
-      hoverLabel.textContent = this.value;
-    });
+        // Update hover label text
+        hoverLabel.textContent = this.value;
+      }.bind(this)
+    );
   }
 
   function updateSliderHandle(event, slider, name) {
