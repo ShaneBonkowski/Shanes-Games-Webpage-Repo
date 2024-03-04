@@ -7,7 +7,6 @@ export function setZOrderForSharedElements(game) {
 
   // Get a reference to the css objects we want to position
   var gameHeader = document.querySelector(".game-header-banner");
-  // var helloWorldBox = document.querySelector(".hello-world-box ");
   var sliderContainers = document.querySelectorAll(".slider-container");
   var closeButtons = document.querySelectorAll(".close-button");
   var infoButtons = document.querySelectorAll(".info-button");

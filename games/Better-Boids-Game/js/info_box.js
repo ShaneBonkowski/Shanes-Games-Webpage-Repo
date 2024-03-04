@@ -8,12 +8,18 @@ function addInfoBox() {
   infoButton.id = "infoButton";
   infoButton.classList.add("info-button");
 
-  const infoIcon = document.createElement("span");
-  infoIcon.classList.add("info-icon");
-  infoIcon.textContent = "i";
+  const infoIconText = document.createElement("span");
+  infoIconText.classList.add("info-icon-text");
+  infoIconText.textContent = "i";
+
+  const infoImgElement = document.createElement("img");
+  infoImgElement.classList.add("info-icon-img");
+  infoImgElement.src = "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png";
+  infoImgElement.alt = "Info Icon";
 
   // Append elements to create button
-  infoButton.appendChild(infoIcon);
+  infoButton.appendChild(infoImgElement);
+  infoButton.appendChild(infoIconText);
   infoButtonContainer.appendChild(infoButton);
 
   // Create infoBox and content

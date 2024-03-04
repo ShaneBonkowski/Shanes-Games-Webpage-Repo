@@ -5,10 +5,10 @@
 :root {
   /* Transformations */
   --main-logo-title-translate-x: 35%;
-  --main-logo-title-translate-y: -120%;
-  --main-logo-subtitle-translate-x: 180%;
-  --main-logo-subtitle-translate-y: 50%;
-  --game-title-translate-x: 60%;
+  --main-logo-title-translate-y: -125%;
+  --main-logo-subtitle-translate-x: 112%;
+  --main-logo-subtitle-translate-y: -20%;
+  --game-title-translate-x: 65%;
   --game-title-translate-y: -100%;
   --loading-logo-translate-x: 0%;
   --loading-logo-translate-y: 20%;
@@ -19,10 +19,10 @@
   --loading-content-size: 25vw;
   /* Font Sizes */
   --logo-title-font-size: calc(var(--game-header-height) * 0.125);
-  --logo-subtitle-font-size: calc(var(--game-header-height) * 0.0625);
+  --logo-subtitle-font-size: calc(var(--game-header-height) * 0.0825);
   /* Edge Margins */
   --small-top-margin: 10%;
-  --game-logo-container-left-margin: 78%;
+  --game-logo-container-left-margin: 76%;
   /* Other */
   --load-screen-dur: 5s;
 }
@@ -33,9 +33,28 @@
     /* Sizes */
     --game-header-height: 24vw;
     /* Edge Margins */
-    --game-logo-container-left-margin: 64%;
+    --game-logo-container-left-margin: 61%;
     --small-top-margin: 15%;
   }
+}
+
+/* Generic styles */
+.game-title-style,
+.game-subtitle-style {
+  position: absolute; /* Position wrt to its parent */
+  text-align: left;
+  color: var(--main-text-color);
+  white-space: nowrap;
+}
+
+.game-title-style {
+  font-size: var(--logo-title-font-size);
+  font-weight: bold;
+}
+
+.game-subtitle-style {
+  font-size: var(--logo-subtitle-font-size);
+  font-weight: normal;
 }
 
 /* Game Header Banner */
@@ -47,17 +66,6 @@
   height: var(--game-header-height);
   top: 0%;
   pointer-events: none; /* Disable pointer events for the banner itself */
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 /* Shanes Games Logo */
@@ -69,21 +77,11 @@
   transform: translateY(var(--centering-translation));
   pointer-events: auto; /* Can click this to go back to main menu */
   cursor: pointer; /* hover pointer */
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  transition: transform 0.3s ease;
 }
 
 .shanes-games-logo-container:hover {
-  transform: scale(1.05);
+  transform: translateY(var(--centering-translation)) scale(1.05);
 }
 
 .main-logo-image {
@@ -92,65 +90,20 @@
   width: var(--header-icon-size);
   height: var(--header-icon-size);
   transform: translateY(var(--centering-translation));
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .main-logo-title {
-  position: absolute; /* Position wrt to its parent */
-  text-align: left;
-  font-size: var(--logo-title-font-size);
-  color: var(--main-text-color);
-  white-space: nowrap;
   transform: translate(
     var(--main-logo-title-translate-x),
     var(--main-logo-title-translate-y)
   );
-  font-weight: bold;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .main-logo-subtitle {
-  position: absolute; /* Position wrt to its parent */
-  text-align: left;
-  font-size: var(--logo-subtitle-font-size);
-  color: var(--main-text-color);
-  white-space: nowrap;
   transform: translate(
     var(--main-logo-subtitle-translate-x),
     var(--main-logo-subtitle-translate-y)
   );
-  font-weight: normal;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 /* Generic Game Logo */
@@ -162,17 +115,6 @@
   transform: translate(0%, var(--centering-translation));
   background-color: white;
   pointer-events: none;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .game-logo-image {
@@ -182,75 +124,25 @@
   height: var(--game-logo-icon-size);
   transform: translateY(var(--centering-translation));
   pointer-events: none;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .game-title {
-  position: absolute; /* Position wrt to its parent */
-  text-align: left;
-  font-size: var(--logo-title-font-size);
-  color: var(--main-text-color);
-  white-space: nowrap;
   transform: translate(
     var(--game-title-translate-x),
     var(--game-title-translate-y)
   );
-  font-weight: bold;
   pointer-events: none;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 /* Game fade in dark screen */
 .game-load-in-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
   background-color: black;
   opacity: 1; /* Initially fully opaque */
   z-index: 9999; /* Ensure it's on top of other content */
   animation: fadeOutOverlay var(--load-screen-dur) forwards; /* Play fade-out animation */
-  pointer-events: none;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .loading-content {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
   text-align: center;
   color: white;
   opacity: 1; /* Initially fully opaque */
@@ -260,35 +152,12 @@
       var(--loading-logo-translate-y)
     )
     scale(1);
-  pointer-events: none;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 .loading-content img {
   width: var(--loading-content-size); /* Adjust size as needed */
   height: auto;
   pointer-events: none;
-  /* Prevents the visual things that browsers can do when clicking for this element on various different browsers */
-  /* E.g. this will disable things like double click to zoom, highlighting, etc. */
-  touch-action: none;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
 @keyframes fadeOutOverlay {

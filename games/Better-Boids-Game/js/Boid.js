@@ -128,8 +128,13 @@ export class Boid {
 
   calculateBoidSize() {
     // Calculate the boid size based on the screen width
-    const screenWidth = window.innerWidth;
-    const boidSize = screenWidth * 0.00009;
+    var screenWidth = window.innerWidth;
+    var boidSize = screenWidth * 0.00009;
+
+    // Phone screen has larger boids
+    if (screenWidth <= 600) {
+      boidSize = screenWidth * 0.00022;
+    }
 
     return boidSize;
   }

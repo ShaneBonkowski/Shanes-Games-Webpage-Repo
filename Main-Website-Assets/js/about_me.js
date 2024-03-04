@@ -16,6 +16,7 @@ export function createAboutMe() {
   var subTitleTextDiv = document.createElement("div");
   subTitleTextDiv.textContent =
     "Engineering, Software Development, Game Development, Data Analysis, and really anything in between.";
+  subTitleTextDiv.classList.add("about-me-page-text-styler");
   subTitleTextDiv.classList.add("about-me-sub-title-text");
 
   var mainTextDiv = document.createElement("div");
@@ -27,6 +28,7 @@ Hence why I'm a firm believer in the power of open source and collaboration. In 
 If you'd like to connect or learn more about my professional background, feel free to visit my LinkedIn profile. I'm always eager to collaborate, connect, and share ideas.
 `;
   mainTextDiv.textContent = aboutMeParagraph;
+  mainTextDiv.classList.add("about-me-page-text-styler");
   mainTextDiv.classList.add("about-me-main-text");
 
   // Append elements to their containers
