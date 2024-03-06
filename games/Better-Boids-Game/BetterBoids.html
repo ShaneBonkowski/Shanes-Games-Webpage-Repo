@@ -59,13 +59,13 @@
     <!-- Include the non-module scripts used -->
     <script src="../Shared-Game-Assets/js/game_header.js"></script>
     <script src="../Libraries/phaser.js"></script>
-    <script src="../Better-Boids-Game/js/info_box.js"></script>
 
     <!-- Call JS functions (using module so that we can import and call modules) -->
     <script type="module">
       // Import modules
       import { LaunchGame } from "./js/game.js";
       import { addBoidSettings } from "./js/boid-settings.js";
+      import { addInfoBox } from "../Better-Boids-Game/js/info_box.js";
 
       // Wait for the module(s) to be fully loaded before calling LaunchGame()
       window.addEventListener("load", function () {

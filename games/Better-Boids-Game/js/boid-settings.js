@@ -1,78 +1,39 @@
 import { BoidFactors, customEvents } from "./boid-utils.js";
+import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
+import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
 export function addBoidSettings() {
-  // Create box to hold the settings and sliders in (basically a window)
-  const settingsBox = document.createElement("div");
-  settingsBox.id = "settingsBox";
-  settingsBox.classList.add("info-box"); // same as info box
-
-  // Add some header(s) and info to this screen
-  const settingsHeader = document.createElement("div");
-  settingsHeader.classList.add("info-header"); // same as info header for now
-
-  const settingsContent = document.createElement("div");
-  settingsContent.classList.add("info-content"); // same as info header for now
-
-  // Create heading and paragraphs for settingsContent
-  settingsContent.innerHTML = `
-  <h2>Settings:</h2>
-  <p>
-    Add settings here:
-  </p>
-`;
-
-  // Add close button
-  const closeButton = document.createElement("span");
-  closeButton.classList.add("close-button");
-  closeButton.textContent = "x";
-  closeButton.onclick = closeSettingsBox;
-  settingsBox.appendChild(closeButton);
-
-  closeButton.addEventListener(
-    "click",
-    function () {
-      var customEvent = new CustomEvent("uiMenuClosed", {
-        detail: {
-          message: "Settings Menu Closed",
-        },
-      });
-      document.dispatchEvent(customEvent);
-    }.bind(this)
+  // Create ui window to hold the settings and sliders in (basically a window)
+  const settingsWindow = createUIWindow(
+    "SettingsWindow",
+    "",
+    `
+      <h2>Settings:</h2>
+      <p>
+        Add settings here:
+      </p>
+    `,
+    closeSettingsWindow,
+    onClickX,
+    ["info-box"],
+    ["info-header"],
+    ["info-content"],
+    ["close-button"]
   );
 
   // Add an open settings Button
-  const settingsButtonContainer = document.createElement("div");
-  settingsButtonContainer.id = "settingsButtonContainer";
-  settingsButtonContainer.classList.add("settings-button-container");
-
-  const settingsButton = document.createElement("button");
-  settingsButton.id = "settingsButton";
-  settingsButton.classList.add("info-button"); // use the info button for positoning and styles
-
-  const settingsImgElement = document.createElement("img");
-  settingsImgElement.classList.add("info-icon-img");
-  settingsImgElement.src = "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png";
-  settingsImgElement.alt = "Settings Icon";
-
-  const settingsIconText = document.createElement("span");
-  settingsIconText.classList.add("info-icon-text"); // use the info icon for positoning and styles
-  settingsIconText.textContent = "u";
-
-  settingsButton.addEventListener(
-    "click",
-    function () {
-      var customEvent = new CustomEvent("uiMenuOpen", {
-        detail: {
-          message: "Settings Menu Opened",
-        },
-      });
-      document.dispatchEvent(customEvent);
-    }.bind(this)
+  const settingsButtonContainer = addUIButton(
+    "settingsButtonContainer",
+    "settingsButton",
+    "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
+    "Settings Icon",
+    "u",
+    onClickSettings,
+    openSettingsWindow,
+    ["settings-button-container"],
+    ["info-icon-img"],
+    ["info-icon-text"],
+    ["info-button"]
   );
-
-  // Append elements to create button
-  settingsButton.appendChild(settingsImgElement);
-  settingsButton.appendChild(settingsIconText);
-  settingsButtonContainer.appendChild(settingsButton);
 
   // Create sliders and their containers
   var speedSliderContainer = instantiateSlider(
@@ -119,35 +80,46 @@ export function addBoidSettings() {
   addTouchEventListenersToSliders();
 
   // Set up parenting structure and append to body of document
-  settingsHeader.appendChild(closeButton);
-  settingsBox.appendChild(settingsHeader);
-  settingsBox.appendChild(settingsContent);
+  settingsWindow.appendChild(speedSliderContainer);
+  appendBlankSpace(settingsWindow);
+  settingsWindow.appendChild(alignmentSliderContainer);
+  appendBlankSpace(settingsWindow);
+  settingsWindow.appendChild(cohesionSliderContainer);
+  appendBlankSpace(settingsWindow);
+  settingsWindow.appendChild(radiusSliderContainer);
+  appendBlankSpace(settingsWindow);
+  settingsWindow.appendChild(separationSliderContainer);
+  appendBlankSpace(settingsWindow);
 
-  settingsBox.appendChild(speedSliderContainer);
-  appendBlankSpace(settingsBox);
-  settingsBox.appendChild(alignmentSliderContainer);
-  appendBlankSpace(settingsBox);
-  settingsBox.appendChild(cohesionSliderContainer);
-  appendBlankSpace(settingsBox);
-  settingsBox.appendChild(radiusSliderContainer);
-  appendBlankSpace(settingsBox);
-  settingsBox.appendChild(separationSliderContainer);
-  appendBlankSpace(settingsBox);
-
-  document.body.appendChild(settingsBox);
+  document.body.appendChild(settingsWindow);
   document.body.appendChild(settingsButtonContainer);
 
   // Show the settings box when the button is clicked
-  settingsButton.addEventListener(
-    "click",
-    function () {
-      settingsBox.style.display = "block";
-    }.bind(this)
-  );
+  function openSettingsWindow() {
+    settingsWindow.style.display = "block";
+  }
+
+  function onClickSettings() {
+    var customEvent = new CustomEvent("uiMenuOpen", {
+      detail: {
+        message: "Settings Menu Opened",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  }
 
   // Close the settings box when the close button is clicked
-  function closeSettingsBox() {
-    settingsBox.style.display = "none";
+  function closeSettingsWindow() {
+    settingsWindow.style.display = "none";
+  }
+
+  function onClickX() {
+    var customEvent = new CustomEvent("uiMenuClosed", {
+      detail: {
+        message: "Settings Menu Closed",
+      },
+    });
+    document.dispatchEvent(customEvent);
   }
 
   function appendBlankSpace(parent) {
