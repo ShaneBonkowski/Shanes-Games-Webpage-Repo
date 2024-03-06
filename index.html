@@ -51,13 +51,13 @@
     <div class="overlay-styler black-fade-overlay"></div>
 
     <!-- Include the non-module scripts used -->
-    <script src="Main-Website-Assets/js/header.js"></script>
     <script src="Main-Website-Assets/js/game_box.js"></script>
-    <script src="Main-Website-Assets/js/footer.js"></script>
     <script src="Main-Website-Assets/js/game_box_hover_handling.js"></script>
 
     <!-- Call JS functions -->
-    <script>
+    <script type="module">
+      import { createHeader } from "/Main-Website-Assets/js/header.js";
+      import { createFooter } from "/Main-Website-Assets/js/footer.js";
       // Wait for DOMContentLoaded before calling scripts
       document.addEventListener("DOMContentLoaded", function () {
         createHeader();

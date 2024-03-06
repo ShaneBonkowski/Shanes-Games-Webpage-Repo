@@ -94,10 +94,15 @@ export class Boid {
     // Leader boid movement etc.
     if (this.mainBoid) {
       // Follow pointer
+      this.scene.input.on("pointerdown", (pointer) => {
+        this.graphic.x = pointer.worldX;
+        this.graphic.y = pointer.worldY;
+      });
       this.scene.input.on("pointermove", (pointer) => {
         this.graphic.x = pointer.worldX;
         this.graphic.y = pointer.worldY;
       });
+
       // Hide / reveal leader on pointer up / down
       document.addEventListener(
         "pointerholdclick",
@@ -105,10 +110,6 @@ export class Boid {
           // Enable leader boid if ui menu is closed
           if (!this.scene.uiMenuOpen) {
             this.enable();
-
-            // Make sure leader is on mouse location
-            this.graphic.x = pointer.worldX;
-            this.graphic.y = pointer.worldY;
           }
         }.bind(this),
         { capture: true }

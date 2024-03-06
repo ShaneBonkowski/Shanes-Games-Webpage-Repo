@@ -1,4 +1,5 @@
-function createFooter() {
+import { createButtonLinkElement } from "./buttons.js";
+export function createFooter() {
   // Create a container div for the footer box
   var footerContainer = document.createElement("footer");
   footerContainer.classList.add("footer-banner");
@@ -10,24 +11,15 @@ function createFooter() {
     "Thanks for visiting!\nShane's (cool) games by me (Shane)";
 
   // LinkedIn button
-  var linkedInLinkElement = document.createElement("a");
-  linkedInLinkElement.href = "https://www.linkedin.com/in/shanebonkowski/";
-  linkedInLinkElement.target = "_blank"; // Open link in a new tab
-  linkedInLinkElement.classList.add("linkedIn-button-link");
-
-  var linkedInButtonContainer = document.createElement("div");
-  linkedInButtonContainer.classList.add("linkedIn-button-container");
-
-  var linkedInText = document.createElement("div");
-  linkedInText.classList.add("linkedIn-text");
-  linkedInText.textContent = "LinkedIn";
-
-  var linkedInIconElement = document.createElement("i");
-  linkedInIconElement.classList.add("fab", "fa-linkedin");
-
-  linkedInButtonContainer.appendChild(linkedInIconElement);
-  linkedInButtonContainer.appendChild(linkedInText);
-  linkedInLinkElement.appendChild(linkedInButtonContainer);
+  var linkedInLinkElement = createButtonLinkElement(
+    "LinkedIn",
+    "https://www.linkedin.com/in/shanebonkowski/",
+    ["linkedIn-button-link"],
+    ["linkedIn-text"],
+    ["fab", "fa-linkedin"],
+    ["linkedIn-button-container"],
+    true
+  );
 
   // Append elements to their containers
   footerContainer.appendChild(footerMainTextDiv);

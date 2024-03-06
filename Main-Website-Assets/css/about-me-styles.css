@@ -1,5 +1,5 @@
 /* Import constants */
-@import "../../Shared-General-Assets/css/main-website-styles.css";
+@import "./main-website-styles.css";
 
 /* About me section */
 .about-me-blank-space {

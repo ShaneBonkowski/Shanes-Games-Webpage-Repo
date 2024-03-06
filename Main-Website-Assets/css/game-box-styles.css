@@ -1,5 +1,5 @@
 /* Import constants */
-@import "../../Shared-General-Assets/css/main-website-styles.css";
+@import "./main-website-styles.css";
 
 /* Common styles for game box elements */
 a.game-box-button-link-anchor,
