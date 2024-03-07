@@ -144,7 +144,7 @@ export class Boid {
 
     // Phone screen has larger boids
     if (screenWidth <= 600) {
-      boidSize = screenWidth * 0.00022;
+      boidSize = screenWidth * 0.00026;
     }
 
     return boidSize;
@@ -349,10 +349,21 @@ export class Boid {
         pos_sum.x / similarNeighborsCount,
         pos_sum.y / similarNeighborsCount
       );
+
+      var directionObj = this.getMovementDirectionVectorThroughTorus(
+        this.graphic,
+        avg_pos,
+        screenWidth,
+        screenHeight
+      );
       desired_velocity.x +=
-        (avg_pos.x - this.graphic.x) * BoidFactors.cohesionFactor;
+        Math.abs(avg_pos.x - this.graphic.x) *
+        directionObj.direction_x *
+        BoidFactors.cohesionFactor;
       desired_velocity.y +=
-        (avg_pos.y - this.graphic.y) * BoidFactors.cohesionFactor;
+        Math.abs(avg_pos.y - this.graphic.y) *
+        directionObj.direction_y *
+        BoidFactors.cohesionFactor;
 
       // Separation: boids steer away from boids within their boidProtectedRadius
       desired_velocity.x += separation.x * BoidFactors.separationFactor;
@@ -362,10 +373,20 @@ export class Boid {
     // Follow the leader if told to do so!
     if (followLeader) {
       // Follow Leader
+      directionObj = this.getMovementDirectionVectorThroughTorus(
+        this.graphic,
+        leader_pos,
+        screenWidth,
+        screenHeight
+      );
       desired_velocity.x +=
-        (leader_pos.x - this.graphic.x) * BoidFactors.leaderFollowFactor;
+        Math.abs(leader_pos.x - this.graphic.x) *
+        directionObj.direction_x *
+        BoidFactors.leaderFollowFactor;
       desired_velocity.y +=
-        (leader_pos.y - this.graphic.y) * BoidFactors.leaderFollowFactor;
+        Math.abs(leader_pos.y - this.graphic.y) *
+        directionObj.direction_y *
+        BoidFactors.leaderFollowFactor;
     }
 
     // Perform opposing boid velocity updates
@@ -377,24 +398,35 @@ export class Boid {
         opposing_pos_sum.y / opposingNeighborsCount
       );
 
+      directionObj = this.getMovementDirectionVectorThroughTorus(
+        this.graphic,
+        opposing_avg_pos,
+        screenWidth,
+        screenHeight
+      );
+
       // Bad boid chases
       if (this.boid_type == "Bad") {
         desired_velocity.x +=
-          (opposing_avg_pos.x - this.graphic.x) *
+          Math.abs(opposing_avg_pos.x - this.graphic.x) *
+          directionObj.direction_x *
           BoidFactors.predatorPreyFactor;
         desired_velocity.y +=
-          (opposing_avg_pos.y - this.graphic.y) *
+          Math.abs(opposing_avg_pos.y - this.graphic.y) *
+          directionObj.direction_y *
           BoidFactors.predatorPreyFactor;
       }
       // good boid runs away
       else if (this.boid_type == "Good") {
         desired_velocity.x +=
           -1 *
-          (opposing_avg_pos.x - this.graphic.x) *
+          Math.abs(opposing_avg_pos.x - this.graphic.x) *
+          directionObj.direction_x *
           BoidFactors.predatorPreyFactor;
         desired_velocity.y +=
           -1 *
-          (opposing_avg_pos.y - this.graphic.y) *
+          Math.abs(opposing_avg_pos.y - this.graphic.y) *
+          directionObj.direction_y *
           BoidFactors.predatorPreyFactor;
       }
     }
@@ -439,6 +471,49 @@ export class Boid {
       dx: dx,
       dy: dy,
       distanceSquared: distanceSquared,
+    };
+  }
+
+  getMovementDirectionVectorThroughTorus(
+    pos_a,
+    pos_b,
+    screenWidth,
+    screenHeight
+  ) {
+    // Get the movement direction vector to go from point a to point b
+    // taking into account the fact that boids live on a torus, so sometimes
+    // the best (shortest) way to go is through the side of the screen
+
+    // Calculate initial direction from a to b the normal way (not considering torus)
+    let dx = pos_b.x - pos_a.x;
+    let dy = pos_b.y - pos_a.y;
+
+    // Because boids can overflow to the other side of the screen, we need to check the
+    // "torus" distance to see if the boids are closer in that direction.
+    // To do so, we can assume the shorter route from one boid to another is through the edge of a screen if
+    // their distance in a given direction (x or y) is greater than half the respective size of the screen.
+    if (Math.abs(dx) > screenWidth / 2) {
+      // If pos_b is to the right of pos_a in this case, then we subtract screen width since
+      // in the land of "torus" geometry pos_b is really to the left of pos_a in their closest distance through the edge
+      if (dx > 0) {
+        dx -= screenWidth;
+      } else {
+        dx += screenWidth;
+      }
+    }
+    if (Math.abs(dy) > screenHeight / 2) {
+      // If pos_b is above of pos_a in this case, then we subtract screen height since
+      // in the land of "torus" geometry pos_b is really to the below of pos_a in their closest distance through the edge
+      if (dy > 0) {
+        dy -= screenHeight;
+      } else {
+        dy += screenHeight;
+      }
+    }
+
+    return {
+      direction_x: Math.sign(dx),
+      direction_y: Math.sign(dy),
     };
   }
 

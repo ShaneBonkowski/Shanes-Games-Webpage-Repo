@@ -7,6 +7,7 @@ export function setZOrderForSharedElements(game) {
 
   // Get a reference to the css objects we want to position
   var gameHeader = document.querySelector(".game-header-banner");
+  var settingsSidePanels = document.querySelectorAll(".settings-side-panel");
   var sliderContainers = document.querySelectorAll(".slider-container");
   var closeButtons = document.querySelectorAll(".close-button");
   var infoButtons = document.querySelectorAll(".info-button");
@@ -17,17 +18,20 @@ export function setZOrderForSharedElements(game) {
   game.canvas.style.zIndex = "0";
   gameHeader.style.zIndex = "2";
 
+  settingsSidePanels.forEach((settingsSidePanel) => {
+    settingsSidePanel.style.zIndex = "4";
+  });
   sliderContainers.forEach((sliderContainer) => {
-    sliderContainer.style.zIndex = "3";
+    sliderContainer.style.zIndex = "5";
   });
   infoButtons.forEach((infoButton) => {
-    infoButton.style.zIndex = "4";
+    infoButton.style.zIndex = "6";
   });
   infoBoxs.forEach((infoBox) => {
-    infoBox.style.zIndex = "5";
+    infoBox.style.zIndex = "7";
   });
   closeButtons.forEach((closeButton) => {
-    closeButton.style.zIndex = "6";
+    closeButton.style.zIndex = "8";
   });
 }
 
