@@ -4,6 +4,18 @@ import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
 import { createToggleBox } from "../../Shared-Game-Assets/js/ui_togglebox.js";
 export function addBoidSettings() {
   // Create ui window to hold the settings and sliders in (basically a window)
+  function closeSettingsWindow() {
+    settingsWindow.style.display = "none";
+  }
+
+  function onClickX() {
+    var customEvent = new CustomEvent("uiMenuClosed", {
+      detail: {
+        message: "Settings Menu Closed",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  }
   const settingsWindow = createUIWindow(
     "SettingsWindow",
     "",
@@ -87,6 +99,18 @@ export function addBoidSettings() {
   settingsWindow.appendChild(leaderPanel);
 
   // Add an open settings Button
+  function openSettingsWindow() {
+    settingsWindow.style.display = "block";
+  }
+
+  function onClickSettings() {
+    var customEvent = new CustomEvent("uiMenuOpen", {
+      detail: {
+        message: "Settings Menu Opened",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  }
   const settingsButtonContainer = addUIButton(
     "settingsButtonContainer",
     "settingsButton",
@@ -194,34 +218,6 @@ export function addBoidSettings() {
 
   document.body.appendChild(settingsWindow);
   document.body.appendChild(settingsButtonContainer);
-
-  // Show the settings box when the button is clicked
-  function openSettingsWindow() {
-    settingsWindow.style.display = "block";
-  }
-
-  function onClickSettings() {
-    var customEvent = new CustomEvent("uiMenuOpen", {
-      detail: {
-        message: "Settings Menu Opened",
-      },
-    });
-    document.dispatchEvent(customEvent);
-  }
-
-  // Close the settings box when the close button is clicked
-  function closeSettingsWindow() {
-    settingsWindow.style.display = "none";
-  }
-
-  function onClickX() {
-    var customEvent = new CustomEvent("uiMenuClosed", {
-      detail: {
-        message: "Settings Menu Closed",
-      },
-    });
-    document.dispatchEvent(customEvent);
-  }
 
   function appendBlankSpace(parent) {
     var blankSpace = document.createElement("div");
