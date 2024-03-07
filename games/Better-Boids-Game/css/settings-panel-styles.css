@@ -1,0 +1,80 @@
+/* Import constants */
+@import "../../../Shared-General-Assets/css/general-shared-constants.css";
+
+/* Define CONSTANT variables */
+:root {
+  /* Size */
+
+  /* Margins */
+  --settings-panel-top: 13%;
+  --settings-panel-left: 32%;
+  --settings-panel-width: 60%;
+  --settings-panel-height: 70%;
+  --settings-image-left: 25%;
+
+  /* Translations */
+
+  /* Font Sizes */
+  --settings-font-size: 2vw;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    /* Size */
+
+    /* Margins */
+    --settings-panel-top: 8%;
+    --settings-panel-left: 4%;
+    --settings-panel-width: 92%;
+    --settings-panel-height: 80%;
+    --settings-image-left: 20%;
+
+    /* Font Sizes */
+    --settings-font-size: 3vw;
+  }
+}
+
+.settings-side-panel {
+  position: absolute;
+  top: var(--settings-panel-top);
+  left: var(--settings-panel-left);
+  width: var(--settings-panel-width);
+  height: var(--settings-panel-height);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  box-sizing: border-box;
+  display: none; /* hide at first */
+}
+
+.settings-side-panel img {
+  max-width: 60%;
+  margin-bottom: 20px;
+  max-height: 50%;
+}
+
+/* Media query for phone screens */
+@media screen and (max-width: 600px) {
+  .settings-side-panel img {
+    position: relative;
+    left: var(
+      --settings-image-left
+    ); /* Set the image position for phone screens */
+  }
+}
+
+/* Media query for computer screens */
+@media screen and (min-width: 601px) {
+  .settings-side-panel img {
+    align-self: center;
+  }
+}
+
+.settings-side-panel div {
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+  font-size: var(--settings-font-size);
+}

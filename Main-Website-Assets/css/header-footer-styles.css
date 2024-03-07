@@ -1,6 +1,20 @@
 /* Import constants */
 @import "./main-website-styles.css";
 
+/* Define variables */
+:root {
+  /* Transformations */
+  --sub-title-translate-x: 180%;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (max-width: 600px) {
+  :root {
+    /* Transformations */
+    --sub-title-translate-x: 162%;
+  }
+}
+
 /* header.js styling */
 .header-banner {
   position: relative; /* Position this wherever (this is the origin for all of this obj's children */
@@ -55,7 +69,7 @@ h1.title-text-style {
 
 .sub-title-text {
   font-size: var(--subtitle-text-font-size);
-  transform: translate(180%, 50%);
+  transform: translate(var(--sub-title-translate-x), 50%);
   font-weight: normal;
 }
 

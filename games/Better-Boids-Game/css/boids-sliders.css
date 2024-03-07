@@ -71,6 +71,7 @@ body {
   pointer-events: none;
   font-size: var(--slider-font-size);
   white-space: nowrap;
+  color: white;
 }
 
 .slider-hover-label {
@@ -80,6 +81,7 @@ body {
   display: none; /* Hide the label until we hover on it below */
   font-size: var(--slider-font-size);
   white-space: nowrap;
+  color: white;
 }
 
 /* for hovering on computer */

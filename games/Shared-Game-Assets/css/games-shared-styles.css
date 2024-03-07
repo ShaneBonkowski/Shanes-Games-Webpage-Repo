@@ -30,6 +30,8 @@
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (max-width: 600px) {
   :root {
+    /* Transformations */
+    --main-logo-subtitle-translate-x: 123%;
     /* Sizes */
     --game-header-height: 24vw;
     /* Edge Margins */
