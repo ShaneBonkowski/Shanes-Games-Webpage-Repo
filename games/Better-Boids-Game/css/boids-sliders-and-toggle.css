@@ -106,3 +106,28 @@ input[type="range"] {
 input[type="range"]:active {
   transform: scale(1.25); /* Increase the scale of the slider */
 }
+
+/* Toggle box styles */
+.toggle-box-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: var(--slider-container-left-margin);
+  top: var(--slider-top-margin);
+  height: var(--input-slider-height);
+  width: var(--input-slider-width);
+}
+
+.toggle-label {
+  font-size: var(--slider-font-size);
+  white-space: nowrap;
+  color: white;
+}
+
+.toggle-input {
+  display: absolute;
+  margin-left: 30px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}

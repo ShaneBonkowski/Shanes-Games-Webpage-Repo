@@ -12,10 +12,12 @@ export const BoidFactors = {
   predatorPreyFactor: 3,
   flockSearchRadius: 90,
   boidProtectedRadius: 20,
+  leaderBoidEnabled: true,
 };
 
 export const customEvents = {
   speedChangeEvent: new Event("onSpeedChange"),
+  leaderBoidChangeEvent: new Event("onLeaderBoidChange"),
 };
 
 export function instantiateBoids(scene, boidCount) {

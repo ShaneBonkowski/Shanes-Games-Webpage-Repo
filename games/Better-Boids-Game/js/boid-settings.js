@@ -1,6 +1,7 @@
 import { BoidFactors, customEvents } from "./boid-utils.js";
 import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
 import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
+import { createToggleBox } from "../../Shared-Game-Assets/js/ui_togglebox.js";
 export function addBoidSettings() {
   // Create ui window to hold the settings and sliders in (basically a window)
   const settingsWindow = createUIWindow(
@@ -67,12 +68,23 @@ export function addBoidSettings() {
     `
   );
 
+  const leaderPanel = createSettingsSidePanel(
+    "./pngs/Bad_Boid.png",
+    `
+      <h2>Leader Boid:</h2>
+      <p>
+          If enabled, Leader Boid will spawn wherever your pointer is located at on the screen. Boids will all follow the Leader!
+      </p>
+    `
+  );
+
   // Add panels to the settingsWindow
   settingsWindow.appendChild(speedPanel);
   settingsWindow.appendChild(alignmentPanel);
   settingsWindow.appendChild(cohesionPanel);
   settingsWindow.appendChild(radiusPanel);
   settingsWindow.appendChild(separationPanel);
+  settingsWindow.appendChild(leaderPanel);
 
   // Add an open settings Button
   const settingsButtonContainer = addUIButton(
@@ -138,6 +150,34 @@ export function addBoidSettings() {
   addFlockRadiusIndicator(radiusSliderContainer);
   addTouchEventListenersToSliders();
 
+  // Toggle box
+  const leaderToggleBox = createToggleBox(
+    "Leader Boid",
+    function (checked) {
+      // Update leaderBoidEnabled variable
+      if (checked) {
+        BoidFactors.leaderBoidEnabled = true;
+        document.dispatchEvent(customEvents.leaderBoidChangeEvent);
+      } else {
+        BoidFactors.leaderBoidEnabled = false;
+        document.dispatchEvent(customEvents.leaderBoidChangeEvent);
+      }
+
+      // Hide all other "settings-side-panel"
+      const settingsPanels = document.querySelectorAll(".settings-side-panel");
+      settingsPanels.forEach((panel) => {
+        panel.style.display = "none";
+      });
+
+      // Show the provided panel
+      leaderPanel.style.display = "flex"; // panels are flex boxes
+    },
+    ["toggle-box-container"],
+    ["toggle-label"],
+    ["toggle-input"],
+    true
+  );
+
   // Set up parenting structure and append to body of document
   settingsWindow.appendChild(speedSliderContainer);
   appendBlankSpace(settingsWindow);
@@ -148,6 +188,8 @@ export function addBoidSettings() {
   settingsWindow.appendChild(radiusSliderContainer);
   appendBlankSpace(settingsWindow);
   settingsWindow.appendChild(separationSliderContainer);
+  appendBlankSpace(settingsWindow);
+  settingsWindow.appendChild(leaderToggleBox);
   appendBlankSpace(settingsWindow);
 
   document.body.appendChild(settingsWindow);

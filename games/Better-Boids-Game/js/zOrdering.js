@@ -9,6 +9,7 @@ export function setZOrderForSharedElements(game) {
   var gameHeader = document.querySelector(".game-header-banner");
   var settingsSidePanels = document.querySelectorAll(".settings-side-panel");
   var sliderContainers = document.querySelectorAll(".slider-container");
+  var toggleBoxContainers = document.querySelectorAll(".toggle-box-container");
   var closeButtons = document.querySelectorAll(".close-button");
   var infoButtons = document.querySelectorAll(".info-button");
   var infoBoxs = document.querySelectorAll(".info-box");
@@ -23,6 +24,9 @@ export function setZOrderForSharedElements(game) {
   });
   sliderContainers.forEach((sliderContainer) => {
     sliderContainer.style.zIndex = "5";
+  });
+  toggleBoxContainers.forEach((toggleBoxContainer) => {
+    toggleBoxContainer.style.zIndex = "5";
   });
   infoButtons.forEach((infoButton) => {
     infoButton.style.zIndex = "6";
