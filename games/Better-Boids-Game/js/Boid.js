@@ -133,8 +133,11 @@ export class Boid {
 
   // Method to enable the boid
   enable() {
-    this.disabled = false;
-    this.graphic.setVisible(true);
+    // can only enable if leader is toggled on
+    if (BoidFactors.leaderBoidEnabled == true) {
+      this.disabled = false;
+      this.graphic.setVisible(true);
+    }
   }
 
   calculateBoidSize() {
