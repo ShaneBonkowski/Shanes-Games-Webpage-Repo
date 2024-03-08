@@ -83,7 +83,7 @@
     var(--middle-header-button-translation) + var(--header-button-separation)
   );
   /* Sizes */
-  --game-button-width: calc(var(--game-box-width) / 3);
+  --game-button-width: calc(var(--game-box-width) / 3.3);
   --game-button-height: calc(var(--game-box-height) * 0.95);
   --game-desc-width: calc(var(--game-box-width) * (0.6));
   --game-desc-height: calc(var(--game-box-height) * 0.95);

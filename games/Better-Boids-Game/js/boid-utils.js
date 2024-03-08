@@ -8,7 +8,7 @@ export const BoidFactors = {
   cohesionFactor: 0.054,
   separationFactor: 0.935,
   leaderFollowFactor: 5,
-  leaderFollowRadius: 200,
+  leaderFollowRadius: 500,
   predatorPreyFactor: 3,
   flockSearchRadius: 90,
   boidProtectedRadius: 20,

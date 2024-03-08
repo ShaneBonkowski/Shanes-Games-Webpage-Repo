@@ -30,7 +30,7 @@ export function addBoidSettings() {
 
   // Create side panels for the settings window with desired text and image that can be revealed / hidden
   const speedPanel = createSettingsSidePanel(
-    "./pngs/Bad_Boid.png",
+    "./pngs/Velocity_Graphic.png",
     `
       <h2>Max Speed:</h2>
       <p>
@@ -41,7 +41,7 @@ export function addBoidSettings() {
   speedPanel.style.display = "flex"; // start with speed panel revealed (panels are flex boxes)
 
   const alignmentPanel = createSettingsSidePanel(
-    "./pngs/Bad_Boid.png",
+    "./pngs/Alignment_Graphic.png",
     `
       <h2>Boid Alignment:</h2>
       <p>
@@ -51,7 +51,7 @@ export function addBoidSettings() {
   );
 
   const cohesionPanel = createSettingsSidePanel(
-    "./pngs/Bad_Boid.png",
+    "./pngs/Cohesion_Graphic.png",
     `
       <h2>Boid Cohesion:</h2>
       <p>
@@ -61,7 +61,7 @@ export function addBoidSettings() {
   );
 
   const radiusPanel = createSettingsSidePanel(
-    "./pngs/Bad_Boid.png",
+    "./pngs/Search_Radius_Graphic.png",
     `
       <h2>Flock Radius:</h2>
       <p>
@@ -71,7 +71,7 @@ export function addBoidSettings() {
   );
 
   const separationPanel = createSettingsSidePanel(
-    "./pngs/Bad_Boid.png",
+    "./pngs/Separation_Graphic.png",
     `
       <h2>Boid Separation:</h2>
       <p>
@@ -81,7 +81,7 @@ export function addBoidSettings() {
   );
 
   const leaderPanel = createSettingsSidePanel(
-    "./pngs/Bad_Boid.png",
+    "./pngs/Leader_Follow_Graphic.png",
     `
       <h2>Leader Boid:</h2>
       <p>
@@ -157,7 +157,7 @@ export function addBoidSettings() {
     "Flock Radius",
     BoidFactors.flockSearchRadius,
     `${BoidFactors.boidProtectedRadius + 5}`, // Cannot go smaller than protected radius with some buffer
-    "100",
+    "500",
     "1",
     radiusPanel
   );
