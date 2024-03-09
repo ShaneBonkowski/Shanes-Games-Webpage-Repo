@@ -61,8 +61,6 @@ function createGameHeader(
       gameLogoContainer.style.marginLeft =
         gameLogoContainerLeftMarginPercentageComputer + "%";
     }
-
-    console.log(screenWidth);
   }
   updateGameLogoContainer();
   window.addEventListener("resize", updateGameLogoContainer);

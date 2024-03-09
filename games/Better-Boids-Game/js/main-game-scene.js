@@ -71,7 +71,6 @@ export class MainGameScene extends Phaser.Scene {
 
       // After everything is loaded in, we can begin the game
       this.gameStarted = true;
-      console.log("boids init'd!");
     });
   }
 
@@ -127,7 +126,6 @@ export class MainGameScene extends Phaser.Scene {
       function (event) {
         if (this.uiMenuOpen == false) {
           this.uiMenuOpen = true;
-          console.log("menu open");
         }
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
@@ -136,7 +134,6 @@ export class MainGameScene extends Phaser.Scene {
       function (event) {
         if (this.uiMenuOpen == true) {
           this.uiMenuOpen = false;
-          console.log("menu closed");
         }
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
