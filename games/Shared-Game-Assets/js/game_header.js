@@ -1,4 +1,11 @@
-function createGameHeader(gameName, gameIconSrc) {
+function createGameHeader(
+  gameName,
+  gameIconSrc,
+  gameLogoContainerLeftMarginPercentageComputer,
+  gameLogoContainerLeftMarginPercentagePhone,
+  gameTitleXShiftPercentage,
+  gameTitleYShiftPercentage
+) {
   var gameHeaderContainer = document.createElement("div");
   gameHeaderContainer.classList.add("game-header-banner");
   gameHeaderContainer.classList.add("disable-browser-default-touch-actions");
@@ -44,6 +51,22 @@ function createGameHeader(gameName, gameIconSrc) {
   gameLogoContainer.classList.add("game-logo-container");
   gameLogoContainer.classList.add("disable-browser-default-touch-actions");
 
+  // Set location of gameLogoContainer, and have it change when window size changes
+  function updateGameLogoContainer() {
+    var screenWidth = window.innerWidth;
+    if (screenWidth <= 600) {
+      gameLogoContainer.style.marginLeft =
+        gameLogoContainerLeftMarginPercentagePhone + "%";
+    } else {
+      gameLogoContainer.style.marginLeft =
+        gameLogoContainerLeftMarginPercentageComputer + "%";
+    }
+
+    console.log(screenWidth);
+  }
+  updateGameLogoContainer();
+  window.addEventListener("resize", updateGameLogoContainer);
+
   var gameLogoImage = document.createElement("img");
   gameLogoImage.src = gameIconSrc;
   gameLogoImage.alt = gameName;
@@ -55,6 +78,7 @@ function createGameHeader(gameName, gameIconSrc) {
   gameTitle.classList.add("game-title-style");
   gameTitle.classList.add("game-title");
   gameTitle.classList.add("disable-browser-default-touch-actions");
+  gameTitle.style.transform = `translate(${gameTitleXShiftPercentage}%, ${gameTitleYShiftPercentage}%)`;
 
   // Append image and title to the Game Logo container
   gameLogoContainer.appendChild(gameLogoImage);
