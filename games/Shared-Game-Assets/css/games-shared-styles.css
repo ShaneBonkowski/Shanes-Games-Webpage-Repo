@@ -8,8 +8,6 @@
   --main-logo-title-translate-y: -125%;
   --main-logo-subtitle-translate-x: 112%;
   --main-logo-subtitle-translate-y: -20%;
-  --game-title-translate-x: 65%;
-  --game-title-translate-y: -100%;
   --loading-logo-translate-x: 0%;
   --loading-logo-translate-y: 20%;
   /* Sizes */
@@ -21,8 +19,7 @@
   --logo-title-font-size: calc(var(--game-header-height) * 0.125);
   --logo-subtitle-font-size: calc(var(--game-header-height) * 0.0825);
   /* Edge Margins */
-  --small-top-margin: 10%;
-  --game-logo-container-left-margin: 76%;
+  --header-small-top-margin: 23%;
   /* Other */
   --load-screen-dur: 5s;
 }
@@ -34,9 +31,6 @@
     --main-logo-subtitle-translate-x: 123%;
     /* Sizes */
     --game-header-height: 24vw;
-    /* Edge Margins */
-    --game-logo-container-left-margin: 61%;
-    --small-top-margin: 15%;
   }
 }
 
@@ -75,7 +69,7 @@
   position: absolute; /* Position wrt to its parent */
   margin: 0;
   left: var(--main-left-margin);
-  top: var(--small-top-margin);
+  top: var(--header-small-top-margin);
   transform: translateY(var(--centering-translation));
   pointer-events: auto; /* Can click this to go back to main menu */
   cursor: pointer; /* hover pointer */
@@ -112,8 +106,8 @@
 .game-logo-container {
   position: absolute; /* Position wrt to its parent */
   margin: 0;
-  left: var(--game-logo-container-left-margin);
-  top: var(--small-top-margin);
+  /* left: var(--game-logo-container-left-margin); */ /* This is now handled in game_header.js */
+  top: var(--header-small-top-margin);
   transform: translate(0%, var(--centering-translation));
   background-color: white;
   pointer-events: none;
@@ -129,10 +123,10 @@
 }
 
 .game-title {
-  transform: translate(
+  /* transform: translate(
     var(--game-title-translate-x),
     var(--game-title-translate-y)
-  );
+  ); */ /* This is now handled in game_header.js */
   pointer-events: none;
 }
 

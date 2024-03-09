@@ -8,7 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
-    <title>Better Boids</title>
+    <title>Flip Tile</title>
 
     <!-- Defining "urgent" css styles that I want to guarentee render in, hence why they are referenced in the header -->
     <!-- Other less "urgent" attr's of body are modified in the .css file it appears in -->
@@ -18,7 +18,7 @@
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("pngs/Boids_Background.png");
+        background-image: url("pngs/Flip_Tile_Background.png");
         background-repeat: repeat-y; /* Repeat the image vertically */
         background-position: top center; /* position relative to the top or center */
         background-size: 100% auto; /* Auto width, 100% height */
@@ -36,9 +36,7 @@
       rel="stylesheet"
       href="../Shared-Game-Assets/css/games-shared-styles.css"
     />
-    <link rel="stylesheet" href="css/boids-sliders-and-toggle.css" />
-    <link rel="stylesheet" href="css/settings-panel-styles.css" />
-    <link rel="stylesheet" href="css/better-boids-styles.css" />
+    <link rel="stylesheet" href="css/flip-tile-styles.css" />
   </head>
   <body class="disable-browser-default-touch-actions">
     <!-- Screen starts black with a loading screen and fades when page is openned -->
@@ -65,21 +63,17 @@
     <script type="module">
       // Import modules
       import { LaunchGame } from "./js/game.js";
-      import { addBoidSettings } from "./js/boid-settings.js";
-      import { addInfoBox } from "../Better-Boids-Game/js/info_box.js";
 
       // Wait for the module(s) to be fully loaded before calling LaunchGame()
       window.addEventListener("load", function () {
         createGameHeader(
-          "better boids",
-          "pngs/better_boids_logo.png",
-          76, // gameLogoContainerLeftMarginPercentageComputer
-          61, // gameLogoContainerLeftMarginPercentagePhone
-          65, // gameTitleXShiftPercentage
+          "flip tile",
+          "pngs/flip_tile_logo.png",
+          81, // gameLogoContainerLeftMarginPercentageComputer
+          70, // gameLogoContainerLeftMarginPercentagePhone
+          110, // gameTitleXShiftPercentage
           -100 // gameTitleYShiftPercentage
         );
-        addBoidSettings();
-        addInfoBox();
         LaunchGame();
       });
     </script>
