@@ -10,17 +10,61 @@ import { intendedNewTileAttrs } from "./main-game-scene.js";
 export const tileStates = {
   RED: 0,
   BLUE: 1,
+  GREEN: 2,
+};
+
+export const difficulty = {
+  EASY: 0,
+  HARD: 1,
+  EXPERT: 2,
 };
 
 export var TilePatternAttrs = {
   tileCount: 9, // initial values
   seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
+  qtyStatesBeingUsed: 2, // init
+  difficultyLevel: difficulty.HARD,
 };
 
 export const customEvents = {
   tileUpdateEvent: new Event("onTileUpdate"),
   tileGridChangeEvent: new Event("onTilegridChange"),
   tileGridResetEvent: new Event("onTilegridReset"),
+};
+
+// Pre-computed using \Python-Utils\matInvMod.py, calling python .\matInvMod.py from terminal
+export const inverseToggleMatrixLookupMod2 = {
+  TWO_BY_TWO: [
+    [1, 1, 1, 0],
+    [1, 1, 0, 1],
+    [1, 0, 1, 1],
+    [0, 1, 1, 1],
+  ],
+  THREE_BY_THREE: [
+    [1, 0, 1, 0, 0, 1, 1, 1, 0],
+    [0, 0, 0, 0, 1, 0, 1, 1, 1],
+    [1, 0, 1, 1, 0, 0, 0, 1, 1],
+    [0, 0, 1, 0, 1, 1, 0, 0, 1],
+    [0, 1, 0, 1, 1, 1, 0, 1, 0],
+    [1, 0, 0, 1, 1, 0, 1, 0, 0],
+    [1, 1, 0, 0, 0, 1, 1, 0, 1],
+    [1, 1, 1, 0, 1, 0, 0, 0, 0],
+    [0, 1, 1, 1, 0, 0, 1, 0, 1],
+  ],
+};
+
+export const inverseToggleMatrixLookupMod3 = {
+  THREE_BY_THREE: [
+    [2, 1, 2, 1, 1, 0, 2, 0, 0],
+    [1, 1, 1, 1, 1, 1, 0, 2, 0],
+    [2, 1, 2, 0, 1, 1, 0, 0, 2],
+    [1, 1, 0, 1, 1, 2, 1, 1, 0],
+    [1, 1, 1, 1, 0, 1, 1, 1, 1],
+    [0, 1, 1, 2, 1, 1, 0, 1, 1],
+    [2, 0, 0, 1, 1, 0, 2, 1, 2],
+    [0, 2, 0, 1, 1, 1, 1, 1, 1],
+    [0, 0, 2, 0, 1, 1, 2, 1, 2],
+  ],
 };
 
 var seededRandom = 0; // init
@@ -32,11 +76,8 @@ export function instantiateTiles(scene) {
 
     let tiles = []; // 2D array
 
-    // Spawn in tiles in a grid.. tileCount can only be an odd square
-    if (
-      TilePatternAttrs.tileCount % 2 !== 0 &&
-      Math.sqrt(TilePatternAttrs.tileCount) % 1 === 0
-    ) {
+    // Spawn in tiles in a grid.. tileCount can only be a square
+    if (Math.sqrt(TilePatternAttrs.tileCount) % 1 === 0) {
       // gridSize is the number of tiles per row and column in the grid (side length of the box the tiles make)
       const gridSize = Math.sqrt(TilePatternAttrs.tileCount);
 
@@ -118,17 +159,48 @@ function findSolvableTileGrid(gridSize, scene) {
 
     // Find solved and inverted toggle matrix for this size
     var flattenedsolvedMatrix = createSolvedMatrix(gridSize).flatten();
-    var toggleMatrix = createToggleMatrix(gridSize);
-    var matModInverseToggleMatrix = toggleMatrix.modInverse(2); // 2 possible choices for tiles, 0 or 1
+    var toggleMatrix = createToggleMatrix(
+      gridSize,
+      TilePatternAttrs.qtyStatesBeingUsed
+    );
+    toggleMatrix.printHowItAppearsInFlipTile();
+    toggleMatrix.printInArrayFormat();
+
+    var matModInverseToggleMatrix = new Matrix([[]]); // toggleMatrix.modInverse(2); // 2 possible choices for tiles, 0 or 1
+    if (TilePatternAttrs.qtyStatesBeingUsed == 2) {
+      if (gridSize == 2) {
+        matModInverseToggleMatrix = new Matrix(
+          inverseToggleMatrixLookupMod2.TWO_BY_TWO
+        );
+      } else if (gridSize == 3) {
+        matModInverseToggleMatrix = new Matrix(
+          inverseToggleMatrixLookupMod2.THREE_BY_THREE
+        );
+      } else {
+        console.error(
+          `No inverseToggleMatrixLookupMod2 exists for gridSize of ${gridSize}`
+        );
+      }
+    } else {
+      if (gridSize == 3) {
+        matModInverseToggleMatrix = new Matrix(
+          inverseToggleMatrixLookupMod3.THREE_BY_THREE
+        );
+      } else {
+        console.error(
+          `No inverseToggleMatrixLookupMod2 exists for gridSize of ${gridSize}`
+        );
+      }
+    }
 
     // Compute the strategyMatrix
     var finalMinusInitial = flattenedsolvedMatrix.matModSubtract(
       flattenedTileSpaceMatrix,
-      2
+      TilePatternAttrs.qtyStatesBeingUsed
     );
     var flattenedStrategyMatrix = matModInverseToggleMatrix.modMultiply(
       finalMinusInitial,
-      2
+      TilePatternAttrs.qtyStatesBeingUsed
     );
     var strategyMatrix = flattenedStrategyMatrix.unflatten(gridSize);
     console.log("strategyMatrix");
@@ -155,10 +227,21 @@ function createRandomTileSpaceMatrix(gridSize) {
     for (let col = 0; col < gridSize; col++) {
       var rand_val = seededRandom.getRandomFloat(0, 1);
       var tileState = tileStates.BLUE;
-      if (rand_val <= 0.5) {
-        tileState = tileStates.RED;
+
+      if (TilePatternAttrs.qtyStatesBeingUsed == 2) {
+        if (rand_val <= 0.5) {
+          tileState = tileStates.RED;
+        } else {
+          tileState = tileStates.BLUE;
+        }
       } else {
-        tileState = tileStates.BLUE;
+        if (rand_val <= 0.33) {
+          tileState = tileStates.RED;
+        } else if (rand_val <= 0.66) {
+          tileState = tileStates.BLUE;
+        } else {
+          tileState = tileStates.GREEN;
+        }
       }
 
       tileSpace[row][col] = tileState;
@@ -182,7 +265,7 @@ function createSolvedMatrix(gridSize) {
   return new Matrix(solvedMatrix);
 }
 
-function createToggleMatrix(gridSize) {
+function createToggleMatrix(gridSize, modulo) {
   // Start off tile array as all zeros
   let tileArray2D = [];
 
@@ -197,7 +280,6 @@ function createToggleMatrix(gridSize) {
   // E.g. if we touch top left of the array (the first possible tile),
   // what is the resulting state? Flatten this and make that the first row of the ToggleMatrix
   // Then do the second tile, and third and so on
-
   // This matrix defines how changes to a tile affect another tile.
   let toggleMatrixArray = [];
 
@@ -207,24 +289,28 @@ function createToggleMatrix(gridSize) {
       let currentTileArray = JSON.parse(JSON.stringify(tileArray2D));
 
       // Toggle the current tile
-      currentTileArray[row][col] = 1 - currentTileArray[row][col]; // 1 -> 0, and 0 -> 1
+      currentTileArray[row][col] = (currentTileArray[row][col] + 1) % modulo;
 
       // Toggle all neighboring tiles
       // Toggle top neighbor
       if (row - 1 >= 0) {
-        currentTileArray[row - 1][col] = 1 - currentTileArray[row - 1][col];
+        currentTileArray[row - 1][col] =
+          (currentTileArray[row - 1][col] + 1) % modulo;
       }
       // Toggle down neighbor
       if (row + 1 < gridSize) {
-        currentTileArray[row + 1][col] = 1 - currentTileArray[row + 1][col];
+        currentTileArray[row + 1][col] =
+          (currentTileArray[row + 1][col] + 1) % modulo;
       }
       // Toggle left neighbor
       if (col - 1 >= 0) {
-        currentTileArray[row][col - 1] = 1 - currentTileArray[row][col - 1];
+        currentTileArray[row][col - 1] =
+          (currentTileArray[row][col - 1] + 1) % modulo;
       }
       // Toggle right neighbor
       if (col + 1 < gridSize) {
-        currentTileArray[row][col + 1] = 1 - currentTileArray[row][col + 1];
+        currentTileArray[row][col + 1] =
+          (currentTileArray[row][col + 1] + 1) % modulo;
       }
 
       // Flatten the current tile array

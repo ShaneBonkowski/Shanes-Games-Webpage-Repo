@@ -1,6 +1,6 @@
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
-import { tileStates } from "./tile-utils.js";
+import { tileStates, TilePatternAttrs } from "./tile-utils.js";
 
 export class Tile {
   constructor(scene, tileSpaceX, tileSpaceY, gridSize, tileState) {
@@ -51,11 +51,9 @@ export class Tile {
       this.graphic.setTint(0xff0000); // RED color
     } else if (this.tileState === tileStates.BLUE) {
       this.graphic.setTint(0x0000ff); // BLUE color
-    }
-    // else if (this.tileState === tileStates.GREEN) {
-    //   this.graphic.setTint(0x00ff00); // GREEN color
-    // }
-    else {
+    } else if (this.tileState === tileStates.GREEN) {
+      this.graphic.setTint(0x00ff00); // GREEN color
+    } else {
       console.log(`ERROR: tileState ${this.tileState} is not an expected one`);
     }
   }
@@ -65,7 +63,7 @@ export class Tile {
     let nextState = this.tileState + 1;
 
     // If the next state exceeds the maximum, loop back to the first state
-    if (nextState > Object.keys(tileStates).length - 1) {
+    if (nextState > TilePatternAttrs.qtyStatesBeingUsed - 1) {
       nextState = 0;
     }
 
@@ -108,8 +106,17 @@ export class Tile {
     let tileSpacing = this.scene.game.canvas.width / 10;
 
     // Calculate the starting position for the top-left tile in the grid
-    const startGridX = centerX - ((this.gridSize - 1) * tileSpacing) / 2;
-    const startGridY = centerY - ((this.gridSize - 1) * tileSpacing) / 2;
+    let startGridX, startGridY;
+
+    if (this.gridSize % 2 === 0) {
+      // Even grid size
+      startGridX = centerX - (this.gridSize / 2 - 0.5) * tileSpacing;
+      startGridY = centerY - (this.gridSize / 2 - 0.5) * tileSpacing;
+    } else {
+      // Odd grid size
+      startGridX = centerX - ((this.gridSize - 1) / 2) * tileSpacing;
+      startGridY = centerY - ((this.gridSize - 1) / 2) * tileSpacing;
+    }
 
     // Calculate the position of the current tile in the grid
     var tileX = startGridX + this.tileSpaceCoord.x * tileSpacing;

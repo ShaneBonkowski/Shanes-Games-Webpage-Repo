@@ -55,6 +55,22 @@ export class Matrix {
     console.log(matString);
   }
 
+  printInArrayFormat() {
+    var matString = "";
+    matString += "[";
+    for (let i = 0; i < this.rows; i++) {
+      matString += "[";
+      for (let j = 0; j < this.cols; j++) {
+        matString += this.mat[j][i]; // print j, i instead of i, j
+        matString += ", ";
+      }
+      matString += "],";
+    }
+    matString += "]";
+
+    console.log(matString);
+  }
+
   add(b) {
     // for every element in the matrix, add it by the corresponding element in the other matrix
     let newMatrix = create2DArray(this.rows, this.cols);
