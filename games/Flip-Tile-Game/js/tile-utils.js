@@ -1,25 +1,44 @@
 import { Tile } from "./Tile.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { Matrix } from "../../Shared-Game-Assets/js/matrix.js";
+import {
+  SeededRandom,
+  randomType,
+} from "../../Shared-Game-Assets/js/Seedable_Random.js";
+import { intendedNewTileAttrs } from "./main-game-scene.js";
 
 export const tileStates = {
   RED: 0,
   BLUE: 1,
 };
 
-export const customEvents = {
-  tileUpdateEvent: new Event("onTileUpdate"),
+export var TilePatternAttrs = {
+  tileCount: 9, // initial values
+  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
 };
 
-export function instantiateTiles(scene, tileCount) {
+export const customEvents = {
+  tileUpdateEvent: new Event("onTileUpdate"),
+  tileGridChangeEvent: new Event("onTilegridChange"),
+  tileGridResetEvent: new Event("onTilegridReset"),
+};
+
+var seededRandom = 0; // init
+
+export function instantiateTiles(scene) {
   // Allows for async behavior
   return new Promise((resolve, reject) => {
+    seededRandom = new SeededRandom(TilePatternAttrs.seed);
+
     let tiles = []; // 2D array
 
     // Spawn in tiles in a grid.. tileCount can only be an odd square
-    if (tileCount % 2 !== 0 && Math.sqrt(tileCount) % 1 === 0) {
+    if (
+      TilePatternAttrs.tileCount % 2 !== 0 &&
+      Math.sqrt(TilePatternAttrs.tileCount) % 1 === 0
+    ) {
       // gridSize is the number of tiles per row and column in the grid (side length of the box the tiles make)
-      const gridSize = Math.sqrt(tileCount);
+      const gridSize = Math.sqrt(TilePatternAttrs.tileCount);
 
       // Try to find a solvable config of tiles
       tiles = findSolvableTileGrid(gridSize, scene);
@@ -28,7 +47,7 @@ export function instantiateTiles(scene, tileCount) {
       resolve(tiles);
     } else {
       console.log(
-        `Not spawning in tiles, tileCount of ${tileCount} is not an odd square as desired`
+        `Not spawning in tiles, tileCount of ${TilePatternAttrs.tileCount} is not an odd square as desired`
       );
       // Resolve the Promise with the array of EMPTY tiles
       resolve(tiles);
@@ -115,10 +134,18 @@ function findSolvableTileGrid(gridSize, scene) {
     console.log("strategyMatrix");
     strategyMatrix.printHowItAppearsInFlipTile();
 
-    solveableTileConfigFound = true;
+    solveableTileConfigFound = isTileConfigSolvableAndInterestingEnough();
   }
 
   return tileSpaceMatrixToTiles(tileSpaceMatrix, gridSize, scene);
+}
+
+function isTileConfigSolvableAndInterestingEnough() {
+  // TODO: figure out from the grid if the tile gris is interesting enough
+  // e.g. there are enough flipped tiles for it to be fun, and it is not already solved.
+  // Also use the solution matrix to see if this one is solvable in the first place.
+  // ...
+  return true;
 }
 
 function createRandomTileSpaceMatrix(gridSize) {
@@ -126,7 +153,7 @@ function createRandomTileSpaceMatrix(gridSize) {
   for (let row = 0; row < gridSize; row++) {
     tileSpace[row] = [];
     for (let col = 0; col < gridSize; col++) {
-      var rand_val = more_math.getRandomFloat(0, 1);
+      var rand_val = seededRandom.getRandomFloat(0, 1);
       var tileState = tileStates.BLUE;
       if (rand_val <= 0.5) {
         tileState = tileStates.RED;

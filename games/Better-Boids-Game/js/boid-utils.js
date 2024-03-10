@@ -1,5 +1,6 @@
 import { Boid } from "./Boid.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
 
 // Define constants for the boids rules
 export const BoidFactors = {
@@ -19,6 +20,9 @@ export const customEvents = {
   speedChangeEvent: new Event("onSpeedChange"),
   leaderBoidChangeEvent: new Event("onLeaderBoidChange"),
 };
+
+const seed = 1234;
+const seededRandom = new SeededRandom(seed);
 
 export function instantiateBoids(scene, boidCount) {
   // Allows for async behavior
@@ -43,8 +47,8 @@ export function instantiateBoids(scene, boidCount) {
     // Spawn in other boids randomly
     leaderBoid = false;
     for (let i = 0; i < boidCount; i++) {
-      let randomX = more_math.getRandomFloat(0.1, 0.9) * window.innerWidth;
-      let randomY = more_math.getRandomFloat(0.1, 0.9) * window.innerHeight;
+      let randomX = seededRandom.getRandomFloat(0.1, 0.9) * window.innerWidth;
+      let randomY = seededRandom.getRandomFloat(0.1, 0.9) * window.innerHeight;
       let boid = new Boid(
         scene,
         randomX,

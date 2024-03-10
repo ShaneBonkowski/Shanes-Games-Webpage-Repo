@@ -62,8 +62,6 @@ a:hover {
 .info-button-container,
 .settings-button-container {
   position: relative;
-  left: var(--info-button-margin-left);
-  top: var(--info-button-margin-top);
 }
 
 .info-button-container {

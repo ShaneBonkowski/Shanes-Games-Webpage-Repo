@@ -7,11 +7,19 @@ export function setZOrderForSharedElements(game) {
 
   // Get a reference to the css objects we want to position
   var gameHeader = document.querySelector(".game-header-banner");
+  var updateTilegridButton = document.querySelector(
+    ".updateTilegrid-button-container"
+  );
+  var resetTilegridButton = document.querySelector(
+    ".resetTilegrid-button-container"
+  );
 
   // Set the z-index property for all other objs\
   // helloWorldBox.style.zIndex = "-1"; // far back
   game.canvas.style.zIndex = "0";
   gameHeader.style.zIndex = "2";
+  updateTilegridButton.style.zIndex = "3";
+  resetTilegridButton.style.zIndex = "3";
 }
 
 export function setZOrderForMainGameElements(game) {
