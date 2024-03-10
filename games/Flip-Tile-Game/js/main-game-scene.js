@@ -1,4 +1,8 @@
-import { instantiateTiles, TilePatternAttrs } from "./tile-utils.js";
+import {
+  instantiateTiles,
+  TilePatternAttrs,
+  difficulty,
+} from "./tile-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
@@ -11,6 +15,8 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 export var intendedNewTileAttrs = {
   tileCount: 9, // initial values
   seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
+  qtyStatesBeingUsed: 2, // init
+  difficultyLevel: difficulty.HARD,
 };
 
 // Export so other scripts can access this
@@ -84,10 +90,9 @@ export class MainGameScene extends Phaser.Scene {
     this.destroyAllTiles();
 
     // Update to a new tile pattern in a grid as a Promise (so that we can run this async)
-    this.updateIntendedTileCount();
-    TilePatternAttrs.tileCount = intendedNewTileAttrs.tileCount;
+    this.updateIntendedDifficuly(difficulty.EXPERT);
     this.updateIntendedSeed();
-    TilePatternAttrs.seed = intendedNewTileAttrs.seed;
+    this.updateActualTilePatternAttrs();
 
     instantiateTiles(this).then((tiles) => {
       this.tiles = tiles;
@@ -99,12 +104,33 @@ export class MainGameScene extends Phaser.Scene {
     }
   }
 
-  updateIntendedTileCount(tileCountProvided = 9) {
-    intendedNewTileAttrs.tileCount = tileCountProvided;
+  updateIntendedDifficuly(difficultyLevel = difficulty.HARD) {
+    intendedNewTileAttrs.difficultyLevel = difficultyLevel;
+
+    // Assign qty states etc based on difficulty
+    if (difficultyLevel == difficulty.EASY) {
+      intendedNewTileAttrs.qtyStatesBeingUsed = 2;
+      intendedNewTileAttrs.tileCount = 4;
+    } else if (difficultyLevel == difficulty.HARD) {
+      intendedNewTileAttrs.qtyStatesBeingUsed = 2;
+      intendedNewTileAttrs.tileCount = 9;
+    } else {
+      intendedNewTileAttrs.qtyStatesBeingUsed = 3;
+      intendedNewTileAttrs.tileCount = 9;
+    }
   }
 
   updateIntendedSeed(seedProvided = more_math.getRandomInt(1, 100000)) {
     intendedNewTileAttrs.seed = seedProvided;
+  }
+
+  updateActualTilePatternAttrs() {
+    // Set actual to the intended values
+    TilePatternAttrs.qtyStatesBeingUsed =
+      intendedNewTileAttrs.qtyStatesBeingUsed;
+    TilePatternAttrs.tileCount = intendedNewTileAttrs.tileCount;
+    TilePatternAttrs.seed = intendedNewTileAttrs.seed;
+    TilePatternAttrs.difficultyLevel = intendedNewTileAttrs.difficultyLevel;
   }
 
   destroyAllTiles() {
