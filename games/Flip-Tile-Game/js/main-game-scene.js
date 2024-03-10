@@ -1,7 +1,17 @@
-import { instantiateTiles } from "./tile-utils.js";
+import { instantiateTiles, TilePatternAttrs } from "./tile-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
+import {
+  SeededRandom,
+  randomType,
+} from "../../Shared-Game-Assets/js/Seedable_Random.js";
+import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+
+export var intendedNewTileAttrs = {
+  tileCount: 9, // initial values
+  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
+};
 
 // Export so other scripts can access this
 export class MainGameScene extends Phaser.Scene {
@@ -35,12 +45,7 @@ export class MainGameScene extends Phaser.Scene {
 
     // Spawn in tiles in a grid as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
-    instantiateTiles(this, 9).then((tiles) => {
-      this.tiles = tiles;
-
-      // After everything is loaded in, we can begin the game
-      this.gameStarted = true;
-    });
+    this.newTilePattern(true); // first time calling this
   }
 
   update(time, delta) {
@@ -55,6 +60,61 @@ export class MainGameScene extends Phaser.Scene {
         // Do physics things here ...
       }
     }
+  }
+
+  resetCurrentTilePattern() {
+    // Call a new tile pattern with the same seed in tile-utils
+    // so that it resets back to the same tile pattern
+
+    // Make sure no tiles exist to start
+    this.destroyAllTiles();
+
+    // Reset tile pattern in a grid as a Promise (so that we can run this async).
+    // Do not change these parameters!! hence why they equals themselves
+    TilePatternAttrs.tileCount = TilePatternAttrs.tileCount;
+    TilePatternAttrs.seed = TilePatternAttrs.seed;
+    instantiateTiles(this).then((tiles) => {
+      this.tiles = tiles;
+    });
+    console.log("reset");
+  }
+
+  newTilePattern(firsTimeCalling = false) {
+    // Make sure no tiles exist to start
+    this.destroyAllTiles();
+
+    // Update to a new tile pattern in a grid as a Promise (so that we can run this async)
+    this.updateIntendedTileCount();
+    TilePatternAttrs.tileCount = intendedNewTileAttrs.tileCount;
+    this.updateIntendedSeed();
+    TilePatternAttrs.seed = intendedNewTileAttrs.seed;
+
+    instantiateTiles(this).then((tiles) => {
+      this.tiles = tiles;
+    });
+
+    if (firsTimeCalling) {
+      // After everything is loaded in, we can begin the game
+      this.gameStarted = true;
+    }
+  }
+
+  updateIntendedTileCount(tileCountProvided = 9) {
+    intendedNewTileAttrs.tileCount = tileCountProvided;
+  }
+
+  updateIntendedSeed(seedProvided = more_math.getRandomInt(1, 100000)) {
+    intendedNewTileAttrs.seed = seedProvided;
+  }
+
+  destroyAllTiles() {
+    // Clear the existing tiles
+    for (let row = 0; row < this.tiles.length; row++) {
+      for (let col = 0; col < this.tiles[row].length; col++) {
+        this.tiles[row][col].destroy();
+      }
+    }
+    this.tiles = [];
   }
 
   // Disable scrolling
@@ -85,7 +145,23 @@ export class MainGameScene extends Phaser.Scene {
     //event.preventDefault();
   }
 
-  subscribeToEvents() {}
+  subscribeToEvents() {
+    // When we ask to change the tile grid, spawn a new tile pattern
+    document.addEventListener(
+      "onTilegridChange",
+      function (event) {
+        this.newTilePattern();
+      }.bind(this)
+    );
+
+    // When we ask to change the tile grid, spawn a new tile pattern
+    document.addEventListener(
+      "onTilegridReset",
+      function (event) {
+        this.resetCurrentTilePattern();
+      }.bind(this)
+    );
+  }
 
   // Function to handle window resize event
   handleWindowResize() {

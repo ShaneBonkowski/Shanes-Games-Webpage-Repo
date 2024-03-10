@@ -28,8 +28,13 @@ export function addUIButton(
   textElement.classList.add(...buttonTextClasses);
   textElement.textContent = buttonText;
 
-  button.addEventListener("click", onClickButton);
-  button.addEventListener("click", onOpen);
+  if (onClickButton) {
+    button.addEventListener("click", onClickButton);
+  }
+
+  if (onOpen) {
+    button.addEventListener("click", onOpen);
+  }
 
   button.appendChild(imgElement);
   button.appendChild(textElement);

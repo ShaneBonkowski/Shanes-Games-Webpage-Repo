@@ -3,11 +3,19 @@
 
 /* Define variables */
 :root {
+  /* Edge Margins */
+  --updateTilegrid-button-margin-left: 88vw;
+  --updateTilegrid-button-margin-top: 55vh;
+  --resetTilegrid-button-margin-top: 45vh;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (max-width: 600px) {
   :root {
+    /* Edge Margins */
+    --updateTilegrid-button-margin-left: 64vw;
+    --updateTilegrid-button-margin-top: 63vh;
+    --resetTilegrid-button-margin-top: 53vh;
   }
 }
 
@@ -28,4 +36,52 @@
 body {
   font-family: MyCustomFont, sans-serif;
   /* Background-related styles for body are defined in the .html file since they are urgent and we want to guarentee those render in */
+}
+
+.updateTilegrid-button-container {
+  position: relative;
+  left: var(--updateTilegrid-button-margin-left);
+  top: var(--updateTilegrid-button-margin-top);
+}
+
+.resetTilegrid-button-container {
+  position: relative;
+  left: var(--updateTilegrid-button-margin-left);
+  top: var(--resetTilegrid-button-margin-top);
+}
+
+.fliptile-button {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border: none;
+  background-color: transparent;
+  color: var(--main-color);
+  font-size: 24px;
+  transform: translate(0%, 0%);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.fliptile-button:hover {
+  transform: translate(0%, 0%) scale(1.2);
+}
+
+.fliptile-icon-img,
+.fliptile-icon-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s ease;
+}
+
+.fliptile-icon-text {
+  color: var(--main-text-color);
+}
+
+.fliptile-icon-img {
+  width: 100%;
+  height: 100%;
 }

@@ -2,6 +2,10 @@ import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { BoidFactors } from "./boid-utils.js";
+import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
+
+const seed = 1234;
+const seededRandom = new SeededRandom(seed);
 
 export class Boid {
   constructor(scene, spawnX, spawnY, leaderBoid, boidNumber) {
@@ -74,7 +78,7 @@ export class Boid {
     if (this.mainBoid == true) {
       this.boid_type = "Leader";
     } else {
-      if (more_math.getRandomFloat(0, 1) < 0.8) {
+      if (seededRandom.getRandomFloat(0, 1) < 0.8) {
         this.boid_type = "Good";
       } else {
         this.boid_type = "Bad";
@@ -165,8 +169,8 @@ export class Boid {
   initVelocity() {
     // Set velocity in a random direction
     let velocity_desired = new Vec2(
-      more_math.getRandomFloat(0.1, 1),
-      more_math.getRandomFloat(0.1, 1)
+      seededRandom.getRandomFloat(0.1, 1),
+      seededRandom.getRandomFloat(0.1, 1)
     );
 
     velocity_desired = this.clampVelocity(velocity_desired);

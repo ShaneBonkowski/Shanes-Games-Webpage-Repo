@@ -32,6 +32,18 @@ export class Tile {
     // Set the scale and origin
     this.graphic.setScale(this.size);
     this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
+
+    // TODO: add particles or something when new is spawned in
+    // ...
+  }
+
+  destroy() {
+    // Remove the sprite from the scene
+    this.graphic.destroy();
+    this.graphic = null;
+
+    // TODO: add particles or something when destroyed
+    // ...
   }
 
   updateTileColor() {
