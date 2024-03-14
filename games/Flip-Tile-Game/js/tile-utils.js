@@ -23,7 +23,7 @@ export var TilePatternAttrs = {
   tileCount: 9, // initial values
   seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
   qtyStatesBeingUsed: 2, // init
-  difficultyLevel: difficulty.HARD,
+  difficultyLevel: difficulty.EASY,
 };
 
 export const customEvents = {
@@ -105,7 +105,7 @@ function tilesToTilespaceMatrix(tiles) {
     }
   }
 
-  return Matrix(tileSpace);
+  return new Matrix(tileSpace);
 }
 
 function tileSpaceMatrixToTiles(tileSpaceMatrix, gridSize, scene) {
@@ -150,69 +150,109 @@ function findSolvableTileGrid(gridSize, scene) {
 
   // So our goal is to solve for flattenedStrategyMatrix.
   var solveableTileConfigFound = false;
+  var tileSpaceMatrix = null;
+  var strategyMatrix = null;
   while (!solveableTileConfigFound) {
-    // Convert tileSpaceMatrix to desired format
-    var tileSpaceMatrix = createRandomTileSpaceMatrix(gridSize);
-    console.log("tileSpaceMatrix");
-    tileSpaceMatrix.printHowItAppearsInFlipTile();
-    var flattenedTileSpaceMatrix = tileSpaceMatrix.flatten();
+    tileSpaceMatrix = createRandomTileSpaceMatrix(gridSize);
+    strategyMatrix = solveTileSpaceMatrix(tileSpaceMatrix, gridSize);
 
-    // Find solved and inverted toggle matrix for this size
-    var flattenedsolvedMatrix = createSolvedMatrix(gridSize).flatten();
-    var toggleMatrix = createToggleMatrix(
-      gridSize,
-      TilePatternAttrs.qtyStatesBeingUsed
+    solveableTileConfigFound = isTileConfigSolvableAndInterestingEnough(
+      tileSpaceMatrix,
+      strategyMatrix
     );
-    toggleMatrix.printHowItAppearsInFlipTile();
-    toggleMatrix.printInArrayFormat();
-
-    var matModInverseToggleMatrix = new Matrix([[]]); // toggleMatrix.modInverse(2); // 2 possible choices for tiles, 0 or 1
-    if (TilePatternAttrs.qtyStatesBeingUsed == 2) {
-      if (gridSize == 2) {
-        matModInverseToggleMatrix = new Matrix(
-          inverseToggleMatrixLookupMod2.TWO_BY_TWO
-        );
-      } else if (gridSize == 3) {
-        matModInverseToggleMatrix = new Matrix(
-          inverseToggleMatrixLookupMod2.THREE_BY_THREE
-        );
-      } else {
-        console.error(
-          `No inverseToggleMatrixLookupMod2 exists for gridSize of ${gridSize}`
-        );
-      }
-    } else {
-      if (gridSize == 3) {
-        matModInverseToggleMatrix = new Matrix(
-          inverseToggleMatrixLookupMod3.THREE_BY_THREE
-        );
-      } else {
-        console.error(
-          `No inverseToggleMatrixLookupMod2 exists for gridSize of ${gridSize}`
-        );
-      }
-    }
-
-    // Compute the strategyMatrix
-    var finalMinusInitial = flattenedsolvedMatrix.matModSubtract(
-      flattenedTileSpaceMatrix,
-      TilePatternAttrs.qtyStatesBeingUsed
-    );
-    var flattenedStrategyMatrix = matModInverseToggleMatrix.modMultiply(
-      finalMinusInitial,
-      TilePatternAttrs.qtyStatesBeingUsed
-    );
-    var strategyMatrix = flattenedStrategyMatrix.unflatten(gridSize);
-    console.log("strategyMatrix");
-    strategyMatrix.printHowItAppearsInFlipTile();
-
-    solveableTileConfigFound = isTileConfigSolvableAndInterestingEnough();
   }
 
-  return tileSpaceMatrixToTiles(tileSpaceMatrix, gridSize, scene);
+  // Create tiles
+  var Tiles = tileSpaceMatrixToTiles(tileSpaceMatrix, gridSize, scene);
+
+  // Update the text of the tiles with the strategyMatrix
+  update_all_tiles_text(Tiles, gridSize, strategyMatrix);
+
+  return Tiles;
 }
 
-function isTileConfigSolvableAndInterestingEnough() {
+export function update_all_tiles_text(Tiles, gridSize, strategyMatrix = null) {
+  // Solve for strategyMatrix if not provided
+  if (strategyMatrix == null) {
+    strategyMatrix = solveTileSpaceMatrix(
+      tilesToTilespaceMatrix(Tiles),
+      gridSize
+    );
+  }
+
+  // update text
+  for (let row = 0; row < Tiles.length; row++) {
+    for (let col = 0; col < Tiles[row].length; col++) {
+      let tile = Tiles[row][col];
+
+      // Make sure tile exists first
+      if (tile) {
+        tile.updateTextContent(strategyMatrix.mat[row][col]);
+      }
+    }
+  }
+}
+
+function solveTileSpaceMatrix(tileSpaceMatrix, gridSize) {
+  // Convert tileSpaceMatrix to desired format
+  //tileSpaceMatrix.printHowItAppearsInFlipTile();
+  var flattenedTileSpaceMatrix = tileSpaceMatrix.flatten();
+
+  // Find solved and inverted toggle matrix for this size
+  var flattenedsolvedMatrix = createSolvedMatrix(gridSize).flatten();
+  var toggleMatrix = createToggleMatrix(
+    gridSize,
+    TilePatternAttrs.qtyStatesBeingUsed
+  );
+  //toggleMatrix.printHowItAppearsInFlipTile();
+  //toggleMatrix.printInArrayFormat();
+
+  var matModInverseToggleMatrix = new Matrix([[]]); // toggleMatrix.modInverse(2); // 2 possible choices for tiles, 0 or 1
+  if (TilePatternAttrs.qtyStatesBeingUsed == 2) {
+    if (gridSize == 2) {
+      matModInverseToggleMatrix = new Matrix(
+        inverseToggleMatrixLookupMod2.TWO_BY_TWO
+      );
+    } else if (gridSize == 3) {
+      matModInverseToggleMatrix = new Matrix(
+        inverseToggleMatrixLookupMod2.THREE_BY_THREE
+      );
+    } else {
+      console.error(
+        `No inverseToggleMatrixLookupMod2 exists for gridSize of ${gridSize}`
+      );
+    }
+  } else {
+    if (gridSize == 3) {
+      matModInverseToggleMatrix = new Matrix(
+        inverseToggleMatrixLookupMod3.THREE_BY_THREE
+      );
+    } else {
+      console.error(
+        `No inverseToggleMatrixLookupMod2 exists for gridSize of ${gridSize}`
+      );
+    }
+  }
+
+  // Compute the strategyMatrix
+  var finalMinusInitial = flattenedsolvedMatrix.matModSubtract(
+    flattenedTileSpaceMatrix,
+    TilePatternAttrs.qtyStatesBeingUsed
+  );
+  var flattenedStrategyMatrix = matModInverseToggleMatrix.modMultiply(
+    finalMinusInitial,
+    TilePatternAttrs.qtyStatesBeingUsed
+  );
+  var strategyMatrix = flattenedStrategyMatrix.unflatten(gridSize);
+  //strategyMatrix.printHowItAppearsInFlipTile();
+
+  return strategyMatrix;
+}
+
+function isTileConfigSolvableAndInterestingEnough(
+  tileSpaceMatrix,
+  strategyMatrix
+) {
   // TODO: figure out from the grid if the tile gris is interesting enough
   // e.g. there are enough flipped tiles for it to be fun, and it is not already solved.
   // Also use the solution matrix to see if this one is solvable in the first place.
