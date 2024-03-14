@@ -7,6 +7,14 @@
   --updateTilegrid-button-margin-left: 88vw;
   --updateTilegrid-button-margin-top: 55vh;
   --resetTilegrid-button-margin-top: 45vh;
+  --input-box-1-margin-left: 0vw;
+  --input-box-2-margin-left: 5vw;
+  --input-box-3-margin-left: 10vw;
+  --input-box-label-margin-top: -3vh;
+  --difficulty-selection-box-container-left: 72vw;
+  --difficulty-selection-box-container-top: 60vh;
+  --sol-toggle-box-margin-left: 76vw;
+  --sol-toggle-box-margin-top: 44vh;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -16,6 +24,13 @@
     --updateTilegrid-button-margin-left: 64vw;
     --updateTilegrid-button-margin-top: 63vh;
     --resetTilegrid-button-margin-top: 53vh;
+    --input-box-1-margin-left: 0vw;
+    --input-box-2-margin-left: 14vw;
+    --input-box-3-margin-left: 28vw;
+    --difficulty-selection-box-container-left: 14vw;
+    --difficulty-selection-box-container-top: 69vh;
+    --sol-toggle-box-margin-left: 17vw;
+    --sol-toggle-box-margin-top: 54vh;
   }
 }
 
@@ -38,6 +53,7 @@ body {
   /* Background-related styles for body are defined in the .html file since they are urgent and we want to guarentee those render in */
 }
 
+/* Buttons */
 .updateTilegrid-button-container {
   position: relative;
   left: var(--updateTilegrid-button-margin-left);
@@ -84,4 +100,77 @@ body {
 .fliptile-icon-img {
   width: 100%;
   height: 100%;
+}
+
+/* Selection Boxes */
+.difficulty-selection-box-container {
+  position: relative;
+  left: var(--difficulty-selection-box-container-left);
+  top: var(--difficulty-selection-box-container-top);
+}
+
+.input-box-1,
+.input-box-2,
+.input-box-3 {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+}
+
+.input-box-1 {
+  left: var(--input-box-1-margin-left);
+}
+
+.input-box-2 {
+  left: var(--input-box-2-margin-left);
+}
+
+.input-box-3 {
+  left: var(--input-box-3-margin-left);
+}
+
+.input-box-label-1,
+.input-box-label-2,
+.input-box-label-3 {
+  position: absolute;
+}
+
+.input-box-label-1 {
+  left: var(--input-box-1-margin-left);
+  top: var(--input-box-label-margin-top);
+}
+
+.input-box-label-2 {
+  left: var(--input-box-2-margin-left);
+  top: var(--input-box-label-margin-top);
+}
+
+.input-box-label-3 {
+  left: var(--input-box-3-margin-left);
+  top: var(--input-box-label-margin-top);
+}
+
+/* Toggle box styles */
+.sol-toggle-box-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  left: var(--sol-toggle-box-margin-left);
+  top: var(--sol-toggle-box-margin-top);
+  /* height: 30px;
+  width: 30px; */
+}
+
+.sol-toggle-label {
+  font-size: 24px;
+  white-space: nowrap;
+  color: white;
+}
+
+.sol-toggle-input {
+  display: absolute;
+  margin-left: 30px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 }

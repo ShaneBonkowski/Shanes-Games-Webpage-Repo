@@ -11,19 +11,21 @@ import {
   randomType,
 } from "../../Shared-Game-Assets/js/Seedable_Random.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+import { ui_vars } from "./init-ui.js";
 
 export var intendedNewTileAttrs = {
   tileCount: 9, // initial values
   seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
   qtyStatesBeingUsed: 2, // init
-  difficultyLevel: difficulty.HARD,
+  difficultyLevel: difficulty.EASY,
 };
+
+export var tiles = [];
 
 // Export so other scripts can access this
 export class MainGameScene extends Phaser.Scene {
   constructor() {
     super({ key: "MainGameScene" });
-    this.tiles = [];
     this.gameStarted = false;
     this.isInteracting = false; // is the  player actively interacting with the game?
   }
@@ -68,6 +70,14 @@ export class MainGameScene extends Phaser.Scene {
     }
   }
 
+  reset_reveal_solution_toggle() {
+    const toggleInput = document.querySelector(".sol-toggle-input");
+
+    if (toggleInput) {
+      toggleInput.checked = false;
+    }
+  }
+
   resetCurrentTilePattern() {
     // Call a new tile pattern with the same seed in tile-utils
     // so that it resets back to the same tile pattern
@@ -79,10 +89,12 @@ export class MainGameScene extends Phaser.Scene {
     // Do not change these parameters!! hence why they equals themselves
     TilePatternAttrs.tileCount = TilePatternAttrs.tileCount;
     TilePatternAttrs.seed = TilePatternAttrs.seed;
-    instantiateTiles(this).then((tiles) => {
-      this.tiles = tiles;
+    instantiateTiles(this).then((tiles_returned) => {
+      tiles = tiles_returned;
     });
     console.log("reset");
+
+    this.reset_reveal_solution_toggle();
   }
 
   newTilePattern(firsTimeCalling = false) {
@@ -90,18 +102,35 @@ export class MainGameScene extends Phaser.Scene {
     this.destroyAllTiles();
 
     // Update to a new tile pattern in a grid as a Promise (so that we can run this async)
-    this.updateIntendedDifficuly(difficulty.EXPERT);
+    for (let i = 1; i <= ui_vars.numCheckboxes; i++) {
+      const className = `.input-box-${i}`;
+      const checkbox = document.querySelector(className);
+      if (checkbox.checked) {
+        if (i == 1) {
+          this.updateIntendedDifficuly(difficulty.EASY);
+        } else if (i == 2) {
+          this.updateIntendedDifficuly(difficulty.HARD);
+        } else if (i == 3) {
+          this.updateIntendedDifficuly(difficulty.EXPERT);
+        } else {
+          this.updateIntendedDifficuly(TilePatternAttrs.difficulty);
+        }
+      }
+    }
+
     this.updateIntendedSeed();
     this.updateActualTilePatternAttrs();
 
-    instantiateTiles(this).then((tiles) => {
-      this.tiles = tiles;
+    instantiateTiles(this).then((tiles_returned) => {
+      tiles = tiles_returned;
     });
 
     if (firsTimeCalling) {
       // After everything is loaded in, we can begin the game
       this.gameStarted = true;
     }
+
+    this.reset_reveal_solution_toggle();
   }
 
   updateIntendedDifficuly(difficultyLevel = difficulty.HARD) {
@@ -135,12 +164,12 @@ export class MainGameScene extends Phaser.Scene {
 
   destroyAllTiles() {
     // Clear the existing tiles
-    for (let row = 0; row < this.tiles.length; row++) {
-      for (let col = 0; col < this.tiles[row].length; col++) {
-        this.tiles[row][col].destroy();
+    for (let row = 0; row < tiles.length; row++) {
+      for (let col = 0; col < tiles[row].length; col++) {
+        tiles[row][col].destroy();
       }
     }
-    this.tiles = [];
+    tiles = [];
   }
 
   // Disable scrolling
@@ -192,9 +221,9 @@ export class MainGameScene extends Phaser.Scene {
   // Function to handle window resize event
   handleWindowResize() {
     // Handle tiles for window resize
-    for (let row = 0; row < this.tiles.length; row++) {
-      for (let col = 0; col < this.tiles[row].length; col++) {
-        let tile = this.tiles[row][col];
+    for (let row = 0; row < tiles.length; row++) {
+      for (let col = 0; col < tiles[row].length; col++) {
+        let tile = tiles[row][col];
 
         // Make sure tile exists
         if (tile) {

@@ -1,6 +1,11 @@
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
-import { tileStates, TilePatternAttrs } from "./tile-utils.js";
+import {
+  tileStates,
+  TilePatternAttrs,
+  update_all_tiles_text,
+} from "./tile-utils.js";
+import { tiles } from "./main-game-scene.js";
 
 export class Tile {
   constructor(scene, tileSpaceX, tileSpaceY, gridSize, tileState) {
@@ -12,12 +17,15 @@ export class Tile {
 
     // Create a graphics object for the tile
     this.graphic = null;
+    this.text = null;
     this.initTile();
 
     // Init at provided location, and centered
     var spawnLoc = this.findTileLocFromTileSpace();
     this.graphic.x = spawnLoc.x;
     this.graphic.y = spawnLoc.y;
+
+    this.addText();
 
     // Subscribe to relevant events
     this.subscribeToEvents();
@@ -37,10 +45,46 @@ export class Tile {
     // ...
   }
 
+  addText() {
+    // Add text to the top right corner of the graphic
+    this.text = this.scene.add.text(
+      this.graphic.x + this.graphic.displayWidth / 2, // Position relative to graphic's top right corner
+      this.graphic.y - this.graphic.displayHeight / 2, // Position relative to graphic's top right corner
+      "1",
+      { fontFamily: "Arial", fontSize: 16, color: "#000000" }
+    );
+    this.text.setOrigin(1, 0); // Origin on the top right corner of the text
+    this.text.setDepth(10); // Ensure the text appears on top of the graphic
+    this.hideText();
+  }
+
+  updateTextPos() {
+    this.text.setPosition(
+      this.graphic.x + this.graphic.displayWidth / 2,
+      this.graphic.y - this.graphic.displayHeight / 2
+    );
+  }
+
+  updateTextContent(text_content) {
+    this.text.text = text_content;
+  }
+
+  hideText() {
+    this.text.setVisible(false);
+  }
+
+  showText() {
+    this.text.setVisible(true);
+  }
+
   destroy() {
     // Remove the sprite from the scene
     this.graphic.destroy();
     this.graphic = null;
+
+    // Remove text from the scene
+    this.text.destroy();
+    this.text = null;
 
     // TODO: add particles or something when destroyed
     // ...
@@ -75,29 +119,32 @@ export class Tile {
     if (updateNeighbors) {
       // left neighbor
       if (this.tileSpaceCoord.x - 1 >= 0) {
-        this.scene.tiles[Math.round(this.tileSpaceCoord.x - 1)][
+        tiles[Math.round(this.tileSpaceCoord.x - 1)][
           Math.round(this.tileSpaceCoord.y)
         ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
       }
       // right
       if (this.tileSpaceCoord.x + 1 < this.gridSize) {
-        this.scene.tiles[Math.round(this.tileSpaceCoord.x + 1)][
+        tiles[Math.round(this.tileSpaceCoord.x + 1)][
           Math.round(this.tileSpaceCoord.y)
         ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
       }
       // below
       if (this.tileSpaceCoord.y - 1 >= 0) {
-        this.scene.tiles[Math.round(this.tileSpaceCoord.x)][
+        tiles[Math.round(this.tileSpaceCoord.x)][
           Math.round(this.tileSpaceCoord.y - 1)
         ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
       }
       // above
       if (this.tileSpaceCoord.y + 1 < this.gridSize) {
-        this.scene.tiles[Math.round(this.tileSpaceCoord.x)][
+        tiles[Math.round(this.tileSpaceCoord.x)][
           Math.round(this.tileSpaceCoord.y + 1)
         ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
       }
     }
+
+    // Update text of all tiles
+    update_all_tiles_text(tiles, Math.sqrt(TilePatternAttrs.tileCount));
   }
 
   findTileLocFromTileSpace() {
@@ -147,6 +194,9 @@ export class Tile {
     var spawnLoc = this.findTileLocFromTileSpace();
     this.graphic.x = spawnLoc.x;
     this.graphic.y = spawnLoc.y;
+
+    // Update text
+    this.updateTextPos();
   }
 
   subscribeToEvents() {
