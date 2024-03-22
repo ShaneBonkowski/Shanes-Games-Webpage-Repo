@@ -2,6 +2,7 @@ import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import {
   tileStates,
+  sharedTileAttrs,
   TilePatternAttrs,
   update_all_tiles_text,
 } from "./tile-utils.js";
@@ -19,6 +20,7 @@ export class Tile {
     this.graphic = null;
     this.text = null;
     this.initTile();
+    this.animationPlaying = false;
 
     // Init at provided location, and centered
     var spawnLoc = this.findTileLocFromTileSpace();
@@ -91,6 +93,7 @@ export class Tile {
   }
 
   updateTileColor() {
+    // Color
     if (this.tileState === tileStates.RED) {
       this.graphic.setTint(0xff0000); // RED color
     } else if (this.tileState === tileStates.BLUE) {
@@ -100,57 +103,122 @@ export class Tile {
     } else {
       console.log(`ERROR: tileState ${this.tileState} is not an expected one`);
     }
+
+    // Animations
+    this.playClickSpinAnim();
+  }
+
+  playClickSpinAnim() {
+    // cannot click during animation
+    this.scene.tryToDisableClick();
+    this.animationPlaying = true;
+
+    // Rotate the graphic 360 degrees
+    this.scene.tweens.add({
+      targets: this.graphic,
+      angle: "+=360",
+      duration: 1000 * sharedTileAttrs.clickTimer,
+      ease: "Linear",
+      repeat: 0, // Do not repeat
+      onComplete: () => {
+        // Can click after all animations are done
+        this.animationPlaying = false;
+        let canEnable = this.scene.tryToEnableClick();
+
+        // If we are successful in enabling click,
+        // then this is the last tile to play the animation.
+        // In which case, we can now check if the game has been solved!
+        if (canEnable) {
+          this.scene.nextPuzzleIfSolved();
+        }
+      },
+    });
+  }
+
+  celebrateTileAnim(duration = sharedTileAttrs.solvedTimer * 1000) {
+    // cannot click during animation
+    this.scene.tryToDisableClick();
+    this.animationPlaying = true;
+
+    // Play animation
+    this.scene.tweens.add({
+      targets: this.graphic,
+      //angle: "+=360",
+      scaleX: this.size * 1.5,
+      scaleY: this.size * 1.5,
+      duration: duration / 2, // /2 since yoyo doubles the time
+      ease: "Linear",
+      yoyo: true, // Return to original scale and rotation after the animation
+      onComplete: () => {
+        // Can click after all animations are done
+        this.animationPlaying = false;
+        let canEnable = this.scene.tryToEnableClick();
+      },
+    });
   }
 
   updateTileState(updateNeighbors = true) {
-    // Advance forward one tile state
-    let nextState = this.tileState + 1;
+    // Only update tile state if this is a tile reacting to
+    // an initial tile being clicked (aka updateNeighbors == false),
+    // or if we are allowed to click. Also the uiMenu cannot be opened
+    if (
+      !this.scene.uiMenuOpen &&
+      (!updateNeighbors || this.scene.canClickTile)
+    ) {
+      // Advance forward one tile state
+      let nextState = this.tileState + 1;
 
-    // If the next state exceeds the maximum, loop back to the first state
-    if (nextState > TilePatternAttrs.qtyStatesBeingUsed - 1) {
-      nextState = 0;
+      // If the next state exceeds the maximum, loop back to the first state
+      if (nextState > TilePatternAttrs.qtyStatesBeingUsed - 1) {
+        nextState = 0;
+      }
+
+      // Update this tile
+      this.tileState = nextState;
+      this.updateTileColor();
+
+      // Notify neighbors to update
+      if (updateNeighbors) {
+        // left neighbor
+        if (this.tileSpaceCoord.x - 1 >= 0) {
+          tiles[Math.round(this.tileSpaceCoord.x - 1)][
+            Math.round(this.tileSpaceCoord.y)
+          ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
+        }
+        // right
+        if (this.tileSpaceCoord.x + 1 < this.gridSize) {
+          tiles[Math.round(this.tileSpaceCoord.x + 1)][
+            Math.round(this.tileSpaceCoord.y)
+          ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
+        }
+        // below
+        if (this.tileSpaceCoord.y - 1 >= 0) {
+          tiles[Math.round(this.tileSpaceCoord.x)][
+            Math.round(this.tileSpaceCoord.y - 1)
+          ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
+        }
+        // above
+        if (this.tileSpaceCoord.y + 1 < this.gridSize) {
+          tiles[Math.round(this.tileSpaceCoord.x)][
+            Math.round(this.tileSpaceCoord.y + 1)
+          ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
+        }
+      }
+
+      // Update text of all tiles
+      update_all_tiles_text(tiles, Math.sqrt(TilePatternAttrs.tileCount));
     }
-
-    // Update this tile
-    this.tileState = nextState;
-    this.updateTileColor();
-
-    // Notify neighbors to update
-    if (updateNeighbors) {
-      // left neighbor
-      if (this.tileSpaceCoord.x - 1 >= 0) {
-        tiles[Math.round(this.tileSpaceCoord.x - 1)][
-          Math.round(this.tileSpaceCoord.y)
-        ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
-      }
-      // right
-      if (this.tileSpaceCoord.x + 1 < this.gridSize) {
-        tiles[Math.round(this.tileSpaceCoord.x + 1)][
-          Math.round(this.tileSpaceCoord.y)
-        ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
-      }
-      // below
-      if (this.tileSpaceCoord.y - 1 >= 0) {
-        tiles[Math.round(this.tileSpaceCoord.x)][
-          Math.round(this.tileSpaceCoord.y - 1)
-        ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
-      }
-      // above
-      if (this.tileSpaceCoord.y + 1 < this.gridSize) {
-        tiles[Math.round(this.tileSpaceCoord.x)][
-          Math.round(this.tileSpaceCoord.y + 1)
-        ].updateTileState(false); // do not let this one update neighbors since only the first clicked on should
-      }
-    }
-
-    // Update text of all tiles
-    update_all_tiles_text(tiles, Math.sqrt(TilePatternAttrs.tileCount));
   }
 
   findTileLocFromTileSpace() {
     const centerX = this.scene.game.canvas.width / 2;
     const centerY = this.scene.game.canvas.height / 2;
     let tileSpacing = this.scene.game.canvas.width / 10;
+
+    // for phones change the tile spacing
+    if (this.scene.game.canvas.width <= 600) {
+      tileSpacing = this.scene.game.canvas.width / 4.5;
+    }
 
     // Calculate the starting position for the top-left tile in the grid
     let startGridX, startGridY;
@@ -204,7 +272,14 @@ export class Tile {
     this.graphic.on("pointerdown", () => {
       // updateTileState when the pointer clicks down on the tile
       this.updateTileState();
-      console.log("clicked tile");
+    });
+
+    // Update mouse on hover
+    this.graphic.on("pointerover", () => {
+      this.scene.game.canvas.style.cursor = "pointer";
+    });
+    this.graphic.on("pointerout", () => {
+      this.scene.game.canvas.style.cursor = "default";
     });
   }
 }

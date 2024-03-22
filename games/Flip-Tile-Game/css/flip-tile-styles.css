@@ -4,17 +4,27 @@
 /* Define variables */
 :root {
   /* Edge Margins */
-  --updateTilegrid-button-margin-left: 88vw;
-  --updateTilegrid-button-margin-top: 55vh;
-  --resetTilegrid-button-margin-top: 45vh;
+  --updateTilegrid-button-margin-left: 55vw;
+  --updateTilegrid-button-margin-top: 47vh;
+  --resetTilegrid-button-margin-left: 87vw;
+  --resetTilegrid-button-margin-top: -7vh;
   --input-box-1-margin-left: 0vw;
   --input-box-2-margin-left: 5vw;
   --input-box-3-margin-left: 10vw;
   --input-box-label-margin-top: -3vh;
-  --difficulty-selection-box-container-left: 72vw;
-  --difficulty-selection-box-container-top: 60vh;
-  --sol-toggle-box-margin-left: 76vw;
-  --sol-toggle-box-margin-top: 44vh;
+  --difficulty-selection-box-container-left: 37vw;
+  --difficulty-selection-box-container-top: 52vh;
+  --sol-toggle-box-margin-left: 78vw;
+  --sol-toggle-box-margin-top: -7vh;
+  --flip-tile-info-button-margin-left: 88vw;
+  --flip-tile-info-button-margin-top: 55vh;
+  --flip-tile-info-header-x-button-margin-left: 95%;
+  --flip-tile-info-header-x-button-margin-top: 5%;
+  /* Font */
+  --flip-tile-text-size: 24px;
+  /* Font Sizes */
+  --test-font-size-og: calc(10vw * 0.2);
+  --test-font-size: var(--test-font-size-og);
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -22,15 +32,24 @@
   :root {
     /* Edge Margins */
     --updateTilegrid-button-margin-left: 64vw;
-    --updateTilegrid-button-margin-top: 63vh;
-    --resetTilegrid-button-margin-top: 53vh;
+    --updateTilegrid-button-margin-top: 48vh;
+    --resetTilegrid-button-margin-left: 64vw;
+    --resetTilegrid-button-margin-top: -12vh;
     --input-box-1-margin-left: 0vw;
     --input-box-2-margin-left: 14vw;
     --input-box-3-margin-left: 28vw;
-    --difficulty-selection-box-container-left: 14vw;
-    --difficulty-selection-box-container-top: 69vh;
-    --sol-toggle-box-margin-left: 17vw;
-    --sol-toggle-box-margin-top: 54vh;
+    --difficulty-selection-box-container-left: 11vw;
+    --difficulty-selection-box-container-top: 55vh;
+    --sol-toggle-box-margin-left: 6vw;
+    --sol-toggle-box-margin-top: -1vh;
+    --flip-tile-info-button-margin-left: 64vw;
+    --flip-tile-info-button-margin-top: 63vh;
+    --flip-tile-info-header-x-button-margin-left: 90%;
+    --flip-tile-info-header-x-button-margin-top: 5%;
+    /* Font */
+    --flip-tile-text-size: 16px;
+    /* Font Sizes */
+    --test-font-size: calc(var(--test-font-size-og) * 1.9);
   }
 }
 
@@ -53,6 +72,16 @@ body {
   /* Background-related styles for body are defined in the .html file since they are urgent and we want to guarentee those render in */
 }
 
+/* Define style for link */
+a {
+  color: rgb(87, 176, 206);
+  text-decoration: none; /* Remove the underline */
+}
+
+a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
 /* Buttons */
 .updateTilegrid-button-container {
   position: relative;
@@ -62,7 +91,7 @@ body {
 
 .resetTilegrid-button-container {
   position: relative;
-  left: var(--updateTilegrid-button-margin-left);
+  left: var(--resetTilegrid-button-margin-left);
   top: var(--resetTilegrid-button-margin-top);
 }
 
@@ -73,7 +102,7 @@ body {
   border: none;
   background-color: transparent;
   color: var(--main-color);
-  font-size: 24px;
+  font-size: var(--flip-tile-text-size);
   transform: translate(0%, 0%);
   transition: transform 0.3s ease;
   cursor: pointer;
@@ -115,6 +144,7 @@ body {
   position: absolute;
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .input-box-1 {
@@ -162,7 +192,7 @@ body {
 }
 
 .sol-toggle-label {
-  font-size: 24px;
+  font-size: var(--flip-tile-text-size);
   white-space: nowrap;
   color: white;
 }
@@ -173,4 +203,53 @@ body {
   width: 30px;
   height: 30px;
   cursor: pointer;
+}
+
+/* Info screen styles */
+.info-button-container {
+  position: relative;
+  left: var(--flip-tile-info-button-margin-left);
+  top: var(--flip-tile-info-button-margin-top);
+}
+
+.info-box {
+  display: none; /* Hide this to start */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: var(--panel-color);
+  pointer-events: auto;
+}
+
+.info-header {
+  position: relative;
+  left: var(--flip-tile-info-header-x-button-margin-left);
+  top: var(--flip-tile-info-header-x-button-margin-top);
+  font-size: var(--test-font-size);
+  color: var(--main-text-color);
+  pointer-events: auto;
+}
+
+.info-content {
+  position: absolute;
+  padding: 4vw;
+  left: var(--main-left-margin);
+  top: 0%;
+  font-size: var(--test-font-size);
+  color: var(--main-text-color);
+  pointer-events: auto;
+}
+
+.close-button {
+  position: absolute;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: scale(1.6);
+  transition: transform 0.3s ease;
+}
+
+.close-button:hover {
+  transform: scale(2.2);
 }

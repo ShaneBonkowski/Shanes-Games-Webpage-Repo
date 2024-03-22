@@ -19,6 +19,12 @@ export function setZOrderForSharedElements(game) {
   var solToggleBoxContainer = document.querySelector(
     ".sol-toggle-box-container"
   );
+  var flipTileInfoButtonContainer = document.querySelector(
+    ".info-button-container"
+  );
+
+  var closeButtons = document.querySelectorAll(".close-button");
+  var infoBoxs = document.querySelectorAll(".info-box");
 
   // Set the z-index property for all other objs\
   // helloWorldBox.style.zIndex = "-1"; // far back
@@ -28,6 +34,13 @@ export function setZOrderForSharedElements(game) {
   resetTilegridButton.style.zIndex = "3";
   difficultySelectionBoxContainer.style.zIndex = "3";
   solToggleBoxContainer.style.zIndex = "3";
+  flipTileInfoButtonContainer.style.zIndex = "3";
+  infoBoxs.forEach((infoBox) => {
+    infoBox.style.zIndex = "4";
+  });
+  closeButtons.forEach((closeButton) => {
+    closeButton.style.zIndex = "5";
+  });
 }
 
 export function setZOrderForMainGameElements(game) {
