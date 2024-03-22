@@ -1,7 +1,10 @@
 import {
   instantiateTiles,
   TilePatternAttrs,
+  sharedTileAttrs,
   difficulty,
+  checkIfTileGridSolved,
+  tilesToTilespaceMatrix,
 } from "./tile-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
@@ -28,6 +31,9 @@ export class MainGameScene extends Phaser.Scene {
     super({ key: "MainGameScene" });
     this.gameStarted = false;
     this.isInteracting = false; // is the  player actively interacting with the game?
+    this.canClickTile = true; // can the player click a tile?
+    this.disableClickID = 0;
+    this.uiMenuOpen = false;
   }
 
   preload() {
@@ -70,6 +76,45 @@ export class MainGameScene extends Phaser.Scene {
     }
   }
 
+  tryToDisableClick() {
+    if (this.canClickTile == true) {
+      this.canClickTile = false;
+    }
+  }
+
+  tryToEnableClick() {
+    // Can only re-enable click if all tile's animations are done playing
+    let canEnable = true;
+    let finishedSearch = false;
+
+    // Play celebration anim for all tiles
+    for (let row = 0; row < tiles.length; row++) {
+      for (let col = 0; col < tiles[row].length; col++) {
+        let tile = tiles[row][col];
+
+        // Make sure tile exists
+        if (tile) {
+          // if any tile's anim is playing, you cannot enable clicking
+          if (tile.animationPlaying) {
+            canEnable = false;
+            finishedSearch = true;
+            break;
+          }
+        }
+      }
+
+      if (finishedSearch) {
+        break;
+      }
+    }
+
+    if (canEnable) {
+      this.canClickTile = true;
+    }
+
+    return canEnable;
+  }
+
   reset_reveal_solution_toggle() {
     const toggleInput = document.querySelector(".sol-toggle-input");
 
@@ -97,7 +142,7 @@ export class MainGameScene extends Phaser.Scene {
     this.reset_reveal_solution_toggle();
   }
 
-  newTilePattern(firsTimeCalling = false) {
+  newTilePattern(firstTimeCalling = false) {
     // Make sure no tiles exist to start
     this.destroyAllTiles();
 
@@ -125,7 +170,7 @@ export class MainGameScene extends Phaser.Scene {
       tiles = tiles_returned;
     });
 
-    if (firsTimeCalling) {
+    if (firstTimeCalling) {
       // After everything is loaded in, we can begin the game
       this.gameStarted = true;
     }
@@ -172,6 +217,32 @@ export class MainGameScene extends Phaser.Scene {
     tiles = [];
   }
 
+  nextPuzzleIfSolved() {
+    let solved = checkIfTileGridSolved(tilesToTilespaceMatrix(tiles));
+
+    if (solved) {
+      // Play celebration anim for all tiles
+      for (let row = 0; row < tiles.length; row++) {
+        for (let col = 0; col < tiles[row].length; col++) {
+          let tile = tiles[row][col];
+
+          // Make sure tile exists
+          if (tile) {
+            tile.celebrateTileAnim();
+          }
+        }
+      }
+
+      // After x seconds, reveal the next puzzle
+      setTimeout(
+        function () {
+          this.newTilePattern();
+        }.bind(this),
+        sharedTileAttrs.solvedTimer * 1.1 * 1000 // slightly longer than tile celebration anim
+      );
+    }
+  }
+
   // Disable scrolling
   disableScroll() {
     //document.body.style.overflow = "hidden"; // this prevents the page from being able to overflow (aka have more content out of view that you can see via scrolling)
@@ -201,6 +272,24 @@ export class MainGameScene extends Phaser.Scene {
   }
 
   subscribeToEvents() {
+    // Event listener for ui menu open / closed
+    document.addEventListener(
+      "uiMenuOpen",
+      function (event) {
+        if (this.uiMenuOpen == false) {
+          this.uiMenuOpen = true;
+        }
+      }.bind(this)
+    ); // Bind 'this' to refer to the class instance
+    document.addEventListener(
+      "uiMenuClosed",
+      function (event) {
+        if (this.uiMenuOpen == true) {
+          this.uiMenuOpen = false;
+        }
+      }.bind(this)
+    ); // Bind 'this' to refer to the class instance
+
     // When we ask to change the tile grid, spawn a new tile pattern
     document.addEventListener(
       "onTilegridChange",

@@ -32,6 +32,11 @@ export const customEvents = {
   tileGridResetEvent: new Event("onTilegridReset"),
 };
 
+export const sharedTileAttrs = {
+  clickTimer: 0.425, // click tile anim timer
+  solvedTimer: 0.7, // how long solution animation takes, and how long to wait before revealing next puzzle in that case
+};
+
 // Pre-computed using \Python-Utils\matInvMod.py, calling python .\matInvMod.py from terminal
 export const inverseToggleMatrixLookupMod2 = {
   TWO_BY_TWO: [
@@ -96,7 +101,7 @@ export function instantiateTiles(scene) {
   });
 }
 
-function tilesToTilespaceMatrix(tiles) {
+export function tilesToTilespaceMatrix(tiles) {
   let tileSpace = [];
   for (let row = 0; row < tiles.length; row++) {
     tileSpace[row] = [];
@@ -253,11 +258,44 @@ function isTileConfigSolvableAndInterestingEnough(
   tileSpaceMatrix,
   strategyMatrix
 ) {
-  // TODO: figure out from the grid if the tile gris is interesting enough
-  // e.g. there are enough flipped tiles for it to be fun, and it is not already solved.
-  // Also use the solution matrix to see if this one is solvable in the first place.
-  // ...
-  return true;
+  let interesting_enough = true;
+
+  // Make sure it is not already solved
+  let solved = checkIfTileGridSolved(tileSpaceMatrix);
+
+  if (solved) {
+    interesting_enough = false;
+    console.log("Not Interesting Enough Puzle Found, trying again");
+  }
+
+  return interesting_enough;
+}
+
+export function checkIfTileGridSolved(tileSpaceMatrix) {
+  let solved = true;
+  let end_search = false;
+  let first_val = 0;
+  for (let i = 0; i < tileSpaceMatrix.rows; i++) {
+    for (let j = 0; j < tileSpaceMatrix.cols; j++) {
+      // store the first value
+      if (i == 0 && j == 0) {
+        first_val = tileSpaceMatrix.mat[i][j];
+      }
+
+      // Need to all be equal to be solved
+      if (first_val != tileSpaceMatrix.mat[i][j]) {
+        solved = false;
+        end_search = true;
+        break;
+      }
+    }
+
+    if (end_search) {
+      break;
+    }
+  }
+
+  return solved;
 }
 
 function createRandomTileSpaceMatrix(gridSize) {
