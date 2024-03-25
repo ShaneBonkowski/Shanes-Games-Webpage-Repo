@@ -5,6 +5,8 @@ import {
   difficulty,
   checkIfTileGridSolved,
   tilesToTilespaceMatrix,
+  customEvents,
+  scoring,
 } from "./tile-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
@@ -34,11 +36,15 @@ export class MainGameScene extends Phaser.Scene {
     this.canClickTile = true; // can the player click a tile?
     this.disableClickID = 0;
     this.uiMenuOpen = false;
+    this.score = 0;
+    this.revealedAtLeastOnceThisLevel = false;
   }
 
   preload() {
     // Preload assets if needed
-    this.load.image("Tile", "./pngs/Tile.png");
+    this.load.image("Tile Blue", "./pngs/Flip_Tile_Blue.png");
+    this.load.image("Tile Red", "./pngs/Flip_Tile_Red.png");
+    this.load.image("Tile Green", "./pngs/Flip_Tile_Green.png");
   }
 
   create() {
@@ -175,7 +181,9 @@ export class MainGameScene extends Phaser.Scene {
       this.gameStarted = true;
     }
 
+    // Reset solution revealed info for this level
     this.reset_reveal_solution_toggle();
+    this.revealedAtLeastOnceThisLevel = false;
   }
 
   updateIntendedDifficuly(difficultyLevel = difficulty.HARD) {
@@ -230,6 +238,27 @@ export class MainGameScene extends Phaser.Scene {
           if (tile) {
             tile.celebrateTileAnim();
           }
+        }
+      }
+
+      // Update score..
+      // Only give score if solution is not revealed
+      var toggleInput = document.querySelector(".sol-toggle-input");
+
+      if (
+        toggleInput &&
+        !toggleInput.checked &&
+        !this.revealedAtLeastOnceThisLevel
+      ) {
+        document.dispatchEvent(customEvents.scoreUpdateEvent);
+        if (TilePatternAttrs.difficultyLevel == difficulty.EASY) {
+          this.score += scoring.EASY;
+        } else if (TilePatternAttrs.difficultyLevel == difficulty.HARD) {
+          this.score += scoring.HARD;
+        } else if (TilePatternAttrs.difficultyLevel == difficulty.EXPERT) {
+          this.score += scoring.EXPERT;
+        } else {
+          console.log("ERROR: difficulty not listed");
         }
       }
 

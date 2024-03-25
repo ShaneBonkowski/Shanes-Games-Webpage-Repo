@@ -19,6 +19,12 @@ export const difficulty = {
   EXPERT: 2,
 };
 
+export const scoring = {
+  EASY: 50,
+  HARD: 500,
+  EXPERT: 1000,
+};
+
 export var TilePatternAttrs = {
   tileCount: 9, // initial values
   seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
@@ -30,6 +36,7 @@ export const customEvents = {
   tileUpdateEvent: new Event("onTileUpdate"),
   tileGridChangeEvent: new Event("onTilegridChange"),
   tileGridResetEvent: new Event("onTilegridReset"),
+  scoreUpdateEvent: new Event("onScoreChange"),
 };
 
 export const sharedTileAttrs = {
