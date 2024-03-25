@@ -17,7 +17,7 @@
   --sol-toggle-box-margin-left: 75vw;
   --sol-toggle-box-margin-top: -7vh;
   --flip-tile-info-button-margin-left: 89vw;
-  --flip-tile-info-button-margin-top: 63vh;
+  --flip-tile-info-button-margin-top: 58vh;
   --flip-tile-info-header-x-button-margin-left: 95%;
   --flip-tile-info-header-x-button-margin-top: 5%;
   --score-text-top: 19%;
@@ -39,16 +39,16 @@
     --updateTilegrid-button-margin-left: 68vw;
     --updateTilegrid-button-margin-top: 46vh;
     --resetTilegrid-button-margin-left: 68vw;
-    --resetTilegrid-button-margin-top: 56vh;
+    --resetTilegrid-button-margin-top: 54vh;
     --input-box-1-margin-left: 0vw;
     --input-box-2-margin-left: 14vw;
     --input-box-3-margin-left: 28vw;
     --difficulty-selection-box-container-left: 20vw;
     --difficulty-selection-box-container-top: 47vh;
     --sol-toggle-box-margin-left: 27vw;
-    --sol-toggle-box-margin-top: 62vh;
+    --sol-toggle-box-margin-top: 60vh;
     --flip-tile-info-button-margin-left: 68vw;
-    --flip-tile-info-button-margin-top: 71vh;
+    --flip-tile-info-button-margin-top: 67vh;
     --flip-tile-info-header-x-button-margin-left: 90%;
     --flip-tile-info-header-x-button-margin-top: 5%;
     --score-text-top: 16%;
