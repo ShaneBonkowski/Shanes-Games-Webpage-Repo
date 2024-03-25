@@ -22,6 +22,7 @@ export function setZOrderForSharedElements(game) {
   var flipTileInfoButtonContainer = document.querySelector(
     ".info-button-container"
   );
+  var scoreText = document.querySelector(".score-text");
 
   var closeButtons = document.querySelectorAll(".close-button");
   var infoBoxs = document.querySelectorAll(".info-box");
@@ -41,6 +42,7 @@ export function setZOrderForSharedElements(game) {
   closeButtons.forEach((closeButton) => {
     closeButton.style.zIndex = "5";
   });
+  scoreText.style.zIndex = "6";
 }
 
 export function setZOrderForMainGameElements(game) {
