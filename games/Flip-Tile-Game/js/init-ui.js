@@ -1,5 +1,10 @@
 import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
-import { customEvents } from "./tile-utils.js";
+import {
+  customEvents,
+  TilePatternAttrs,
+  difficulty,
+  scoring,
+} from "./tile-utils.js";
 import { createSelectionBox } from "../../Shared-Game-Assets/js/ui_selection_box.js";
 import { createToggleBox } from "../../Shared-Game-Assets/js/ui_togglebox.js";
 import { tiles } from "./main-game-scene.js";
@@ -20,9 +25,9 @@ export function initUI() {
   const updateTilegridButtonContainer = addUIButton(
     "updateTilegridContainer",
     "updateTilegrid",
-    "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
+    "../Flip-Tile-Game/pngs/Button.png",
     "Update Tilegrid Icon",
-    "New Puzzle",
+    "new",
     onClickUpdateTileGrid,
     null,
     ["updateTilegrid-button-container"],
@@ -38,9 +43,9 @@ export function initUI() {
   const resetTilegridButtonContainer = addUIButton(
     "resetTilegridContainer",
     "resetTilegrid",
-    "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
+    "../Flip-Tile-Game/pngs/Button.png",
     "Reset Tilegrid Icon",
-    "Reset Puzzle",
+    "reset",
     onClickResetTileGrid,
     null,
     ["resetTilegrid-button-container"],
@@ -58,7 +63,7 @@ export function initUI() {
   createSelectionBox(
     ui_vars.numCheckboxes,
     `input-box-1`,
-    ["Easy"],
+    ["easy"],
     1,
     difficultySelectionBoxContainer,
     ["input-box-1"],
@@ -68,7 +73,7 @@ export function initUI() {
   createSelectionBox(
     ui_vars.numCheckboxes,
     `input-box-2`,
-    ["Hard"],
+    ["hard"],
     2,
     difficultySelectionBoxContainer,
     ["input-box-2"],
@@ -77,7 +82,7 @@ export function initUI() {
   createSelectionBox(
     ui_vars.numCheckboxes,
     `input-box-3`,
-    ["Extreme"],
+    ["expert"],
     3,
     difficultySelectionBoxContainer,
     ["input-box-3"],
@@ -86,7 +91,7 @@ export function initUI() {
 
   // Toggle box to show solutions
   const solutionToggleBox = createToggleBox(
-    "Reveal Solution",
+    "reveal",
     function (checked) {
       // Update leaderBoidEnabled variable
       if (checked) {
@@ -121,6 +126,43 @@ export function initUI() {
     false
   );
 
+  // Score Text
+  const textContainer = document.createElement("div");
+  textContainer.classList.add(".score-text-container");
+
+  const textElement = document.createElement("div");
+  textElement.textContent = "0";
+  textElement.id = "ScoreText";
+  textElement.classList.add("score-text");
+  textContainer.appendChild(textElement);
+
+  // When the ScoreChangeEvent occurs, the text updates for the score
+  document.addEventListener("onScoreChange", function (event) {
+    var scoreAdd = 0;
+    if (TilePatternAttrs.difficultyLevel == difficulty.EASY) {
+      scoreAdd = scoring.EASY;
+    } else if (TilePatternAttrs.difficultyLevel == difficulty.HARD) {
+      scoreAdd = scoring.HARD;
+    } else if (TilePatternAttrs.difficultyLevel == difficulty.EXPERT) {
+      scoreAdd = scoring.EXPERT;
+    } else {
+      console.log("ERROR: difficulty not listed");
+    }
+
+    textElement.textContent = parseInt(textElement.textContent) + scoreAdd;
+
+    // Animate the text to grow and shrink
+    // Add CSS class to grow the text
+    textElement.classList.add("score-text-grow");
+
+    // After a delay, remove the CSS class to shrink the text
+    setTimeout(function () {
+      textElement.classList.remove("score-text-grow");
+    }, 200);
+  });
+
+  // Children assigning
+  document.body.appendChild(textContainer);
   document.body.appendChild(solutionToggleBox);
   document.body.appendChild(updateTilegridButtonContainer);
   document.body.appendChild(resetTilegridButtonContainer);
@@ -159,9 +201,9 @@ function addInfoBox() {
   const infoButtonContainer = addUIButton(
     "infoButtonContainer",
     "infoButton",
-    "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
+    "../Flip-Tile-Game/pngs/Button.png",
     "Info Icon",
-    "i",
+    "about",
     onClickInfo,
     openInfoWindow,
     ["info-button-container"],

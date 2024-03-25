@@ -4,52 +4,62 @@
 /* Define variables */
 :root {
   /* Edge Margins */
-  --updateTilegrid-button-margin-left: 55vw;
-  --updateTilegrid-button-margin-top: 47vh;
-  --resetTilegrid-button-margin-left: 87vw;
-  --resetTilegrid-button-margin-top: -7vh;
+  --updateTilegrid-button-margin-left: 89vw;
+  --updateTilegrid-button-margin-top: -1vh;
+  --resetTilegrid-button-margin-left: 89vw;
+  --resetTilegrid-button-margin-top: -12vh;
   --input-box-1-margin-left: 0vw;
   --input-box-2-margin-left: 5vw;
   --input-box-3-margin-left: 10vw;
   --input-box-label-margin-top: -3vh;
-  --difficulty-selection-box-container-left: 37vw;
-  --difficulty-selection-box-container-top: 52vh;
-  --sol-toggle-box-margin-left: 78vw;
+  --difficulty-selection-box-container-left: 72vw;
+  --difficulty-selection-box-container-top: 1vh;
+  --sol-toggle-box-margin-left: 75vw;
   --sol-toggle-box-margin-top: -7vh;
-  --flip-tile-info-button-margin-left: 88vw;
-  --flip-tile-info-button-margin-top: 55vh;
+  --flip-tile-info-button-margin-left: 89vw;
+  --flip-tile-info-button-margin-top: 63vh;
   --flip-tile-info-header-x-button-margin-left: 95%;
   --flip-tile-info-header-x-button-margin-top: 5%;
+  --score-text-top: 19%;
   /* Font */
   --flip-tile-text-size: 24px;
+  --score-text-size: 54px;
   /* Font Sizes */
   --test-font-size-og: calc(10vw * 0.2);
   --test-font-size: var(--test-font-size-og);
+  /* Sizes */
+  --fliptile-button-width: 100px;
+  --fliptile-button-height: 60px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (max-width: 600px) {
   :root {
     /* Edge Margins */
-    --updateTilegrid-button-margin-left: 64vw;
-    --updateTilegrid-button-margin-top: 48vh;
-    --resetTilegrid-button-margin-left: 64vw;
-    --resetTilegrid-button-margin-top: -12vh;
+    --updateTilegrid-button-margin-left: 68vw;
+    --updateTilegrid-button-margin-top: 46vh;
+    --resetTilegrid-button-margin-left: 68vw;
+    --resetTilegrid-button-margin-top: 56vh;
     --input-box-1-margin-left: 0vw;
     --input-box-2-margin-left: 14vw;
     --input-box-3-margin-left: 28vw;
-    --difficulty-selection-box-container-left: 11vw;
-    --difficulty-selection-box-container-top: 55vh;
-    --sol-toggle-box-margin-left: 6vw;
-    --sol-toggle-box-margin-top: -1vh;
-    --flip-tile-info-button-margin-left: 64vw;
-    --flip-tile-info-button-margin-top: 63vh;
+    --difficulty-selection-box-container-left: 20vw;
+    --difficulty-selection-box-container-top: 47vh;
+    --sol-toggle-box-margin-left: 27vw;
+    --sol-toggle-box-margin-top: 62vh;
+    --flip-tile-info-button-margin-left: 68vw;
+    --flip-tile-info-button-margin-top: 71vh;
     --flip-tile-info-header-x-button-margin-left: 90%;
     --flip-tile-info-header-x-button-margin-top: 5%;
+    --score-text-top: 16%;
     /* Font */
     --flip-tile-text-size: 16px;
+    --score-text-size: 28px;
     /* Font Sizes */
     --test-font-size: calc(var(--test-font-size-og) * 1.9);
+    /* Sizes */
+    --fliptile-button-width: 80px;
+    --fliptile-button-height: 40px;
   }
 }
 
@@ -97,8 +107,8 @@ a:hover {
 
 .fliptile-button {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: var(--fliptile-button-width);
+  height: var(--fliptile-button-height);
   border: none;
   background-color: transparent;
   color: var(--main-color);
@@ -123,12 +133,33 @@ a:hover {
 }
 
 .fliptile-icon-text {
-  color: var(--main-text-color);
+  color: var(--secondary-color);
+  font-weight: bold;
 }
 
 .fliptile-icon-img {
   width: 100%;
   height: 100%;
+}
+
+/* Score text */
+.score-text-container {
+  position: relative;
+}
+
+.score-text {
+  position: absolute;
+  top: var(--score-text-top);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--main-text-color);
+  font-size: var(--score-text-size);
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
+}
+
+.score-text-grow {
+  transform: translate(-50%, -50%) scale(1.2); /* Grow the text */
 }
 
 /* Selection Boxes */
@@ -163,6 +194,7 @@ a:hover {
 .input-box-label-2,
 .input-box-label-3 {
   position: absolute;
+  color: var(--main-text-color);
 }
 
 .input-box-label-1 {

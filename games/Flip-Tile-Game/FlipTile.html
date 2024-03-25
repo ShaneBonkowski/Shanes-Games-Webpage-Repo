@@ -18,10 +18,10 @@
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("pngs/Flip_Tile_Background.png");
-        background-repeat: repeat-y; /* Repeat the image vertically */
+        background-image: url("pngs/Background.png");
+        background-repeat: none; /* no repeat */
         background-position: top center; /* position relative to the top or center */
-        background-size: 100% auto; /* Auto width, 100% height */
+        background-size: auto auto; /* Auto width, auto height */
         overflow: hidden; /* Hide both horizontal and vertical scroll bars */
       }
     </style>
@@ -70,11 +70,11 @@
       window.addEventListener("load", function () {
         createGameHeader(
           "flip tile",
-          "pngs/flip_tile_logo.png",
-          81, // gameLogoContainerLeftMarginPercentageComputer
-          70, // gameLogoContainerLeftMarginPercentagePhone
-          110, // gameTitleXShiftPercentage
-          -100 // gameTitleYShiftPercentage
+          "pngs/Flip_Tile_Logo.png",
+          83, // gameLogoContainerLeftMarginPercentageComputer
+          72, // gameLogoContainerLeftMarginPercentagePhone
+          90, // gameTitleXShiftPercentage
+          -90 // gameTitleYShiftPercentage
         );
         initUI();
         LaunchGame();

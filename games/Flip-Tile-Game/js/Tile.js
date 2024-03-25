@@ -35,7 +35,7 @@ export class Tile {
 
   initTile() {
     this.size = this.calculateTileSize();
-    this.graphic = this.scene.add.sprite(0, 0, "Tile");
+    this.graphic = this.scene.add.sprite(0, 0, "Tile Red"); // init, will be changed in updateTileColor
     this.graphic.setInteractive(); // make it so this graphic can be clicked on etc.
     this.updateTileColor();
 
@@ -53,11 +53,21 @@ export class Tile {
       this.graphic.x + this.graphic.displayWidth / 2, // Position relative to graphic's top right corner
       this.graphic.y - this.graphic.displayHeight / 2, // Position relative to graphic's top right corner
       "1",
-      { fontFamily: "Arial", fontSize: 16, color: "#000000" }
+      { fontFamily: "Arial", fontSize: 40, color: "#FFFFFF" } // init text size here, but in reality it is updated in updateTextSize()
     );
-    this.text.setOrigin(1, 0); // Origin on the top right corner of the text
+    this.updateTextSize();
+    this.text.setOrigin(-0.2, 0.7); // Origin on the top right corner of the text
     this.text.setDepth(10); // Ensure the text appears on top of the graphic
     this.hideText();
+  }
+
+  updateTextSize() {
+    var fontSize = 40;
+    // for phones change the font size
+    if (this.scene.game.canvas.width <= 600) {
+      fontSize = 24;
+    }
+    this.text.setFontSize(fontSize);
   }
 
   updateTextPos() {
@@ -77,6 +87,10 @@ export class Tile {
 
   showText() {
     this.text.setVisible(true);
+    this.updateTextSize(); // make sure text size is right
+
+    // Make sure scene is aware we have revealed the solution
+    this.scene.revealedAtLeastOnceThisLevel = true;
   }
 
   destroy() {
@@ -95,11 +109,11 @@ export class Tile {
   updateTileColor() {
     // Color
     if (this.tileState === tileStates.RED) {
-      this.graphic.setTint(0xff0000); // RED color
+      this.graphic.setTexture("Tile Red");
     } else if (this.tileState === tileStates.BLUE) {
-      this.graphic.setTint(0x0000ff); // BLUE color
+      this.graphic.setTexture("Tile Blue");
     } else if (this.tileState === tileStates.GREEN) {
-      this.graphic.setTint(0x00ff00); // GREEN color
+      this.graphic.setTexture("Tile Green");
     } else {
       console.log(`ERROR: tileState ${this.tileState} is not an expected one`);
     }
@@ -211,8 +225,14 @@ export class Tile {
   }
 
   findTileLocFromTileSpace() {
-    const centerX = this.scene.game.canvas.width / 2;
-    const centerY = this.scene.game.canvas.height / 2;
+    var centerX = this.scene.game.canvas.width / 2;
+    var centerY = this.scene.game.canvas.height / 2;
+
+    // for phones change the center location
+    if (this.scene.game.canvas.width <= 600) {
+      centerY = this.scene.game.canvas.height * 0.4;
+    }
+
     let tileSpacing = this.scene.game.canvas.width / 10;
 
     // for phones change the tile spacing
@@ -265,6 +285,7 @@ export class Tile {
 
     // Update text
     this.updateTextPos();
+    this.updateTextSize();
   }
 
   subscribeToEvents() {
