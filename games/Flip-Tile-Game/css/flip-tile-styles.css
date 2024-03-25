@@ -14,8 +14,8 @@
   --input-box-label-margin-top: -3vh;
   --difficulty-selection-box-container-left: 72vw;
   --difficulty-selection-box-container-top: 1vh;
-  --sol-toggle-box-margin-left: 82vw;
-  --sol-toggle-box-margin-top: -7vh;
+  --sol-toggle-box-margin-left: 83vw;
+  --sol-toggle-box-margin-top: -9vh;
   --flip-tile-info-button-margin-left: 89vw;
   --flip-tile-info-button-margin-top: 58vh;
   --flip-tile-info-header-x-button-margin-left: 95%;
@@ -46,13 +46,13 @@
     --input-box-3-margin-left: 28vw;
     --difficulty-selection-box-container-left: 20vw;
     --difficulty-selection-box-container-top: 47vh;
-    --sol-toggle-box-margin-left: 48vw;
-    --sol-toggle-box-margin-top: 61vh;
+    --sol-toggle-box-margin-left: 52vw;
+    --sol-toggle-box-margin-top: 57vh;
     --flip-tile-info-button-margin-left: 68vw;
-    --flip-tile-info-button-margin-top: 67vh;
+    --flip-tile-info-button-margin-top: 62vh;
     --flip-tile-info-header-x-button-margin-left: 90%;
     --flip-tile-info-header-x-button-margin-top: 5%;
-    --score-text-top: 16%;
+    --score-text-top: 18%;
     /* Font */
     --flip-tile-text-size: 16px;
     --flip-tile-label-text-size: 12px;
@@ -220,30 +220,26 @@ a:hover {
   position: relative;
   left: var(--sol-toggle-box-margin-left);
   top: var(--sol-toggle-box-margin-top);
-  height: 30px;
-  width: 30px;
-}
-
-.sol-toggle-label,
-.sol-toggle-input {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .sol-toggle-label {
+  position: absolute;
+  left: 0%;
+  transform: translate(-50%, -180%);
   font-size: var(--flip-tile-label-text-size);
   white-space: nowrap;
   color: white;
-  top: -50%;
+  top: 0%;
 }
 
 .sol-toggle-input {
-  display: absolute;
-  width: 90px;
+  position: absolute;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  width: 30px;
   height: 30px;
   cursor: pointer;
-  top: 50%;
+  top: 32%;
 }
 
 /* Info screen styles */
