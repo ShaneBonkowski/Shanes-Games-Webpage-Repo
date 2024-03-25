@@ -68,16 +68,23 @@
 
       // Wait for the module(s) to be fully loaded before calling LaunchGame()
       window.addEventListener("load", function () {
-        createGameHeader(
-          "flip tile",
-          "./pngs/Flip_Tile_Logo.png",
-          83, // gameLogoContainerLeftMarginPercentageComputer
-          72, // gameLogoContainerLeftMarginPercentagePhone
-          90, // gameTitleXShiftPercentage
-          -90 // gameTitleYShiftPercentage
-        );
-        initUI();
-        LaunchGame();
+        var image = new Image();
+        image.src = "./pngs/Flip_Tile_Logo.png";
+
+        // Wait for image to load in before loading it all
+        image.onload = function () {
+          createGameHeader(
+            "flip tile",
+            image.src,
+            83, // gameLogoContainerLeftMarginPercentageComputer
+            72, // gameLogoContainerLeftMarginPercentagePhone
+            90, // gameTitleXShiftPercentage
+            -90 // gameTitleYShiftPercentage
+          );
+
+          initUI();
+          LaunchGame();
+        };
       });
     </script>
   </body>
