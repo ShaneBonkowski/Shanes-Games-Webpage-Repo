@@ -36,13 +36,15 @@ export function setZOrderForSharedElements(game) {
   difficultySelectionBoxContainer.style.zIndex = "3";
   solToggleBoxContainer.style.zIndex = "3";
   flipTileInfoButtonContainer.style.zIndex = "3";
+
+  scoreText.style.zIndex = "4";
+
   infoBoxs.forEach((infoBox) => {
-    infoBox.style.zIndex = "4";
+    infoBox.style.zIndex = "5";
   });
   closeButtons.forEach((closeButton) => {
-    closeButton.style.zIndex = "5";
+    closeButton.style.zIndex = "6";
   });
-  scoreText.style.zIndex = "6";
 }
 
 export function setZOrderForMainGameElements(game) {
