@@ -68,8 +68,8 @@
       import { addBoidSettings } from "./js/boid-settings.js";
       import { addInfoBox } from "../Better-Boids-Game/js/info_box.js";
 
-      // Wait for the module(s) to be fully loaded before calling LaunchGame()
-      window.addEventListener("load", function () {
+      // Wait for window (aka all content) to load in before calling functions
+      window.onload = function () {
         createGameHeader(
           "better boids",
           "pngs/better_boids_logo.png",
@@ -81,7 +81,7 @@
         addBoidSettings();
         addInfoBox();
         LaunchGame();
-      });
+      };
     </script>
   </body>
 </html>

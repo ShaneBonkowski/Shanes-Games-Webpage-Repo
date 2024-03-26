@@ -58,8 +58,8 @@
     <script type="module">
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
-      // Wait for DOMContentLoaded before calling scripts
-      document.addEventListener("DOMContentLoaded", function () {
+      // Wait for window (aka all content) to load in before calling functions
+      window.onload = function () {
         createHeader();
         createGameBox(
           "games/Better-Boids-Game/pngs/Game_Cover_Picture.png",
@@ -101,7 +101,7 @@
 
         // Ensure that all game boxes are able to animate as intended when hovered
         handleGameBoxHover();
-      });
+      };
     </script>
   </body>
 </html>
