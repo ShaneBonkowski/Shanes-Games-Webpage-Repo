@@ -1,5 +1,11 @@
 // Define the createGameBox function
-function createGameBox(imageSrc, linkUrl, titleText, gameDescriptionText) {
+function createGameBox(
+  imageSrc,
+  linkUrl,
+  titleText,
+  gameDescriptionText,
+  openInNewTab = false
+) {
   // Create a container div for the box
   var boxContainer = document.createElement("div");
   boxContainer.classList.add("game-box");
@@ -23,6 +29,10 @@ function createGameBox(imageSrc, linkUrl, titleText, gameDescriptionText) {
   var titleLinkElement = document.createElement("a");
   titleLinkElement.href = linkUrl;
   titleLinkElement.classList.add("title-link-anchor");
+
+  if (openInNewTab) {
+    titleLinkElement.target = "_blank";
+  }
 
   // Create a div for the title
   var titleDiv = document.createElement("div");
