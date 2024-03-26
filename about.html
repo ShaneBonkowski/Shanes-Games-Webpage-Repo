@@ -57,12 +57,12 @@
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
 
-      // Wait for DOMContentLoaded before calling scripts
-      document.addEventListener("DOMContentLoaded", function () {
+      // Wait for window (aka all content) to load in before calling functions
+      window.onload = function () {
         createHeader();
         createAboutMe();
         createFooter();
-      });
+      };
     </script>
   </body>
 </html>

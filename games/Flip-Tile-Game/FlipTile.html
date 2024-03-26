@@ -66,26 +66,20 @@
       import { LaunchGame } from "./js/game.js";
       import { initUI } from "./js/init-ui.js";
 
-      // Wait for the module(s) to be fully loaded before calling LaunchGame()
-      window.addEventListener("load", function () {
-        var image = new Image();
-        image.src = "./pngs/flip_tile_logo.png";
+      // Wait for window (aka all content) to load in before calling functions
+      window.onload = function () {
+        createGameHeader(
+          "flip tile",
+          "./pngs/flip_tile_logo.png",
+          83, // gameLogoContainerLeftMarginPercentageComputer
+          72, // gameLogoContainerLeftMarginPercentagePhone
+          90, // gameTitleXShiftPercentage
+          -90 // gameTitleYShiftPercentage
+        );
 
-        // Wait for image to load in before loading it all
-        image.onload = function () {
-          createGameHeader(
-            "flip tile",
-            image.src,
-            83, // gameLogoContainerLeftMarginPercentageComputer
-            72, // gameLogoContainerLeftMarginPercentagePhone
-            90, // gameTitleXShiftPercentage
-            -90 // gameTitleYShiftPercentage
-          );
-
-          initUI();
-          LaunchGame();
-        };
-      });
+        initUI();
+        LaunchGame();
+      };
     </script>
   </body>
 </html>
