@@ -1,5 +1,7 @@
 import { createButtonLinkElement } from "./buttons.js";
-export function createHeader() {
+import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
+
+export function createHeader(logoImageSrc) {
   // Create a container div for the header box
   var headerContainer = document.createElement("div");
   headerContainer.classList.add("header-box");
@@ -14,8 +16,8 @@ export function createHeader() {
 
   // Logo image, title, subtitle
   var logoImage = document.createElement("img");
-  logoImage.src = "Shared-General-Assets/pngs/Mars_circle.png";
   logoImage.classList.add("logo-image");
+  logoImage.src = logoImageSrc;
 
   var titleElement = document.createElement("h1");
   titleElement.textContent = "SHANE'S GAMES";

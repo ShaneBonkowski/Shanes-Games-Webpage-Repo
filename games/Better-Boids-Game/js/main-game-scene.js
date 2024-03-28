@@ -30,17 +30,17 @@ export class MainGameScene extends Phaser.Scene {
     this.load.spritesheet(
       "Bad Boid Anim",
       "./pngs/Bad_Boid_Anim_Spritesheet.png",
-      { frameWidth: 600, frameHeight: 600 }
+      { frameWidth: 200, frameHeight: 200 }
     );
     this.load.spritesheet(
       "Good Boid Anim",
       "./pngs/Good_Boid_Anim_Spritesheet.png",
-      { frameWidth: 600, frameHeight: 600 }
+      { frameWidth: 200, frameHeight: 200 }
     );
     this.load.spritesheet(
       "Leader Boid Anim",
       "./pngs/Leader_Boid_Anim_Spritesheet.png",
-      { frameWidth: 600, frameHeight: 600 }
+      { frameWidth: 200, frameHeight: 200 }
     );
   }
 

@@ -21,7 +21,10 @@
       }
     </style>
 
-    <link rel="icon" href="Shared-General-Assets/pngs/Mars_circle.png" />
+    <link
+      rel="icon"
+      href="Shared-General-Assets/pngs/Mars_circle_logo_small.png"
+    />
 
     <!-- Set up main css files used -->
     <link
@@ -58,49 +61,111 @@
     <script type="module">
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
+      import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
+
+      // Promisified version of the createGameBox function. This allows us to wait for
+      // completion of game box creation before rendering the next one.
+      function createGameBoxPromise(
+        imageUrl,
+        linkUrl,
+        title,
+        description,
+        openInNewTab
+      ) {
+        return createImage(imageUrl)
+          .then((image) => {
+            createGameBox(imageUrl, linkUrl, title, description, openInNewTab);
+          })
+          .catch((error) => {
+            console.error("Error loading image:", error);
+          });
+      }
+
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
-        createHeader();
-        createGameBox(
-          "games/Better-Boids-Game/pngs/Game_Cover_Picture.png",
-          "games/Better-Boids-Game/BetterBoids.html",
-          "Better Boids",
-          "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more"
-        );
-        createGameBox(
-          "games/Flip-Tile-Game/pngs/Cover_Art.png",
-          "games/Flip-Tile-Game/FlipTile.html",
-          "Flip Tile",
-          "Classic 'lights out' style puzzle game. Flipping one tile causes neighboring tiles to flip as well. Match them all to advance further!"
-        );
-        createGameBox(
-          "Main-Website-Assets/pngs/SOSS_cover_art.png",
-          "https://store.steampowered.com/app/2061040/Save_Our_Solar_System/",
-          "Save Our Solar System",
-          "(PC ONLY) Stave off countless waves of asteroids as you fight to protect the Solar System from extinction. A fresh look on the tower defense genre!",
-          true // openInNewTab = true
-        );
-        createGameBox(
-          "Main-Website-Assets/pngs/AD_cover_art.png",
-          "https://store.steampowered.com/app/2506740/Abyssal_Descent/",
-          "Abyssal Descent",
-          "(PC ONLY) Embark on an epic platformer adventure through procedurally generated caves, solving intricate puzzles, and battling fearsome enemies!",
-          true // openInNewTab = true
-        );
-        // !!!!!!!!!!!!!!!!!!!
-        // Placeholder for More Games Coming Soon.
-        // Always have this box at the end!!!!
-        // !!!!!!!!!!!!!!!!!!!
-        createGameBox(
-          "Main-Website-Assets/pngs/Coming_Soon_Image_Option_2.png",
-          "https://github.com/ShaneBonkowski",
-          "More Games Coming Soon...",
-          "Nothing much here for now. Just a link to my GitHub. Keep an eye out for new games on the way!"
-        );
-        createFooter();
+        // Load the logo image first as a promise so that nothing else can execute
+        // until the logo image is loaded in.
+        createImage("/Shared-General-Assets/pngs/Mars_circle_logo_small.png")
+          .then((image) => {
+            // Create header first
+            createHeader(image.src);
 
-        // Ensure that all game boxes are able to animate as intended when hovered
-        handleGameBoxHover();
+            // Array of game box data
+            const gameBoxes = [
+              {
+                imageUrl: "games/Better-Boids-Game/pngs/Game_Cover_Picture.png",
+                linkUrl: "games/Better-Boids-Game/BetterBoids.html",
+                title: "Better Boids",
+                description:
+                  "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more",
+                openInNewTab: false,
+              },
+              {
+                imageUrl: "games/Flip-Tile-Game/pngs/Cover_Art.png",
+                linkUrl: "games/Flip-Tile-Game/FlipTile.html",
+                title: "Flip Tile",
+                description:
+                  "Classic 'lights out' style puzzle game. Flipping one tile causes neighboring tiles to flip as well. Match them all to advance further!",
+                openInNewTab: false,
+              },
+              {
+                imageUrl: "Main-Website-Assets/pngs/SOSS_cover_art.png",
+                linkUrl:
+                  "https://store.steampowered.com/app/2061040/Save_Our_Solar_System/",
+                title: "Save Our Solar System",
+                description:
+                  "(PC ONLY) Stave off countless waves of asteroids as you fight to protect the Solar System from extinction. A fresh look on the tower defense genre!",
+                openInNewTab: true,
+              },
+              {
+                imageUrl: "Main-Website-Assets/pngs/AD_cover_art.png",
+                linkUrl:
+                  "https://store.steampowered.com/app/2506740/Abyssal_Descent/",
+                title: "Abyssal Descent",
+                description:
+                  "(PC ONLY) Embark on an epic platformer adventure through procedurally generated caves, solving intricate puzzles, and battling fearsome enemies!",
+                openInNewTab: true,
+              },
+              // !!!!!!!!!!!!!!!
+              // PLACEHOLDER COMING SOON BOX ALWAYS AT THE END. PUT NEW BOXES BEFORE THIS
+              // !!!!!!!!!!!!!!!
+              {
+                imageUrl:
+                  "Main-Website-Assets/pngs/Coming_Soon_Image_Option_2.png",
+                linkUrl: "https://github.com/ShaneBonkowski",
+                title: "More Games Coming Soon...",
+                description:
+                  "Nothing much here for now. Just a link to my GitHub. Keep an eye out for new games on the way!",
+                openInNewTab: true,
+              },
+            ];
+
+            // Iterate over each game box data and create game boxes sequentially,
+            // i..e wait for one to fully render in before calling the next one to render.
+            gameBoxes
+              .reduce((previousPromise, gameBoxData) => {
+                return previousPromise.then(() => {
+                  return createGameBoxPromise(
+                    gameBoxData.imageUrl,
+                    gameBoxData.linkUrl,
+                    gameBoxData.title,
+                    gameBoxData.description,
+                    gameBoxData.openInNewTab
+                  );
+                });
+              }, Promise.resolve())
+              .then(() => {
+                // Call these after all game boxes are loaded in
+                createFooter();
+                handleGameBoxHover();
+              })
+              .catch((error) => {
+                console.error("Error creating game boxes:", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error loading logo image for header:", error);
+          });
       };
     </script>
   </body>
