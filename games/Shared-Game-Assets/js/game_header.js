@@ -18,7 +18,8 @@ function createGameHeader(
   );
 
   var shanesGamesLogoIcon = document.createElement("img");
-  shanesGamesLogoIcon.src = "../../Shared-General-Assets/pngs/Mars_circle.png"; // ShanesGames logo
+  shanesGamesLogoIcon.src =
+    "../../Shared-General-Assets/pngs/Mars_circle_logo_small.png"; // ShanesGames logo
   shanesGamesLogoIcon.classList.add("main-logo-image");
   shanesGamesLogoIcon.classList.add("disable-browser-default-touch-actions");
 

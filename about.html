@@ -21,7 +21,10 @@
       }
     </style>
 
-    <link rel="icon" href="Shared-General-Assets/pngs/Mars_circle.png" />
+    <link
+      rel="icon"
+      href="Shared-General-Assets/pngs/Mars_circle_logo_small.png"
+    />
 
     <!-- Set up main css files used -->
     <link
@@ -56,12 +59,24 @@
       import { createAboutMe } from "./Main-Website-Assets/js/about_me.js";
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
+      import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
-        createHeader();
-        createAboutMe();
-        createFooter();
+        // Load the logo image first as a promise so that nothing else can execute
+        // until the logo image is loaded in.
+        createImage("/Shared-General-Assets/pngs/Mars_circle_logo_small.png")
+          .then((image) => {
+            // Create header first
+            createHeader(image.src);
+
+            // Then do about me and footer
+            createAboutMe();
+            createFooter();
+          })
+          .catch((error) => {
+            console.error("Error loading logo image for header:", error);
+          });
       };
     </script>
   </body>

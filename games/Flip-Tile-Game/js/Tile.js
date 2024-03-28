@@ -263,11 +263,11 @@ export class Tile {
   calculateTileSize() {
     // Calculate the tile size based on the screen width
     var screenWidth = window.innerWidth;
-    var tileSize = screenWidth * 0.00009;
+    var tileSize = screenWidth * 0.00009 * 3;
 
     // Phone screen has larger tile
     if (screenWidth <= 600) {
-      tileSize = screenWidth * 0.00026;
+      tileSize = screenWidth * 0.00026 * 3;
     }
 
     return tileSize;
