@@ -4,6 +4,11 @@ const path = require("path");
 
 const port = 3000;
 
+// INSTRUCTIONS:
+// - To run the local test server, make sure you are cd'd into the main repo
+//   /path/to/ShanesGames
+// - Then from the command line call `node .\Local-Testing\local_test_server.js`
+// - Finally, go to the link that is printed to the console and the sever should be live!
 const server = http.createServer((req, res) => {
   // Determine the file path based on the request URL
   let filePath = "." + req.url;
