@@ -11,6 +11,12 @@ export function setZOrderForSharedElements(game) {
   var sliderContainers = document.querySelectorAll(".slider-container");
   var toggleBoxContainers = document.querySelectorAll(".toggle-box-container");
   var closeButtons = document.querySelectorAll(".close-button");
+  var infoButtonContainers = document.querySelectorAll(
+    ".info-button-container"
+  );
+  var settingsButtonContainers = document.querySelectorAll(
+    ".settings-button-container"
+  );
   var infoButtons = document.querySelectorAll(".info-button");
   var infoBoxs = document.querySelectorAll(".info-box");
 
@@ -27,6 +33,12 @@ export function setZOrderForSharedElements(game) {
   });
   toggleBoxContainers.forEach((toggleBoxContainer) => {
     toggleBoxContainer.style.zIndex = "5";
+  });
+  settingsButtonContainers.forEach((settingsButtonContainer) => {
+    settingsButtonContainer.style.zIndex = "6";
+  });
+  infoButtonContainers.forEach((infoButtonContainer) => {
+    infoButtonContainer.style.zIndex = "6";
   });
   infoButtons.forEach((infoButton) => {
     infoButton.style.zIndex = "6";
