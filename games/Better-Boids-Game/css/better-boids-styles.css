@@ -5,7 +5,7 @@
 :root {
   /* Edge Margins */
   --small-top-margin: 23%;
-  --info-button-margin-left: 88vw;
+  --info-button-margin-right: 13vw;
   --settings-button-margin-left: 4vw;
   --info-button-margin-bot: 25vh;
   --info-header-x-button-margin-left: 95%;
@@ -21,7 +21,7 @@
     /* Font Sizes */
     --test-font-size: calc(var(--test-font-size-og) * 1.9);
     /* Edge Margins */
-    --info-button-margin-left: 64vw;
+    --info-button-margin-right: 34vw;
     --settings-button-margin-left: 4vw;
     --info-button-margin-bot: 30vh;
     --info-header-x-button-margin-left: 90%;
@@ -65,7 +65,7 @@ a:hover {
 }
 
 .info-button-container {
-  left: var(--info-button-margin-left);
+  right: var(--info-button-margin-right);
   bottom: var(--info-button-margin-bot);
 }
 
