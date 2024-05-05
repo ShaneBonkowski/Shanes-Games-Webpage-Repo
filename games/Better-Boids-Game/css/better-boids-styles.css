@@ -5,25 +5,31 @@
 :root {
   /* Edge Margins */
   --small-top-margin: 23%;
-  --info-button-margin-right: 12vw;
-  --settings-button-margin-left: 12vw;
-  --info-button-margin-bot: 25vh;
+  --info-button-margin-right: 7vw;
+  --settings-button-margin-left: 7vw;
+  --info-button-margin-bot: 20vh;
   --info-header-x-button-margin-left: 95%;
   --info-header-x-button-margin-top: 5%;
+  /* Size */
+  --info-button-size: calc(20vw * 0.45);
   /* Font Sizes */
   --test-font-size-og: calc(10vw * 0.2);
   --test-font-size: var(--test-font-size-og);
+  --info-button-font-size: calc(10vw * 0.2);
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (max-width: 600px) {
   :root {
     /* Font Sizes */
+    --info-button-size: calc(20vh * 0.65);
+    /* Font Sizes */
     --test-font-size: calc(var(--test-font-size-og) * 1.9);
+    --info-button-font-size: calc(10vh * 0.25);
     /* Edge Margins */
     --info-button-margin-right: 20vw;
     --settings-button-margin-left: 20vw;
-    --info-button-margin-bot: 16vh;
+    --info-button-margin-bot: 13vh;
     --info-header-x-button-margin-left: 90%;
     --info-header-x-button-margin-top: 5%;
   }
@@ -76,12 +82,12 @@ a:hover {
 
 .info-button {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: var(--info-button-size);
+  height: var(--info-button-size);
   border: none;
   background-color: transparent;
   color: var(--main-color);
-  font-size: 24px;
+  font-size: var(--info-button-font-size);
   transform: translate(-50%, 0%);
   transition: transform 0.3s ease;
   cursor: pointer;
