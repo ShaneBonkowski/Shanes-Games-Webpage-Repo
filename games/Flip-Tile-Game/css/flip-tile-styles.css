@@ -4,20 +4,20 @@
 /* Define variables */
 :root {
   /* Edge Margins */
-  --updateTilegrid-button-margin-left: 89vw;
-  --updateTilegrid-button-margin-top: -1vh;
-  --resetTilegrid-button-margin-left: 89vw;
-  --resetTilegrid-button-margin-top: -12vh;
-  --input-box-1-margin-left: 0vw;
-  --input-box-2-margin-left: 5vw;
-  --input-box-3-margin-left: 10vw;
-  --input-box-label-margin-top: -3vh;
-  --difficulty-selection-box-container-left: 72vw;
-  --difficulty-selection-box-container-top: 1vh;
-  --sol-toggle-box-margin-left: 83vw;
-  --sol-toggle-box-margin-top: -9vh;
-  --flip-tile-info-button-margin-left: 89vw;
-  --flip-tile-info-button-margin-top: 58vh;
+  --updateTilegrid-button-margin-right: 10vw;
+  --updateTilegrid-button-margin-bottom: 30vh;
+  --resetTilegrid-button-margin-right: 10vw;
+  --resetTilegrid-button-margin-bottom: 44vh;
+  --input-box-1-margin-right: 16vw;
+  --input-box-2-margin-right: 8vw;
+  --input-box-3-margin-right: 0vw;
+  --input-box-label-margin-top: -5vh;
+  --difficulty-selection-box-container-right: 20vw;
+  --difficulty-selection-box-container-bottom: 8vh;
+  --sol-toggle-box-margin-right: 20vw;
+  --sol-toggle-box-margin-bottom: 22vh;
+  --flip-tile-info-button-margin-right: 10vw;
+  --flip-tile-info-button-margin-bottom: 16vh;
   --flip-tile-info-header-x-button-margin-left: 95%;
   --flip-tile-info-header-x-button-margin-top: 5%;
   --score-text-top: 13%;
@@ -37,19 +37,20 @@
 @media screen and (max-width: 600px) {
   :root {
     /* Edge Margins */
-    --updateTilegrid-button-margin-left: 68vw;
-    --updateTilegrid-button-margin-top: 48vh;
-    --resetTilegrid-button-margin-left: 68vw;
-    --resetTilegrid-button-margin-top: 56vh;
-    --input-box-1-margin-left: 0vw;
-    --input-box-2-margin-left: 14vw;
-    --input-box-3-margin-left: 28vw;
-    --difficulty-selection-box-container-left: 20vw;
-    --difficulty-selection-box-container-top: 49vh;
-    --sol-toggle-box-margin-left: 52vw;
-    --sol-toggle-box-margin-top: 59vh;
-    --flip-tile-info-button-margin-left: 68vw;
-    --flip-tile-info-button-margin-top: 64vh;
+    --updateTilegrid-button-margin-right: 16vw;
+    --updateTilegrid-button-margin-bottom: 20vh;
+    --resetTilegrid-button-margin-right: 16vw;
+    --resetTilegrid-button-margin-bottom: 30vh;
+    --input-box-1-margin-right: 34vw;
+    --input-box-2-margin-right: 17vw;
+    --input-box-3-margin-right: 0vw;
+    --input-box-label-margin-top: -3vh;
+    --difficulty-selection-box-container-right: 32vw;
+    --difficulty-selection-box-container-bottom: 7vh;
+    --sol-toggle-box-margin-right: 32vw;
+    --sol-toggle-box-margin-bottom: 16vh;
+    --flip-tile-info-button-margin-right: 16vw;
+    --flip-tile-info-button-margin-bottom: 11vh;
     --flip-tile-info-header-x-button-margin-left: 90%;
     --flip-tile-info-header-x-button-margin-top: 5%;
     --score-text-top: 18%;
@@ -96,15 +97,15 @@ a:hover {
 
 /* Buttons */
 .updateTilegrid-button-container {
-  position: relative;
-  left: var(--updateTilegrid-button-margin-left);
-  top: var(--updateTilegrid-button-margin-top);
+  position: fixed;
+  right: var(--updateTilegrid-button-margin-right);
+  bottom: var(--updateTilegrid-button-margin-bottom);
 }
 
 .resetTilegrid-button-container {
-  position: relative;
-  left: var(--resetTilegrid-button-margin-left);
-  top: var(--resetTilegrid-button-margin-top);
+  position: fixed;
+  right: var(--resetTilegrid-button-margin-right);
+  bottom: var(--resetTilegrid-button-margin-bottom);
 }
 
 .fliptile-button {
@@ -115,14 +116,14 @@ a:hover {
   background-color: transparent;
   color: var(--main-color);
   font-size: var(--flip-tile-text-size);
-  transform: translate(0%, 0%);
+  transform: translate(-50%, 0%);
   transition: transform 0.3s ease;
   cursor: pointer;
   pointer-events: auto;
 }
 
 .fliptile-button:hover {
-  transform: translate(0%, 0%) scale(1.2);
+  transform: translate(-50%, 0%) scale(1.2);
 }
 
 .fliptile-icon-img,
@@ -164,11 +165,24 @@ a:hover {
   transform: translate(-50%, -50%) scale(1.2); /* Grow the text */
 }
 
-/* Selection Boxes */
+/* All Selection Boxes */
+input[type="checkbox" i] {
+  background-color: initial;
+  cursor: default;
+  appearance: auto;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: initial;
+  border: initial;
+}
+
+/* Difficulty Selection Boxes */
 .difficulty-selection-box-container {
-  position: relative;
-  left: var(--difficulty-selection-box-container-left);
-  top: var(--difficulty-selection-box-container-top);
+  position: fixed;
+  right: var(--difficulty-selection-box-container-right);
+  bottom: var(--difficulty-selection-box-container-bottom);
+  width: 30px;
+  height: 30px;
 }
 
 .input-box-1,
@@ -178,18 +192,19 @@ a:hover {
   width: 30px;
   height: 30px;
   cursor: pointer;
+  transform: translate(-50%, 0%);
 }
 
 .input-box-1 {
-  left: var(--input-box-1-margin-left);
+  right: var(--input-box-1-margin-right);
 }
 
 .input-box-2 {
-  left: var(--input-box-2-margin-left);
+  right: var(--input-box-2-margin-right);
 }
 
 .input-box-3 {
-  left: var(--input-box-3-margin-left);
+  right: var(--input-box-3-margin-right);
 }
 
 .input-box-label-1,
@@ -198,55 +213,56 @@ a:hover {
   position: absolute;
   color: var(--main-text-color);
   font-size: var(--flip-tile-label-text-size);
+  text-align: center;
+  transform: translate(-25%, 0%);
 }
 
 .input-box-label-1 {
-  left: var(--input-box-1-margin-left);
+  right: var(--input-box-1-margin-right);
   top: var(--input-box-label-margin-top);
 }
 
 .input-box-label-2 {
-  left: var(--input-box-2-margin-left);
+  right: var(--input-box-2-margin-right);
   top: var(--input-box-label-margin-top);
 }
 
 .input-box-label-3 {
-  left: var(--input-box-3-margin-left);
+  right: var(--input-box-3-margin-right);
   top: var(--input-box-label-margin-top);
 }
 
 /* Toggle box styles */
 .sol-toggle-box-container {
-  position: relative;
-  left: var(--sol-toggle-box-margin-left);
-  top: var(--sol-toggle-box-margin-top);
+  right: var(--sol-toggle-box-margin-right);
+  bottom: var(--sol-toggle-box-margin-bottom);
+  position: fixed;
+  width: 30px;
+  height: 30px;
 }
 
 .sol-toggle-label {
   position: absolute;
-  left: 0%;
-  transform: translate(-50%, -180%);
+  transform: translate(-50%, 0%);
+  top: var(--input-box-label-margin-top);
   font-size: var(--flip-tile-label-text-size);
   white-space: nowrap;
   color: white;
-  top: 0%;
 }
 
 .sol-toggle-input {
   position: absolute;
-  left: 0%;
-  transform: translate(-50%, -50%);
   width: 30px;
   height: 30px;
   cursor: pointer;
-  top: 32%;
+  transform: translate(-50%, 0%);
 }
 
 /* Info screen styles */
 .info-button-container {
-  position: relative;
-  left: var(--flip-tile-info-button-margin-left);
-  top: var(--flip-tile-info-button-margin-top);
+  position: fixed;
+  right: var(--flip-tile-info-button-margin-right);
+  bottom: var(--flip-tile-info-button-margin-bottom);
 }
 
 .info-box {
