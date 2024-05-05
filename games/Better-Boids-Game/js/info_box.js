@@ -9,9 +9,8 @@ export function addInfoBox() {
       <h2>About Boids</h2>
       <p>
         The
-        <a href="https://en.wikipedia.org/wiki/Boids" target="_blank">
-          Boids algorithm
-        </a>, devised by Craig Reynolds, mimics the flocking behavior seen in birds and other animals. 
+        <a href="https://en.wikipedia.org/wiki/Boids" target="_blank">Boids algorithm</a>, 
+        devised by Craig Reynolds, mimics the flocking behavior seen in birds and other animals. 
         In general, Boids typically have three rules:
       </p>
       <ul>
