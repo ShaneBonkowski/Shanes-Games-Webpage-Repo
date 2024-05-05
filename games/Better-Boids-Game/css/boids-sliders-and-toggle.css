@@ -10,7 +10,7 @@
   --input-slider-height: var(--input-slider-height-og);
   --slider-blank-space-height: 6vh;
   /* Margins */
-  --slider-top-margin: 30vh;
+  --slider-top-margin: 25vh;
   --slider-container-left-margin-og: 4%;
   --slider-container-left-margin: var(--slider-container-left-margin-og);
   --hover-slider-label-top-margin-og: 25%;
