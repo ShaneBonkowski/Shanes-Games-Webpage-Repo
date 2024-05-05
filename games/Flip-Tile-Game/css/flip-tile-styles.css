@@ -22,15 +22,17 @@
   --flip-tile-info-header-x-button-margin-top: 5%;
   --score-text-top: 10%;
   /* Font */
-  --flip-tile-text-size: 20px;
-  --flip-tile-label-text-size: 15px;
-  --score-text-size: 54px;
+  --flip-tile-text-size: calc(10vw * 0.15);
+  --flip-tile-label-text-size: calc(10vw * 0.12);
+  --score-text-size: calc(10vh * 0.8);
   /* Font Sizes */
   --test-font-size-og: calc(10vw * 0.2);
   --test-font-size: var(--test-font-size-og);
   /* Sizes */
-  --fliptile-button-width: 85px;
-  --fliptile-button-height: 50px;
+  --fliptile-button-width: calc(10vw * 0.6);
+  --fliptile-button-height: calc(10vh * 0.8);
+  --selection-box-width: calc(10vw * 0.5);
+  --selection-box-height: calc(10vh * 0.5);
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -46,23 +48,25 @@
     --input-box-3-margin-left: 34vw;
     --input-box-label-margin-top: -3vh;
     --difficulty-selection-box-container-left: 36vw;
-    --difficulty-selection-box-container-bottom: 7vh;
+    --difficulty-selection-box-container-bottom: 6vh;
     --sol-toggle-box-margin-left: 36vw;
-    --sol-toggle-box-margin-bottom: 16vh;
+    --sol-toggle-box-margin-bottom: 15vh;
     --flip-tile-info-button-margin-right: 16vw;
     --flip-tile-info-button-margin-bottom: 29vh;
     --flip-tile-info-header-x-button-margin-left: 90%;
     --flip-tile-info-header-x-button-margin-top: 5%;
-    --score-text-top: 13%;
+    --score-text-top: 15%;
     /* Font */
-    --flip-tile-text-size: 16px;
-    --flip-tile-label-text-size: 12px;
-    --score-text-size: 55px;
+    --flip-tile-text-size: calc(10vh * 0.2);
+    --flip-tile-label-text-size: calc(10vh * 0.15);
+    --score-text-size: calc(10vh * 0.75);
     /* Font Sizes */
     --test-font-size: calc(var(--test-font-size-og) * 1.9);
     /* Sizes */
-    --fliptile-button-width: 70px;
-    --fliptile-button-height: 40px;
+    --fliptile-button-width: calc(20vw * 0.85);
+    --fliptile-button-height: calc(10vh * 0.43);
+    --selection-box-width: calc(10vw * 0.55);
+    --selection-box-height: calc(10vh * 0.55);
   }
 }
 
@@ -181,16 +185,16 @@ input[type="checkbox" i] {
   position: fixed;
   left: var(--difficulty-selection-box-container-left);
   bottom: var(--difficulty-selection-box-container-bottom);
-  width: 30px;
-  height: 30px;
+  width: var(--selection-box-width);
+  height: var(--selection-box-height);
 }
 
 .input-box-1,
 .input-box-2,
 .input-box-3 {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: var(--selection-box-width);
+  height: var(--selection-box-height);
   cursor: pointer;
   transform: translate(-50%, 0%);
 }
@@ -237,8 +241,8 @@ input[type="checkbox" i] {
   left: var(--sol-toggle-box-margin-left);
   bottom: var(--sol-toggle-box-margin-bottom);
   position: fixed;
-  width: 30px;
-  height: 30px;
+  width: var(--selection-box-width);
+  height: var(--selection-box-height);
 }
 
 .sol-toggle-label {
@@ -252,8 +256,8 @@ input[type="checkbox" i] {
 
 .sol-toggle-input {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: var(--selection-box-width);
+  height: var(--selection-box-height);
   cursor: pointer;
   transform: translate(-50%, 0%);
 }
