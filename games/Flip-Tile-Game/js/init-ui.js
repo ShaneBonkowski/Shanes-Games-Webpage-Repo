@@ -61,37 +61,52 @@ export function initUI() {
     "difficulty-selection-box-container"
   );
   createSelectionBox(
-    ui_vars.numCheckboxes,
     `input-box-1`,
     ["easy"],
     1,
     difficultySelectionBoxContainer,
+    // other boxes to be turned off when this one is turned on
+    ["input-box-2", "input-box-3"],
     ["input-box-1"],
     ["input-box-label-1"],
     true // start off with this one checked
   );
   createSelectionBox(
-    ui_vars.numCheckboxes,
     `input-box-2`,
     ["hard"],
     2,
     difficultySelectionBoxContainer,
+    // other boxes to be turned off when this one is turned on
+    ["input-box-1", "input-box-3"],
     ["input-box-2"],
     ["input-box-label-2"]
   );
   createSelectionBox(
-    ui_vars.numCheckboxes,
     `input-box-3`,
     ["expert"],
     3,
     difficultySelectionBoxContainer,
+    // other boxes to be turned off when this one is turned on
+    ["input-box-1", "input-box-2"],
     ["input-box-3"],
     ["input-box-label-3"]
   );
 
   // Toggle box to show solutions
-  const solutionToggleBox = createToggleBox(
-    "reveal",
+  const solutionToggleBoxContainer = document.createElement("div");
+  solutionToggleBoxContainer.id = "solutionToggleBoxContainer";
+  solutionToggleBoxContainer.classList.add("sol-toggle-box-container");
+  createSelectionBox(
+    `sol-toggle-input"`,
+    ["reveal"],
+    4,
+    solutionToggleBoxContainer,
+    // other boxes to be turned off when this one is turned on.
+    // Empty so that this can be a toggle box.
+    [],
+    ["sol-toggle-input"],
+    ["sol-toggle-label"],
+    false, // start off with this one unchecked
     function (checked) {
       // Update leaderBoidEnabled variable
       if (checked) {
@@ -119,11 +134,7 @@ export function initUI() {
           }
         }
       }
-    },
-    ["sol-toggle-box-container"],
-    ["sol-toggle-label"],
-    ["sol-toggle-input"],
-    false
+    }
   );
 
   // Score Text
@@ -163,10 +174,10 @@ export function initUI() {
 
   // Children assigning
   document.body.appendChild(textContainer);
-  document.body.appendChild(solutionToggleBox);
   document.body.appendChild(updateTilegridButtonContainer);
   document.body.appendChild(resetTilegridButtonContainer);
   document.body.appendChild(difficultySelectionBoxContainer);
+  document.body.appendChild(solutionToggleBoxContainer);
 }
 
 function addInfoBox() {
@@ -212,9 +223,83 @@ function addInfoBox() {
     ["fliptile-button"]
   );
 
+  // When ui is open, hide certain UI, when it is closed, reveal them
+  document.addEventListener("uiMenuOpen", uiMenuOpenHandler);
+  document.addEventListener("uiMenuClosed", uiMenuCloseHandler);
+
   // Append infoButtonContainer and infoWindow to document body
   document.body.appendChild(infoButtonContainer);
   document.body.appendChild(infoWindow);
+
+  function hideButtonsAndCheckboxes() {
+    // Button
+    const buttons = document.querySelectorAll(".fliptile-button");
+    buttons.forEach((button) => {
+      button.style.display = "none";
+    });
+
+    // Selection boxes
+    const difficultySelectionBoxContainers = document.querySelectorAll(
+      ".difficulty-selection-box-container"
+    );
+    difficultySelectionBoxContainers.forEach(
+      (difficultySelectionBoxContainer) => {
+        difficultySelectionBoxContainer.style.display = "none";
+      }
+    );
+    const solSelectionBoxContainers = document.querySelectorAll(
+      ".sol-toggle-box-container"
+    );
+    solSelectionBoxContainers.forEach((solSelectionBoxContainer) => {
+      solSelectionBoxContainer.style.display = "none";
+    });
+  }
+
+  function showButtonsAndCheckboxes() {
+    // Button
+    const buttons = document.querySelectorAll(".fliptile-button");
+    buttons.forEach((button) => {
+      button.style.display = "block";
+    });
+
+    // Selection boxes
+    const difficultySelectionBoxContainers = document.querySelectorAll(
+      ".difficulty-selection-box-container"
+    );
+    difficultySelectionBoxContainers.forEach(
+      (difficultySelectionBoxContainer) => {
+        difficultySelectionBoxContainer.style.display = "block";
+      }
+    );
+    const solSelectionBoxContainers = document.querySelectorAll(
+      ".sol-toggle-box-container"
+    );
+    solSelectionBoxContainers.forEach((solSelectionBoxContainer) => {
+      solSelectionBoxContainer.style.display = "block";
+    });
+  }
+
+  function hideGameBanner() {
+    var gameHeader = document.querySelector(".game-header-banner");
+    gameHeader.style.display = "none";
+  }
+
+  function showGameBanner() {
+    var gameHeader = document.querySelector(".game-header-banner");
+    gameHeader.style.display = "block";
+  }
+
+  // Event listener for UI menu open event
+  function uiMenuOpenHandler() {
+    hideButtonsAndCheckboxes();
+    hideGameBanner();
+  }
+
+  // Event listener for UI menu close event
+  function uiMenuCloseHandler() {
+    showButtonsAndCheckboxes();
+    showGameBanner();
+  }
 
   // Show the info Window when the button is clicked
   function onClickInfo() {
