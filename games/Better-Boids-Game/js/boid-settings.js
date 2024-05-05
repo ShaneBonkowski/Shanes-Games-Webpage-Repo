@@ -202,6 +202,10 @@ export function addBoidSettings() {
     true
   );
 
+  // When ui is open, hide certain UI, when it is closed, reveal them
+  document.addEventListener("uiMenuOpen", uiMenuOpenHandler);
+  document.addEventListener("uiMenuClosed", uiMenuCloseHandler);
+
   // Set up parenting structure and append to body of document
   settingsWindow.appendChild(speedSliderContainer);
   appendBlankSpace(settingsWindow);
@@ -218,6 +222,42 @@ export function addBoidSettings() {
 
   document.body.appendChild(settingsWindow);
   document.body.appendChild(settingsButtonContainer);
+
+  function hideInfoButtons() {
+    const infoButtons = document.querySelectorAll(".info-button");
+    infoButtons.forEach((button) => {
+      button.style.display = "none";
+    });
+  }
+
+  function showInfoButtons() {
+    const infoButtons = document.querySelectorAll(".info-button");
+    infoButtons.forEach((button) => {
+      button.style.display = "block";
+    });
+  }
+
+  function hideGameBanner() {
+    var gameHeader = document.querySelector(".game-header-banner");
+    gameHeader.style.display = "none";
+  }
+
+  function showGameBanner() {
+    var gameHeader = document.querySelector(".game-header-banner");
+    gameHeader.style.display = "block";
+  }
+
+  // Event listener for UI menu open event
+  function uiMenuOpenHandler() {
+    hideInfoButtons();
+    hideGameBanner();
+  }
+
+  // Event listener for UI menu close event
+  function uiMenuCloseHandler() {
+    showInfoButtons();
+    showGameBanner();
+  }
 
   function appendBlankSpace(parent) {
     var blankSpace = document.createElement("div");

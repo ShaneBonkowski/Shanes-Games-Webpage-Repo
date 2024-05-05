@@ -8,7 +8,7 @@
   --input-slider-width: var(--input-slider-width-og);
   --input-slider-height-og: 5vh;
   --input-slider-height: var(--input-slider-height-og);
-  --slider-blank-space-height: 3vh;
+  --slider-blank-space-height: 6vh;
   /* Margins */
   --slider-top-margin: 30vh;
   --slider-container-left-margin-og: 4%;
@@ -28,6 +28,7 @@
   :root {
     /* Size */
     --input-slider-width: calc(var(--input-slider-width-og) * 1.9);
+    --slider-blank-space-height: 5vh;
     /* Margins */
     --hover-slider-label-top-margin: calc(
       var(--hover-slider-label-top-margin-og) * 1.5

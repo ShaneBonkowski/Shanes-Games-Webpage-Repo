@@ -5,8 +5,8 @@
 :root {
   /* Edge Margins */
   --small-top-margin: 23%;
-  --info-button-margin-right: 13vw;
-  --settings-button-margin-left: 4vw;
+  --info-button-margin-right: 12vw;
+  --settings-button-margin-left: 12vw;
   --info-button-margin-bot: 25vh;
   --info-header-x-button-margin-left: 95%;
   --info-header-x-button-margin-top: 5%;
@@ -21,8 +21,8 @@
     /* Font Sizes */
     --test-font-size: calc(var(--test-font-size-og) * 1.9);
     /* Edge Margins */
-    --info-button-margin-right: 34vw;
-    --settings-button-margin-left: 4vw;
+    --info-button-margin-right: 20vw;
+    --settings-button-margin-left: 20vw;
     --info-button-margin-bot: 16vh;
     --info-header-x-button-margin-left: 90%;
     --info-header-x-button-margin-top: 5%;
@@ -82,14 +82,14 @@ a:hover {
   background-color: transparent;
   color: var(--main-color);
   font-size: 24px;
-  transform: translate(0%, 0%);
+  transform: translate(-50%, 0%);
   transition: transform 0.3s ease;
   cursor: pointer;
   pointer-events: auto;
 }
 
 .info-button:hover {
-  transform: translate(0%, 0%) scale(1.2);
+  transform: translate(-50%, 0%) scale(1.2);
 }
 
 .info-icon-img,
