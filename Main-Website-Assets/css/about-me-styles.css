@@ -18,8 +18,8 @@
 
 .about-me-image-container {
   position: absolute; /* Position wrt to its parent */
-  left: 85%;
-  top: 7%;
+  right: -25%;
+  top: 10%;
   transform: translate(var(--centering-translation), 5%);
   width: var(--about-me-image-width);
   height: var(--about-me-image-height);
@@ -77,17 +77,34 @@
   white-space: nowrap;
   font-weight: bold;
   width: var(--about-me-title-font-width);
-  left: 20%;
+  left: 16%;
   top: var(--about-me-title-text-top-margin);
   transform: translate(var(--about-me-TITLE-text-centering-translation), 0%);
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    .about-me-title {
+      left: 5%;
+    }
+  }
 }
 
 .about-me-page-text-styler {
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
   font-weight: normal;
-  left: 32%;
-  transform: translate(var(--about-me-text-centering-translation), 0%);
+  left: 38%;
+  transform: translate(var(--about-me-text-centering-translation), 2%);
+}
+
+@media screen and (max-width: 600px) {
+  :root {
+    .about-me-page-text-styler {
+      left: 26%;
+      transform: translate(var(--about-me-text-centering-translation), 8%);
+    }
+  }
 }
 
 .about-me-sub-title-text {

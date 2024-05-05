@@ -8,7 +8,7 @@ export function createFooter() {
   var footerMainTextDiv = document.createElement("div");
   footerMainTextDiv.classList.add("footer-main-text");
   footerMainTextDiv.textContent =
-    "Thanks for visiting!\nShane's (cool) games by me (Shane)";
+    "Thanks for visiting!\nShane's Games by me (Shane)";
 
   // LinkedIn button
   var linkedInLinkElement = createButtonLinkElement(
