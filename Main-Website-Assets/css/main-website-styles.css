@@ -62,7 +62,7 @@
     --game-box-width: calc(
       var(--game-box-width-original) * var(--portrait-game-box-scale-factor-x)
     );
-    --about-me-box-width: calc(var(--about-me-box-width-og));
+    --about-me-box-width: calc(var(--about-me-box-width-og) * 0.75);
     --about-me-box-height: calc(var(--about-me-box-height-og) * 3.7);
     /* Edge Margins */
     --game-button-left-margin: 22%;
@@ -96,9 +96,9 @@
   --game-desc-text-width: calc(var(--game-desc-width) * 0.9);
   --about-me-title-font-width-og: calc(var(--about-me-box-width) * 0.5);
   --about-me-title-font-width: var(--about-me-title-font-width-og);
-  --about-me-subtitle-font-width-og: calc(var(--about-me-box-width) * 0.5);
+  --about-me-subtitle-font-width-og: calc(var(--about-me-box-width) * 0.7);
   --about-me-subtitle-font-width: var(--about-me-subtitle-font-width-og);
-  --about-me-main-text-font-width-og: calc(var(--about-me-box-width) * 0.5);
+  --about-me-main-text-font-width-og: calc(var(--about-me-box-width) * 0.7);
   --about-me-main-text-font-width: var(--about-me-main-text-font-width-og);
   --game-box-blank-space-height: calc(var(--game-box-height) * 0.07);
   /* Font Sizes */
@@ -114,9 +114,9 @@
   --footer-main-text-font-size: calc(var(--footer-height) * 0.125);
   --about-me-title-font-size-og: calc(var(--about-me-box-width) * 0.035);
   --about-me-title-font-size: var(--about-me-title-font-size-og);
-  --about-me-subtitle-font-size-og: calc(var(--about-me-box-width) * 0.015);
+  --about-me-subtitle-font-size-og: calc(var(--about-me-box-width) * 0.019);
   --about-me-subtitle-font-size: var(--about-me-subtitle-font-size-og);
-  --about-me-main-text-font-size-og: calc(var(--about-me-box-width) * 0.011);
+  --about-me-main-text-font-size-og: calc(var(--about-me-box-width) * 0.014);
   --about-me-main-text-font-size: var(--about-me-main-text-font-size-og);
   --header-button-text-size: calc(var(--header-button-width) * 0.16);
   --linkedin-text-font-size: calc(var(--linkedin-button-height) * 0.24);
@@ -135,23 +135,23 @@
       var(--gamedesc-body-text-font-size-original) * 1
     );
     --about-me-main-text-font-size: calc(
-      var(--about-me-main-text-font-size-og) * 2.8
+      var(--about-me-main-text-font-size-og) * 3.1
     );
-    --about-me-title-font-size: calc(var(--about-me-title-font-size-og) * 2.3);
+    --about-me-title-font-size: calc(var(--about-me-title-font-size-og) * 2.9);
     --about-me-subtitle-font-size: calc(
-      var(--about-me-subtitle-font-size-og) * 2.8
+      var(--about-me-subtitle-font-size-og) * 3.2
     );
     /* Sizes */
     --game-button-width: calc(var(--game-box-width) / 2.3);
     --game-desc-width: calc(var(--game-box-width) * (0.5));
     --about-me-subtitle-font-width: calc(
-      var(--about-me-subtitle-font-width-og) * 1.8
+      var(--about-me-subtitle-font-width-og) * 1.6
     );
     --about-me-main-text-font-width: calc(
-      var(--about-me-main-text-font-width-og) * 1.8
+      var(--about-me-main-text-font-width-og) * 1.6
     );
     --about-me-title-font-width: calc(
-      var(--about-me-title-font-width-og) * 1.8
+      var(--about-me-title-font-width-og) * 1.6
     );
     /* Edge Margins */
     --game-description-left-margin: calc(var(--game-button-left-margin) + 50%);
