@@ -85,7 +85,7 @@
 @media screen and (max-width: 600px) {
   :root {
     .about-me-title {
-      left: 5%;
+      left: -1%;
     }
   }
 }
@@ -101,7 +101,7 @@
 @media screen and (max-width: 600px) {
   :root {
     .about-me-page-text-styler {
-      left: 26%;
+      left: 23%;
       transform: translate(var(--about-me-text-centering-translation), 8%);
     }
   }
