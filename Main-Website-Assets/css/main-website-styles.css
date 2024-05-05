@@ -145,13 +145,13 @@
     --game-button-width: calc(var(--game-box-width) / 2.3);
     --game-desc-width: calc(var(--game-box-width) * (0.5));
     --about-me-subtitle-font-width: calc(
-      var(--about-me-subtitle-font-width-og) * 1.6
+      var(--about-me-subtitle-font-width-og) * 1.8
     );
     --about-me-main-text-font-width: calc(
-      var(--about-me-main-text-font-width-og) * 1.6
+      var(--about-me-main-text-font-width-og) * 1.8
     );
     --about-me-title-font-width: calc(
-      var(--about-me-title-font-width-og) * 1.6
+      var(--about-me-title-font-width-og) * 1.8
     );
     /* Edge Margins */
     --game-description-left-margin: calc(var(--game-button-left-margin) + 50%);
