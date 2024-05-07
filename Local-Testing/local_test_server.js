@@ -9,6 +9,8 @@ const port = 3000;
 //   located at /path/to/ShanesGames
 // - Then from the command line call `node .\Local-Testing\local_test_server.js`
 // - Finally, go to the link that is printed to the console and the sever should be live!
+// - NOTE: You may need to make sure you have node js downloaded! See the README.md file
+//   located in this folder for more details!
 const server = http.createServer((req, res) => {
   // Determine the file path based on the request URL
   let filePath = "." + req.url;
