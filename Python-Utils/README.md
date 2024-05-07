@@ -17,14 +17,14 @@ cd /path/to/Python-Utils
 ```
 
 ### 2. Source the Virtual Environment
+Windows
 ```bash
-# Source virtual environment (on macOS/Linux)
-source venv/bin/activate
+venv\Scripts\activate
 ```
 -OR-
+macOS/Linux
 ```bash
-# Source virtual environment (on Windows)
-venv\Scripts\activate
+source venv/bin/activate
 ```
 
 ### 3. Pip install dependencies from requirements.txt
@@ -43,11 +43,11 @@ cd /path/to/Python-Utils
 ```
 
 ### 2. Set Up Virtual Environment
+Run the following to create the virtual environment in your current folder. NOTE: you may have to first pip install virtualenv by running `pip install virtualenv`. 
 ```bash
-# Create virtual environment (using virtualenv).
-# NOTE: may have to first pip install virtualenv
-python3 -m venv venv
+python -m venv venv
 ```
+If this does not work, you may not have Python installed. See above `Initial Setup` section for details. It could also be that you need to call `python3` instead of `python` in the command above.
 
 ## Developer Upkeep Steps
 ### 1. Adding libraries to requirements.txt
