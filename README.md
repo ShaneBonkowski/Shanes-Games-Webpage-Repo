@@ -32,7 +32,7 @@ All code should be formatted according to the formatter / formatting guidelines 
 
 ### Python
 #### Formatting
-For Python, the `black` formatter is used in order to enforce PEP-8 formatting. 
+For Python, the `black` formatter is used in order to enforce [PEP-8](https://peps.python.org/pep-0008/) formatting. 
 
 #### Documentation
 For Python, the documentation style from [Numpy](https://numpydoc.readthedocs.io/en/latest/format.html) is used. In addition, type hints from the `typing` library are used. It looks as follows:
