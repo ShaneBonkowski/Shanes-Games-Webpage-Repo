@@ -1,4 +1,12 @@
 /**
+ * @fileOverview Creates UI selection box(es) with desired styling, image, etc.
+ *
+ * @module UISelectionBox
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Adds a selection box to the provided parent element.
  *
  * @param {string} id - The ID attribute for the selection box input element.

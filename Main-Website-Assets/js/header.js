@@ -1,3 +1,9 @@
+/**
+ * @module Header
+ *
+ * @author Shane Bonkowski
+ */
+
 import { createButtonLinkElement } from "./buttons.js";
 import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
 

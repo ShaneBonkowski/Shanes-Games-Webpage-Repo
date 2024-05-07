@@ -1,4 +1,10 @@
 /**
+ * @module AboutMe
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Creates an "About Me" section for the website.
  */
 export function createAboutMe() {

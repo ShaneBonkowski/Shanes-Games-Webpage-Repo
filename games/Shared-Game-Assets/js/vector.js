@@ -1,4 +1,12 @@
 /**
+ * @fileOverview Custom 2-dimensional vector class!
+ *
+ * @module Vector
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Class that represents a 2-dimensional vector.
  */
 export class Vec2 {

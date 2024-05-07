@@ -1,3 +1,9 @@
+/**
+ * @module TileInitUI
+ *
+ * @author Shane Bonkowski
+ */
+
 import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
 import {
   customEvents,

@@ -1,3 +1,15 @@
+/**
+ * @fileOverview Provides extra math operations not included in base JavaScript.
+ *
+ * @description Lerping, random integers, and more!
+ *
+ * @module MoreMath
+ *
+ * @author Shane Bonkowski
+ *
+ * @requires ShanesGames\games\Shared-Game-Assets\js\Seedable_Random.js
+ */
+
 import { SeededRandom } from "./Seedable_Random.js";
 /**
  * Provides additional mathematical utility functions.

@@ -1,4 +1,10 @@
 /**
+ * @module GameBoxHover
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Function to add neccesary event listeners etc. to game boxes so that they behave as desired on hover
  */
 function handleGameBoxHover() {

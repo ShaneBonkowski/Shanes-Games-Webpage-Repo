@@ -1,3 +1,9 @@
+/**
+ * @module BoidZOrdering
+ *
+ * @author Shane Bonkowski
+ */
+
 // By doing export default ... this allows this class to be imported and used elsewhere
 export function setZOrderForSharedElements(game) {
   // Set the depth of the game canvas to be all the way in the back

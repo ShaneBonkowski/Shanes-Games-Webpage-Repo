@@ -1,4 +1,12 @@
 /**
+ * @fileOverview Creates UI game window/screen with desired styling, image, etc.
+ *
+ * @module UIWindow
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Creates a UI window element with a header, content, and close button.
  *
  * @param {string} boxID - The ID attribute for the window box element.

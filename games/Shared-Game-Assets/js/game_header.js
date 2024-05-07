@@ -1,4 +1,14 @@
 /**
+ * @fileOverview Creates the Game Header element for a given ShanesGames game.
+ *
+ * @description Specifically contains the function createGameHeader().
+ *
+ * @module GameHeader
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Creates the Game Header element which includes the
  * Shane's Game's Logo that can be clicked on to take
  * a user back to the main html page, as well as a logo

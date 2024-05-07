@@ -1,4 +1,10 @@
 /**
+ * @module Buttons
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Creates a button element that, when clicked, redirects the user to the specified URL.
  * @param {string} text - The text content to be displayed on the button.
  * @param {string} url - The URL to redirect to when the button is clicked.

@@ -1,3 +1,9 @@
+/**
+ * @module Footer
+ *
+ * @author Shane Bonkowski
+ */
+
 import { createButtonLinkElement } from "./buttons.js";
 /**
  * Creates the Footer section for the main website page.
