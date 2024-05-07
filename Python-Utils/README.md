@@ -54,7 +54,7 @@ sympy>=1.0.0
 ```
 
 ## Developer One-time Steps
-</b>This step has already been completed, but is left here for future reference when creating Python projects.<b>
+<b>This step has already been completed, but is left here for future reference when creating Python projects.</b>
 ### 1. Create .gitignore for the GitHub repository if this has not been created already!
 Navigate to the main directory for the project.
 ```bash
