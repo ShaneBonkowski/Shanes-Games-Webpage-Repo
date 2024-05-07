@@ -25,8 +25,10 @@ Run the following to create the virtual environment in your current folder.
 python -m venv venv
 ```
 If this does not work, you may not have Python installed. See above sections for details. It could also be that you need to call `python3` instead of `python` in the command above.
-  
-### 4. Source the Virtual Environment
+
+## Workflow steps
+<b>What to do each time you start developing or using the Python tools on a fresh console.</b>
+### 1. Source the Virtual Environment
 Windows
 ```bash
 venv\Scripts\activate
@@ -37,7 +39,8 @@ macOS/Linux
 source venv/bin/activate
 ```
 
-### 3. Pip install dependencies from requirements.txt
+### 2. Pip install dependencies from requirements.txt if neccesary
+<b>This is not neccesary needed every time, but it's a good practice!</b>
 ```bash
 pip install -r requirements.txt
 ```
