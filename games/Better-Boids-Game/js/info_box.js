@@ -23,8 +23,7 @@ export function addInfoBox() {
         This little game is an attempt to display the beauty in the Boids algorithm, while expanding on it with novel concepts where applicable.
       </p>
     `,
-    closeInfoWindow,
-    onClickX,
+    [closeInfoWindow, onClickX],
     ["info-box"],
     ["info-header"],
     ["info-content"],
@@ -38,8 +37,7 @@ export function addInfoBox() {
     "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
     "Info Icon",
     "i",
-    onClickInfo,
-    openInfoWindow,
+    [onClickInfo, openInfoWindow],
     ["info-button-container"],
     ["info-icon-img"],
     ["info-icon-text"],

@@ -1,11 +1,24 @@
+/**
+ * Returns a div container that contains a UI button with desired image, text, etc.
+ * @param {string} containerId - The ID of the container element to which the button will be added.
+ * @param {string} buttonId - The ID of the button element.
+ * @param {string} imgSrc - The source URL of the button icon image (local path to image).
+ * @param {string} imgAlt - The alternative text for the button icon image.
+ * @param {string} buttonText - The text content to be displared on the button.
+ * @param {Function[]} onClickButtonFunctions - An array of click event handler functions for the button to execute on click.
+ * @param {string[]} [buttonContainerClasses=[]] - An array of CSS classes to be added to the button container.
+ * @param {string[]} [buttonIconClasses=[]] - An array of CSS classes to be added to the button icon image.
+ * @param {string[]} [buttonTextClasses=[]] - An array of CSS classes to be added to the button text content.
+ * @param {string[]} [buttonClasses=[]] - An array of CSS classes to be added to the button element.
+ * @returns {HTMLDivElement} The container element containing the button.
+ */
 export function addUIButton(
   containerId,
   buttonId,
   imgSrc,
   imgAlt,
   buttonText,
-  onClickButton,
-  onOpen,
+  onClickButtonFunctions,
   buttonContainerClasses = [],
   buttonIconClasses = [],
   buttonTextClasses = [],
@@ -28,13 +41,9 @@ export function addUIButton(
   textElement.classList.add(...buttonTextClasses);
   textElement.textContent = buttonText;
 
-  if (onClickButton) {
-    button.addEventListener("click", onClickButton);
-  }
-
-  if (onOpen) {
-    button.addEventListener("click", onOpen);
-  }
+  onClickButtonFunctions.forEach((func) => {
+    button.addEventListener("click", func);
+  });
 
   button.appendChild(imgElement);
   button.appendChild(textElement);

@@ -1,3 +1,6 @@
+/**
+ * Function to add neccesary event listeners etc. to game boxes so that they behave as desired on hover
+ */
 function handleGameBoxHover() {
   // Get all game boxes in the scene
   var gameBoxes = document.querySelectorAll(".game-box");

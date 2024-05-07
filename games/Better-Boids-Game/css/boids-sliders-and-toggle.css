@@ -9,6 +9,7 @@
   --input-slider-height-og: 5vh;
   --input-slider-height: var(--input-slider-height-og);
   --slider-blank-space-height: 6vh;
+  --leader-toggle-size: calc(10vw * 0.2);
   /* Margins */
   --slider-top-margin: 25vh;
   --slider-container-left-margin-og: 4%;
@@ -29,6 +30,7 @@
     /* Size */
     --input-slider-width: calc(var(--input-slider-width-og) * 1.9);
     --slider-blank-space-height: 5vh;
+    --leader-toggle-size: calc(10vh * 0.25);
     /* Margins */
     --hover-slider-label-top-margin: calc(
       var(--hover-slider-label-top-margin-og) * 1.5
@@ -120,15 +122,14 @@ input[type="range"]:active {
 }
 
 .toggle-label {
+  margin-left: calc(var(--leader-toggle-size) * 0.5);
   font-size: var(--slider-font-size);
   white-space: nowrap;
   color: white;
 }
 
 .toggle-input {
-  display: absolute;
-  margin-left: 30px;
-  width: 30px;
-  height: 30px;
+  width: var(--leader-toggle-size);
+  height: var(--leader-toggle-size);
   cursor: pointer;
 }

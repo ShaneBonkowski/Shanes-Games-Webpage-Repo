@@ -1,3 +1,16 @@
+/**
+ * Adds a selection box to the provided parent element.
+ *
+ * @param {string} id - The ID attribute for the selection box input element.
+ * @param {string} label - The label text for the selection box.
+ * @param {string} value - The value attribute for the selection box input element (e.g. if this is 1 of 3 selection boxes, the numbers for each would be 1, 2, 3 respectively).
+ * @param {HTMLElement} parentElement - The parent element to which the selection box will be appended.
+ * @param {string[]} [allSelectionBoxClasses=[]] - An array of CSS class names of all selection box elements that should be turned off when this one is turned on. Leave blank to make this behave as a single toggle box that does not affect other boses instead.
+ * @param {string[]} [inputClasses=[]] - An array of CSS classes to be added to the selection box input element.
+ * @param {string[]} [labelElementClasses=[]] - An array of CSS classes to be added to the label element.
+ * @param {boolean} [checked=false] - Specifies whether the selection box should be initially checked.
+ * @param {Function} [onChangeCallback=[]] - A callback function to be executed when the selection box state changes.
+ */
 export function createSelectionBox(
   id,
   label,

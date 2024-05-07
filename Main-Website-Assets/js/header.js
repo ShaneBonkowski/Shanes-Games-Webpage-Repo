@@ -1,6 +1,10 @@
 import { createButtonLinkElement } from "./buttons.js";
 import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
 
+/**
+ * Creates a header containing a logo, title, subtitle, and navigation buttons.
+ * @param {string} logoImageSrc - The source URL (local path in this case) of the logo image.
+ */
 export function createHeader(logoImageSrc) {
   // Create a container div for the header box
   var headerContainer = document.createElement("div");

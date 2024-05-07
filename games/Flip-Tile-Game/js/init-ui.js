@@ -6,7 +6,6 @@ import {
   scoring,
 } from "./tile-utils.js";
 import { createSelectionBox } from "../../Shared-Game-Assets/js/ui_selection_box.js";
-import { createToggleBox } from "../../Shared-Game-Assets/js/ui_togglebox.js";
 import { tiles } from "./main-game-scene.js";
 import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
 
@@ -28,8 +27,7 @@ export function initUI() {
     "../Flip-Tile-Game/pngs/Button.png",
     "Update Tilegrid Icon",
     "new",
-    onClickUpdateTileGrid,
-    null,
+    [onClickUpdateTileGrid],
     ["updateTilegrid-button-container"],
     ["fliptile-icon-img"],
     ["fliptile-icon-text"],
@@ -46,8 +44,7 @@ export function initUI() {
     "../Flip-Tile-Game/pngs/Button.png",
     "Reset Tilegrid Icon",
     "reset",
-    onClickResetTileGrid,
-    null,
+    [onClickResetTileGrid],
     ["resetTilegrid-button-container"],
     ["fliptile-icon-img"],
     ["fliptile-icon-text"],
@@ -200,8 +197,7 @@ function addInfoBox() {
         for more context on how linear algebra can be used to solve this game!
       </p>
     `,
-    closeInfoWindow,
-    onClickX,
+    [closeInfoWindow, onClickX],
     ["info-box"],
     ["info-header"],
     ["info-content"],
@@ -215,8 +211,7 @@ function addInfoBox() {
     "../Flip-Tile-Game/pngs/Button.png",
     "Info Icon",
     "about",
-    onClickInfo,
-    openInfoWindow,
+    [onClickInfo, openInfoWindow],
     ["info-button-container"],
     ["fliptile-icon-img"],
     ["fliptile-icon-text"],

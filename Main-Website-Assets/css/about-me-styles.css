@@ -25,6 +25,7 @@
   height: var(--about-me-image-height);
 }
 
+/* Circle for the astronaut helmet (one circle behind and one in front) */
 .about-me-image-container::before,
 .about-me-image-container::after {
   content: "";

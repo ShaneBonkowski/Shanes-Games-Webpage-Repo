@@ -1,4 +1,11 @@
-// Define the createGameBox function
+/**
+ * Creates a game box containing an image button linked to a game and a description of the game.
+ * @param {string} imageSrc - The source URL (local path in this case) of the image for the game button.
+ * @param {string} linkUrl - The URL of the game page or website to be taken to when game is clicked on.
+ * @param {string} titleText - The title text to display for the game.
+ * @param {string} gameDescriptionText - The description text of the game.
+ * @param {boolean} [openInNewTab=false] - A boolean indicating whether the link should open in a new tab.
+ */
 function createGameBox(
   imageSrc,
   linkUrl,
