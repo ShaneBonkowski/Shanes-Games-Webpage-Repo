@@ -40,7 +40,7 @@ source venv/bin/activate
 ```
 
 ### 2. Pip install dependencies from requirements.txt if neccesary
-<b>This is not neccesary needed every time, but it's a good practice!</b>
+<b>This is not neccesarily needed every time, but it's a good practice since new dependencies are being added often!</b>
 ```bash
 pip install -r requirements.txt
 ```
@@ -54,8 +54,8 @@ sympy>=1.0.0
 ```
 
 ## Developer One-time Steps
-</b>This has already been completed, but is left here for future reference when creating Python projects.<b>
-### 1. Create .gitignore if this has not been created already!
+</b>This step has already been completed, but is left here for future reference when creating Python projects.<b>
+### 1. Create .gitignore for the GitHub repository if this has not been created already!
 Navigate to the main directory for the project.
 ```bash
 cd /path/to/ShanesGames
@@ -67,7 +67,7 @@ New-Item .gitignore -type file
 ```
 
 Add files or patterns for files to not be included in pushes to GitHub.
-- Specifically for the case of Python and Virtual Environments, add `venv/` (or whatever you named your virtual environment) to the .gitignore file. This is so that a new user or developer can create their own fresh environment.
+- Specifically for the case of Python and Virtual Environments, add `venv/` (or whatever you named your virtual environment) to the .gitignore file. This is so that a new user or developer can create their own fresh environment. This will also keep the repository smaller which is a good thing!
 
 ### 2. Create requirements.txt
 Navigate to the project directory.
