@@ -49,3 +49,32 @@ To add libaries to requirements.txt, simply add the name of the library and then
 numpy>=1.0.0
 sympy>=1.0.0
 ```
+
+## Developer One-time Steps
+</b>This has already been completed, but is left here for future reference when creating Python projects.<b>
+### 1. Create .gitignore if this has not been created already!
+Navigate to the main directory for the project.
+```bash
+cd /path/to/ShanesGames
+```
+
+Create .gitignore file
+```bash
+New-Item .gitignore -type file
+```
+
+Add files or patterns for files to not be included in pushes to GitHub.
+- Specifically for the case of Python and Virtual Environments, add `venv/` (or whatever you named your virtual environment) to the .gitignore file. This is so that a new user or developer can create their own fresh environment.
+
+### 2. Create requirements.txt
+Navigate to the project directory.
+```bash
+cd /path/to/Python-Utils
+```
+
+Create a new text file called `requirements.txt`
+```bash
+New-Item requirements.txt -type file
+```
+
+See `Developer Upkeep Steps` for how to add dependencies to this file.
