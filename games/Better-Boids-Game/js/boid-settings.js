@@ -1,7 +1,7 @@
 import { BoidFactors, customEvents } from "./boid-utils.js";
 import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
 import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
-import { createToggleBox } from "../../Shared-Game-Assets/js/ui_togglebox.js";
+import { createSelectionBox } from "../../Shared-Game-Assets/js/ui_selection_box.js";
 export function addBoidSettings() {
   // Create ui window to hold the settings and sliders in (basically a window)
   function closeSettingsWindow() {
@@ -20,8 +20,7 @@ export function addBoidSettings() {
     "SettingsWindow",
     "",
     ``,
-    closeSettingsWindow,
-    onClickX,
+    [closeSettingsWindow, onClickX],
     ["info-box"],
     ["info-header"],
     ["info-content"],
@@ -117,8 +116,7 @@ export function addBoidSettings() {
     "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
     "Settings Icon",
     "u",
-    onClickSettings,
-    openSettingsWindow,
+    [onClickSettings, openSettingsWindow],
     ["settings-button-container"],
     ["info-icon-img"],
     ["info-icon-text"],
@@ -174,9 +172,21 @@ export function addBoidSettings() {
   addFlockRadiusIndicator(radiusSliderContainer);
   addTouchEventListenersToSliders();
 
-  // Toggle box
-  const leaderToggleBox = createToggleBox(
-    "Leader Boid",
+  // Leader Toggle Box
+  const leaderToggleBoxContainer = document.createElement("div");
+  leaderToggleBoxContainer.id = "leaderToggleBoxContainer";
+  leaderToggleBoxContainer.classList.add("toggle-box-container");
+  createSelectionBox(
+    `leader-toggle-input"`,
+    ["Leader Boid"],
+    1,
+    leaderToggleBoxContainer,
+    // other boxes to be turned off when this one is turned on.
+    // Empty so that this can be a toggle box.
+    [],
+    ["toggle-input"],
+    ["toggle-label"],
+    true, // start off with this one unchecked
     function (checked) {
       // Update leaderBoidEnabled variable
       if (checked) {
@@ -195,11 +205,7 @@ export function addBoidSettings() {
 
       // Show the provided panel
       leaderPanel.style.display = "flex"; // panels are flex boxes
-    },
-    ["toggle-box-container"],
-    ["toggle-label"],
-    ["toggle-input"],
-    true
+    }
   );
 
   // When ui is open, hide certain UI, when it is closed, reveal them
@@ -217,7 +223,7 @@ export function addBoidSettings() {
   appendBlankSpace(settingsWindow);
   settingsWindow.appendChild(separationSliderContainer);
   appendBlankSpace(settingsWindow);
-  settingsWindow.appendChild(leaderToggleBox);
+  settingsWindow.appendChild(leaderToggleBoxContainer);
   appendBlankSpace(settingsWindow);
 
   document.body.appendChild(settingsWindow);

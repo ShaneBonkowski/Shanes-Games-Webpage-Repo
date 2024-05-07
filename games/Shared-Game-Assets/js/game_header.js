@@ -1,3 +1,16 @@
+/**
+ * Creates the Game Header element which includes the
+ * Shane's Game's Logo that can be clicked on to take
+ * a user back to the main html page, as well as a logo
+ * for the given game.
+ * @param {string} gameName - The name of the game.
+ * @param {string} gameIconSrc - The local path to the game icon image.
+ * @param {number} gameLogoContainerLeftMarginPercentageComputer - The left margin percentage for the game logo container on a computer screen.
+ * @param {number} gameLogoContainerLeftMarginPercentagePhone - The left margin percentage for the game logo container on a phone screen.
+ * @param {number} gameTitleXShiftPercentage - The horizontal shift percentage for the game title.
+ * @param {number} gameTitleYShiftPercentage - The vertical shift percentage for the game title.
+ * @returns {HTMLElement} Game Header element.
+ */
 function createGameHeader(
   gameName,
   gameIconSrc,

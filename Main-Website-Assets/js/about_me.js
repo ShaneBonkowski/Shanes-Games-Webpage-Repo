@@ -1,3 +1,6 @@
+/**
+ * Creates an "About Me" section for the website.
+ */
 export function createAboutMe() {
   var boxContainer = document.createElement("div");
   boxContainer.classList.add("about-me-box");

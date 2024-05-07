@@ -1,3 +1,14 @@
+/**
+ * Creates a button element that, when clicked, redirects the user to the specified URL.
+ * @param {string} text - The text content to be displayed on the button.
+ * @param {string} url - The URL to redirect to when the button is clicked.
+ * @param {string[]} [linkClasses=[]] - An array of CSS classes to be added to the link element.
+ * @param {string[]} [buttonTextClasses=[]] - An array of CSS classes to be added to the button text content.
+ * @param {string[]} [iconClasses=[]] - An array of CSS classes to be added to the button icon element.
+ * @param {string[]} [containerClasses=[]] - An array of CSS classes to be added to the button container element.
+ * @param {boolean} [openInNewTab=false] - A boolean indicating whether the link should open in a new tab.
+ * @returns {HTMLAnchorElement} The created button link element.
+ */
 export function createButtonLinkElement(
   text,
   url,

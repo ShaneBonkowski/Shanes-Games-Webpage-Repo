@@ -1,4 +1,7 @@
 import { createButtonLinkElement } from "./buttons.js";
+/**
+ * Creates the Footer section for the main website page.
+ */
 export function createFooter() {
   // Create a container div for the footer box
   var footerContainer = document.createElement("footer");

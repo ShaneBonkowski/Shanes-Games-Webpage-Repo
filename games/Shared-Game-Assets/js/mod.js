@@ -1,8 +1,24 @@
+/**
+ * Provides functions for modular arithmetic operations.
+ */
 export class moduloArith {
+  /**
+   * Performs modulo operation on a number.
+   * @param {number} num - The number to be modulo operated.
+   * @param {number} modulus - The modulus value.
+   * @returns {number} The result of the modulo operation.
+   */
   static mod(num, modulus) {
     return ((num % modulus) + modulus) % modulus;
   }
 
+  /**
+   * Subtracts one number from another with modulo arithmetic.
+   * @param {number} a - The number to be subtracted from.
+   * @param {number} b - The number to subtract.
+   * @param {number} modulus - The modulus value.
+   * @returns {number} The result of the subtraction with modulo arithmetic.
+   */
   static modSubtract(a, b, modulus) {
     // Validate inputs
     [a, b, modulus] = [Number(a), Number(b), Number(modulus)]; // Convert inputs to numbers
@@ -14,6 +30,13 @@ export class moduloArith {
     return this.mod(a - b, modulus);
   }
 
+  /**
+   * Adds two numbers with modulo arithmetic.
+   * @param {number} a - The first number to be added.
+   * @param {number} b - The second number to be added.
+   * @param {number} modulus - The modulus value.
+   * @returns {number} The result of the addition with modulo arithmetic.
+   */
   static modAdd(a, b, modulus) {
     // Validate inputs
     [a, b, modulus] = [Number(a), Number(b), Number(modulus)]; // Convert inputs to numbers
@@ -25,6 +48,13 @@ export class moduloArith {
     return this.mod(a + b, modulus);
   }
 
+  /**
+   * Multiplies two numbers with modulo arithmetic.
+   * @param {number} a - The first number to be multiplied.
+   * @param {number} b - The second number to be multiplied.
+   * @param {number} modulus - The modulus value.
+   * @returns {number} The result of the multiplication with modulo arithmetic.
+   */
   static modMultiply(a, b, modulus) {
     // Validate inputs
     [a, b, modulus] = [Number(a), Number(b), Number(modulus)]; // Convert inputs to numbers
@@ -36,6 +66,13 @@ export class moduloArith {
     return this.mod(a * b, modulus);
   }
 
+  /**
+   * Calculates the modular exponentiation of a number.
+   * @param {number} base - The base number.
+   * @param {number} exponent - The exponent.
+   * @param {number} modulus - The modulus value.
+   * @returns {number} The result of the modular exponentiation.
+   */
   static modPow(base, exponent, modulus) {
     let result = 1;
     base = this.mod(base, modulus);
@@ -49,6 +86,12 @@ export class moduloArith {
     return result;
   }
 
+  /**
+   * Calculates the modular inverse of a number.
+   * @param {number} a - The number for which to find the modular inverse.
+   * @param {number} m - The modulus value.
+   * @returns {number} The modular inverse of the given number modulo 'm'.
+   */
   static modInverse(a, m) {
     // Validate inputs
     [a, m] = [Number(a), Number(m)]; // Convert inputs to numbers
