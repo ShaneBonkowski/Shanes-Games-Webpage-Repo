@@ -1,3 +1,9 @@
+/**
+ * @module TileGame
+ *
+ * @author Shane Bonkowski
+ */
+
 import { setZOrderForSharedElements } from "./zOrdering.js";
 import { MainGameScene } from "./main-game-scene.js"; // note: this imports the class, NOT the instance of the class. Use scene.isInteracting for e.g. to access that variable of the main game scene
 

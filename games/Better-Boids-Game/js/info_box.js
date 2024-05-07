@@ -1,3 +1,9 @@
+/**
+ * @module BoidInfoBox
+ *
+ * @author Shane Bonkowski
+ */
+
 import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
 import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
 export function addInfoBox() {

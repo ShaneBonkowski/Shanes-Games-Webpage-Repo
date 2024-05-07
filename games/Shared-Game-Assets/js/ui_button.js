@@ -1,4 +1,12 @@
 /**
+ * @fileOverview Creates a UI button with desired styling, image, etc.
+ *
+ * @module UIButton
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Returns a div container that contains a UI button with desired image, text, etc.
  * @param {string} containerId - The ID of the container element to which the button will be added.
  * @param {string} buttonId - The ID of the button element.

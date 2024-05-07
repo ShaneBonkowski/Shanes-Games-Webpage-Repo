@@ -1,3 +1,11 @@
+/**
+ * @fileOverview Generates pseudo-random numbers with optional seed for reproducibility.
+ *
+ * @module SeededRandom
+ *
+ * @author Shane Bonkowski
+ */
+
 export const randomType = {
   UNSEEDED_RANDOM: -1,
 };

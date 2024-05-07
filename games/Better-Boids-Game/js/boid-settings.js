@@ -1,3 +1,9 @@
+/**
+ * @module BoidSettings
+ *
+ * @author Shane Bonkowski
+ */
+
 import { BoidFactors, customEvents } from "./boid-utils.js";
 import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
 import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";

@@ -1,4 +1,12 @@
 /**
+ * @fileOverview Provides functions for modular arithmetic operations.
+ *
+ * @module ModuloArithmetic
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Provides functions for modular arithmetic operations.
  */
 export class moduloArith {

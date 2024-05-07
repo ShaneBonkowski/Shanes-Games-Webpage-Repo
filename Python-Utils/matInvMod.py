@@ -1,9 +1,31 @@
+"""
+Author: Shane Bonkowski
+Date: May 7, 2024
+Description: This Python script performs the inverse of a matrix mod some 
+modulo value. This has mainly been used to confirm that the inverse modulo 
+operation performed in Flip Tile game works as expected.
+"""
+
 import numpy
 from sympy import Matrix
 
 
-def matInvMod(vmnp, mod):
+def matInvMod(vmnp: numpy.ndarray, mod: int) -> numpy.ndarray:
+    """
+    Calculates the inverse for a given matrix with a given modulus.
 
+    Parameters
+    ----------
+    vmnp : numpy.ndarray
+        The matrix for which to compute the inverse. Must be a square matrix.
+    mod : int
+        The modulus.
+
+    Returns
+    -------
+    numpy.ndarray
+        The inverse of the matrix modulo mod.
+    """
     nr = vmnp.shape[0]
     nc = vmnp.shape[1]
 

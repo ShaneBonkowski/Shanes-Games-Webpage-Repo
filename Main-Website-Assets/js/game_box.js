@@ -1,4 +1,10 @@
 /**
+ * @module GameBox
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Creates a game box containing an image button linked to a game and a description of the game.
  * @param {string} imageSrc - The source URL (local path in this case) of the image for the game button.
  * @param {string} linkUrl - The URL of the game page or website to be taken to when game is clicked on.

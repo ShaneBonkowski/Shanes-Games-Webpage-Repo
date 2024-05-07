@@ -1,4 +1,14 @@
 /**
+ * @fileOverview Provides physics utility functions and properties to be used in games.
+ *
+ * @description Collisions, physics updates, and more!
+ *
+ * @module Physics
+ *
+ * @author Shane Bonkowski
+ */
+
+/**
  * Provides physics utility functions and properties.
  */
 export class Physics {

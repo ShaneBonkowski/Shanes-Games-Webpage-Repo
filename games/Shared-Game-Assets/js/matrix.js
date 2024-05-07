@@ -1,3 +1,15 @@
+/**
+ * @fileOverview Custom Matrix Class and helper functions for working with matrices.
+ *
+ * @description Allows for modulo inverses of matrices!
+ *
+ * @module Matrix
+ *
+ * @author Shane Bonkowski
+ *
+ * @requires ShanesGames\games\Shared-Game-Assets\js\mod.js
+ */
+
 import { moduloArith } from "./mod.js";
 
 /**

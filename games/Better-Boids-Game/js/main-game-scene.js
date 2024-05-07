@@ -1,3 +1,9 @@
+/**
+ * @module BoidMainGameScene
+ *
+ * @author Shane Bonkowski
+ */
+
 import { instantiateBoids } from "./boid-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";

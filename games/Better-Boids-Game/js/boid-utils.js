@@ -1,3 +1,9 @@
+/**
+ * @module BoidUtils
+ *
+ * @author Shane Bonkowski
+ */
+
 import { Boid } from "./Boid.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
