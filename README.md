@@ -26,3 +26,16 @@ To contribute:
 ## Open Source Philosophy
 
 I believe in the power of open source and collaboration. All games featured on the platform are open source, allowing anyone to modify, enhance, and contribute to the codebase. I encourage developers of all skill levels to get involved.
+
+## Formatting
+
+### Python
+For Python, the `black` formatter is used in order to enforce PEP-8 formatting. 
+
+### JavaScript, html, css
+For JavaScript, html, and css the `Prettier - Code Formatter` is used.
+
+### Setting up VisualStudio (VSCode) to auto-format
+- Download `prettier` and `black` formatter extensions in VSCode. Be sure to select the verified extensions from the trusted sources (`Prettier` and `Microsoft` respectively)!
+- Go into `Settings` and at the top search bar type `@lang:{language name} Default Formatter` for each language mentioned above. e.g. `@lang:html Default Formatter`, `@lang:JavaScript Default Formatter, etc.
+- For each language, specify the correct formatter as the default. This means `black` for Python, and `Prettier` for JavaScript, html, and css!
