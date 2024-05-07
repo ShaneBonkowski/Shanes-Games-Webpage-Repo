@@ -27,12 +27,14 @@ To contribute:
 
 I believe in the power of open source and collaboration. All games featured on the platform are open source, allowing anyone to modify, enhance, and contribute to the codebase. I encourage developers of all skill levels to get involved.
 
-## Formatting
+## Style Guidelines
 
 ### Python
+#### Formatting
 For Python, the `black` formatter is used in order to enforce PEP-8 formatting. 
 
 ### JavaScript, html, css
+#### Formatting
 For JavaScript, html, and css the `Prettier - Code Formatter` is used.
 
 ### Setting up VisualStudio (VSCode) to auto-format
