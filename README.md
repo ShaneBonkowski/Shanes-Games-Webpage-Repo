@@ -1,6 +1,6 @@
 # Shane's Games
 
-Welcome to Shane's Games! This repository contains the source code for Shane's Games website and all the games featured on the platform.
+Welcome to Shane's Games! This repository contains the source code for Shane's Games website and most of the games featured on the platform.
 
 ## About Shane's Games
 
@@ -8,7 +8,7 @@ Shane's Games is a collection of small browser games and projects created by Sha
 
 ## Repository Structure
 
-- `Main-Website-Assets`, `index.html`, and `about.html`: Contain the source code for Shane's Games website.
+- `Main-Website-Assets`, `index.html`, and `about.html`: Contain the source code for Shane's Games main website.
 - `games`: Contains the source code for all the games featured on Shane's Games.
 - `Shared-General-Assets`: Helper functions and assets accessed by the games and the main website.
 
@@ -26,3 +26,19 @@ To contribute:
 ## Open Source Philosophy
 
 I believe in the power of open source and collaboration. All games featured on the platform are open source, allowing anyone to modify, enhance, and contribute to the codebase. I encourage developers of all skill levels to get involved.
+
+## Style Guidelines
+
+### Python
+#### Formatting
+For Python, the `black` formatter is used in order to enforce PEP-8 formatting. 
+
+### JavaScript, html, css
+#### Formatting
+For JavaScript, html, and css the `Prettier - Code Formatter` is used.
+
+### Setting up VisualStudio (VSCode) to auto-format
+- Download `prettier` and `black` formatter extensions in VSCode. Be sure to select the verified extensions from the trusted sources (`Prettier` and `Microsoft` respectively)!
+- Go into `Settings` and at the top search bar type `@lang:{language name} Default Formatter` for each language mentioned above. e.g. `@lang:html Default Formatter`, `@lang:JavaScript Default Formatter`, etc.
+- For each language, specify the correct formatter as the default. This means `black` for Python, and `Prettier` for JavaScript, html, and css.
+- You can even configure it in the settings so that it automatically formats every time you save the file!
