@@ -1,6 +1,6 @@
 # Python Utilities
 
-This section of the repository utilizes a virtual environment to manage Python dependencies and ensure consistent development and runtime environments for users. Below are instructions for setting up and using the virtual environment.
+This section of the repository utilizes a virtual environment to manage Python dependencies and ensure consistent development and runtime environments for users. Below are instructions for setting up and using the virtual environment. Note that the Python tools may not function properly if this step is not completed.
 
 ## Initial Setup (one-time steps)
 ### 1. Install Python
@@ -9,7 +9,7 @@ If you do not already have Python installed, do as follows:
 - When it is downloading, check the box to add it to your PATH. This will ensure that you can `pip` install and use python from the PowerShell in Windows. Note: steps may be different for Mac or Linux.
 - If `pip install` is not working as intended, you likely do not have Python downloaded, or do not have it being referenced in your PATH.
 
-### 2. Install virtualenv
+### 2. Install virtualenv library
 ```bash
 pip install virtualenv
 ```
