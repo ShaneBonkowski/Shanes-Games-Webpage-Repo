@@ -1,6 +1,6 @@
 # Shane's Games
 
-Welcome to Shane's Games! This repository contains the source code for Shane's Games website and all the games featured on the platform.
+Welcome to Shane's Games! This repository contains the source code for Shane's Games website and most of the games featured on the platform.
 
 ## About Shane's Games
 
@@ -8,7 +8,7 @@ Shane's Games is a collection of small browser games and projects created by Sha
 
 ## Repository Structure
 
-- `Main-Website-Assets`, `index.html`, and `about.html`: Contain the source code for Shane's Games website.
+- `Main-Website-Assets`, `index.html`, and `about.html`: Contain the source code for Shane's Games main website.
 - `games`: Contains the source code for all the games featured on Shane's Games.
 - `Shared-General-Assets`: Helper functions and assets accessed by the games and the main website.
 
