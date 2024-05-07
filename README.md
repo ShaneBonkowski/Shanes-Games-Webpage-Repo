@@ -27,15 +27,56 @@ To contribute:
 
 I believe in the power of open source and collaboration. All games featured on the platform are open source, allowing anyone to modify, enhance, and contribute to the codebase. I encourage developers of all skill levels to get involved.
 
-## Style Guidelines
+## General Style Guidelines
+All code should be formatted according to the formatter / formatting guidelines described below for a given language. For documentation, please document all functions and files within reason! It not only is great for crediting yourself as an author of any files or functions you have created, but also makes it much easier for others to build upon your work in the future.
 
 ### Python
 #### Formatting
 For Python, the `black` formatter is used in order to enforce PEP-8 formatting. 
 
+#### Documentation
+For Python, the documentation style from [Numpy](https://numpydoc.readthedocs.io/en/latest/format.html) is used. In addition, type hints from the `typing` library are used. It looks as follows:
+```python
+def add(number1: int, number2: int) -> int:
+    """
+    This function adds two numbers together.
+
+    Parameters
+    ----------
+    number1 : type
+        Description of number1.
+    number2 : type
+        Description of number2.
+
+    Returns
+    -------
+    int
+        The sum of number1 and number2.
+    """
+    
+    return number1 + number2
+
+```
+
 ### JavaScript, html, css
 #### Formatting
 For JavaScript, html, and css the `Prettier - Code Formatter` is used.
+
+#### Documentation
+For JavaScript, the documentation style [JSDoc](https://github.com/shri/JSDoc-Style-Guide) is used. It looks as follows:
+```javascript
+/**
+ * Calculates the sum of two numbers.
+ * 
+ * @param {number} num1 - The first number.
+ * @param {number} num2 - The second number.
+ * @returns {number} The sum of num1 and num2.
+ */
+function calculateSum(num1, num2) {
+    return num1 + num2;
+}
+
+```
 
 ### Setting up VisualStudio (VSCode) to auto-format
 - Download `prettier` and `black` formatter extensions in VSCode. Be sure to select the verified extensions from the trusted sources (`Prettier` and `Microsoft` respectively)!
