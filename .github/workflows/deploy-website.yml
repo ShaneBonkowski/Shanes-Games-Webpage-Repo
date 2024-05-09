@@ -81,10 +81,3 @@ jobs:
       # Use GitHub token to push to pages via committing to gh-pages branch
       - name: Push to GitHub Pages
         run: git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" HEAD:gh-pages
-
-      - name: Wait 5 minutes
-        run: sleep 300 # 300 seconds = 5 minutes
-
-      - name: Delete gh-pages branch
-        run: |
-          git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" --delete gh-pages
