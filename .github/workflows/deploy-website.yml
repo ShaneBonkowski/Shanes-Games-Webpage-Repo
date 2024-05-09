@@ -14,6 +14,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Remove Unnecessary Files From Build
+        run: |
+          rm -rf .git*  # Remove Git-related files and folders
+          rm -rf .github  # Remove GitHub Actions files and folders
+          rm -rf README*  # Remove README files
+          rm -rf LICENSE*  # Remove license files
+          rm -rf ./*/*.md  # Remove markdown files in subdirectories
+          # Add more commands to remove other unnecessary files as needed
+
       - name: Create Deploy Directory
         run: mkdir deploy
 
@@ -60,6 +69,6 @@ jobs:
       - name: Commit Changes
         run: git commit -m "Deploy Website to GitHub Pages"
 
-      # Use GitHub token to push to pages
+      # Use GitHub token to push to pages via commiting to gh-pages branch
       - name: Push to GitHub Pages
         run: git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" HEAD:gh-pages
