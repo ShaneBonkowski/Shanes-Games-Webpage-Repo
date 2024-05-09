@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Change this to the name of your main branch
+      - main
 
 jobs:
   deploy:
@@ -35,4 +35,4 @@ jobs:
         run: git commit -m "Deploy Website to GitHub Pages"
 
       - name: Push to GitHub Pages
-        run: git push --force --quiet "https://***@github.com/ShaneBonkowski/ShanesGames.git" master:gh-pages
+        run: git push --force --quiet "https://***@github.com/ShaneBonkowski/ShanesGames.git" HEAD:gh-pages
