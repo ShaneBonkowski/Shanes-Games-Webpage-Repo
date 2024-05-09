@@ -12,4 +12,6 @@ At a high level, the workflow copies everything from the `main` branch of the re
 
 Finally after building, the workflow then pushes the changes to the `gh-pages` branch. GitHub Pages is configured to host the website from the `gh-pages` branch, updating the live site whenever changes are pushed to this branch.
 
+A really good added benefit in this approach is that it should hopefully allow for a smoother transition to a different web host than GitHub pages some time in the future. The hope is that all that would need happen after pushing the build to GitHub is some extra lines in the workflow code to push the build to a potential web host in their desired format.
+
 For more information on GitHub Actions and how to configure workflows, refer to the [GitHub Actions documentation](https://docs.github.com/en/actions).
