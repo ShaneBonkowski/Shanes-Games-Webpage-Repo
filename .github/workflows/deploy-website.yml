@@ -83,9 +83,8 @@ jobs:
         run: git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" HEAD:gh-pages
 
       - name: Wait 5 minutes
-        run: sleep 300 # 300 seconds = 5 minutes
+        run: sleep 30 # 300 seconds = 5 minutes
 
       - name: Delete gh-pages branch
         run: |
-          git checkout main
-          git branch -D gh-pages
+          git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" --delete gh-pages
