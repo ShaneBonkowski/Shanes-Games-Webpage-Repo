@@ -2,6 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
+    # When pushed to main branch, kick off this GitHub Action
     branches:
       - main
 
