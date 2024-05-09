@@ -16,7 +16,7 @@ jobs:
       - name: Build and Deploy Website
         run: |
           mkdir deploy
-          cp -r ./* deploy/
+          cp -r * deploy/
           cd deploy
           git init
           git config user.name "GitHub Actions"
