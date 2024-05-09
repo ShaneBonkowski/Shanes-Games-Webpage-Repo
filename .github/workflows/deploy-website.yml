@@ -69,6 +69,23 @@ jobs:
       - name: Commit Changes
         run: git commit -m "Deploy Website to GitHub Pages"
 
-      # Use GitHub token to push to pages via commiting to gh-pages branch
+      - name: Check if gh-pages branch exists
+        run: git show-ref --verify --quiet refs/heads/gh-pages
+        continue-on-error: true
+        id: check_branch
+
+      - name: Create gh-pages branch if it doesn't exist
+        if: steps.check_branch.outcome != 'success'
+        run: git checkout -b gh-pages
+
+      # Use GitHub token to push to pages via committing to gh-pages branch
       - name: Push to GitHub Pages
         run: git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" HEAD:gh-pages
+
+      - name: Wait 5 minutes
+        run: sleep 300 # 300 seconds = 5 minutes
+
+      - name: Delete gh-pages branch
+        run: |
+          git checkout main
+          git branch -D gh-pages
