@@ -1,0 +1,39 @@
+name: Deploy Website
+
+on:
+  push:
+    # Every time a push or merge is made to main, deploy the website
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install Dependencies
+        run: npm install
+
+      # Modify HTML files to add Google Analytics key
+      #   - name: Add Google Analytics Key
+      #     run: |
+      #       # Replace 'YOUR_GOOGLE_ANALYTICS_KEY' with your actual Google Analytics key environment variable name
+      #       sed -i 's/YOUR_GOOGLE_ANALYTICS_KEY/${{ secrets.GOOGLE_ANALYTICS_KEY }}/g' index.html
+      #       # Repeat this command for any other HTML files that need the key added (OR! see if I can create code to query and do this to all files ending in .html?)
+
+      - name: Build Website
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
