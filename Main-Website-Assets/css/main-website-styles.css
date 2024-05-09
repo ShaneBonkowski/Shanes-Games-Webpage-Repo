@@ -25,8 +25,10 @@
   --about-me-box-width: var(--about-me-box-width-og);
   --about-me-box-height-og: 35vw;
   --about-me-box-height: var(--about-me-box-height-og);
-  --about-me-image-width: 30vw;
-  --about-me-image-height: 30vw;
+  --about-me-image-width: 15vw;
+  --about-me-image-height: calc(
+    1.8 * 15vw
+  ); /* Maintain 450 to 250 h to w ratio */
   /* Edge Margins */
   --title-container-left-margin: 3%;
   --game-button-left-margin: 17%;

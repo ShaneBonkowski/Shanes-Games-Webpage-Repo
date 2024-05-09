@@ -18,7 +18,7 @@
 
 .about-me-image-container {
   position: absolute; /* Position wrt to its parent */
-  right: -25%;
+  right: -5%;
   top: 10%;
   transform: translate(var(--centering-translation), 5%);
   width: var(--about-me-image-width);
@@ -32,9 +32,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-62%, -105%);
-  width: 45%;
-  height: 45%;
+  transform: translate(-50%, -100%);
+  width: calc(var(--about-me-image-width) * 0.95);
+  height: calc(var(--about-me-image-width) * 0.95);
   border-radius: 50%;
 }
 
