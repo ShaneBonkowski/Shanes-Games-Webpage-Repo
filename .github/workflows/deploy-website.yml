@@ -1,9 +1,9 @@
-name: Deploy Website to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main # Change this to the name of your main branch
 
 jobs:
   deploy:
@@ -16,7 +16,7 @@ jobs:
       - name: Build and Deploy Website
         run: |
           mkdir deploy
-          cp -r * deploy/
+          cp -r ./* deploy/
           cd deploy
           git init
           git config user.name "GitHub Actions"
