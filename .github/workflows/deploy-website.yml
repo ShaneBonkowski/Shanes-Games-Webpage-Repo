@@ -35,5 +35,6 @@ jobs:
       - name: Commit Changes
         run: git commit -m "Deploy Website to GitHub Pages"
 
+      # Use GitHub token to push to pages
       - name: Push to GitHub Pages
         run: git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" HEAD:gh-pages
