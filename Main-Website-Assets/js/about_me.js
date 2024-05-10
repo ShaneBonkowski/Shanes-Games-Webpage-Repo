@@ -18,34 +18,21 @@ export function createAboutMe() {
   var imageContainer = document.createElement("div");
   imageContainer.classList.add("about-me-image-container");
 
-  var titleElement = document.createElement("h1");
-  titleElement.textContent = "Shane Bonkowski";
-  titleElement.classList.add("about-me-title");
-
-  var subTitleTextDiv = document.createElement("div");
-  subTitleTextDiv.textContent =
-    "Engineering, Software & Game Development, Art, Writing, and really anything in between.";
-  subTitleTextDiv.classList.add("about-me-page-text-styler");
-  subTitleTextDiv.classList.add("about-me-sub-title-text");
-
-  var mainTextDiv = document.createElement("div");
-  const aboutMeParagraph = `
-I'm a lifelong learner with a degree in Aerospace Engineering from the University of Maryland, College Park. Despite my formal education, my journey into programming and game development has been almost entirely "self-taught" on the internet. 
-
-I'm a firm believer in the power of open source and collaboration. In making the decision to open source all of the games I create here on GitHub, I hope to empower others to modify, improve, and maybe even learn a thing or two from my work. 
-  
-If you'd like to connect or learn more about my professional background, feel free to visit my LinkedIn profile. I'm always eager to collaborate, connect, and share ideas.
-`;
-  mainTextDiv.textContent = aboutMeParagraph;
-  mainTextDiv.classList.add("about-me-page-text-styler");
-  mainTextDiv.classList.add("about-me-main-text");
+  // Create a single HTML element for text with different font sizes
+  var textContainer = document.createElement("div");
+  textContainer.classList.add("about-me-text-container");
+  textContainer.innerHTML = `
+    <h1 class="about-me-title">Shane Bonkowski</h1>
+    <p class="about-me-subtitle">Engineering, Software & Game Development, Art, Writing, and really anything in between.</p>
+    <p class="about-me-main-text">I'm a lifelong learner with a degree in Aerospace Engineering from the University of Maryland, College Park. Despite my formal education, my journey into programming and game development has been almost entirely "self-taught" on the internet.</p>
+    <p class="about-me-main-text">I'm a firm believer in the power of open source and collaboration. In making the decision to open source all of the games I create here on GitHub, I hope to empower others to modify, improve, and maybe even learn a thing or two from my work.</p>
+    <p class="about-me-main-text">If you'd like to connect or learn more about my professional background, feel free to visit my LinkedIn profile. I'm always eager to collaborate, connect, and share ideas.</p>
+  `;
 
   // Append elements to their containers
   imageContainer.appendChild(imageAboutMe);
   boxContainer.appendChild(imageContainer);
-  boxContainer.appendChild(titleElement);
-  boxContainer.appendChild(mainTextDiv);
-  boxContainer.appendChild(subTitleTextDiv);
+  boxContainer.appendChild(textContainer);
 
   // Append the container to the body of the document
   document.body.appendChild(boxContainer);

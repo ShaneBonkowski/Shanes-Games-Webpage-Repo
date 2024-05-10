@@ -4,8 +4,6 @@
 /* Define CONSTANT variables */
 :root {
   /* Transformations */
-  --about-me-TITLE-text-centering-translation: -26%;
-  --about-me-text-centering-translation: -50%;
   --header-button-separation: 120%;
   --left-header-button-translation-original: 1100%;
   --header-button-vertical-translation: 65%;
@@ -21,14 +19,13 @@
   --game-box-width: var(--game-box-width-original);
   --game-box-height-original: 20vw;
   --game-box-height: var(--game-box-height-original);
-  --about-me-box-width-og: 90vw;
-  --about-me-box-width: var(--about-me-box-width-og);
-  --about-me-box-height-og: 35vw;
-  --about-me-box-height: var(--about-me-box-height-og);
+  --about-me-box-width: 90vw;
+  --about-me-box-height: 85vh;
   --about-me-image-width: 15vw;
   --about-me-image-height: calc(
     1.8 * 15vw
   ); /* Maintain 450 to 250 h to w ratio */
+  --about-me-text-container-width: 60vw;
   /* Edge Margins */
   --title-container-left-margin: 3%;
   --game-button-left-margin: 17%;
@@ -37,9 +34,6 @@
   --game-desc-text-top-margin: 30%;
   --footer-text-left-margin: 50%;
   --footer-text-top-margin: 30%;
-  --about-me-title-text-top-margin: 7%;
-  --about-me-sub-title-text-top-margin: 29%;
-  --about-me-main-text-top-margin: 41%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -53,8 +47,6 @@
     --left-header-button-translation: calc(
       var(--left-header-button-translation-original) - 630%
     );
-    --about-me-TITLE-text-centering-translation: -16%;
-    --about-me-text-centering-translation: -30%;
     /* Sizes */
     --header-height: calc(var(--header-height-original) * 1.8);
     --footer-height: calc(var(--footer-height-original) * 1.8);
@@ -64,14 +56,12 @@
     --game-box-width: calc(
       var(--game-box-width-original) * var(--portrait-game-box-scale-factor-x)
     );
-    --about-me-box-width: calc(var(--about-me-box-width-og) * 0.75);
-    --about-me-box-height: calc(var(--about-me-box-height-og) * 3.7);
+    --about-me-box-width: 85vw;
+    --about-me-box-height: 80vh;
+    --about-me-text-container-width: 85vw;
     /* Edge Margins */
     --game-button-left-margin: 22%;
     --game-desc-text-left-margin: 8%;
-    --about-me-title-text-top-margin: 5%;
-    --about-me-sub-title-text-top-margin: 16.5%;
-    --about-me-main-text-top-margin: 26.5%;
   }
 }
 
@@ -137,11 +127,11 @@
       var(--gamedesc-body-text-font-size-original) * 1
     );
     --about-me-main-text-font-size: calc(
-      var(--about-me-main-text-font-size-og) * 3.1
+      var(--about-me-main-text-font-size-og) * 3
     );
-    --about-me-title-font-size: calc(var(--about-me-title-font-size-og) * 2.9);
+    --about-me-title-font-size: calc(var(--about-me-title-font-size-og) * 2.5);
     --about-me-subtitle-font-size: calc(
-      var(--about-me-subtitle-font-size-og) * 3.2
+      var(--about-me-subtitle-font-size-og) * 3
     );
     /* Sizes */
     --game-button-width: calc(var(--game-box-width) / 2.3);

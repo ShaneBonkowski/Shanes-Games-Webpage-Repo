@@ -13,7 +13,7 @@
   border-radius: var(--standard-edge_radius);
   left: var(--general-left-margin);
   top: var(--general-top-margin);
-  transform: translate(var(--centering-translation), -5%);
+  transform: translate(var(--centering-translation), 0%);
 }
 
 .about-me-image-container {
@@ -64,58 +64,22 @@
   }
 }
 
-.about-me-title,
-.about-me-page-text-styler,
-.about-me-sub-title-text,
-.about-me-main-text {
+.about-me-text-container {
   position: absolute;
   color: var(--main-text-color);
   text-align: left;
+  width: var(--about-me-text-container-width);
 }
 
 .about-me-title {
   font-size: var(--about-me-title-font-size);
-  white-space: nowrap;
   font-weight: bold;
-  width: var(--about-me-title-font-width);
-  left: 16%;
-  top: var(--about-me-title-text-top-margin);
-  transform: translate(var(--about-me-TITLE-text-centering-translation), 0%);
 }
 
-@media screen and (max-width: 600px) {
-  :root {
-    .about-me-title {
-      left: -1%;
-    }
-  }
-}
-
-.about-me-page-text-styler {
-  white-space: pre-wrap; /* Preserve newline characters */
-  display: block;
-  font-weight: normal;
-  left: 38%;
-  transform: translate(var(--about-me-text-centering-translation), 2%);
-}
-
-@media screen and (max-width: 600px) {
-  :root {
-    .about-me-page-text-styler {
-      left: 23%;
-      transform: translate(var(--about-me-text-centering-translation), 8%);
-    }
-  }
-}
-
-.about-me-sub-title-text {
+.about-me-subtitle {
   font-size: var(--about-me-subtitle-font-size);
-  width: var(--about-me-subtitle-font-width);
-  top: var(--about-me-sub-title-text-top-margin);
 }
 
 .about-me-main-text {
   font-size: var(--about-me-main-text-font-size);
-  width: var(--about-me-main-text-font-width);
-  top: var(--about-me-main-text-top-margin);
 }
