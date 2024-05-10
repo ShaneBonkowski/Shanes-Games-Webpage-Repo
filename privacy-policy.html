@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy</title>
+
+    <!-- Defining "urgent" css styles that I want to guarantee render in, hence why they are referenced in the header -->
+    <!-- Other less "urgent" attr's of body are modified in the .css file it appears in -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        background-color: black;
+        background-image: url("Shared-General-Assets/pngs/Sky_starry_blurred_dark.png");
+        background-repeat: repeat-y; /* Repeat the image vertically */
+        background-position: top center; /* position relative to the top or center */
+        background-size: 100% auto; /* Auto width, 100% height */
+      }
+    </style>
+
+    <link
+      rel="icon"
+      href="Shared-General-Assets/pngs/Mars_circle_logo_small.png"
+    />
+
+    <!-- Set up main css files used -->
+    <link
+      rel="stylesheet"
+      href="Main-Website-Assets/css/main-website-styles.css"
+    />
+    <link
+      rel="stylesheet"
+      href="Main-Website-Assets/css/header-footer-styles.css"
+    />
+    <link
+      rel="stylesheet"
+      href="Main-Website-Assets/css/privacy-policy-styles.css"
+    />
+    <link
+      rel="stylesheet"
+      href="Shared-General-Assets/css/general-shared-styles.css"
+    />
+    <link
+      rel="stylesheet"
+      href="Shared-General-Assets/css/general-shared-styles.css"
+    />
+    <!-- Load in Font Awesome CDN to access GitHub, linkedin, etc. icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <!-- Call JS functions (using module so that we can import and call modules) -->
+    <script type="module">
+      // Import modules
+      import { createHeader } from "/Main-Website-Assets/js/header.js";
+      import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
+
+      // Wait for window (aka all content) to load in before calling functions
+      window.onload = function () {
+        // Load the logo image first as a promise so that nothing else can execute
+        // until the logo image is loaded in.
+        createImage("/Shared-General-Assets/pngs/Mars_circle_logo_small.png")
+          .then((image) => {
+            // Create header first
+            createHeader(image.src);
+
+            // Call function to add body content
+            addBodyContent();
+          })
+          .catch((error) => {
+            console.error("Error loading logo image for header:", error);
+          });
+      };
+
+      function addBodyContent() {
+        const body = document.body;
+
+        // Create container for body content
+        const container = document.createElement("div");
+        container.classList.add("privacy-policy-container");
+
+        // Create and append body content elements
+        const h1 = document.createElement("h1");
+        h1.textContent = "Privacy Policy";
+
+        const p1 = document.createElement("p");
+        p1.textContent =
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla consectetur lectus mauris, et consectetur ex convallis sed. Fusce malesuada sapien ut velit varius, nec egestas dui semper. Suspendisse potenti. Donec at elit vel dolor ultrices efficitur ac ac orci.";
+
+        const p2 = document.createElement("p");
+        p2.textContent =
+          "Integer in consequat enim. Vivamus varius risus libero, id fermentum nisi tempor nec. Quisque quis condimentum leo. Mauris aliquam, libero a dictum vehicula, felis erat suscipit mi, a consectetur purus lorem eget mauris.";
+
+        const p3 = document.createElement("p");
+        p3.textContent =
+          "Phasellus mattis varius justo, eu vehicula urna fringilla non. Cras tincidunt ante nec posuere accumsan. Nunc eget varius felis. Nulla facilisi. Phasellus eleifend nisi et leo luctus, sed dapibus turpis eleifend.";
+
+        container.appendChild(h1);
+        container.appendChild(p1);
+        container.appendChild(p2);
+        container.appendChild(p3);
+
+        body.appendChild(container);
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Overlay so that the background appears to have a semi-tranparent overlay on it to make it lighter -->
+    <!-- <div class="overlay-styler dark-overlay"></div> -->
+
+    <!-- Screen starts black and fades when page is openned -->
+    <div class="overlay-styler black-fade-overlay"></div>
+  </body>
+</html>

@@ -33,8 +33,8 @@ h1.title-text-style,
 .header-button-text,
 .fab.fa-github,
 .footer-main-text,
-.linkedIn-button-about-link,
 .linkedIn-button-container,
+.linkedIn-button-link,
 .linkedIn-text,
 .fab.fa-linkedin {
   position: absolute;
@@ -182,11 +182,22 @@ h1.title-text-style {
   width: 100%;
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
+  line-height: 1;
+}
+
+.footer-main-text a {
+  color: rgb(87, 176, 206);
+  text-decoration: none; /* Remove the underline */
 }
 
 /* LinkedIn footer button styling */
-.linkedIn-button-about-link {
+.linkedIn-button-link {
   /* Add things eventually */
+  width: var(--linkedin-button-width);
+  height: calc(1.4 * var(--linkedin-button-height));
+  bottom: 5%;
+  right: 5%;
+  transform: translate(0%, 0%);
 }
 
 .linkedIn-button-container {
@@ -196,9 +207,6 @@ h1.title-text-style {
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
-  top: var(--general-top-margin);
-  left: var(--general-left-margin);
-  transform: translate(-50%, 10%);
 }
 
 .linkedIn-button-container:hover {
