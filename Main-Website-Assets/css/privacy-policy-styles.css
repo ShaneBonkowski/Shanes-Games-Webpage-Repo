@@ -5,7 +5,7 @@
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
-@media screen and (max-width: 600px) {
+@media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Edge Margins */
     --privacy-policy-left-margin: 5%;

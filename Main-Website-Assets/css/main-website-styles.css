@@ -37,7 +37,7 @@
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
-@media screen and (max-width: 600px) {
+@media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Portrait mode scaling */
     --portrait-game-box-scale-factor-y: 1.8;
@@ -86,12 +86,6 @@
   --header-button-height: calc(var(--header-height) * 0.45);
   --github-icon-size: calc(var(--header-height) * 0.2);
   --game-desc-text-width: calc(var(--game-desc-width) * 0.9);
-  --about-me-title-font-width-og: calc(var(--about-me-box-width) * 0.5);
-  --about-me-title-font-width: var(--about-me-title-font-width-og);
-  --about-me-subtitle-font-width-og: calc(var(--about-me-box-width) * 0.7);
-  --about-me-subtitle-font-width: var(--about-me-subtitle-font-width-og);
-  --about-me-main-text-font-width-og: calc(var(--about-me-box-width) * 0.7);
-  --about-me-main-text-font-width: var(--about-me-main-text-font-width-og);
   --game-box-blank-space-height: calc(var(--game-box-height) * 0.07);
   /* Font Sizes */
   --gamedesc-title-font-size-original: calc(var(--game-button-width) * 0.06);
@@ -104,11 +98,11 @@
   --gamedesc-body-text-font-size: var(--gamedesc-body-text-font-size-original);
   --linkedin-icon-size: calc(var(--linkedin-button-height) * 0.45);
   --footer-main-text-font-size: calc(var(--footer-height) * 0.125);
-  --about-me-title-font-size-og: calc(var(--about-me-box-width) * 0.035);
+  --about-me-title-font-size-og: calc(var(--about-me-box-height) * 0.065);
   --about-me-title-font-size: var(--about-me-title-font-size-og);
-  --about-me-subtitle-font-size-og: calc(var(--about-me-box-width) * 0.019);
+  --about-me-subtitle-font-size-og: calc(var(--about-me-box-height) * 0.04);
   --about-me-subtitle-font-size: var(--about-me-subtitle-font-size-og);
-  --about-me-main-text-font-size-og: calc(var(--about-me-box-width) * 0.014);
+  --about-me-main-text-font-size-og: calc(var(--about-me-box-height) * 0.03);
   --about-me-main-text-font-size: var(--about-me-main-text-font-size-og);
   --header-button-text-size: calc(var(--header-button-width) * 0.16);
   --linkedin-text-font-size: calc(var(--linkedin-button-height) * 0.24);
@@ -117,7 +111,7 @@
 }
 
 /* Media query to override DERIVED values for vertical screens (portrait orientation) */
-@media screen and (max-width: 600px) {
+@media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Font Sizes */
     --gamedesc-title-font-size: calc(
@@ -126,25 +120,16 @@
     --gamedesc-body-text-font-size: calc(
       var(--gamedesc-body-text-font-size-original) * 1
     );
-    --about-me-main-text-font-size: calc(
-      var(--about-me-main-text-font-size-og) * 3
-    );
-    --about-me-title-font-size: calc(var(--about-me-title-font-size-og) * 2.5);
+    --about-me-title-font-size: calc(var(--about-me-title-font-size-og) * 0.6);
     --about-me-subtitle-font-size: calc(
-      var(--about-me-subtitle-font-size-og) * 3
+      var(--about-me-subtitle-font-size-og) * 0.7
+    );
+    --about-me-main-text-font-size: calc(
+      var(--about-me-main-text-font-size-og) * 0.7
     );
     /* Sizes */
     --game-button-width: calc(var(--game-box-width) / 2.3);
     --game-desc-width: calc(var(--game-box-width) * (0.5));
-    --about-me-subtitle-font-width: calc(
-      var(--about-me-subtitle-font-width-og) * 1.8
-    );
-    --about-me-main-text-font-width: calc(
-      var(--about-me-main-text-font-width-og) * 1.8
-    );
-    --about-me-title-font-width: calc(
-      var(--about-me-title-font-width-og) * 1.8
-    );
     /* Edge Margins */
     --game-description-left-margin: calc(var(--game-button-left-margin) + 50%);
   }

@@ -154,9 +154,10 @@ export class Boid {
     // Calculate the boid size based on the screen width
     var screenWidth = window.innerWidth;
     var boidSize = screenWidth * 0.00009 * 3;
+    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Phone screen has larger boids
-    if (screenWidth <= 600) {
+    if (screenWidth <= 600 || isPortrait) {
       boidSize = screenWidth * 0.00026 * 3;
     }
 
