@@ -81,7 +81,7 @@ h1.title-text-style {
 .header-button-container {
   width: var(--header-button-width);
   height: var(--header-button-height);
-  background-color: var(--panel-color); /* Button Color */
+  background-color: var(--button-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
@@ -203,7 +203,7 @@ h1.title-text-style {
 .linkedIn-button-container {
   width: var(--linkedin-button-width);
   height: var(--linkedin-button-height);
-  background-color: var(--panel-color); /* Button Color */
+  background-color: var(--button-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
