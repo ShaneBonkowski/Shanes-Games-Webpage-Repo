@@ -3,7 +3,7 @@
 
 /* About me section */
 .about-me-blank-space {
-  height: 1vw;
+  height: 1vh;
 }
 
 .about-me-box {
@@ -56,7 +56,7 @@
 }
 
 /* Media query to hide the about me image for vertical screens (portrait orientation) */
-@media screen and (max-width: 600px) {
+@media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     .about-me-image-container {
       display: none; /* Hide this so that it cannot be seen */
@@ -69,6 +69,7 @@
   color: var(--main-text-color);
   text-align: left;
   width: var(--about-me-text-container-width);
+  height: var(--about-me-box-height);
 }
 
 .about-me-title {

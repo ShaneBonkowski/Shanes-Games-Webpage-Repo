@@ -25,7 +25,7 @@
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
-@media screen and (max-width: 600px) {
+@media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Transformations */
     --main-logo-subtitle-translate-x: 123%;

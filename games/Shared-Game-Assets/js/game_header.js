@@ -78,7 +78,9 @@ function createGameHeader(
   // Set location of gameLogoContainer, and have it change when window size changes
   function updateGameLogoContainer() {
     var screenWidth = window.innerWidth;
-    if (screenWidth <= 600) {
+    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+
+    if (screenWidth <= 600 || isPortrait) {
       gameLogoContainer.style.marginLeft =
         gameLogoContainerLeftMarginPercentagePhone + "%";
     } else {

@@ -6,9 +6,10 @@
 
 import { createButtonLinkElement } from "./buttons.js";
 /**
- * Creates the Footer section for the main website page.
+ * Creates a footer for the website.
+ * @param {HTMLElement|null} parentElement - The parent element to which the footer will be appended (optional).
  */
-export function createFooter() {
+export function createFooter(parentElement = null) {
   // Create a container div for the footer box
   var footerContainer = document.createElement("footer");
   footerContainer.classList.add("footer-banner");
@@ -39,5 +40,10 @@ export function createFooter() {
   footerContainer.appendChild(linkedInLinkElement);
 
   // Append the container to the body of the document
-  document.body.appendChild(footerContainer);
+  // or a parent element if provided
+  if (parentElement != null) {
+    parentElement.appendChild(footerContainer);
+  } else {
+    document.body.appendChild(footerContainer);
+  }
 }
