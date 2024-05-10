@@ -70,8 +70,8 @@
     --game-button-left-margin: 22%;
     --game-desc-text-left-margin: 8%;
     --about-me-title-text-top-margin: 5%;
-    --about-me-sub-title-text-top-margin: 18.5%;
-    --about-me-main-text-top-margin: 30.5%;
+    --about-me-sub-title-text-top-margin: 16.5%;
+    --about-me-main-text-top-margin: 26.5%;
   }
 }
 
@@ -91,7 +91,7 @@
   --game-desc-height: calc(var(--game-box-height) * 0.95);
   --logo-image-size: calc(var(--header-height) * (2 / 3));
   --linkedin-button-width: calc(var(--footer-height) * 0.8);
-  --linkedin-button-height: calc(var(--footer-height) * 0.4);
+  --linkedin-button-height: calc(var(--footer-height) * 0.3);
   --header-button-width: calc(var(--header-height) * 0.83);
   --header-button-height: calc(var(--header-height) * 0.45);
   --github-icon-size: calc(var(--header-height) * 0.2);
