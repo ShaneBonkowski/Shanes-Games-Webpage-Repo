@@ -70,6 +70,7 @@
   text-align: left;
   width: var(--about-me-text-container-width);
   height: var(--about-me-box-height);
+  top: 3%;
 }
 
 .about-me-title {
