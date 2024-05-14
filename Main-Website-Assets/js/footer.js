@@ -4,7 +4,7 @@
  * @author Shane Bonkowski
  */
 
-import { createButtonLinkElement } from "./buttons.js";
+import { createButtonWithContainer } from "./buttons.js";
 /**
  * Creates a footer for the website.
  * @param {HTMLElement|null} parentElement - The parent element to which the footer will be appended (optional).
@@ -25,10 +25,9 @@ export function createFooter(parentElement = null) {
 `;
 
   // LinkedIn button
-  var linkedInLinkElement = createButtonLinkElement(
+  var linkedInButtonContainer = createButtonWithContainer(
     "LinkedIn",
     "https://www.linkedin.com/in/shanebonkowski/",
-    ["linkedIn-button-link"],
     ["linkedIn-text"],
     ["fab", "fa-linkedin"],
     ["linkedIn-button-container"],
@@ -37,7 +36,7 @@ export function createFooter(parentElement = null) {
 
   // Append elements to their containers
   footerContainer.appendChild(footerMainTextDiv);
-  footerContainer.appendChild(linkedInLinkElement);
+  footerContainer.appendChild(linkedInButtonContainer);
 
   // Append the container to the body of the document
   // or a parent element if provided

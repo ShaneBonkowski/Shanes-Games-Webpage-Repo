@@ -1,5 +1,6 @@
 /* Import constants */
 @import "./main-website-styles.css";
+@import "/Shared-General-Assets/css/general-shared-constants.css";
 
 /* Define variables */
 :root {
@@ -28,7 +29,6 @@
 .logo-image,
 h1.title-text-style,
 .sub-title-text,
-.header-button-link,
 .header-button-container,
 .header-button-text,
 .fab.fa-github,
@@ -74,10 +74,6 @@ h1.title-text-style {
 }
 
 /* Header button styling */
-.header-button-link {
-  /* Add styles here eventually */
-}
-
 .header-button-container {
   width: var(--header-button-width);
   height: var(--header-button-height);
@@ -85,13 +81,13 @@ h1.title-text-style {
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
-  top: var(--general-top-margin);
-  left: var(--general-left-margin);
+  top: 25%;
 }
 
 .header-button-container:hover {
   background-color: var(--button-hover-color);
   color: var(--main-text-color);
+  cursor: pointer;
 }
 
 .header-button-text {
@@ -106,10 +102,8 @@ h1.title-text-style {
 
 /* github button styling */
 .github-button-container {
-  transform: translate(
-    var(--middle-header-button-translation),
-    var(--header-button-vertical-translation)
-  );
+  right: var(--middle-button-right-margin);
+  position: absolute;
 }
 
 .github-text {
@@ -128,10 +122,8 @@ h1.title-text-style {
 
 /* about me button styling */
 .about-me-button-container {
-  transform: translate(
-    var(--left-header-button-translation),
-    var(--header-button-vertical-translation)
-  );
+  right: var(--left-button-right-margin);
+  position: absolute;
 }
 
 .about-me-text {
@@ -143,10 +135,8 @@ h1.title-text-style {
 
 /* home button styling */
 .home-button-container {
-  transform: translate(
-    var(--right-header-button-translation),
-    var(--header-button-vertical-translation)
-  );
+  right: var(--right-button-right-margin);
+  position: absolute;
 }
 
 .home-text {
@@ -186,20 +176,11 @@ h1.title-text-style {
 }
 
 .footer-main-text a {
-  color: rgb(87, 176, 206);
+  color: var(--link-color);
   text-decoration: none; /* Remove the underline */
 }
 
 /* LinkedIn footer button styling */
-.linkedIn-button-link {
-  /* Add things eventually */
-  width: var(--linkedin-button-width);
-  height: calc(1.4 * var(--linkedin-button-height));
-  bottom: 5%;
-  right: 5%;
-  transform: translate(0%, 0%);
-}
-
 .linkedIn-button-container {
   width: var(--linkedin-button-width);
   height: var(--linkedin-button-height);
@@ -207,11 +188,15 @@ h1.title-text-style {
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
+  right: var(--linkedIn-button-right-margin);
+  bottom: var(--linkedIn-button-bottom-margin);
+  position: absolute;
 }
 
 .linkedIn-button-container:hover {
   background-color: var(--button-hover-color);
   color: var(--main-text-color);
+  cursor: pointer;
 }
 
 .linkedIn-text {

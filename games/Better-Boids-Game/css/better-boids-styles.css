@@ -56,7 +56,7 @@ body {
 
 /* Define style for link */
 a {
-  color: rgb(87, 176, 206);
+  color: var(--link-color);
   text-decoration: none; /* Remove the underline */
 }
 

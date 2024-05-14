@@ -1,0 +1,73 @@
+/* Import constants */
+@import "/Shared-General-Assets/css/general-shared-constants.css";
+
+/* Define variables */
+:root {
+  /* Sizes */
+  --cookie-banner-width: 40%;
+  --cookie-banner-right-dist: 8px;
+  --cookie-banner-bottom-dist: 8px;
+  --cookie-banner-edge-radius: 10px;
+  --cookie-banner-padding: 16px;
+}
+
+/* Media query to override values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  :root {
+    /* Sizes */
+    --cookie-banner-width: auto;
+    --cookie-banner-right-dist: 0;
+    --cookie-banner-bottom-dist: 0;
+    --cookie-banner-edge-radius: auto;
+    --cookie-banner-padding: 12px;
+  }
+}
+
+.cookie-banner {
+  position: fixed;
+  bottom: var(--cookie-banner-bottom-dist);
+  right: var(--cookie-banner-right-dist);
+  width: var(--cookie-banner-width);
+  background-color: var(--info-banner-background-color);
+  padding: var(--cookie-banner-padding);
+  text-align: center;
+  z-index: 10;
+  border-radius: var(--cookie-banner-edge-radius);
+}
+
+.cookie-banner p {
+  font-size: 14px;
+  padding: 5px 20px 10px 20px;
+  text-align: center;
+}
+
+.cookie-banner a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Pushes buttons apart */
+}
+
+.cookie-banner button {
+  background-color: #007bff;
+  color: var(--main-text-color);
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  width: 48%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.cookie-banner button:last-child {
+  margin-right: 0; /* Remove margin from last button */
+}
+
+.cookie-banner button:hover {
+  background-color: #0056b3;
+}

@@ -36,6 +36,7 @@
       rel="stylesheet"
       href="Main-Website-Assets/css/header-footer-styles.css"
     />
+    <link rel="stylesheet" href="Main-Website-Assets/css/cookie-styles.css" />
     <link
       rel="stylesheet"
       href="Shared-General-Assets/css/general-shared-styles.css"
@@ -53,6 +54,19 @@
     <!-- Screen starts black and fades when page is openned -->
     <div class="overlay-styler black-fade-overlay"></div>
 
+    <!-- Cookie banner -->
+    <div id="cookie-banner" class="cookie-banner">
+      <p>
+        This website uses cookies to ensure you get the best experience. By
+        continuing to use this site, you accept our use of cookies. You can
+        learn more about our <a href="cookies.html">cookie policy</a> here
+      </p>
+      <div class="button-container">
+        <button id="enable-cookies">Enable Cookies</button>
+        <button id="disable-cookies">Disable Cookies</button>
+      </div>
+    </div>
+
     <!-- Include the non-module scripts used -->
     <script src="Main-Website-Assets/js/game_box.js"></script>
     <script src="Main-Website-Assets/js/game_box_hover_handling.js"></script>
@@ -62,6 +76,7 @@
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
       import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
+      import { createCookieBanner } from "/Main-Website-Assets/js/cookie.js";
 
       // Promisified version of the createGameBox function. This allows us to wait for
       // completion of game box creation before rendering the next one.
@@ -89,6 +104,7 @@
           .then((image) => {
             // Create header first
             createHeader(image.src);
+            createCookieBanner();
 
             // Array of game box data
             const gameBoxes = [
