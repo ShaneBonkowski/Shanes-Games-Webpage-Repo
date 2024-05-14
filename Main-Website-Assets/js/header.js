@@ -4,7 +4,7 @@
  * @author Shane Bonkowski
  */
 
-import { createButtonLinkElement } from "./buttons.js";
+import { createButtonWithContainer } from "./buttons.js";
 import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
 
 /**
@@ -38,10 +38,9 @@ export function createHeader(logoImageSrc) {
   subtitleDiv.textContent = "Black Hole Reject";
 
   // Github button
-  var githubLinkElement = createButtonLinkElement(
+  var githubButtonContainer = createButtonWithContainer(
     "GitHub",
     "https://github.com/ShaneBonkowski",
-    ["header-button-link"],
     ["header-button-text", "github-text"],
     ["fab", "fa-github"],
     ["header-button-container", "github-button-container"],
@@ -49,10 +48,9 @@ export function createHeader(logoImageSrc) {
   );
 
   // About me button
-  var aboutMeLinkElement = createButtonLinkElement(
+  var aboutMeButtonContainer = createButtonWithContainer(
     "About Me",
     "about.html",
-    ["header-button-link"],
     ["header-button-text", "about-me-text"],
     [],
     ["header-button-container", "about-me-button-container"],
@@ -60,10 +58,9 @@ export function createHeader(logoImageSrc) {
   );
 
   // Home button
-  var homeLinkElement = createButtonLinkElement(
+  var homeButtonContainer = createButtonWithContainer(
     "Games",
     "index.html",
-    ["header-button-link"],
     ["header-button-text", "home-text"],
     [],
     ["header-button-container", "home-button-container"],
@@ -75,9 +72,9 @@ export function createHeader(logoImageSrc) {
   titleContainer.appendChild(subtitleDiv);
   titleContainer.appendChild(logoImage);
   headerBannerDiv.appendChild(titleContainer);
-  headerBannerDiv.appendChild(githubLinkElement);
-  headerBannerDiv.appendChild(aboutMeLinkElement);
-  headerBannerDiv.appendChild(homeLinkElement);
+  headerBannerDiv.appendChild(githubButtonContainer);
+  headerBannerDiv.appendChild(aboutMeButtonContainer);
+  headerBannerDiv.appendChild(homeButtonContainer);
   headerContainer.appendChild(headerBannerDiv);
 
   // Append the container to the body of the document

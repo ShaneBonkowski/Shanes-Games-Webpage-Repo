@@ -5,18 +5,13 @@
 :root {
   /* Transformations */
   --header-button-separation: 120%;
-  --left-header-button-translation-original: 1100%;
   --header-button-vertical-translation: 65%;
-  --left-header-button-translation: var(
-    --left-header-button-translation-original
-  );
   /* Sizes */
   --header-height-original: 8vw;
   --header-height: var(--header-height-original);
   --footer-height-original: 14vw;
   --footer-height: var(--footer-height-original);
-  --game-box-width-original: 90vw;
-  --game-box-width: var(--game-box-width-original);
+  --game-box-width: 90vw;
   --game-box-height-original: 20vw;
   --game-box-height: var(--game-box-height-original);
   --about-me-box-width: 90vw;
@@ -34,6 +29,11 @@
   --game-desc-text-top-margin: 30%;
   --footer-text-left-margin: 50%;
   --footer-text-top-margin: 30%;
+  --left-button-right-margin: 18vw;
+  --middle-button-right-margin: 10vw;
+  --right-button-right-margin: 2vw;
+  --linkedIn-button-right-margin: 6vw;
+  --linkedIn-button-bottom-margin: 20%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -43,37 +43,29 @@
     --portrait-game-box-scale-factor-y: 1.8;
     --portrait-game-box-scale-factor-x: 1.075;
     --game-desc-width-scale-factor-y: 0.85;
-    /* Transformations */
-    --left-header-button-translation: calc(
-      var(--left-header-button-translation-original) - 630%
-    );
     /* Sizes */
     --header-height: calc(var(--header-height-original) * 1.8);
     --footer-height: calc(var(--footer-height-original) * 1.8);
     --game-box-height: calc(
       var(--game-box-height-original) * var(--portrait-game-box-scale-factor-y)
     );
-    --game-box-width: calc(
-      var(--game-box-width-original) * var(--portrait-game-box-scale-factor-x)
-    );
+    --game-box-width: 95vw;
     --about-me-box-width: 85vw;
     --about-me-box-height: 80vh;
     --about-me-text-container-width: 85vw;
     /* Edge Margins */
     --game-button-left-margin: 22%;
     --game-desc-text-left-margin: 8%;
+    --left-button-right-margin: 32vw;
+    --middle-button-right-margin: 17vw;
+    --right-button-right-margin: 2vw;
+    --linkedIn-button-right-margin: 4vw;
+    --linkedIn-button-bottom-margin: 20%;
   }
 }
 
 /* Define DERIVED variables (aka ones based on others) */
 :root {
-  /* Transformations */
-  --middle-header-button-translation: calc(
-    var(--left-header-button-translation) + var(--header-button-separation)
-  );
-  --right-header-button-translation: calc(
-    var(--middle-header-button-translation) + var(--header-button-separation)
-  );
   /* Sizes */
   --game-button-width: calc(var(--game-box-width) / 3.3);
   --game-button-height: calc(var(--game-box-height) * 0.95);
