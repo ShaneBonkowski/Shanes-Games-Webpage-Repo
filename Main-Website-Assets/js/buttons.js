@@ -24,8 +24,12 @@ export function createButtonWithContainer(
 ) {
   // Creates a button that on click takes you to a link.
   // Initialize container and text
-  var buttonContainer = document.createElement("div");
+  var buttonContainer = document.createElement("a");
   buttonContainer.classList.add(...containerClasses);
+  buttonContainer.href = url;
+  if (openInNewTab) {
+    buttonContainer.target = "_blank";
+  }
 
   var buttonText = document.createElement("div");
   buttonText.classList.add(...buttonTextClasses);
@@ -37,15 +41,6 @@ export function createButtonWithContainer(
     iconElement.classList.add(...iconClasses);
     buttonContainer.appendChild(iconElement);
   }
-
-  // Add click event listener to the container
-  buttonContainer.addEventListener("click", function () {
-    if (openInNewTab) {
-      window.open(url, "_blank");
-    } else {
-      window.location.href = url;
-    }
-  });
 
   // Append children
   buttonContainer.appendChild(buttonText);
