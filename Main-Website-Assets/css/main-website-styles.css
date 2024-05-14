@@ -56,10 +56,10 @@
     /* Edge Margins */
     --game-button-left-margin: 22%;
     --game-desc-text-left-margin: 8%;
-    --left-button-right-margin: 32vw;
-    --middle-button-right-margin: 17vw;
-    --right-button-right-margin: 2vw;
-    --linkedIn-button-right-margin: 4vw;
+    --left-button-right-margin: 34vw;
+    --middle-button-right-margin: 19vw;
+    --right-button-right-margin: 4vw;
+    --linkedIn-button-right-margin: 6vw;
     --linkedIn-button-bottom-margin: 20%;
   }
 }
