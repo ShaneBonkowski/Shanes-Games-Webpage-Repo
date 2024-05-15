@@ -13,8 +13,7 @@
   /* Size */
   --info-button-size: calc(20vw * 0.45);
   /* Font Sizes */
-  --test-font-size-og: calc(10vw * 0.2);
-  --test-font-size: var(--test-font-size-og);
+  --test-font-size: calc(10vw * 0.2);
   --info-button-font-size: calc(10vw * 0.2);
 }
 
@@ -24,7 +23,7 @@
     /* Font Sizes */
     --info-button-size: calc(20vh * 0.65);
     /* Font Sizes */
-    --test-font-size: calc(var(--test-font-size-og) * 1.9);
+    --test-font-size: calc(10vw * 0.38);
     --info-button-font-size: calc(10vh * 0.25);
     /* Edge Margins */
     --info-button-margin-right: 20vw;

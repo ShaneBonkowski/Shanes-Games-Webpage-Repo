@@ -26,8 +26,7 @@
   --flip-tile-label-text-size: calc(10vw * 0.12);
   --score-text-size: calc(10vh * 0.8);
   /* Font Sizes */
-  --test-font-size-og: calc(10vw * 0.2);
-  --test-font-size: var(--test-font-size-og);
+  --test-font-size: calc(10vw * 0.2);
   /* Sizes */
   --fliptile-button-width: calc(10vw * 0.6);
   --fliptile-button-height: calc(10vh * 0.8);
@@ -61,7 +60,7 @@
     --flip-tile-label-text-size: calc(10vh * 0.15);
     --score-text-size: calc(10vh * 0.75);
     /* Font Sizes */
-    --test-font-size: calc(var(--test-font-size-og) * 1.9);
+    --test-font-size: calc(10vw * 0.38);
     /* Sizes */
     --fliptile-button-width: calc(20vw * 0.85);
     --fliptile-button-height: calc(10vh * 0.43);

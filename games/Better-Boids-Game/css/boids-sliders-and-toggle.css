@@ -4,43 +4,34 @@
 /* Define CONSTANT variables */
 :root {
   /* Size */
-  --input-slider-width-og: 15vw;
-  --input-slider-width: var(--input-slider-width-og);
-  --input-slider-height-og: 5vh;
-  --input-slider-height: var(--input-slider-height-og);
+  --input-slider-width: 15vw;
+  --input-slider-height: 5vh;
   --slider-blank-space-height: 6vh;
   --leader-toggle-size: calc(10vw * 0.2);
   /* Margins */
   --slider-top-margin: 25vh;
-  --slider-container-left-margin-og: 4%;
-  --slider-container-left-margin: var(--slider-container-left-margin-og);
-  --hover-slider-label-top-margin-og: 25%;
-  --hover-slider-label-top-margin: var(--hover-slider-label-top-margin-og);
+  --slider-container-left-margin: 4%;
+  --hover-slider-label-top-margin: 25%;
   --hover-slider-label-left-margin: 120%;
   /* Translations */
   --slider-label-x-shift: -80%;
   /* Font Sizes */
-  --slider-font-size-og: calc(10vw * 0.14);
-  --slider-font-size: var(--slider-font-size-og);
+  --slider-font-size: calc(10vw * 0.14);
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Size */
-    --input-slider-width: calc(var(--input-slider-width-og) * 1.9);
+    --input-slider-width: 28.5vw;
     --slider-blank-space-height: 5vh;
     --leader-toggle-size: calc(10vh * 0.25);
     /* Margins */
-    --hover-slider-label-top-margin: calc(
-      var(--hover-slider-label-top-margin-og) * 1.5
-    );
-    --slider-container-left-margin: calc(
-      var(--slider-container-left-margin-og) * 1.5
-    );
+    --hover-slider-label-top-margin: 37.5%;
+    --slider-container-left-margin: 6%;
     --slider-top-margin: 30vh;
     /* Font Sizes */
-    --slider-font-size: calc(var(--slider-font-size-og) * 1.9);
+    --slider-font-size: calc(10vw * 0.266);
   }
 }
 
