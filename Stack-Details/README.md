@@ -6,9 +6,10 @@
 
 ## Web Hosting: [Firebase](https://console.firebase.google.com/)
 
-- Static hosting of custom HTML, CSS, and JavaScript files.
-- Future ease of integration with databases, ads, transactions, etc.
 - Shane's Games is linked to the `black hole reject` Firebase project.
+- Allows for hosting of custom HTML, CSS, and JavaScript files.
+- Future ease of integration with databases, ads, transactions, etc.
+- `firebase.json` specifies the `deploy` folder as the one that Google Firebase uses to get the website assets. This folder is created during the GitHub Actions workflow that builds and deploys the website. This is so that additional steps can be taken to clean up files prior to sending them off to Google Firebase. More information can be found in the `.github/workflows/README.md` file.
 
 ## Analytics: [Google Analytics](https://analytics.google.com/)
 
