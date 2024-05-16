@@ -66,4 +66,6 @@ jobs:
           GA_TRACKING_ID_SECRET: ${{secrets.GA_TRACKING_ID}}
 
       - name: Firebase Deploy
-        run: firebase deploy --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLACK_HOLE_REJECT }} --only hosting:deploy
+        run: firebase deploy --only hosting:deploy
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{secrets.FIREBASE_GOOGLE_SERVICE_ACCOUNT_KEY}}
