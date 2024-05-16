@@ -4,14 +4,12 @@ This folder contains GitHub Actions workflows, which are automated processes def
 
 ## Deploy Website Workflow
 
-The `deploy-website.yml` workflow in this folder is responsible for building and deploying the Shane's Games website to GitHub Pages.
+The `deploy-website.yml` workflow in this folder is responsible for building and deploying the Shane's Games website to Google Firebase.
 
 This workflow is triggered on pushes to the `main` branch of the repository. Whenever code is pushed to the `main` branch, this workflow is automatically executed to deploy the website.
 
 At a high level, the workflow copies everything from the `main` branch of the repository, and starts "building" by performing optimizations or modifications such as code minification, image compression, and adding features like Google Analytics tracking. A great reason for this setup is that it allows for private things such as API keys, or a Google Analytics key to be added as a GitHub Secret. That way it can be called as a variable during building, preventing sensitive information from being public.
 
-Finally after building, the workflow then pushes the changes to the `gh-pages` branch. GitHub Pages is configured to host the website from the `gh-pages` branch, updating the live site whenever changes are pushed to this branch. Note that if you look at the `gh-pages` branch you will see pretty much all of the files from this repo, and then a folder called `deploy` that has potentially less or slightly different files. This is because only the contents of the `deploy` folder are what is actually deployed or sent to the GitHub pages server. This will contain all of the refined html, etc. that comprises the "build".
-
-An added benefit in this approach is that it should hopefully allow for a smoother transition to a different web host than GitHub pages some time in the future. The hope is that all that would need happen after pushing the build to GitHub is some extra lines in the workflow code to push the build to a potential web host in their desired format.
+Finally after building, the contents of the `deploy` folder where the build lives are then sent to Google Firebase!
 
 For more information on GitHub Actions and how to configure workflows, refer to the [GitHub Actions documentation](https://docs.github.com/en/actions).
