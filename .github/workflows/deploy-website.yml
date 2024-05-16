@@ -2,7 +2,7 @@ name: Deploy Website to Firebase
 
 on:
   push:
-    # When pushed to main branch, kick off this GitHub Action
+    # Every push to main branch, kick off this GitHub Action
     branches:
       - main
 
