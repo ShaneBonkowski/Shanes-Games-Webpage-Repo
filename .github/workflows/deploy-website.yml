@@ -1,4 +1,4 @@
-name: Deploy Website to GitHub Pages
+name: Deploy Website to Firebase
 
 on:
   push:
@@ -62,27 +62,5 @@ jobs:
         env:
           GA_TRACKING_ID_SECRET: ${{secrets.GA_TRACKING_ID}}
 
-      - name: Initialize Git Repository
-        run: |
-          git init
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-
-      - name: Add Files
-        run: git add .
-
-      - name: Commit Changes
-        run: git commit -m "Deploy Website to GitHub Pages"
-
-      - name: Check if gh-pages branch exists
-        run: git show-ref --verify --quiet refs/heads/gh-pages
-        continue-on-error: true
-        id: check_branch
-
-      - name: Create gh-pages branch if it doesn't exist
-        if: steps.check_branch.outcome != 'success'
-        run: git checkout -b gh-pages
-
-      # Use GitHub token to push to pages via committing to gh-pages branch
-      - name: Push to GitHub Pages
-        run: git push --force --quiet "https://${{secrets.GH_TOKEN}}@github.com/ShaneBonkowski/ShanesGames.git" HEAD:gh-pages
+      - name: Firebase Deploy
+        run: firebase deploy --token ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLACK_HOLE_REJECT }} --only hosting:deploy
