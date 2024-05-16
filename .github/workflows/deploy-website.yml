@@ -24,7 +24,6 @@ jobs:
           rm -rf README*  # Remove README files
           rm -rf LICENSE*  # Remove license files
           rm -rf ./*/*.md  # Remove markdown files in subdirectories
-          # Add more commands to remove other unnecessary files as needed
 
       - name: Create Deploy Directory
         run: mkdir deploy
