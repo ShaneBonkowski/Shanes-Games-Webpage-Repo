@@ -11,6 +11,12 @@
 - Future ease of integration with databases, ads, transactions, etc.
 - `firebase.json` specifies the `deploy` folder as the one that Google Firebase uses to get the website assets. This folder is created during the GitHub Actions workflow that builds and deploys the website. This is so that additional steps can be taken to clean up files prior to sending them off to Google Firebase. More information can be found in the `.github/workflows/README.md` file.
 
+## Backend:
+### Database: [Firestore Database](https://firebase.google.com/docs/firestore)
+Useful database, mostly used for storing API keys etc. that are useful to keep private and be able to access via Firebase Cloud Functions.
+### Server-interaction: [Firebase Cloud Functions](https://firebase.google.com/docs/functions)
+More information on this can be found in `functions/README.md`.
+
 ## Analytics: [Google Analytics](https://analytics.google.com/)
 
 - Website traffic, user behavior, and performance metrics.
