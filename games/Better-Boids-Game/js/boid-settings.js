@@ -35,7 +35,7 @@ export function addBoidSettings() {
 
   // Create side panels for the settings window with desired text and image that can be revealed / hidden
   const speedPanel = createSettingsSidePanel(
-    "./pngs/Velocity_Graphic.png",
+    "./webps/Velocity_Graphic.webp",
     `
       <h2>Max Speed:</h2>
       <p>
@@ -46,7 +46,7 @@ export function addBoidSettings() {
   speedPanel.style.display = "flex"; // start with speed panel revealed (panels are flex boxes)
 
   const alignmentPanel = createSettingsSidePanel(
-    "./pngs/Alignment_Graphic.png",
+    "./webps/Alignment_Graphic.webp",
     `
       <h2>Boid Alignment:</h2>
       <p>
@@ -56,7 +56,7 @@ export function addBoidSettings() {
   );
 
   const cohesionPanel = createSettingsSidePanel(
-    "./pngs/Cohesion_Graphic.png",
+    "./webps/Cohesion_Graphic.webp",
     `
       <h2>Boid Cohesion:</h2>
       <p>
@@ -66,7 +66,7 @@ export function addBoidSettings() {
   );
 
   const radiusPanel = createSettingsSidePanel(
-    "./pngs/Search_Radius_Graphic.png",
+    "./webps/Search_Radius_Graphic.webp",
     `
       <h2>Flock Radius:</h2>
       <p>
@@ -76,7 +76,7 @@ export function addBoidSettings() {
   );
 
   const separationPanel = createSettingsSidePanel(
-    "./pngs/Separation_Graphic.png",
+    "./webps/Separation_Graphic.webp",
     `
       <h2>Boid Separation:</h2>
       <p>
@@ -86,7 +86,7 @@ export function addBoidSettings() {
   );
 
   const leaderPanel = createSettingsSidePanel(
-    "./pngs/Leader_Follow_Graphic.png",
+    "./webps/Leader_Follow_Graphic.webp",
     `
       <h2>Leader Boid:</h2>
       <p>
@@ -119,7 +119,7 @@ export function addBoidSettings() {
   const settingsButtonContainer = addUIButton(
     "settingsButtonContainer",
     "settingsButton",
-    "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
+    "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
     "Settings Icon",
     "u",
     [onClickSettings, openSettingsWindow],

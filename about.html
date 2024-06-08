@@ -14,7 +14,7 @@
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("Shared-General-Assets/pngs/Sky_starry_blurred_dark.png");
+        background-image: url("Shared-General-Assets/webps/Sky_starry_blurred_dark.webp");
         background-repeat: repeat-y; /* Repeat the image vertically */
         background-position: top center; /* position relative to the top or center */
         background-size: 100% auto; /* Auto width, 100% height */
@@ -23,7 +23,7 @@
 
     <link
       rel="icon"
-      href="Shared-General-Assets/pngs/Mars_circle_logo_small.png"
+      href="Shared-General-Assets/webps/Mars_circle_logo_small.webp"
     />
 
     <!-- Set up main css files used -->
@@ -65,7 +65,7 @@
       window.onload = function () {
         // Load the logo image first as a promise so that nothing else can execute
         // until the logo image is loaded in.
-        createImage("/Shared-General-Assets/pngs/Mars_circle_logo_small.png")
+        createImage("/Shared-General-Assets/webps/Mars_circle_logo_small.webp")
           .then((image) => {
             // Create header first
             createHeader(image.src);

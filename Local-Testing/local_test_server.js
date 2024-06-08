@@ -42,6 +42,9 @@ const server = http.createServer((req, res) => {
     case ".png":
       contentType = "image/png";
       break;
+    case ".webp":
+      contentType = "image/webp";
+      break;
     // Add more content types as needed
   }
 

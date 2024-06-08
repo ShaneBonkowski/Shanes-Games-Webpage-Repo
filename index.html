@@ -14,7 +14,7 @@
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("Shared-General-Assets/pngs/Sky_starry_blurred_dark.png");
+        background-image: url("Shared-General-Assets/webps/Sky_starry_blurred_dark.webp");
         background-repeat: repeat-y; /* Repeat the image vertically */
         background-position: top center; /* position relative to the top or center */
         background-size: 100% auto; /* Auto width, 100% height */
@@ -23,7 +23,7 @@
 
     <link
       rel="icon"
-      href="Shared-General-Assets/pngs/Mars_circle_logo_small.png"
+      href="Shared-General-Assets/webps/Mars_circle_logo_small.webp"
     />
 
     <!-- Set up main css files used -->
@@ -100,7 +100,7 @@
       window.onload = function () {
         // Load the logo image first as a promise so that nothing else can execute
         // until the logo image is loaded in.
-        createImage("/Shared-General-Assets/pngs/Mars_circle_logo_small.png")
+        createImage("/Shared-General-Assets/webps/Mars_circle_logo_small.webp")
           .then((image) => {
             // Create header first
             createHeader(image.src);
@@ -109,7 +109,8 @@
             // Array of game box data
             const gameBoxes = [
               {
-                imageUrl: "games/Better-Boids-Game/pngs/Game_Cover_Picture.png",
+                imageUrl:
+                  "games/Better-Boids-Game/webps/Game_Cover_Picture.webp",
                 linkUrl: "games/Better-Boids-Game/BetterBoids.html",
                 title: "Better Boids",
                 description:
@@ -117,7 +118,7 @@
                 openInNewTab: false,
               },
               {
-                imageUrl: "games/Flip-Tile-Game/pngs/Cover_Art.png",
+                imageUrl: "games/Flip-Tile-Game/webps/Cover_Art.webp",
                 linkUrl: "games/Flip-Tile-Game/FlipTile.html",
                 title: "Flip Tile",
                 description:
@@ -125,7 +126,7 @@
                 openInNewTab: false,
               },
               {
-                imageUrl: "Main-Website-Assets/pngs/SOSS_cover_art.png",
+                imageUrl: "Main-Website-Assets/webps/SOSS_cover_art.webp",
                 linkUrl:
                   "https://store.steampowered.com/app/2061040/Save_Our_Solar_System/",
                 title: "Save Our Solar System",
@@ -134,7 +135,7 @@
                 openInNewTab: true,
               },
               {
-                imageUrl: "Main-Website-Assets/pngs/AD_cover_art.png",
+                imageUrl: "Main-Website-Assets/webps/AD_cover_art.webp",
                 linkUrl:
                   "https://store.steampowered.com/app/2506740/Abyssal_Descent/",
                 title: "Abyssal Descent",
@@ -147,7 +148,7 @@
               // !!!!!!!!!!!!!!!
               {
                 imageUrl:
-                  "Main-Website-Assets/pngs/Coming_Soon_Image_Option_2.png",
+                  "Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
                 linkUrl: "https://github.com/ShaneBonkowski",
                 title: "More Games Coming Soon...",
                 description:

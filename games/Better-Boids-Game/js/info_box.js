@@ -40,7 +40,7 @@ export function addInfoBox() {
   const infoButtonContainer = addUIButton(
     "infoButtonContainer",
     "infoButton",
-    "../Better-Boids-Game/pngs/Boids_Logo_Option_2.png",
+    "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
     "Info Icon",
     "i",
     [onClickInfo, openInfoWindow],

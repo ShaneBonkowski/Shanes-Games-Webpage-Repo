@@ -30,7 +30,7 @@ export function initUI() {
   const updateTilegridButtonContainer = addUIButton(
     "updateTilegridContainer",
     "updateTilegrid",
-    "../Flip-Tile-Game/pngs/Button.png",
+    "../Flip-Tile-Game/webps/Button.webp",
     "Update Tilegrid Icon",
     "new",
     [onClickUpdateTileGrid],
@@ -47,7 +47,7 @@ export function initUI() {
   const resetTilegridButtonContainer = addUIButton(
     "resetTilegridContainer",
     "resetTilegrid",
-    "../Flip-Tile-Game/pngs/Button.png",
+    "../Flip-Tile-Game/webps/Button.webp",
     "Reset Tilegrid Icon",
     "reset",
     [onClickResetTileGrid],
@@ -214,7 +214,7 @@ function addInfoBox() {
   const infoButtonContainer = addUIButton(
     "infoButtonContainer",
     "infoButton",
-    "../Flip-Tile-Game/pngs/Button.png",
+    "../Flip-Tile-Game/webps/Button.webp",
     "Info Icon",
     "about",
     [onClickInfo, openInfoWindow],
