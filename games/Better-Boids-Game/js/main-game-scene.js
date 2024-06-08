@@ -30,22 +30,22 @@ export class MainGameScene extends Phaser.Scene {
 
   preload() {
     // Preload assets if needed
-    this.load.image("Bad Boid", "./pngs/Bad_Boid.png");
-    this.load.image("Good Boid", "./pngs/Good_Boid.png");
-    this.load.image("Leader Boid", "./pngs/Leader_Boid.png");
+    this.load.image("Bad Boid", "./webps/Bad_Boid.webp");
+    this.load.image("Good Boid", "./webps/Good_Boid.webp");
+    this.load.image("Leader Boid", "./webps/Leader_Boid.webp");
     this.load.spritesheet(
       "Bad Boid Anim",
-      "./pngs/Bad_Boid_Anim_Spritesheet.png",
+      "./webps/Bad_Boid_Anim_Spritesheet.webp",
       { frameWidth: 200, frameHeight: 200 }
     );
     this.load.spritesheet(
       "Good Boid Anim",
-      "./pngs/Good_Boid_Anim_Spritesheet.png",
+      "./webps/Good_Boid_Anim_Spritesheet.webp",
       { frameWidth: 200, frameHeight: 200 }
     );
     this.load.spritesheet(
       "Leader Boid Anim",
-      "./pngs/Leader_Boid_Anim_Spritesheet.png",
+      "./webps/Leader_Boid_Anim_Spritesheet.webp",
       { frameWidth: 200, frameHeight: 200 }
     );
   }

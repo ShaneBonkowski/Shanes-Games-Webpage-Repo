@@ -24,6 +24,9 @@ jobs:
           rm -rf README*  # Remove README files
           rm -rf LICENSE*  # Remove license files
           rm -rf ./*/*.md  # Remove markdown files in subdirectories
+          # Remove PNG files in subdirectories, since png are the 
+          # original source, but jpg are the actual files used on the build
+          rm -rf ./*/*.png
 
       - name: Create Deploy Directory
         run: mkdir deploy

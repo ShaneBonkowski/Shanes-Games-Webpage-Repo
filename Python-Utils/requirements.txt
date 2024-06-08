@@ -1,2 +1,4 @@
 numpy>=1.0.0
 sympy>=1.0.0
+pillow>=1.0.0
+typing>=1.0.0

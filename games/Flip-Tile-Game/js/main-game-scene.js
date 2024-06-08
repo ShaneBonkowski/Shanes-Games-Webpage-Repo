@@ -48,9 +48,9 @@ export class MainGameScene extends Phaser.Scene {
 
   preload() {
     // Preload assets if needed
-    this.load.image("Tile Blue", "./pngs/Flip_Tile_Blue.png");
-    this.load.image("Tile Red", "./pngs/Flip_Tile_Red.png");
-    this.load.image("Tile Green", "./pngs/Flip_Tile_Green.png");
+    this.load.image("Tile Blue", "./webps/Flip_Tile_Blue.webp");
+    this.load.image("Tile Red", "./webps/Flip_Tile_Red.webp");
+    this.load.image("Tile Green", "./webps/Flip_Tile_Green.webp");
   }
 
   create() {
