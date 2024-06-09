@@ -14,7 +14,7 @@
  * a user back to the main html page, as well as a logo
  * for the given game.
  * @param {string} gameName - The name of the game.
- * @param {string} gameIconSrc - The local path to the game icon image.
+ * @param {string} gameIconSrc - The local path to the game icon image. Must be 200 by 200 px!
  * @param {number} gameLogoContainerLeftMarginPercentageComputer - The left margin percentage for the game logo container on a computer screen.
  * @param {number} gameLogoContainerLeftMarginPercentagePhone - The left margin percentage for the game logo container on a phone screen.
  * @param {number} gameTitleXShiftPercentage - The horizontal shift percentage for the game title.
@@ -92,7 +92,7 @@ function createGameHeader(
   window.addEventListener("resize", updateGameLogoContainer);
 
   var gameLogoImage = document.createElement("img");
-  gameLogoImage.src = gameIconSrc;
+  gameLogoImage.src = gameIconSrc; // Must be 200 by 200 px!
   gameLogoImage.alt = gameName;
   gameLogoImage.classList.add("game-logo-image");
   gameLogoImage.classList.add("disable-browser-default-touch-actions");
