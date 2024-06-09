@@ -17,6 +17,17 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install python dependencies
+        run: pip install csscompressor
+
+      - name: Minify CSS files with Python script
+        run: python ../../Python-Utils/File-Utils/css-minify.py
+
       - name: Remove Unnecessary Files From Build
         run: |
           rm -rf .git*  # Remove Git-related files and folders
