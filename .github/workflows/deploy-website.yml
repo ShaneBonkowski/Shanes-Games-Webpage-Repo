@@ -27,6 +27,9 @@ jobs:
           # Remove PNG files in subdirectories, since png are the 
           # original source, but jpg are the actual files used on the build
           rm -rf ./*/*.png
+          # Generic-Game-Blueprint is not supposed to be live! 
+          # Only for reference in dev
+          rm -rf **/Generic-Game-Blueprint
 
       - name: Create Deploy Directory
         run: mkdir deploy

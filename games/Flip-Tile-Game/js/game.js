@@ -15,10 +15,10 @@ export function LaunchGame() {
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
-    transparent: true, // Set the canvas to be transparent, since we handle background in better=boids-styles.js
+    // Set the canvas to be transparent, since we handle background in flip-tile-styles.css
+    transparent: true,
     scale: {
       mode: Phaser.Scale.RESIZE,
-      // parent: "phaser-example",
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: [MainGameScene],

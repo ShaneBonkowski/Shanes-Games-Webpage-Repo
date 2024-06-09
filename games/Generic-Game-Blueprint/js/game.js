@@ -1,22 +1,20 @@
 /**
- * @module BoidGame
+ * @module GameName
  *
- * @author Shane Bonkowski
+ * @author Author Name
  */
 
 import { setZOrderForSharedElements } from "./zOrdering.js";
-import { MainGameScene } from "./main-game-scene.js"; // note: this imports the class, NOT the instance of the class. Use scene.isInteracting for e.g. to access that variable of the main game scene
+// note: this imports the class, NOT the instance of the class.
+// Use scene.isInteracting for e.g. to access that variable of
+// the main game scene
+import { MainGameScene } from "./main-game-scene.js";
 
-// Export so other scripts can access this
 export function LaunchGame() {
-  // Initialize Phaser Game
   var config = {
-    // Game canvas initialization
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
-    // Set the canvas to be transparent, since we handle
-    // background in better-boids-styles.css
     transparent: true,
     scale: {
       mode: Phaser.Scale.RESIZE,
@@ -28,8 +26,6 @@ export function LaunchGame() {
   var game = new Phaser.Game(config);
 
   updateBodySizeWithWindowResize();
-
-  // Set the Z order of all elements that are shared among scenes (e.g. canvas, header, etc.)
   setZOrderForSharedElements(game);
 }
 
