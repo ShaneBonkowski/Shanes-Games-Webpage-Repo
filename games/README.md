@@ -35,7 +35,7 @@ user can make it back to the main website, and the game box existing so that a u
 
 All references to images in the code should be to .webp images in the webp folder. More detail on why this is
 neccesary can be found in the `Image-Guidelines-Documentation/README.md` file. A good workflow, also touched on 
-in the same README referenced, is to start by creating a png image of any size and then use the provided Python 
+in the same README referenced, is to start by creating a png image of any size and then use the Python 
 functions provided to downsize the image and convert to .webp in order to optimize the website assets.
 
 The only images that are required to be a specific size are the logo image and the game box cover image.
