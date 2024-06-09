@@ -23,8 +23,8 @@ jobs:
           python-version: 3.x
 
       - name: Install python dependencies
-        run: pip install csscompressor
-        run: pip install jsmin
+        run: |
+          pip install csscompressor jsmin
 
       - name: Minify CSS files with Python script
         run: python Python-Utils/File-Utils/css-minify.py
