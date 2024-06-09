@@ -3,3 +3,4 @@ sympy>=1.0.0
 pillow>=1.0.0
 typing>=1.0.0
 csscompressor>=1.0.0
+jsmin>=1.0.0

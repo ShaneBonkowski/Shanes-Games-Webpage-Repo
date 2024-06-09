@@ -24,9 +24,13 @@ jobs:
 
       - name: Install python dependencies
         run: pip install csscompressor
+        run: pip install jsmin
 
       - name: Minify CSS files with Python script
         run: python Python-Utils/File-Utils/css-minify.py
+
+      - name: Minify JS files with Python script
+        run: python Python-Utils/File-Utils/js-minify.py
 
       - name: Remove Unnecessary Files From Build
         run: |
