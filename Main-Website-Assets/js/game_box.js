@@ -32,6 +32,10 @@ function createGameBox(
   buttonLinkElement.href = linkUrl;
   buttonLinkElement.classList.add("game-box-button-link-anchor");
 
+  if (openInNewTab) {
+    buttonLinkElement.target = "_blank";
+  }
+
   // Create an image element for the button.
   // Image must be 500 by 422 px!
   var imageButton = document.createElement("img");
