@@ -26,7 +26,7 @@ jobs:
         run: pip install csscompressor
 
       - name: Minify CSS files with Python script
-        run: python ../../Python-Utils/File-Utils/css-minify.py
+        run: python Python-Utils/File-Utils/css-minify.py
 
       - name: Remove Unnecessary Files From Build
         run: |
