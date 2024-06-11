@@ -79,7 +79,7 @@ function enableTracking() {
     console.log("Successfully enabled google analytics");
 
     // Reload the page to ensure the changes take effect
-    window.location.reload();
+    //window.location.reload();
   } catch (error) {
     console.error("Error enabling google analytics:", error);
     // Display error to user
@@ -117,7 +117,7 @@ function disableTracking() {
     console.log("Successfully disabled google analytics");
 
     // Reload the page to ensure the changes take effect
-    window.location.reload();
+    //window.location.reload();
   } catch (error) {
     console.error("Error disabling google analytics:", error);
     // Display error to user
