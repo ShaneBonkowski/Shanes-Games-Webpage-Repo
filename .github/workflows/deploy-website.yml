@@ -60,8 +60,7 @@ jobs:
           HTML_FILES=$(find . -type f -name "*.html")
 
           # Retrieve cookiesEnabled value from localStorage
-          COOKIES_ENABLED=$(localStorage.getItem(cookiesEnabled))
-
+          COOKIES_ENABLED=$(localStorage.getItem('cookiesEnabled'))
 
           # Iterate over each HTML file
           for FILE in $HTML_FILES; do
