@@ -74,8 +74,15 @@ function onCookieDisable() {
 function enableTracking() {
   try {
     // Enable Google Analytics tracking
-    const analyticsMeasurementId = getAnalyticsMeasurementId();
-    window[`ga-disable-${analyticsMeasurementId}`] = false;
+    if (window.gaData) {
+      Object.keys(window.gaData).forEach((trackingId) => {
+        window[`ga-disable-${trackingId}`] = false;
+      });
+    } else {
+      console.warn(
+        "Google Analytics data not found. Ensure the GA script is loaded."
+      );
+    }
     console.log("Successfully enabled google analytics");
 
     // Reload the page to ensure the changes take effect
@@ -97,9 +104,16 @@ function enableTracking() {
  */
 function disableTracking() {
   try {
-    // Disable Google Analytics tracking
-    const analyticsMeasurementId = getAnalyticsMeasurementId();
-    window[`ga-disable-${analyticsMeasurementId}`] = true;
+    // Disable google analytics tracking
+    if (window.gaData) {
+      Object.keys(window.gaData).forEach((trackingId) => {
+        window[`ga-disable-${trackingId}`] = true;
+      });
+    } else {
+      console.warn(
+        "Google Analytics data not found. Ensure the GA script is loaded."
+      );
+    }
 
     // Remove existing tracking scripts
     document
