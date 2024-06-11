@@ -73,7 +73,7 @@ function onCookieDisable() {
  */
 function enableTracking() {
   // Reload the page to ensure the changes take effect
-  //window.location.reload();
+  window.location.reload();
 }
 
 /**
@@ -83,29 +83,20 @@ function enableTracking() {
  * @returns {void}
  */
 function disableTracking() {
-  try {
-    // Remove existing tracking scripts
-    document
-      .querySelectorAll('script[src^="https://www.google-analytics.com"]')
-      .forEach((script) => {
-        script.remove();
-      });
-
-    // Remove all existing cookies
-    document.cookie.split(";").forEach(function (c) {
-      document.cookie = c
-        .replace(/^ +/, "")
-        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+  // Remove existing tracking scripts
+  document
+    .querySelectorAll('script[src^="https://www.google-analytics.com"]')
+    .forEach((script) => {
+      script.remove();
     });
-    console.log("Successfully disabled google analytics");
 
-    // Reload the page to ensure the changes take effect
-    //window.location.reload();
-  } catch (error) {
-    console.error("Error disabling google analytics:", error);
-    // Display error to user
-    alert(
-      "An error occurred while disabling google analytics cookies. Please try again later."
-    );
-  }
+  // Remove all existing cookies
+  document.cookie.split(";").forEach(function (c) {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+  });
+
+  // Reload the page to ensure the changes take effect
+  window.location.reload();
 }
