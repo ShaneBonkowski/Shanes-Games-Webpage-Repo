@@ -1,19 +1,49 @@
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+const express = require("express");
+const cors = require("cors");
+
+admin.initializeApp();
+const firestore = admin.firestore();
+
+const app = express();
+app.use(cors());
+
 /**
- * Import function triggers from their respective submodules:
+ * Retrieves the Google Analytics Measurement ID from Firestore.
  *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
+ * @return {Promise<string>} A Promise that resolves to the Measurement ID.
  */
+async function getAnalyticsMeasurementIdFromFirestore() {
+  try {
+    const snapshot = await firestore
+        .collection("keys")
+        .doc("google_analytics")
+        .get();
+    return snapshot.data().measurement_id;
+  } catch (error) {
+    console.error("Error retrieving Measurement ID:", error);
+    throw error;
+  }
+}
 
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
+/**
+ * Cloud Function to retrieve the Google Analytics Measurement ID.
+ *
+ * @param {import('firebase-functions').https.Request} req
+ * The HTTP request object.
+ * @param {import('firebase-functions').https.Response} res
+ * The HTTP response object.
+ */
+app.get("/getAnalyticsMeasurementId", async (req, res) => {
+  try {
+    const measurementId = await getAnalyticsMeasurementIdFromFirestore();
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+    // Return the Measurement ID in the response
+    res.status(200).send(measurementId);
+  } catch (error) {
+    res.status(500).send("Error retrieving Measurement ID");
+  }
+});
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+exports.getAnalyticsMeasurementId = functions.https.onRequest(app);
