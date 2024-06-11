@@ -74,16 +74,13 @@ function onCookieDisable() {
 function enableTracking() {
   try {
     // Enable Google Analytics tracking
-    if (window.gaData) {
-      Object.keys(window.gaData).forEach((trackingId) => {
-        window[`ga-disable-${trackingId}`] = false;
-      });
+    const trackingId = getGATrackingId();
+    if (trackingId) {
+      window[`ga-disable-${trackingId}`] = false;
+      console.log("Successfully enabled Google Analytics");
     } else {
-      console.warn(
-        "Google Analytics data not found. Ensure the GA script is loaded."
-      );
+      console.warn("Google Analytics tracking ID not found.");
     }
-    console.log("Successfully enabled google analytics");
 
     // Reload the page to ensure the changes take effect
     //window.location.reload();
@@ -105,14 +102,12 @@ function enableTracking() {
 function disableTracking() {
   try {
     // Disable google analytics tracking
-    if (window.gaData) {
-      Object.keys(window.gaData).forEach((trackingId) => {
-        window[`ga-disable-${trackingId}`] = true;
-      });
+    const trackingId = getGATrackingId();
+    if (trackingId) {
+      window[`ga-disable-${trackingId}`] = true;
+      console.log("Successfully disabled Google Analytics");
     } else {
-      console.warn(
-        "Google Analytics data not found. Ensure the GA script is loaded."
-      );
+      console.warn("Google Analytics tracking ID not found.");
     }
 
     // Remove existing tracking scripts
@@ -139,4 +134,19 @@ function disableTracking() {
       "An error occurred while disabling google analytics cookies. Please try again later."
     );
   }
+}
+
+/**
+ * Retrieves the Google Analytics tracking ID.
+ *
+ * @returns {string|null} The Google Analytics tracking ID, or null if not found.
+ */
+function getGATrackingId() {
+  if (typeof window.gtag !== "undefined") {
+    const config = window.gtag.q.find((entry) => entry[0] === "config");
+    if (config && config[1]) {
+      return config[1];
+    }
+  }
+  return null;
 }
