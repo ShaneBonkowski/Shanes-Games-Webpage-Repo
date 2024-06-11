@@ -9,7 +9,7 @@
 /**
  * Fetches the Google Analytics Measurement ID from the cloud function.
  *
- * @returns {Promise<void>} A promise that resolves when the Measurement ID is fetched successfully.
+ * @returns {Promise<string|null>} A promise that resolves with the Measurement ID if fetched successfully, or null if there was an error.
  */
 export async function getAnalyticsMeasurementId() {
   try {
@@ -18,12 +18,14 @@ export async function getAnalyticsMeasurementId() {
     );
     if (response.ok) {
       const measurementId = await response.text();
-      console.log("Google Analytics Measurement ID:", measurementId);
-      // Use the measurementId as needed
+      console.log("Google Analytics Measurement ID found");
+      return measurementId;
     } else {
       console.error("Failed to fetch Measurement ID:", response.statusText);
+      return null;
     }
   } catch (error) {
     console.error("Error fetching Measurement ID:", error);
+    return null;
   }
 }

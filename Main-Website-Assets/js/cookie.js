@@ -76,6 +76,7 @@ function enableTracking() {
     // Enable Google Analytics tracking
     const analyticsMeasurementId = getAnalyticsMeasurementId();
     window[`ga-disable-${analyticsMeasurementId}`] = false;
+    console.log("Successfully enabled google analytics");
 
     // Reload the page to ensure the changes take effect
     window.location.reload();
@@ -113,6 +114,7 @@ function disableTracking() {
         .replace(/^ +/, "")
         .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
     });
+    console.log("Successfully disabled google analytics");
 
     // Reload the page to ensure the changes take effect
     window.location.reload();
