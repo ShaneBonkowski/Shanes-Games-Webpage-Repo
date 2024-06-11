@@ -59,9 +59,6 @@ jobs:
           # Find all HTML files in the deploy directory
           HTML_FILES=$(find . -type f -name "*.html")
 
-          # Retrieve cookiesEnabled value from localStorage
-          COOKIES_ENABLED=$(localStorage.getItem('cookiesEnabled'))
-
           # Iterate over each HTML file
           for FILE in $HTML_FILES; do
             # Check if the file contains a <head> element
@@ -79,13 +76,13 @@ jobs:
                 ' "$FILE"
 
                 # Insert logic to disable tracking if cookies are not enabled
-                if [ "$COOKIES_ENABLED" = "false" ]; then
-                  sed -i '/<script>/a\
-                  window["ga-disable-'$GA_TRACKING_ID'"] = true;' "$FILE"
-                else
-                  sed -i '/<script>/a\
-                  window["ga-disable-'$GA_TRACKING_ID'"] = false;' "$FILE"
-                fi
+                sed -i '/<script>/a\
+                var cookiesEnabled = localStorage.getItem("cookiesEnabled");\
+                if (cookiesEnabled === "false") {\
+                    window["ga-disable-'$GA_TRACKING_ID'"] = true;\
+                } else {\
+                    window["ga-disable-'$GA_TRACKING_ID'"] = false;\
+                }' "$FILE"
             else
                 echo "Warning: $FILE does not contain a <head> element. Skipping."
             fi
