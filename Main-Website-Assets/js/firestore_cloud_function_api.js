@@ -1,0 +1,29 @@
+/**
+ * @module FirestoreCloudFunctionAPI
+ *
+ * @author Shane Bonkowski
+ *
+ * Interacts with firestore cloud functions defined in functions/index.js
+ */
+
+/**
+ * Fetches the Google Analytics Measurement ID from the cloud function.
+ *
+ * @returns {Promise<void>} A promise that resolves when the Measurement ID is fetched successfully.
+ */
+export async function getAnalyticsMeasurementId() {
+  try {
+    const response = await fetch(
+      "https://us-central1-black-hole-reject.cloudfunctions.net/getAnalyticsMeasurementIdFromFirestore"
+    );
+    if (response.ok) {
+      const measurementId = await response.text();
+      console.log("Google Analytics Measurement ID:", measurementId);
+      // Use the measurementId as needed
+    } else {
+      console.error("Failed to fetch Measurement ID:", response.statusText);
+    }
+  } catch (error) {
+    console.error("Error fetching Measurement ID:", error);
+  }
+}
