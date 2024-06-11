@@ -1,15 +1,28 @@
+"""
+Author: Shane Bonkowski
+Date: June 10, 2024
+Description: This Python script reads in a txt file and converts it into
+a desired format for JS content to display in an html.
+"""
+
 import argparse
 from typing import List, Dict
 
 
 def format_content(file_path: str) -> List[Dict[str, str]]:
     """
-    Formats the content of a text file into a list of dictionaries with headers, paragraphs, and lists.
+    Formats the content of a text file into a list of dictionaries with headers,
+    paragraphs, and lists. See cookie-policy.html or privacy-policy.html for
+    examples of where this is used. Specifically the const content = [...] variable.
 
-    The text file should have headers marked manually with <h1>, <h2>, or <h3> at the beginning of the line.
-    Lines that do not start with these tags are considered regular paragraphs. Paragraphs are separated
-    by completely blank lines. Lists are indicated by lines starting with "-", which are treated as bullet points.
-    This format is useful for providing content to be printed out in a clean way in HTML or other formats.
+    The text file should have headers marked manually with <h1>, <h2>, or <h3>
+    at the beginning of the line.
+
+    Lists are indicated by lines starting with "-", which are treated as bullet
+    points. This format is useful for providing content to be printed out in a
+    clean way in HTML or other formats.
+
+    Lines that do not start with these tags are considered regular paragraphs.
 
     Example format of the text file:
     -------------------------
@@ -50,17 +63,16 @@ def format_content(file_path: str) -> List[Dict[str, str]]:
 
         if stripped_line.startswith("-"):
             in_list = True
-            list_items.append(
-                stripped_line[1:].strip()
-            )  # Remove the "-" and leading/trailing spaces
+            # Remove the "-" and leading/trailing spaces
+            list_items.append(stripped_line[1:].strip())
             continue
 
-        if (
-            in_list and stripped_line
-        ):  # Continue adding list items until a non-list item is encountered
+        if in_list and stripped_line:
+            # Continue adding list items until a non-list item is encountered
             list_items.append(stripped_line.strip())
             continue
-        elif in_list:  # End of the list
+        # End of the list
+        elif in_list:
             content.append(
                 {
                     "type": "list",
@@ -70,7 +82,8 @@ def format_content(file_path: str) -> List[Dict[str, str]]:
             list_items = []
             in_list = False
 
-        if stripped_line:  # Non-empty line, treat as paragraph or header
+        # Non-empty line, treat as paragraph or header
+        if stripped_line:
             if (
                 stripped_line.startswith("<h1>")
                 or stripped_line.startswith("<h2>")
@@ -81,16 +94,19 @@ def format_content(file_path: str) -> List[Dict[str, str]]:
                     if stripped_line.startswith("<h1>")
                     else "h2" if stripped_line.startswith("<h2>") else "h3"
                 )
-                header = stripped_line[4:]  # Remove <h1>, <h2>, or <h3>
+                # Remove <h1>, <h2>, or <h3>
+                header = stripped_line[4:]
                 content.append(
                     {
                         "type": header_type,
                         "text": header,
                     }
                 )
-            else:  # Regular paragraph
+            # Regular paragraph
+            else:
                 paragraph.append(stripped_line)
-        else:  # Completely blank line, treat as a new paragraph
+        # Completely blank line, treat as a new paragraph
+        else:
             if paragraph:
                 content.append(
                     {
