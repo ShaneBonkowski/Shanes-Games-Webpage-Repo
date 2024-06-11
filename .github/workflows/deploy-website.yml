@@ -90,7 +90,8 @@ jobs:
           projectId: black-hole-reject
 
       - name: Deploy Firebase Functions
-        run: firebase deploy --only functions
+        run: |
+          firebase deploy --only functions --token "${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLACK_HOLE_REJECT }}"
         env:
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLACK_HOLE_REJECT }}
-          projectId: black-hole-reject
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLACK_HOLE_REJECT }}
+          PROJECT_ID: black-hole-reject
