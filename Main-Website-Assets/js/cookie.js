@@ -4,8 +4,6 @@
  * @author Shane Bonkowski
  */
 
-import { getAnalyticsMeasurementId } from "./firestore_cloud_function_api.js";
-
 /**
  * Creates a cookie banner that tracks whether a user wants cookies or not.
  */
@@ -16,7 +14,7 @@ export function createCookieBanner() {
 
   // NOTE: cookiesEnabled true or false is stored in localStorage
   // so that even if a user clears all cookies, we still know if they
-  // want cookies or not.
+  // want cookies or not. localStorage is a separate storage location from cookies.
   let cookiesEnabled = localStorage.getItem("cookiesEnabled");
 
   // Hide banner if cookie decision has already been made
@@ -26,6 +24,7 @@ export function createCookieBanner() {
   // First time visiting site, and/or no decision has been
   // made yet with cookies
   else if (cookiesEnabled === null) {
+    // Do things here at some point?
   }
 
   // Hide banner and update cookie variable on click
@@ -67,12 +66,17 @@ function onCookieDisable() {
 }
 
 /**
- * Enables Google Analytics tracking by setting the corresponding flag and reloading the page.
+ * Enables Google Analytics tracking and reloads the page.
  *
  * @returns {void}
  */
 function enableTracking() {
-  // Reload the page to ensure the changes take effect
+  // GitHub actions html injection tha occurs during build ensures
+  // that Google Analytics knows to enable/disable
+  // tracking based on the state of localStorage.cookiesEnabled.
+
+  // Reload the page to ensure the changes take effect and Google Analytics
+  // can be re-initialized with latest changes to localStorage.cookiesEnabled.
   window.location.reload();
 }
 
@@ -83,6 +87,10 @@ function enableTracking() {
  * @returns {void}
  */
 function disableTracking() {
+  // GitHub actions html injection tha occurs during build ensures
+  // that Google Analytics knows to enable/disable
+  // tracking based on the state of localStorage.cookiesEnabled.
+
   // Remove existing tracking scripts
   document
     .querySelectorAll('script[src^="https://www.google-analytics.com"]')
@@ -97,6 +105,7 @@ function disableTracking() {
       .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
   });
 
-  // Reload the page to ensure the changes take effect
+  // Reload the page to ensure the changes take effect and Google Analytics
+  // can be re-initialized with latest changes to localStorage.cookiesEnabled.
   window.location.reload();
 }
