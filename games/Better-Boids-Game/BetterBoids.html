@@ -70,6 +70,7 @@
       import { LaunchGame } from "./js/game.js";
       import { addBoidSettings } from "./js/boid-settings.js";
       import { addInfoBox } from "../Better-Boids-Game/js/info_box.js";
+      import { fixTouchHover } from "../../Shared-General-Assets/js/fix-touch-hover.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -84,6 +85,7 @@
         addBoidSettings();
         addInfoBox();
         LaunchGame();
+        fixTouchHover();
       };
     </script>
   </body>
