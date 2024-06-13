@@ -94,17 +94,12 @@ a {
   text-decoration: none; /* Remove the underline */
 }
 
-a:hover {
-  text-decoration: underline; /* Add underline on hover */
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  a {
-    text-decoration: none;
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  a:hover {
+    text-decoration: underline; /* Add underline on hover */
   }
 }
 
@@ -135,17 +130,12 @@ original value instead of the hover one */
   pointer-events: auto;
 }
 
-.fliptile-button:hover {
-  transform: translate(-50%, 0%) scale(1.2);
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .fliptile-button {
-    transform: translate(-50%, 0%);
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .fliptile-button:hover {
+    transform: translate(-50%, 0%) scale(1.2);
   }
 }
 
@@ -335,16 +325,11 @@ input[type="checkbox" i] {
   transition: transform 0.3s ease;
 }
 
-.close-button:hover {
-  transform: scale(2.2);
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .close-button {
-    transform: scale(1.6);
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .close-button:hover {
+    transform: scale(2.2);
   }
 }

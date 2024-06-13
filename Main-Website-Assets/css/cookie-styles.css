@@ -47,17 +47,12 @@
   font-weight: bold;
 }
 
-.cookie-banner a:hover {
-  text-decoration: underline; /* Add underline on hover */
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .cookie-banner a {
-    text-decoration: none;
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .cookie-banner a:hover {
+    text-decoration: underline; /* Add underline on hover */
   }
 }
 
@@ -82,16 +77,11 @@ original value instead of the hover one */
   margin-right: 0; /* Remove margin from last button */
 }
 
-.cookie-banner button:hover {
-  background-color: #0056b3;
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .cookie-banner button {
-    background-color: #007bff;
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .cookie-banner button:hover {
+    background-color: #0056b3;
   }
 }
