@@ -70,6 +70,19 @@ function createGameHeader(
     window.location.href = "../../index.html"; // Redirect to index.html
   });
 
+  // Have a lil anim on click for the logo container too
+  function handleClick() {
+    // Add 'active' class to apply effects on click.
+    // Then remove it soon after
+    shanesGamesLogoContainer.classList.add("active");
+
+    setTimeout(() => {
+      shanesGamesLogoContainer.classList.remove("active");
+    }, 200);
+  }
+  shanesGamesLogoContainer.addEventListener("click", handleClick);
+  shanesGamesLogoContainer.addEventListener("touchstart", handleClick);
+
   // Build out Generic Game Logo components
   const gameLogoContainer = document.createElement("div");
   gameLogoContainer.classList.add("game-logo-container");

@@ -133,14 +133,17 @@ touchscreens are causing hover to get stuck */
 /* Only hover if the browser supports hover. Aka
 if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
-/* @media (hover: hover) {
+@media (hover: hover) {
   .fliptile-button:hover {
     transform: translate(-50%, 0%) scale(1.2);
   }
-} */
+}
 
-.fliptile-button:hover {
-  transform: translate(-50%, 0%) scale(1.2);
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click */
+.fliptile-button.active {
+  filter: brightness(0.8);
+  box-shadow: 0 0 10px rgba(200, 200, 200, 0.5);
 }
 
 .fliptile-icon-img,
@@ -336,4 +339,11 @@ touchscreens are causing hover to get stuck */
   .close-button:hover {
     transform: scale(2.2);
   }
+}
+
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click */
+.close-button.active {
+  filter: brightness(0.8);
+  box-shadow: 0 0 10px rgba(200, 200, 200, 0.5);
 }

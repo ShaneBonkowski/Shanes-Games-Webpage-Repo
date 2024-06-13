@@ -82,25 +82,6 @@
 
         initUI();
         LaunchGame();
-
-        const elements = document.querySelectorAll(".element");
-        elements.forEach((element) => {
-          let touchTimeout;
-
-          element.addEventListener("touchstart", function () {
-            // Clear any existing timeout to prevent multiple timeouts firing
-            clearTimeout(touchTimeout);
-
-            // Simulate a mouseleave after 300ms
-            touchTimeout = setTimeout(() => {
-              const mouseLeaveEvent = new Event("mouseleave", {
-                bubbles: true,
-                cancelable: true,
-              });
-              element.dispatchEvent(mouseLeaveEvent);
-            }, 300);
-          });
-        });
       };
     </script>
   </body>
