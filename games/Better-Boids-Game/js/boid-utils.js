@@ -27,8 +27,7 @@ export const customEvents = {
   leaderBoidChangeEvent: new Event("onLeaderBoidChange"),
 };
 
-const seed = 1234;
-const seededRandom = new SeededRandom(seed);
+const seededRandom = new SeededRandom(1234);
 
 export function instantiateBoids(scene, boidCount) {
   // Allows for async behavior

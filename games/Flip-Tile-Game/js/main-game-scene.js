@@ -16,22 +16,17 @@ import {
 } from "./tile-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
-import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
-import {
-  SeededRandom,
-  randomType,
-} from "../../Shared-Game-Assets/js/Seedable_Random.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { ui_vars } from "./init-ui.js";
 
-export var intendedNewTileAttrs = {
+export const intendedNewTileAttrs = {
   tileCount: 9, // initial values
   seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
   qtyStatesBeingUsed: 2, // init
   difficultyLevel: difficulty.EASY,
 };
 
-export var tiles = [];
+export const tiles = [];
 
 // Export so other scripts can access this
 export class MainGameScene extends Phaser.Scene {
@@ -147,7 +142,10 @@ export class MainGameScene extends Phaser.Scene {
     TilePatternAttrs.tileCount = TilePatternAttrs.tileCount;
     TilePatternAttrs.seed = TilePatternAttrs.seed;
     instantiateTiles(this).then((tiles_returned) => {
-      tiles = tiles_returned;
+      // Push new tiles into tiles array.
+      // We destroy tiles before this, so its safe
+      // to assume tiles is empty []
+      tiles_returned.forEach((tile) => tiles.push(tile));
     });
     console.log("reset");
 
@@ -160,7 +158,7 @@ export class MainGameScene extends Phaser.Scene {
 
     // Update to a new tile pattern in a grid as a Promise (so that we can run this async)
     for (let i = 1; i <= ui_vars.numCheckboxes; i++) {
-      const className = `.input-box-${i}`;
+      let className = `.input-box-${i}`;
       const checkbox = document.querySelector(className);
       if (checkbox.checked) {
         if (i == 1) {
@@ -179,7 +177,10 @@ export class MainGameScene extends Phaser.Scene {
     this.updateActualTilePatternAttrs();
 
     instantiateTiles(this).then((tiles_returned) => {
-      tiles = tiles_returned;
+      // Push new tiles into tiles array.
+      // We destroy tiles before this, so its safe
+      // to assume tiles is empty []
+      tiles_returned.forEach((tile) => tiles.push(tile));
     });
 
     if (firstTimeCalling) {
@@ -228,7 +229,7 @@ export class MainGameScene extends Phaser.Scene {
         tiles[row][col].destroy();
       }
     }
-    tiles = [];
+    tiles.length = 0; // Clear the tiles array
   }
 
   nextPuzzleIfSolved() {
@@ -249,7 +250,7 @@ export class MainGameScene extends Phaser.Scene {
 
       // Update score..
       // Only give score if solution is not revealed
-      var toggleInput = document.querySelector(".sol-toggle-input");
+      const toggleInput = document.querySelector(".sol-toggle-input");
 
       if (
         toggleInput &&

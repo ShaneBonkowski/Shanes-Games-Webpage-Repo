@@ -11,7 +11,7 @@ import { setZOrderForSharedElements } from "./zOrdering.js";
 import { MainGameScene } from "./main-game-scene.js";
 
 export function LaunchGame() {
-  var config = {
+  const config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight,
@@ -23,7 +23,7 @@ export function LaunchGame() {
     scene: [MainGameScene],
   };
 
-  var game = new Phaser.Game(config);
+  const game = new Phaser.Game(config);
 
   updateBodySizeWithWindowResize();
   setZOrderForSharedElements(game);

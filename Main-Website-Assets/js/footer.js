@@ -11,11 +11,11 @@ import { createButtonWithContainer } from "./buttons.js";
  */
 export function createFooter(parentElement = null) {
   // Create a container div for the footer box
-  var footerContainer = document.createElement("footer");
+  const footerContainer = document.createElement("footer");
   footerContainer.classList.add("footer-banner");
 
   // Create a div for the footer main text
-  var footerMainTextDiv = document.createElement("div");
+  const footerMainTextDiv = document.createElement("div");
   footerMainTextDiv.classList.add("footer-main-text");
   // footerMainTextDiv.textContent =
   //   "Thanks for visiting!\nShane's Games by me (Shane)";
@@ -25,7 +25,7 @@ export function createFooter(parentElement = null) {
 `;
 
   // LinkedIn button
-  var linkedInButtonContainer = createButtonWithContainer(
+  const linkedInButtonContainer = createButtonWithContainer(
     "LinkedIn",
     "https://www.linkedin.com/in/shanebonkowski/",
     ["linkedIn-text"],

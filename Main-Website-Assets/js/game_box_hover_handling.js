@@ -9,13 +9,13 @@
  */
 function handleGameBoxHover() {
   // Get all game boxes in the scene
-  var gameBoxes = document.querySelectorAll(".game-box");
+  let gameBoxes = document.querySelectorAll(".game-box");
 
   // Iterate over each game box
   gameBoxes.forEach(function (box) {
     // Get references to the button and title elements contained within this box (aka children)
-    var button = box.querySelector(".game-button");
-    var title = box.querySelector(".game-title");
+    const button = box.querySelector(".game-button");
+    const title = box.querySelector(".game-title");
 
     // Add event listeners to synchronize hover effects, such that when we hover over either
     // the button or the title, both of them have their hover effects occur.

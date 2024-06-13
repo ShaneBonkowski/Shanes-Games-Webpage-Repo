@@ -10,8 +10,8 @@ import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 
 // Used to determine if pointer is held down
-let pointerDownTime = 0;
 const holdThreshold = 0.1; // seconds
+let pointerDownTime = 0;
 let holdTimer = null;
 
 // Export so other scripts can access this

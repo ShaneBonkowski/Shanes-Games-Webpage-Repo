@@ -10,7 +10,7 @@ import { MainGameScene } from "./main-game-scene.js"; // note: this imports the 
 // Export so other scripts can access this
 export function LaunchGame() {
   // Initialize Phaser Game
-  var config = {
+  const config = {
     // Game canvas initialization
     type: Phaser.AUTO,
     width: window.innerWidth,
@@ -25,7 +25,7 @@ export function LaunchGame() {
     scene: [MainGameScene],
   };
 
-  var game = new Phaser.Game(config);
+  const game = new Phaser.Game(config);
 
   updateBodySizeWithWindowResize();
 

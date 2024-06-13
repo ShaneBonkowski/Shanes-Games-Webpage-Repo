@@ -15,7 +15,7 @@ import { createSelectionBox } from "../../Shared-Game-Assets/js/ui_selection_box
 import { tiles } from "./main-game-scene.js";
 import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
 
-export var ui_vars = {
+export const ui_vars = {
   numCheckboxes: 3,
 };
 
@@ -152,7 +152,7 @@ export function initUI() {
 
   // When the ScoreChangeEvent occurs, the text updates for the score
   document.addEventListener("onScoreChange", function (event) {
-    var scoreAdd = 0;
+    let scoreAdd = 0;
     if (TilePatternAttrs.difficultyLevel == difficulty.EASY) {
       scoreAdd = scoring.EASY;
     } else if (TilePatternAttrs.difficultyLevel == difficulty.HARD) {
@@ -281,12 +281,12 @@ function addInfoBox() {
   }
 
   function hideGameBanner() {
-    var gameHeader = document.querySelector(".game-header-banner");
+    const gameHeader = document.querySelector(".game-header-banner");
     gameHeader.style.display = "none";
   }
 
   function showGameBanner() {
-    var gameHeader = document.querySelector(".game-header-banner");
+    const gameHeader = document.querySelector(".game-header-banner");
     gameHeader.style.display = "block";
   }
 
@@ -304,7 +304,7 @@ function addInfoBox() {
 
   // Show the info Window when the button is clicked
   function onClickInfo() {
-    var customEvent = new CustomEvent("uiMenuOpen", {
+    let customEvent = new CustomEvent("uiMenuOpen", {
       detail: {
         message: "Info Menu Opened",
       },
@@ -317,7 +317,7 @@ function addInfoBox() {
 
   // Close the info Window when the close button is clicked
   function onClickX() {
-    var customEvent = new CustomEvent("uiMenuClosed", {
+    let customEvent = new CustomEvent("uiMenuClosed", {
       detail: {
         message: "Info Menu Closed",
       },

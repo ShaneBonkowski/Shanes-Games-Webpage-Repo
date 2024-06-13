@@ -12,26 +12,26 @@ export function setZOrderForSharedElements(game) {
   game.canvas.style.top = "0";
 
   // Get a reference to the css objects we want to position
-  var gameHeader = document.querySelector(".game-header-banner");
-  var updateTilegridButton = document.querySelector(
+  const gameHeader = document.querySelector(".game-header-banner");
+  const updateTilegridButton = document.querySelector(
     ".updateTilegrid-button-container"
   );
-  var resetTilegridButton = document.querySelector(
+  const resetTilegridButton = document.querySelector(
     ".resetTilegrid-button-container"
   );
-  var difficultySelectionBoxContainer = document.querySelector(
+  const difficultySelectionBoxContainer = document.querySelector(
     ".difficulty-selection-box-container"
   );
-  var solToggleBoxContainer = document.querySelector(
+  const solToggleBoxContainer = document.querySelector(
     ".sol-toggle-box-container"
   );
-  var flipTileInfoButtonContainer = document.querySelector(
+  const flipTileInfoButtonContainer = document.querySelector(
     ".info-button-container"
   );
-  var scoreText = document.querySelector(".score-text");
+  const scoreText = document.querySelector(".score-text");
 
-  var closeButtons = document.querySelectorAll(".close-button");
-  var infoBoxs = document.querySelectorAll(".info-box");
+  const closeButtons = document.querySelectorAll(".close-button");
+  const infoBoxs = document.querySelectorAll(".info-box");
 
   // Set the z-index property for all other objs\
   // helloWorldBox.style.zIndex = "-1"; // far back

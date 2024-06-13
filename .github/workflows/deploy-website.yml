@@ -77,7 +77,7 @@ jobs:
 
                 # Insert logic to disable tracking if cookies are not enabled
                 sed -i '/<script>/a\
-                var cookiesEnabled = localStorage.getItem("cookiesEnabled");\
+                let cookiesEnabled = localStorage.getItem("cookiesEnabled");\
                 if (cookiesEnabled === "false") {\
                     window["ga-disable-'$GA_TRACKING_ID'"] = true;\
                 } else {\

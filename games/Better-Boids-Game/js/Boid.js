@@ -10,8 +10,7 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { BoidFactors } from "./boid-utils.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
 
-const seed = 1234;
-const seededRandom = new SeededRandom(seed);
+const seededRandom = new SeededRandom(1234);
 
 export class Boid {
   constructor(scene, spawnX, spawnY, leaderBoid, boidNumber) {
@@ -152,13 +151,12 @@ export class Boid {
 
   calculateBoidSize() {
     // Calculate the boid size based on the screen width
-    var screenWidth = window.innerWidth;
-    var boidSize = screenWidth * 0.00009 * 3;
-    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    let boidSize = window.innerWidth * 0.00009 * 3;
+    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Phone screen has larger boids
-    if (screenWidth <= 600 || isPortrait) {
-      boidSize = screenWidth * 0.00026 * 3;
+    if (window.innerWidth <= 600 || isPortrait) {
+      boidSize = window.innerWidth * 0.00026 * 3;
     }
 
     return boidSize;
@@ -212,20 +210,12 @@ export class Boid {
       return;
     }
 
-    let screenWidth = window.innerWidth;
-    let screenHeight = window.innerHeight;
-
     if (!this.mainBoid) {
       // Boid Behavior
       let desired_velocity = this.handleBoidFlocking(boids);
 
       // Handle collisions
-      desired_velocity = this.handleCollisions(
-        boids,
-        desired_velocity,
-        screenWidth,
-        screenHeight
-      );
+      desired_velocity = this.handleCollisions(boids, desired_velocity);
 
       // Lerp toward desired velocity
       let lerpFactor = 0.1;
@@ -258,9 +248,6 @@ export class Boid {
     let similarNeighborsCount = 0;
     let opposingNeighborsCount = 0;
 
-    let screenWidth = window.innerWidth;
-    let screenHeight = window.innerHeight;
-
     let followLeader = false;
     let leader_pos = new Vec2(0, 0);
 
@@ -268,11 +255,7 @@ export class Boid {
     for (let otherBoid of boids) {
       if (otherBoid !== this && !otherBoid.disabled) {
         // Get distance attrs between this and other boid
-        var distObj = this.getBoidDistance(
-          otherBoid,
-          screenWidth,
-          screenHeight
-        );
+        let distObj = this.getBoidDistance(otherBoid);
         let dx = distObj.dx;
         let dy = distObj.dy;
         let distanceSquared = distObj.distanceSquared;
@@ -364,11 +347,9 @@ export class Boid {
         pos_sum.y / similarNeighborsCount
       );
 
-      var directionObj = this.getMovementDirectionVectorThroughTorus(
+      let directionObj = this.getMovementDirectionVectorThroughTorus(
         this.graphic,
-        avg_pos,
-        screenWidth,
-        screenHeight
+        avg_pos
       );
       desired_velocity.x +=
         Math.abs(avg_pos.x - this.graphic.x) *
@@ -387,11 +368,9 @@ export class Boid {
     // Follow the leader if told to do so!
     if (followLeader) {
       // Follow Leader
-      directionObj = this.getMovementDirectionVectorThroughTorus(
+      let directionObj = this.getMovementDirectionVectorThroughTorus(
         this.graphic,
-        leader_pos,
-        screenWidth,
-        screenHeight
+        leader_pos
       );
       desired_velocity.x +=
         Math.abs(leader_pos.x - this.graphic.x) *
@@ -412,11 +391,9 @@ export class Boid {
         opposing_pos_sum.y / opposingNeighborsCount
       );
 
-      directionObj = this.getMovementDirectionVectorThroughTorus(
+      let directionObj = this.getMovementDirectionVectorThroughTorus(
         this.graphic,
-        opposing_avg_pos,
-        screenWidth,
-        screenHeight
+        opposing_avg_pos
       );
 
       // Bad boid chases
@@ -451,7 +428,7 @@ export class Boid {
     return desired_velocity;
   }
 
-  getBoidDistance(otherBoid, screenWidth, screenHeight) {
+  getBoidDistance(otherBoid) {
     // Calculate distance between this boid and the other
     let dx = otherBoid.graphic.x - this.graphic.x;
     let dy = otherBoid.graphic.y - this.graphic.y;
@@ -460,22 +437,22 @@ export class Boid {
     // "torus" distance as well to see if the boids are closer in that direction.
     // To do so, we can assume the shorter route from one boid to another is through the edge of a screen if
     // their distance in a given direction (x or y) is greater than half the respective size of the screen.
-    if (Math.abs(dx) > screenWidth / 2) {
+    if (Math.abs(dx) > window.innerWidth / 2) {
       // If "other" is to the right of "this", then we subtract screen width since
       // in the land of "torus" geometry "other" is really to the left of "this" in their closest distance
       if (dx > 0) {
-        dx -= screenWidth;
+        dx -= window.innerWidth;
       } else {
-        dx += screenWidth;
+        dx += window.innerWidth;
       }
     }
-    if (Math.abs(dy) > screenHeight / 2) {
+    if (Math.abs(dy) > window.innerHeight / 2) {
       // If "other" is above "this", then we subtract screen height since
       // in the land of "torus" geometry "other" is really below "this" in their closest distance
       if (dy > 0) {
-        dy -= screenHeight;
+        dy -= window.innerHeight;
       } else {
-        dy += screenHeight;
+        dy += window.innerHeight;
       }
     }
 
@@ -488,12 +465,7 @@ export class Boid {
     };
   }
 
-  getMovementDirectionVectorThroughTorus(
-    pos_a,
-    pos_b,
-    screenWidth,
-    screenHeight
-  ) {
+  getMovementDirectionVectorThroughTorus(pos_a, pos_b) {
     // Get the movement direction vector to go from point a to point b
     // taking into account the fact that boids live on a torus, so sometimes
     // the best (shortest) way to go is through the side of the screen
@@ -506,22 +478,22 @@ export class Boid {
     // "torus" distance to see if the boids are closer in that direction.
     // To do so, we can assume the shorter route from one boid to another is through the edge of a screen if
     // their distance in a given direction (x or y) is greater than half the respective size of the screen.
-    if (Math.abs(dx) > screenWidth / 2) {
+    if (Math.abs(dx) > window.innerWidth / 2) {
       // If pos_b is to the right of pos_a in this case, then we subtract screen width since
       // in the land of "torus" geometry pos_b is really to the left of pos_a in their closest distance through the edge
       if (dx > 0) {
-        dx -= screenWidth;
+        dx -= window.innerWidth;
       } else {
-        dx += screenWidth;
+        dx += window.innerWidth;
       }
     }
-    if (Math.abs(dy) > screenHeight / 2) {
+    if (Math.abs(dy) > window.innerHeight / 2) {
       // If pos_b is above of pos_a in this case, then we subtract screen height since
       // in the land of "torus" geometry pos_b is really to the below of pos_a in their closest distance through the edge
       if (dy > 0) {
-        dy -= screenHeight;
+        dy -= window.innerHeight;
       } else {
-        dy += screenHeight;
+        dy += window.innerHeight;
       }
     }
 
@@ -531,23 +503,23 @@ export class Boid {
     };
   }
 
-  handleCollisions(boids, desired_velocity, screenWidth, screenHeight) {
-    this.checkCollideScreenEdge(screenWidth, screenHeight);
+  handleCollisions(boids, desired_velocity) {
+    this.checkCollideScreenEdge();
     // desired_velocity = this.checkCollideWithOtherBoids(boids, desired_velocity);
 
     return desired_velocity;
   }
 
-  checkCollideScreenEdge(screenWidth, screenHeight) {
+  checkCollideScreenEdge() {
     const edgeMargin = 1;
     // Check if the boid is too close to the left or right edge
     if (
       this.graphic.x <= edgeMargin + this.size / 2 ||
-      this.graphic.x >= screenWidth - edgeMargin - this.size / 2
+      this.graphic.x >= window.innerWidth - edgeMargin - this.size / 2
     ) {
       // If left, teleport to right side of screen
       if (this.graphic.x <= edgeMargin + this.size / 2) {
-        this.graphic.x = screenWidth - edgeMargin - this.size / 2;
+        this.graphic.x = window.innerWidth - edgeMargin - this.size / 2;
       }
       // If right, teleport to left side of screen
       else {
@@ -558,11 +530,11 @@ export class Boid {
     // Check if the boid is too close to the top or bottom edge
     if (
       this.graphic.y <= edgeMargin + this.size / 2 ||
-      this.graphic.y >= screenHeight - edgeMargin - this.size / 2
+      this.graphic.y >= window.innerHeight - edgeMargin - this.size / 2
     ) {
       // If top, move to bottom
       if (this.graphic.y <= edgeMargin + this.size / 2) {
-        this.graphic.y = screenHeight - edgeMargin - this.size / 2;
+        this.graphic.y = window.innerHeight - edgeMargin - this.size / 2;
       }
       // If bottom, move to top
       else {

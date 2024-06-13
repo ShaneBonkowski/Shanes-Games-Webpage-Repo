@@ -8,18 +8,18 @@
  * Creates an "About Me" section for the website.
  */
 export function createAboutMe() {
-  var boxContainer = document.createElement("div");
+  const boxContainer = document.createElement("div");
   boxContainer.classList.add("about-me-box");
 
-  var imageAboutMe = document.createElement("img");
+  const imageAboutMe = document.createElement("img");
   imageAboutMe.src = "Main-Website-Assets/webps/Radiohead.webp";
   imageAboutMe.classList.add("about-me-image");
 
-  var imageContainer = document.createElement("div");
+  const imageContainer = document.createElement("div");
   imageContainer.classList.add("about-me-image-container");
 
   // Create a single HTML element for text with different font sizes
-  var textContainer = document.createElement("div");
+  const textContainer = document.createElement("div");
   textContainer.classList.add("about-me-text-container");
   textContainer.innerHTML = `
     <h1 class="about-me-title">Shane Bonkowski</h1>
@@ -38,7 +38,7 @@ export function createAboutMe() {
   document.body.appendChild(boxContainer);
 
   // Create and append blank space after
-  var blankSpace = document.createElement("div");
+  const blankSpace = document.createElement("div");
   blankSpace.classList.add("about-me-blank-space");
   document.body.appendChild(blankSpace);
 }
