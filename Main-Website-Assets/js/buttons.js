@@ -45,5 +45,18 @@ export function createButtonWithContainer(
   // Append children
   buttonContainer.appendChild(buttonText);
 
+  // Have a lil anim on click
+  function handleClick() {
+    // Add 'active' class to apply effects on click.
+    // Then remove it soon after
+    buttonContainer.classList.add("active");
+
+    setTimeout(() => {
+      buttonContainer.classList.remove("active");
+    }, 200);
+  }
+  buttonContainer.addEventListener("click", handleClick);
+  buttonContainer.addEventListener("touchstart", handleClick);
+
   return buttonContainer;
 }

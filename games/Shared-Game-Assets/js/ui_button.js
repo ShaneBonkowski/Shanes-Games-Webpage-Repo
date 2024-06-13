@@ -55,6 +55,20 @@ export function addUIButton(
 
   button.appendChild(imgElement);
   button.appendChild(textElement);
+
+  // Have a lil anim on click
+  function handleClick() {
+    // Add 'active' class to apply effects on click.
+    // Then remove it soon after
+    button.classList.add("active");
+
+    setTimeout(() => {
+      button.classList.remove("active");
+    }, 200);
+  }
+  button.addEventListener("click", handleClick);
+  button.addEventListener("touchstart", handleClick);
+
   buttonContainer.appendChild(button);
 
   return buttonContainer;
