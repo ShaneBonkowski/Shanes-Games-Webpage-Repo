@@ -50,7 +50,7 @@ export const sharedTileAttrs = {
   solvedTimer: 0.7, // how long solution animation takes, and how long to wait before revealing next puzzle in that case
 };
 
-// Pre-computed using \Python-Utils\matInvMod.py, calling python .\matInvMod.py from terminal
+// Pre-computed using \Python-Utils\mat-inv-mod.py, calling `python .\mat-inv-mod.py` from terminal
 export const inverseToggleMatrixLookupMod2 = {
   TWO_BY_TWO: [
     [1, 1, 1, 0],

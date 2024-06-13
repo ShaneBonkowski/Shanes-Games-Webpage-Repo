@@ -71,3 +71,17 @@ body {
   color: var(--link-color);
   text-decoration: none; /* Remove the underline */
 }
+
+.privacy-policy-container a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Touch devices need this workaround so that 
+they dont trigger the hover behavior on tap.
+This just reverts touch devices back to the 
+original value instead of the hover one */
+@media (hover: none) {
+  .privacy-policy-container a {
+    text-decoration: none;
+  }
+}

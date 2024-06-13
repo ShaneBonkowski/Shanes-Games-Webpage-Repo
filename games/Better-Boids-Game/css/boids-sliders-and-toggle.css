@@ -83,6 +83,16 @@ body {
   display: block; /* Show the hover label when hovering over the slider container */
 }
 
+/* Touch devices need this workaround so that 
+they dont trigger the hover behavior on tap.
+This just reverts touch devices back to the 
+original value instead of the hover one */
+@media (hover: none) {
+  .slider-container .slider-hover-label {
+    display: none;
+  }
+}
+
 /* for touching on phone (see the eventListenerAdding that needs to occur in boid-settings.js for this to work) */
 .touch-hover .slider-hover-label {
   display: block;
