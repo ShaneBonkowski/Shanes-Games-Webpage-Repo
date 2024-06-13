@@ -77,7 +77,6 @@
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
       import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
       import { createCookieBanner } from "/Main-Website-Assets/js/cookie.js";
-      import { fixTouchHover } from "../../Shared-General-Assets/js/fix-touch-hover.js";
 
       // Promisified version of the createGameBox function. This allows us to wait for
       // completion of game box creation before rendering the next one.
@@ -91,8 +90,6 @@
         return createImage(imageUrl)
           .then((image) => {
             createGameBox(imageUrl, linkUrl, title, description, openInNewTab);
-
-            fixTouchHover();
           })
           .catch((error) => {
             console.error("Error loading image:", error);

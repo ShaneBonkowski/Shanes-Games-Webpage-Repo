@@ -53,7 +53,6 @@
       // Import modules
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
-      import { fixTouchHover } from "../../Shared-General-Assets/js/fix-touch-hover.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -66,8 +65,6 @@
 
             // Call function to add body content
             addBodyContent();
-
-            fixTouchHover();
           })
           .catch((error) => {
             console.error("Error loading logo image for header:", error);

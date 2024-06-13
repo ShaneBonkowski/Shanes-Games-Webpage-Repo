@@ -68,7 +68,6 @@
       // Import modules
       import { LaunchGame } from "./js/game.js";
       import { initUI } from "./js/init-ui.js";
-      import { fixTouchHover } from "../../Shared-General-Assets/js/fix-touch-hover.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -83,7 +82,25 @@
 
         initUI();
         LaunchGame();
-        fixTouchHover();
+
+        const elements = document.querySelectorAll(".element");
+        elements.forEach((element) => {
+          let touchTimeout;
+
+          element.addEventListener("touchstart", function () {
+            // Clear any existing timeout to prevent multiple timeouts firing
+            clearTimeout(touchTimeout);
+
+            // Simulate a mouseleave after 300ms
+            touchTimeout = setTimeout(() => {
+              const mouseLeaveEvent = new Event("mouseleave", {
+                bubbles: true,
+                cancelable: true,
+              });
+              element.dispatchEvent(mouseLeaveEvent);
+            }, 300);
+          });
+        });
       };
     </script>
   </body>
