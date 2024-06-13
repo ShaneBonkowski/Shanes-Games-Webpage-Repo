@@ -68,6 +68,7 @@
       // Import modules
       import { LaunchGame } from "./js/game.js";
       import { initUI } from "./js/init-ui.js";
+      import { fixTouchHover } from "../../Shared-General-Assets/js/fix-touch-hover.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -82,6 +83,7 @@
 
         initUI();
         LaunchGame();
+        fixTouchHover();
       };
     </script>
   </body>
