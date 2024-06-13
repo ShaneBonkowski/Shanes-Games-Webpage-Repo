@@ -76,17 +76,12 @@
   transition: transform 0.3s ease;
 }
 
-.shanes-games-logo-container:hover {
-  transform: translateY(var(--centering-translation)) scale(1.05);
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .shanes-games-logo-container {
-    transform: translateY(var(--centering-translation));
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .shanes-games-logo-container:hover {
+    transform: translateY(var(--centering-translation)) scale(1.05);
   }
 }
 

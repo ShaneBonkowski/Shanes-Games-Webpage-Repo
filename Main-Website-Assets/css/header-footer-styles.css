@@ -125,20 +125,14 @@ h1.title-text-style {
   top: 25%;
 }
 
-.header-button-container:hover {
-  background-color: var(--button-hover-color);
-  color: var(--main-text-color);
-  cursor: pointer;
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .header-button-container {
-    background-color: var(--button-color);
-    color: initial; /* Revert text color */
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .header-button-container:hover {
+    background-color: var(--button-hover-color);
+    color: var(--main-text-color);
+    cursor: pointer;
   }
 }
 
@@ -232,17 +226,12 @@ original value instead of the hover one */
   text-decoration: none; /* Remove the underline */
 }
 
-.footer-main-text a:hover {
-  text-decoration: underline; /* Add underline on hover */
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .footer-main-text a {
-    text-decoration: none;
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .footer-main-text a:hover {
+    text-decoration: underline; /* Add underline on hover */
   }
 }
 
@@ -259,20 +248,14 @@ original value instead of the hover one */
   position: absolute;
 }
 
-.linkedIn-button-container:hover {
-  background-color: var(--button-hover-color);
-  color: var(--main-text-color);
-  cursor: pointer;
-}
-
-/* Touch devices need this workaround so that 
-they dont trigger the hover behavior on tap.
-This just reverts touch devices back to the 
-original value instead of the hover one */
-@media (hover: none) {
-  .linkedIn-button-container {
-    background-color: var(--button-color);
-    color: initial; /* Revert text color */
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .linkedIn-button-container:hover {
+    background-color: var(--button-hover-color);
+    color: var(--main-text-color);
+    cursor: pointer;
   }
 }
 
