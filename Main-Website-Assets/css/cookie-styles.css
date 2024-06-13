@@ -47,6 +47,20 @@
   font-weight: bold;
 }
 
+.cookie-banner a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+/* Touch devices need this workaround so that 
+they dont trigger the hover behavior on tap.
+This just reverts touch devices back to the 
+original value instead of the hover one */
+@media (hover: none) {
+  .cookie-banner a {
+    text-decoration: none;
+  }
+}
+
 .button-container {
   display: flex;
   justify-content: space-between; /* Pushes buttons apart */
@@ -70,4 +84,14 @@
 
 .cookie-banner button:hover {
   background-color: #0056b3;
+}
+
+/* Touch devices need this workaround so that 
+they dont trigger the hover behavior on tap.
+This just reverts touch devices back to the 
+original value instead of the hover one */
+@media (hover: none) {
+  .cookie-banner button {
+    background-color: #007bff;
+  }
 }

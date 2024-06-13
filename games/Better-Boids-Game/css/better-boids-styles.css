@@ -63,6 +63,16 @@ a:hover {
   text-decoration: underline; /* Add underline on hover */
 }
 
+/* Touch devices need this workaround so that 
+they dont trigger the hover behavior on tap.
+This just reverts touch devices back to the 
+original value instead of the hover one */
+@media (hover: none) {
+  a {
+    text-decoration: none;
+  }
+}
+
 /* Info and settings screen styles */
 .info-button-container,
 .settings-button-container {
@@ -95,6 +105,16 @@ a:hover {
 
 .info-button:hover {
   transform: translate(-50%, 0%) scale(1.2);
+}
+
+/* Touch devices need this workaround so that 
+they dont trigger the hover behavior on tap.
+This just reverts touch devices back to the 
+original value instead of the hover one */
+@media (hover: none) {
+  .info-button {
+    transform: translate(-50%, 0%);
+  }
 }
 
 .info-icon-img,
@@ -155,4 +175,14 @@ a:hover {
 
 .close-button:hover {
   transform: scale(2.2);
+}
+
+/* Touch devices need this workaround so that 
+they dont trigger the hover behavior on tap.
+This just reverts touch devices back to the 
+original value instead of the hover one */
+@media (hover: none) {
+  .close-button {
+    transform: scale(1.6);
+  }
 }
