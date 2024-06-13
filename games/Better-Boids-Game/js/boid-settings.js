@@ -15,7 +15,7 @@ export function addBoidSettings() {
   }
 
   function onClickX() {
-    var customEvent = new CustomEvent("uiMenuClosed", {
+    let customEvent = new CustomEvent("uiMenuClosed", {
       detail: {
         message: "Settings Menu Closed",
       },
@@ -109,7 +109,7 @@ export function addBoidSettings() {
   }
 
   function onClickSettings() {
-    var customEvent = new CustomEvent("uiMenuOpen", {
+    let customEvent = new CustomEvent("uiMenuOpen", {
       detail: {
         message: "Settings Menu Opened",
       },
@@ -130,7 +130,7 @@ export function addBoidSettings() {
   );
 
   // Create sliders and their containers
-  var speedSliderContainer = instantiateSlider(
+  const speedSliderContainer = instantiateSlider(
     "Max Speed",
     BoidFactors.speed,
     "0.05",
@@ -139,7 +139,7 @@ export function addBoidSettings() {
     speedPanel
   );
 
-  var alignmentSliderContainer = instantiateSlider(
+  const alignmentSliderContainer = instantiateSlider(
     "Alignment",
     BoidFactors.alignmentFactor,
     "0",
@@ -148,7 +148,7 @@ export function addBoidSettings() {
     alignmentPanel
   );
 
-  var cohesionSliderContainer = instantiateSlider(
+  const cohesionSliderContainer = instantiateSlider(
     "Cohesion",
     BoidFactors.cohesionFactor,
     "0",
@@ -157,7 +157,7 @@ export function addBoidSettings() {
     cohesionPanel
   );
 
-  var radiusSliderContainer = instantiateSlider(
+  const radiusSliderContainer = instantiateSlider(
     "Flock Radius",
     BoidFactors.flockSearchRadius,
     `${BoidFactors.boidProtectedRadius + 5}`, // Cannot go smaller than protected radius with some buffer
@@ -166,7 +166,7 @@ export function addBoidSettings() {
     radiusPanel
   );
 
-  var separationSliderContainer = instantiateSlider(
+  const separationSliderContainer = instantiateSlider(
     "Separation",
     BoidFactors.separationFactor,
     "0",
@@ -250,12 +250,12 @@ export function addBoidSettings() {
   }
 
   function hideGameBanner() {
-    var gameHeader = document.querySelector(".game-header-banner");
+    let gameHeader = document.querySelector(".game-header-banner");
     gameHeader.style.display = "none";
   }
 
   function showGameBanner() {
-    var gameHeader = document.querySelector(".game-header-banner");
+    let gameHeader = document.querySelector(".game-header-banner");
     gameHeader.style.display = "block";
   }
 
@@ -272,7 +272,7 @@ export function addBoidSettings() {
   }
 
   function appendBlankSpace(parent) {
-    var blankSpace = document.createElement("div");
+    const blankSpace = document.createElement("div");
     blankSpace.classList.add("slider-blank-space");
     parent.appendChild(blankSpace);
   }
@@ -280,7 +280,7 @@ export function addBoidSettings() {
   function addTouchEventListenersToSliders() {
     // Add touch event listeners to slider containers so that we can show the hover text
     // if someone on a phone touches on a slider.
-    var sliderContainers = document.querySelectorAll(".slider-container");
+    const sliderContainers = document.querySelectorAll(".slider-container");
 
     // When someone touches the slider, add the touch-hover class to it so it can hover,
     // then on touch end remove this class so it doesnt interfere with anything
@@ -304,11 +304,11 @@ export function addBoidSettings() {
 
   function instantiateSlider(name, value, min, max, step, panelProvided) {
     // init slider container
-    var sliderContainer = document.createElement("div");
+    const sliderContainer = document.createElement("div");
     sliderContainer.classList.add("slider-container");
 
     // init slider
-    var slider = document.createElement("input");
+    const slider = document.createElement("input");
     slider.setAttribute("type", "range");
     slider.setAttribute("min", min);
     slider.setAttribute("max", max);
@@ -317,13 +317,13 @@ export function addBoidSettings() {
     sliderContainer.appendChild(slider);
 
     // Add label
-    var label = document.createElement("label");
+    const label = document.createElement("label");
     label.textContent = name;
     label.classList.add("slider-label");
     sliderContainer.appendChild(label);
 
     // Slide value hover label
-    var hoverLabel = document.createElement("div");
+    const hoverLabel = document.createElement("div");
     hoverLabel.classList.add("slider-hover-label");
     hoverLabel.textContent = slider.value; // init hover text
     sliderContainer.appendChild(hoverLabel);
@@ -336,7 +336,7 @@ export function addBoidSettings() {
 
   function addFlockRadiusIndicator(radiusSliderContainer) {
     // Create the circle element to represent the flock radius
-    var circle = document.createElement("div");
+    const circle = document.createElement("div");
     circle.classList.add("flock-radius-indicator");
     document.body.appendChild(circle);
 
@@ -344,13 +344,15 @@ export function addBoidSettings() {
     circle.style.display = "none";
 
     // Find the input range element within the container
-    var inputRange = radiusSliderContainer.querySelector("input[type='range']");
+    const inputRange = radiusSliderContainer.querySelector(
+      "input[type='range']"
+    );
 
     // On input, update the flock radius circle to be visible
     inputRange.addEventListener(
       "input",
       function (event) {
-        var radiusValue = parseFloat(inputRange.value);
+        let radiusValue = parseFloat(inputRange.value);
         updateFlockRadiusIndicator(circle, radiusValue);
       }.bind(this)
     );
@@ -391,7 +393,7 @@ export function addBoidSettings() {
 
   function updateFlockRadiusIndicator(circle, radius) {
     // Set the circle's radius and position
-    var diameter = radius * 2;
+    let diameter = radius * 2;
     circle.style.width = diameter + "px";
     circle.style.height = diameter + "px";
     circle.style.borderRadius = "50%";
@@ -402,7 +404,7 @@ export function addBoidSettings() {
     circle.style.zIndex = "6";
 
     // Adjust transparency based on radius value
-    var transparency = 0.5;
+    let transparency = 0.5;
     circle.style.backgroundColor = `rgba(255, 0, 0, ${transparency})`;
 
     // Show the circle
@@ -481,7 +483,7 @@ export function addBoidSettings() {
 
   function updateSliderHandle(event, slider, name) {
     // Calculate and update slider value based on pointer location
-    var newValue = calculateNewValue(event.clientX, slider);
+    let newValue = calculateNewValue(event.clientX, slider);
     slider.value = newValue;
 
     // Dispatch the input event to trigger any input event listeners (such as the updateFactor() for e.g. function that gets triggered during input events)
@@ -490,16 +492,16 @@ export function addBoidSettings() {
 
   function calculateNewValue(clientX, slider) {
     // Calculate the position of the click or touch relative to the slider
-    var rect = slider.getBoundingClientRect();
-    var offsetX = clientX - rect.left;
-    var sliderWidth = rect.width;
+    let rect = slider.getBoundingClientRect();
+    let offsetX = clientX - rect.left;
+    let sliderWidth = rect.width;
 
     // Calculate the new value based on the position of the click or touch
-    var min = parseFloat(slider.min);
-    var max = parseFloat(slider.max);
-    var range = max - min;
-    var ratio = Math.min(1, Math.max(0, offsetX / sliderWidth));
-    var newValue = min + ratio * range;
+    let min = parseFloat(slider.min);
+    let max = parseFloat(slider.max);
+    let range = max - min;
+    let ratio = Math.min(1, Math.max(0, offsetX / sliderWidth));
+    let newValue = min + ratio * range;
 
     return newValue;
   }

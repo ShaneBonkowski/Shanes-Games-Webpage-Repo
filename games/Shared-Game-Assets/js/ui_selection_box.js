@@ -59,7 +59,7 @@ export function createSelectionBox(
   // Add event listener to uncheck other boxes when this one is checked
   input.addEventListener("change", function () {
     allSelectionBoxClasses.forEach((allSelectionBoxClass) => {
-      const className = `.${allSelectionBoxClass}`;
+      let className = `.${allSelectionBoxClass}`;
 
       // Does an additional check to make sure it is not turning itself off
       const checkbox = document.querySelector(className);

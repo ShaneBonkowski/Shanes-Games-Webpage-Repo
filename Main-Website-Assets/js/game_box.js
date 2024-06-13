@@ -20,15 +20,15 @@ function createGameBox(
   openInNewTab = false
 ) {
   // Create a container div for the box
-  var boxContainer = document.createElement("div");
+  const boxContainer = document.createElement("div");
   boxContainer.classList.add("game-box");
 
   // Create a container div for the button
-  var buttonContainer = document.createElement("div");
+  const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("game-box-button-container");
 
   // Create an anchor element for the button link
-  var buttonLinkElement = document.createElement("a");
+  const buttonLinkElement = document.createElement("a");
   buttonLinkElement.href = linkUrl;
   buttonLinkElement.classList.add("game-box-button-link-anchor");
 
@@ -38,13 +38,13 @@ function createGameBox(
 
   // Create an image element for the button.
   // Image must be 500 by 422 px!
-  var imageButton = document.createElement("img");
+  const imageButton = document.createElement("img");
   imageButton.src = imageSrc;
   imageButton.classList.add("game-button");
   // imageButton.classList.add("game-button-hover-effect"); // Add hover effects with CSS
 
   // Create an anchor element for the title link
-  var titleLinkElement = document.createElement("a");
+  const titleLinkElement = document.createElement("a");
   titleLinkElement.href = linkUrl;
   titleLinkElement.classList.add("title-link-anchor");
 
@@ -53,16 +53,16 @@ function createGameBox(
   }
 
   // Create a div for the title
-  var titleDiv = document.createElement("div");
+  const titleDiv = document.createElement("div");
   titleDiv.classList.add("game-title");
   titleDiv.textContent = titleText;
 
   // Create a container div for the game desc. text
-  var gameDescContainer = document.createElement("div");
+  const gameDescContainer = document.createElement("div");
   gameDescContainer.classList.add("game-desc-container");
 
   // Create a div for the game desc. text
-  var gameDescTextDiv = document.createElement("div");
+  const gameDescTextDiv = document.createElement("div");
   gameDescTextDiv.classList.add("game-description-text");
   gameDescTextDiv.textContent = gameDescriptionText;
 
@@ -81,7 +81,7 @@ function createGameBox(
   document.body.appendChild(boxContainer);
 
   // Create and append blank space after the game box
-  var blankSpace = document.createElement("div");
+  const blankSpace = document.createElement("div");
   blankSpace.classList.add("game-box-blank-space");
   document.body.appendChild(blankSpace);
 }

@@ -31,7 +31,7 @@ export const scoring = {
   EXPERT: 1000,
 };
 
-export var TilePatternAttrs = {
+export const TilePatternAttrs = {
   tileCount: 9, // initial values
   seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
   qtyStatesBeingUsed: 2, // init
@@ -85,7 +85,7 @@ export const inverseToggleMatrixLookupMod3 = {
   ],
 };
 
-var seededRandom = 0; // init
+var seededRandom = null; // init
 
 export function instantiateTiles(scene) {
   // Allows for async behavior
@@ -133,7 +133,7 @@ function tileSpaceMatrixToTiles(tileSpaceMatrix, gridSize, scene) {
     tiles[i] = []; // Initialize an array for the current row
     for (let j = 0; j < tileSpaceMatrix.cols; j++) {
       // Place tile and add it to list 2D
-      var tileState = tileSpaceMatrix.mat[i][j];
+      let tileState = tileSpaceMatrix.mat[i][j];
       let tile = new Tile(scene, i, j, gridSize, tileState);
       tiles[i][j] = tile; // store in 2D array
     }
@@ -167,9 +167,9 @@ function findSolvableTileGrid(gridSize, scene) {
   //  0, 1, 1, 1              1                 0                          1
 
   // So our goal is to solve for flattenedStrategyMatrix.
-  var solveableTileConfigFound = false;
-  var tileSpaceMatrix = null;
-  var strategyMatrix = null;
+  let solveableTileConfigFound = false;
+  let tileSpaceMatrix = null;
+  let strategyMatrix = null;
   while (!solveableTileConfigFound) {
     tileSpaceMatrix = createRandomTileSpaceMatrix(gridSize);
     strategyMatrix = solveTileSpaceMatrix(tileSpaceMatrix, gridSize);
@@ -181,7 +181,7 @@ function findSolvableTileGrid(gridSize, scene) {
   }
 
   // Create tiles
-  var Tiles = tileSpaceMatrixToTiles(tileSpaceMatrix, gridSize, scene);
+  let Tiles = tileSpaceMatrixToTiles(tileSpaceMatrix, gridSize, scene);
 
   // Update the text of the tiles with the strategyMatrix
   update_all_tiles_text(Tiles, gridSize, strategyMatrix);
@@ -214,18 +214,18 @@ export function update_all_tiles_text(Tiles, gridSize, strategyMatrix = null) {
 function solveTileSpaceMatrix(tileSpaceMatrix, gridSize) {
   // Convert tileSpaceMatrix to desired format
   //tileSpaceMatrix.printHowItAppearsInFlipTile();
-  var flattenedTileSpaceMatrix = tileSpaceMatrix.flatten();
+  let flattenedTileSpaceMatrix = tileSpaceMatrix.flatten();
 
   // Find solved and inverted toggle matrix for this size
-  var flattenedsolvedMatrix = createSolvedMatrix(gridSize).flatten();
-  var toggleMatrix = createToggleMatrix(
+  let flattenedsolvedMatrix = createSolvedMatrix(gridSize).flatten();
+  let toggleMatrix = createToggleMatrix(
     gridSize,
     TilePatternAttrs.qtyStatesBeingUsed
   );
   //toggleMatrix.printHowItAppearsInFlipTile();
   //toggleMatrix.printInArrayFormat();
 
-  var matModInverseToggleMatrix = new Matrix([[]]); // toggleMatrix.modInverse(2); // 2 possible choices for tiles, 0 or 1
+  let matModInverseToggleMatrix = new Matrix([[]]); // toggleMatrix.modInverse(2); // 2 possible choices for tiles, 0 or 1
   if (TilePatternAttrs.qtyStatesBeingUsed == 2) {
     if (gridSize == 2) {
       matModInverseToggleMatrix = new Matrix(
@@ -253,15 +253,15 @@ function solveTileSpaceMatrix(tileSpaceMatrix, gridSize) {
   }
 
   // Compute the strategyMatrix
-  var finalMinusInitial = flattenedsolvedMatrix.matModSubtract(
+  let finalMinusInitial = flattenedsolvedMatrix.matModSubtract(
     flattenedTileSpaceMatrix,
     TilePatternAttrs.qtyStatesBeingUsed
   );
-  var flattenedStrategyMatrix = matModInverseToggleMatrix.modMultiply(
+  let flattenedStrategyMatrix = matModInverseToggleMatrix.modMultiply(
     finalMinusInitial,
     TilePatternAttrs.qtyStatesBeingUsed
   );
-  var strategyMatrix = flattenedStrategyMatrix.unflatten(gridSize);
+  let strategyMatrix = flattenedStrategyMatrix.unflatten(gridSize);
   //strategyMatrix.printHowItAppearsInFlipTile();
 
   return strategyMatrix;
@@ -316,8 +316,8 @@ function createRandomTileSpaceMatrix(gridSize) {
   for (let row = 0; row < gridSize; row++) {
     tileSpace[row] = [];
     for (let col = 0; col < gridSize; col++) {
-      var rand_val = seededRandom.getRandomFloat(0, 1);
-      var tileState = tileStates.BLUE;
+      let rand_val = seededRandom.getRandomFloat(0, 1);
+      let tileState = tileStates.BLUE;
 
       if (TilePatternAttrs.qtyStatesBeingUsed == 2) {
         if (rand_val <= 0.5) {

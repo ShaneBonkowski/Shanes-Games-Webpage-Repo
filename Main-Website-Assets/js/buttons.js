@@ -24,20 +24,20 @@ export function createButtonWithContainer(
 ) {
   // Creates a button that on click takes you to a link.
   // Initialize container and text
-  var buttonContainer = document.createElement("a");
+  const buttonContainer = document.createElement("a");
   buttonContainer.classList.add(...containerClasses);
   buttonContainer.href = url;
   if (openInNewTab) {
     buttonContainer.target = "_blank";
   }
 
-  var buttonText = document.createElement("div");
+  const buttonText = document.createElement("div");
   buttonText.classList.add(...buttonTextClasses);
   buttonText.textContent = text;
 
   // Optionally create button icon element
   if (iconClasses.length > 0) {
-    var iconElement = document.createElement("i");
+    const iconElement = document.createElement("i");
     iconElement.classList.add(...iconClasses);
     buttonContainer.appendChild(iconElement);
   }

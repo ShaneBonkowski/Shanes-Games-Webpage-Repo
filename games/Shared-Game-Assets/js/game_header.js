@@ -29,30 +29,30 @@ function createGameHeader(
   gameTitleXShiftPercentage,
   gameTitleYShiftPercentage
 ) {
-  var gameHeaderContainer = document.createElement("div");
+  const gameHeaderContainer = document.createElement("div");
   gameHeaderContainer.classList.add("game-header-banner");
   gameHeaderContainer.classList.add("disable-browser-default-touch-actions");
 
   // Build out Shanes Games Logo components
-  var shanesGamesLogoContainer = document.createElement("div");
+  const shanesGamesLogoContainer = document.createElement("div");
   shanesGamesLogoContainer.classList.add("shanes-games-logo-container");
   shanesGamesLogoContainer.classList.add(
     "disable-browser-default-touch-actions"
   );
 
-  var shanesGamesLogoIcon = document.createElement("img");
+  const shanesGamesLogoIcon = document.createElement("img");
   shanesGamesLogoIcon.src =
     "../../Shared-General-Assets/webps/Mars_circle_logo_small.webp"; // ShanesGames logo
   shanesGamesLogoIcon.classList.add("main-logo-image");
   shanesGamesLogoIcon.classList.add("disable-browser-default-touch-actions");
 
-  var shanesGamesLogoTitle = document.createElement("h1");
+  const shanesGamesLogoTitle = document.createElement("h1");
   shanesGamesLogoTitle.textContent = "SHANE'S GAMES";
   shanesGamesLogoTitle.classList.add("game-title-style");
   shanesGamesLogoTitle.classList.add("main-logo-title");
   shanesGamesLogoTitle.classList.add("disable-browser-default-touch-actions");
 
-  var shanesGamesLogoSubtitle = document.createElement("h2");
+  const shanesGamesLogoSubtitle = document.createElement("h2");
   shanesGamesLogoSubtitle.textContent = "Black Hole Reject";
   shanesGamesLogoSubtitle.classList.add("game-subtitle-style");
   shanesGamesLogoSubtitle.classList.add("main-logo-subtitle");
@@ -71,16 +71,15 @@ function createGameHeader(
   });
 
   // Build out Generic Game Logo components
-  var gameLogoContainer = document.createElement("div");
+  const gameLogoContainer = document.createElement("div");
   gameLogoContainer.classList.add("game-logo-container");
   gameLogoContainer.classList.add("disable-browser-default-touch-actions");
 
   // Set location of gameLogoContainer, and have it change when window size changes
   function updateGameLogoContainer() {
-    var screenWidth = window.innerWidth;
-    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-    if (screenWidth <= 600 || isPortrait) {
+    if (window.innerWidth <= 600 || isPortrait) {
       gameLogoContainer.style.marginLeft =
         gameLogoContainerLeftMarginPercentagePhone + "%";
     } else {
@@ -91,13 +90,13 @@ function createGameHeader(
   updateGameLogoContainer();
   window.addEventListener("resize", updateGameLogoContainer);
 
-  var gameLogoImage = document.createElement("img");
+  const gameLogoImage = document.createElement("img");
   gameLogoImage.src = gameIconSrc; // Must be 200 by 200 px!
   gameLogoImage.alt = gameName;
   gameLogoImage.classList.add("game-logo-image");
   gameLogoImage.classList.add("disable-browser-default-touch-actions");
 
-  var gameTitle = document.createElement("h1");
+  const gameTitle = document.createElement("h1");
   gameTitle.textContent = gameName;
   gameTitle.classList.add("game-title-style");
   gameTitle.classList.add("game-title");

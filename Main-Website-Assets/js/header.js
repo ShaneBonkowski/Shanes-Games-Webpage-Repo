@@ -13,32 +13,32 @@ import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
  */
 export function createHeader(logoImageSrc) {
   // Create a container div for the header box
-  var headerContainer = document.createElement("div");
+  const headerContainer = document.createElement("div");
   headerContainer.classList.add("header-box");
 
   // Create a div for header banner itself
-  var headerBannerDiv = document.createElement("header");
+  const headerBannerDiv = document.createElement("header");
   headerBannerDiv.classList.add("header-banner");
 
   // Create a container div for the logo
-  var titleContainer = document.createElement("div");
+  const titleContainer = document.createElement("div");
   titleContainer.classList.add("title-container");
 
   // Logo image, title, subtitle
-  var logoImage = document.createElement("img");
+  const logoImage = document.createElement("img");
   logoImage.classList.add("logo-image");
   logoImage.src = logoImageSrc;
 
-  var titleElement = document.createElement("h1");
+  const titleElement = document.createElement("h1");
   titleElement.textContent = "SHANE'S GAMES";
   titleElement.classList.add("title-text-style");
 
-  var subtitleDiv = document.createElement("div");
+  const subtitleDiv = document.createElement("div");
   subtitleDiv.classList.add("sub-title-text");
   subtitleDiv.textContent = "Black Hole Reject";
 
   // Github button
-  var githubButtonContainer = createButtonWithContainer(
+  const githubButtonContainer = createButtonWithContainer(
     "GitHub",
     "https://github.com/ShaneBonkowski",
     ["header-button-text", "github-text"],
@@ -48,7 +48,7 @@ export function createHeader(logoImageSrc) {
   );
 
   // About me button
-  var aboutMeButtonContainer = createButtonWithContainer(
+  const aboutMeButtonContainer = createButtonWithContainer(
     "About Me",
     "about.html",
     ["header-button-text", "about-me-text"],
@@ -58,7 +58,7 @@ export function createHeader(logoImageSrc) {
   );
 
   // Home button
-  var homeButtonContainer = createButtonWithContainer(
+  const homeButtonContainer = createButtonWithContainer(
     "Games",
     "index.html",
     ["header-button-text", "home-text"],
@@ -81,7 +81,7 @@ export function createHeader(logoImageSrc) {
   document.body.appendChild(headerContainer);
 
   // Create and append blank space at the end
-  var blankSpace = document.createElement("div");
+  const blankSpace = document.createElement("div");
   blankSpace.classList.add("game-box-blank-space");
   document.body.appendChild(blankSpace);
 }

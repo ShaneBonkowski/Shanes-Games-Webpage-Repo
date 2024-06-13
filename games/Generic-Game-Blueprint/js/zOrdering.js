@@ -12,7 +12,7 @@ export function setZOrderForSharedElements(game) {
   game.canvas.style.zIndex = "0";
 
   // Get a reference to the css objects we want to position
-  var gameHeader = document.querySelector(".game-header-banner");
+  const gameHeader = document.querySelector(".game-header-banner");
 
   // Set the z-index property for all other objs
   gameHeader.style.zIndex = "1";

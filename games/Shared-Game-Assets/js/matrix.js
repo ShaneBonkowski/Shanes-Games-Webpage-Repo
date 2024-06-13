@@ -76,7 +76,7 @@ export class Matrix {
    * Prints the actual matrix in the order it's indexed.
    */
   printActual() {
-    var matString = "";
+    let matString = "";
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         matString += this.mat[i][j];
@@ -92,7 +92,7 @@ export class Matrix {
    * Prints the matrix in the orientation that the tiles visibly appear in a flip tile game.
    */
   printHowItAppearsInFlipTile() {
-    var matString = "";
+    let matString = "";
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         matString += this.mat[j][i]; // print j, i instead of i, j
@@ -108,7 +108,7 @@ export class Matrix {
    * Prints the matrix in array format.
    */
   printInArrayFormat() {
-    var matString = "";
+    let matString = "";
     matString += "[";
     for (let i = 0; i < this.rows; i++) {
       matString += "[";

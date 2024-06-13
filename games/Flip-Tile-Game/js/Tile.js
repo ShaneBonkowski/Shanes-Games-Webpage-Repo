@@ -29,7 +29,7 @@ export class Tile {
     this.animationPlaying = false;
 
     // Init at provided location, and centered
-    var spawnLoc = this.findTileLocFromTileSpace();
+    let spawnLoc = this.findTileLocFromTileSpace();
     this.graphic.x = spawnLoc.x;
     this.graphic.y = spawnLoc.y;
 
@@ -68,8 +68,8 @@ export class Tile {
   }
 
   updateTextSize() {
-    var fontSize = 40;
-    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    let fontSize = 40;
+    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // for phones change the font size
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
@@ -233,9 +233,9 @@ export class Tile {
   }
 
   findTileLocFromTileSpace() {
-    var centerX = this.scene.game.canvas.width / 2;
-    var centerY = this.scene.game.canvas.height / 2;
-    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    let centerX = this.scene.game.canvas.width / 2;
+    let centerY = this.scene.game.canvas.height / 2;
+    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // for phones change the center location
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
@@ -243,7 +243,6 @@ export class Tile {
     }
 
     let tileSpacing = this.scene.game.canvas.width / 10;
-    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // for phones change the tile spacing
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
@@ -264,21 +263,20 @@ export class Tile {
     }
 
     // Calculate the position of the current tile in the grid
-    var tileX = startGridX + this.tileSpaceCoord.x * tileSpacing;
-    var tileY = startGridY + this.tileSpaceCoord.y * tileSpacing;
+    let tileX = startGridX + this.tileSpaceCoord.x * tileSpacing;
+    let tileY = startGridY + this.tileSpaceCoord.y * tileSpacing;
 
     return new Vec2(tileX, tileY);
   }
 
   calculateTileSize() {
     // Calculate the tile size based on the screen width
-    var screenWidth = window.innerWidth;
-    var tileSize = screenWidth * 0.00009 * 3;
-    var isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    let tileSize = window.innerWidth * 0.00009 * 3;
+    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Phone screen has larger tile
-    if (screenWidth <= 600 || isPortrait) {
-      tileSize = screenWidth * 0.00026 * 3;
+    if (window.innerWidth <= 600 || isPortrait) {
+      tileSize = window.innerWidth * 0.00026 * 3;
     }
 
     return tileSize;
@@ -290,7 +288,7 @@ export class Tile {
     this.graphic.setScale(this.size);
 
     // Init at provided location, and centered
-    var spawnLoc = this.findTileLocFromTileSpace();
+    let spawnLoc = this.findTileLocFromTileSpace();
     this.graphic.x = spawnLoc.x;
     this.graphic.y = spawnLoc.y;
 

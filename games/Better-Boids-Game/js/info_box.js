@@ -56,7 +56,7 @@ export function addInfoBox() {
 
   // Show the info Window when the button is clicked
   function onClickInfo() {
-    var customEvent = new CustomEvent("uiMenuOpen", {
+    let customEvent = new CustomEvent("uiMenuOpen", {
       detail: {
         message: "Info Menu Opened",
       },
@@ -69,7 +69,7 @@ export function addInfoBox() {
 
   // Close the info Window when the close button is clicked
   function onClickX() {
-    var customEvent = new CustomEvent("uiMenuClosed", {
+    let customEvent = new CustomEvent("uiMenuClosed", {
       detail: {
         message: "Info Menu Closed",
       },
