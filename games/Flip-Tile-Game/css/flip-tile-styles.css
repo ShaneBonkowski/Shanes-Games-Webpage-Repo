@@ -143,8 +143,7 @@ touchscreens are causing hover to get stuck */
 event listener to add and delete this CSS style on click */
 .fliptile-button.active {
   transform: translate(-50%, 0%) scale(1.2);
-  filter: brightness(0.8) drop-shadow(16px 16px 20px rgb(161, 161, 161))
-    invert(25%);
+  filter: brightness(0.8) invert(25%);
 }
 
 .fliptile-icon-img,
@@ -346,6 +345,5 @@ touchscreens are causing hover to get stuck */
 event listener to add and delete this CSS style on click */
 .close-button.active {
   transform: scale(2.2);
-  filter: brightness(0.8) drop-shadow(16px 16px 20px rgb(161, 161, 161))
-    invert(25%);
+  filter: brightness(0.8) invert(25%);
 }

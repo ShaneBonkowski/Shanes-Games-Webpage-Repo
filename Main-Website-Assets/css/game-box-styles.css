@@ -109,6 +109,13 @@ a.game-box-button-link-anchor {
   transform: scale(1.05);
 }
 
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click */
+.game-button-click-effect {
+  transform: scale(1.05);
+  filter: brightness(0.8) invert(25%);
+}
+
 .game-desc-container {
   width: var(--game-desc-width);
   height: var(--game-desc-height);
