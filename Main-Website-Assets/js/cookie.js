@@ -4,6 +4,8 @@
  * @author Shane Bonkowski
  */
 
+import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
+
 /**
  * Creates a cookie banner that tracks whether a user wants cookies or not.
  */
@@ -42,6 +44,11 @@ export function createCookieBanner() {
       cookieBanner.style.display = "none";
       onCookieDisable();
     });
+
+    // Add click events for the cookie buttons to do
+    // an anim on click
+    addClickAnimation(enableCookiesBtn);
+    addClickAnimation(disableCookiesBtn);
   } else {
     console.error("Enable/Disable cookies buttons not found.");
   }

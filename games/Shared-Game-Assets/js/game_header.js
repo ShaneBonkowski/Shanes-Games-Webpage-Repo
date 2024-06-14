@@ -8,6 +8,8 @@
  * @author Shane Bonkowski
  */
 
+import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
+
 /**
  * Creates the Game Header element which includes the
  * Shane's Game's Logo that can be clicked on to take
@@ -21,7 +23,7 @@
  * @param {number} gameTitleYShiftPercentage - The vertical shift percentage for the game title.
  * @returns {HTMLElement} Game Header element.
  */
-function createGameHeader(
+export function createGameHeader(
   gameName,
   gameIconSrc,
   gameLogoContainerLeftMarginPercentageComputer,
@@ -71,17 +73,7 @@ function createGameHeader(
   });
 
   // Have a lil anim on click for the logo container too
-  function handleClick() {
-    // Add 'active' class to apply effects on click.
-    // Then remove it soon after
-    shanesGamesLogoContainer.classList.add("active");
-
-    setTimeout(() => {
-      shanesGamesLogoContainer.classList.remove("active");
-    }, 200);
-  }
-  shanesGamesLogoContainer.addEventListener("click", handleClick);
-  shanesGamesLogoContainer.addEventListener("touchstart", handleClick);
+  addClickAnimation(shanesGamesLogoContainer);
 
   // Build out Generic Game Logo components
   const gameLogoContainer = document.createElement("div");

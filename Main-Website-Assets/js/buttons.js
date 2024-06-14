@@ -4,6 +4,8 @@
  * @author Shane Bonkowski
  */
 
+import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
+
 /**
  * Creates a button with a container that, when clicked, redirects the user to the specified URL.
  * @param {string} text - The text content to be displayed on the button.
@@ -46,17 +48,7 @@ export function createButtonWithContainer(
   buttonContainer.appendChild(buttonText);
 
   // Have a lil anim on click
-  function handleClick() {
-    // Add 'active' class to apply effects on click.
-    // Then remove it soon after
-    buttonContainer.classList.add("active");
-
-    setTimeout(() => {
-      buttonContainer.classList.remove("active");
-    }, 200);
-  }
-  buttonContainer.addEventListener("click", handleClick);
-  buttonContainer.addEventListener("touchstart", handleClick);
+  addClickAnimation(buttonContainer);
 
   return buttonContainer;
 }

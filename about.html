@@ -60,6 +60,7 @@
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
       import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
+      import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -73,6 +74,10 @@
             // Then do about me and footer
             createAboutMe();
             createFooter();
+
+            // Apply click animation to all <a> elements
+            const links = document.querySelectorAll("a");
+            addClickAnimation(links);
           })
           .catch((error) => {
             console.error("Error loading logo image for header:", error);
