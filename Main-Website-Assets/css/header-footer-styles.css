@@ -140,7 +140,7 @@ touchscreens are causing hover to get stuck */
 event listener to add and delete this CSS style on click */
 .header-button-container.active {
   filter: brightness(0.8) drop-shadow(16px 16px 20px rgb(161, 161, 161))
-    invert(75%);
+    invert(25%);
 }
 
 .header-button-text {
@@ -270,7 +270,7 @@ touchscreens are causing hover to get stuck */
 event listener to add and delete this CSS style on click */
 .linkedIn-button-container.active {
   filter: brightness(0.8) drop-shadow(16px 16px 20px rgb(161, 161, 161))
-    invert(75%);
+    invert(25%);
 }
 
 .linkedIn-text {
