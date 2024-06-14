@@ -89,7 +89,7 @@ touchscreens are causing hover to get stuck */
 event listener to add and delete this CSS style on click */
 .shanes-games-logo-container.active {
   transform: translateY(var(--centering-translation)) scale(1.05);
-  filter: brightness(0.9) invert(0%);
+  filter: brightness(0.82) invert(0%);
 }
 
 .main-logo-image {
