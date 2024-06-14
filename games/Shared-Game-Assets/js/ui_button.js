@@ -6,6 +6,8 @@
  * @author Shane Bonkowski
  */
 
+import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
+
 /**
  * Returns a div container that contains a UI button with desired image, text, etc.
  * @param {string} containerId - The ID of the container element to which the button will be added.
@@ -57,17 +59,7 @@ export function addUIButton(
   button.appendChild(textElement);
 
   // Have a lil anim on click
-  function handleClick() {
-    // Add 'active' class to apply effects on click.
-    // Then remove it soon after
-    button.classList.add("active");
-
-    setTimeout(() => {
-      button.classList.remove("active");
-    }, 200);
-  }
-  button.addEventListener("click", handleClick);
-  button.addEventListener("touchstart", handleClick);
+  addClickAnimation(button);
 
   buttonContainer.appendChild(button);
 

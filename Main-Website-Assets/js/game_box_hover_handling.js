@@ -31,6 +31,9 @@ function handleGameBoxHover() {
     }
 
     // Handle click here too and have a lil anim on click
+    // Note: addClickAnimation(...) is not used here because
+    // this is a unique case where button and title are coupled,
+    // so if one is "active" we want the other to be too.
     function handleClick() {
       // Add 'active' class to apply effects on click.
       // Then remove it soon after

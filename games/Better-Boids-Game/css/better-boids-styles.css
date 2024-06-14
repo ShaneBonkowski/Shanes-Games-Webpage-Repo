@@ -68,6 +68,12 @@ touchscreens are causing hover to get stuck */
   }
 }
 
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click */
+a.active {
+  text-decoration: underline; /* Add underline on click */
+}
+
 /* Info and settings screen styles */
 .info-button-container,
 .settings-button-container {

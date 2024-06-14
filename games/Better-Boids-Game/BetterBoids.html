@@ -61,7 +61,6 @@
     </div>
 
     <!-- Include the non-module scripts used -->
-    <script src="../Shared-Game-Assets/js/game_header.js"></script>
     <script src="../Libraries/phaser.js"></script>
 
     <!-- Call JS functions (using module so that we can import and call modules) -->
@@ -70,6 +69,8 @@
       import { LaunchGame } from "./js/game.js";
       import { addBoidSettings } from "./js/boid-settings.js";
       import { addInfoBox } from "../Better-Boids-Game/js/info_box.js";
+      import { createGameHeader } from "../Shared-Game-Assets/js/game_header.js";
+      import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -84,6 +85,10 @@
         addBoidSettings();
         addInfoBox();
         LaunchGame();
+
+        // Apply click animation to all <a> elements
+        const links = document.querySelectorAll("a");
+        addClickAnimation(links);
       };
     </script>
   </body>

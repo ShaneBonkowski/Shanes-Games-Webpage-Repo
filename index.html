@@ -61,7 +61,7 @@
         continuing to use this site, you accept our use of cookies. You can
         learn more about our <a href="cookie-policy.html">cookie policy</a> here
       </p>
-      <div class="button-container">
+      <div class="cookie-button-container">
         <button id="enable-cookies">Enable Cookies</button>
         <button id="disable-cookies">Disable Cookies</button>
       </div>
@@ -77,6 +77,7 @@
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
       import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
       import { createCookieBanner } from "/Main-Website-Assets/js/cookie.js";
+      import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
 
       // Promisified version of the createGameBox function. This allows us to wait for
       // completion of game box creation before rendering the next one.
@@ -175,6 +176,10 @@
                 // Call these after all game boxes are loaded in
                 createFooter();
                 handleGameBoxHover();
+
+                // Apply click animation to all <a> elements
+                const links = document.querySelectorAll("a");
+                addClickAnimation(links);
               })
               .catch((error) => {
                 console.error("Error creating game boxes:", error);
