@@ -110,8 +110,9 @@ touchscreens are causing hover to get stuck */
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click */
 .info-button.active {
-  filter: brightness(0.8);
-  box-shadow: 0 0 10px rgba(200, 200, 200, 0.5);
+  transform: translate(-50%, 0%) scale(1.2);
+  filter: brightness(0.8) drop-shadow(16px 16px 20px rgb(161, 161, 161))
+    invert(75%);
 }
 
 .info-icon-img,
@@ -182,6 +183,7 @@ touchscreens are causing hover to get stuck */
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click */
 .close-button.active {
-  filter: brightness(0.8);
-  box-shadow: 0 0 10px rgba(200, 200, 200, 0.5);
+  transform: scale(2.2);
+  filter: brightness(0.8) drop-shadow(16px 16px 20px rgb(161, 161, 161))
+    invert(75%);
 }
