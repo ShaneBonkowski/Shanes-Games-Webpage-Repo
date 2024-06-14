@@ -78,14 +78,13 @@ body {
   color: white;
 }
 
-/* for hovering on computer */
-/* Only hover if the browser supports hover. Aka
-if this has a mouse. This prevents an issue where
-touchscreens are causing hover to get stuck */
-@media (hover: hover) {
-  .slider-container:hover .slider-hover-label {
-    display: block; /* Show the hover label when hovering over the slider container */
-  }
+/* DONT do the @media (hover: hover) thing for fixing hovering */
+/*  on phone here. This is because we like how on the phone the 
+hover label for the slider gets stuck when a player holds it.
+Theres a tiny side effect of making the value persist but thats
+fine since theyre likely to tap elsewjere to fix it soon after. */
+.slider-container:hover .slider-hover-label {
+  display: block; /* Show the hover label when hovering over the slider container */
 }
 
 /* for touching on phone (see the eventListenerAdding that needs to occur in boid-settings.js for this to work) */

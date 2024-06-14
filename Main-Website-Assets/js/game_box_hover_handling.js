@@ -29,5 +29,22 @@ function handleGameBoxHover() {
       button.classList.toggle("game-button-hover-effect");
       title.classList.toggle("game-title-hover-effect");
     }
+
+    // Handle click here too and have a lil anim on click
+    function handleClick() {
+      // Add 'active' class to apply effects on click.
+      // Then remove it soon after
+      button.classList.add("game-button-click-effect");
+      title.classList.add("game-button-click-effect");
+
+      setTimeout(() => {
+        button.classList.remove("game-button-click-effect");
+        title.classList.remove("game-button-click-effect");
+      }, 200);
+    }
+    button.addEventListener("click", handleClick);
+    button.addEventListener("touchstart", handleClick);
+    title.addEventListener("click", handleClick);
+    title.addEventListener("touchstart", handleClick);
   });
 }
