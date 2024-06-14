@@ -89,6 +89,5 @@ touchscreens are causing hover to get stuck */
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click */
 .cookie-banner button.active {
-  background-color: #0056b3;
   filter: brightness(0.8) invert(25%);
 }

@@ -113,7 +113,7 @@ a.game-box-button-link-anchor {
 event listener to add and delete this CSS style on click */
 .game-button-click-effect {
   transform: scale(1.05);
-  filter: brightness(0.8) invert(25%);
+  filter: brightness(0.8) invert(15%);
 }
 
 .game-desc-container {
