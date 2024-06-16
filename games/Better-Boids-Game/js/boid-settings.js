@@ -5,9 +5,9 @@
  */
 
 import { BoidFactors, customEvents } from "./boid-utils.js";
-import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
-import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
-import { createSelectionBox } from "../../Shared-Game-Assets/js/ui_selection_box.js";
+import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
+import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
+import { createSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
 export function addBoidSettings() {
   // Create ui window to hold the settings and sliders in (basically a window)
   function closeSettingsWindow() {
@@ -116,7 +116,7 @@ export function addBoidSettings() {
     });
     document.dispatchEvent(customEvent);
   }
-  const settingsButtonContainer = addUIButton(
+  const settingsButtonContainer = createFunctionButtonContainer(
     "settingsButtonContainer",
     "settingsButton",
     "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",

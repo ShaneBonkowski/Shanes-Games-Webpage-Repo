@@ -50,6 +50,7 @@
   --github-icon-size: calc(var(--header-height) * 0.2);
   --title-text-font-size: calc(var(--header-height) * 0.25);
   --subtitle-text-font-size: calc(var(--header-height) * 0.125);
+  --header-blank-space-height: calc(var(--header-height) * 0.18);
   /* Font Sizes */
   --linkedin-icon-size: calc(var(--linkedin-button-height) * 0.45);
   --footer-main-text-font-size: calc(var(--footer-height) * 0.125);
@@ -64,6 +65,10 @@
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
   height: var(--header-height);
+}
+
+.header-blank-space {
+  height: var(--header-blank-space-height);
 }
 
 .title-container,
@@ -245,6 +250,10 @@ touchscreens are causing hover to get stuck */
 event listener to add and delete this CSS style on click */
 .footer-main-text a.active {
   text-decoration: underline; /* Add underline on click */
+}
+
+.blank-space-for-footer {
+  flex-grow: 1;
 }
 
 /* LinkedIn footer button styling */

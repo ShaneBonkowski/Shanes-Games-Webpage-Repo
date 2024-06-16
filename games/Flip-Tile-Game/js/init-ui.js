@@ -4,16 +4,16 @@
  * @author Shane Bonkowski
  */
 
-import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
+import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import {
   customEvents,
   TilePatternAttrs,
   difficulty,
   scoring,
 } from "./tile-utils.js";
-import { createSelectionBox } from "../../Shared-Game-Assets/js/ui_selection_box.js";
+import { createSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
 import { tiles } from "./main-game-scene.js";
-import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
+import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 
 export const ui_vars = {
   numCheckboxes: 3,
@@ -27,7 +27,7 @@ export function initUI() {
   function onClickUpdateTileGrid() {
     document.dispatchEvent(customEvents.tileGridChangeEvent);
   }
-  const updateTilegridButtonContainer = addUIButton(
+  const updateTilegridButtonContainer = createFunctionButtonContainer(
     "updateTilegridContainer",
     "updateTilegrid",
     "../Flip-Tile-Game/webps/Button.webp",
@@ -44,7 +44,7 @@ export function initUI() {
   function onClickResetTileGrid() {
     document.dispatchEvent(customEvents.tileGridResetEvent);
   }
-  const resetTilegridButtonContainer = addUIButton(
+  const resetTilegridButtonContainer = createFunctionButtonContainer(
     "resetTilegridContainer",
     "resetTilegrid",
     "../Flip-Tile-Game/webps/Button.webp",
@@ -211,7 +211,7 @@ function addInfoBox() {
   );
 
   // Create an open info Button
-  const infoButtonContainer = addUIButton(
+  const infoButtonContainer = createFunctionButtonContainer(
     "infoButtonContainer",
     "infoButton",
     "../Flip-Tile-Game/webps/Button.webp",

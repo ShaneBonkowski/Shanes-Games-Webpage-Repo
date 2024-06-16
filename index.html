@@ -18,6 +18,9 @@
         background-repeat: repeat-y; /* Repeat the image vertically */
         background-position: top center; /* position relative to the top or center */
         background-size: 100% auto; /* Auto width, 100% height */
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
     </style>
 
@@ -36,6 +39,10 @@
       rel="stylesheet"
       href="Main-Website-Assets/css/header-footer-styles.css"
     />
+    <link
+      rel="stylesheet"
+      href="Main-Website-Assets/css/games-search-bar.css"
+    />
     <link rel="stylesheet" href="Main-Website-Assets/css/cookie-styles.css" />
     <link
       rel="stylesheet"
@@ -44,7 +51,7 @@
     <!-- Load in Font Awesome CDN to access GitHub, linkedin, etc. icons -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
   </head>
   <body>
@@ -68,16 +75,21 @@
     </div>
 
     <!-- Include the non-module scripts used -->
-    <script src="Main-Website-Assets/js/game_box.js"></script>
-    <script src="Main-Website-Assets/js/game_box_hover_handling.js"></script>
+    <!-- here... -->
 
     <!-- Call JS functions -->
     <script type="module">
       import { createHeader } from "/Main-Website-Assets/js/header.js";
-      import { createFooter } from "/Main-Website-Assets/js/footer.js";
       import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
       import { createCookieBanner } from "/Main-Website-Assets/js/cookie.js";
-      import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
+      import { createSearchBarContainer } from "/Main-Website-Assets/js/search_bar.js";
+      import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
+      import {
+        createGameBox,
+        gameBoxes,
+        postGameBoxRendering,
+        searchGames,
+      } from "/Main-Website-Assets/js/game_box.js";
 
       // Promisified version of the createGameBox function. This allows us to wait for
       // completion of game box creation before rendering the next one.
@@ -107,56 +119,78 @@
             createHeader(image.src);
             createCookieBanner();
 
-            // Array of game box data
-            const gameBoxes = [
-              {
-                imageUrl:
-                  "games/Better-Boids-Game/webps/Game_Cover_Picture.webp",
-                linkUrl: "games/Better-Boids-Game/BetterBoids.html",
-                title: "Better Boids",
-                description:
-                  "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more",
-                openInNewTab: false,
-              },
-              {
-                imageUrl: "games/Flip-Tile-Game/webps/Cover_Art.webp",
-                linkUrl: "games/Flip-Tile-Game/FlipTile.html",
-                title: "Flip Tile",
-                description:
-                  "Classic 'lights out' style puzzle game. Flipping one tile causes neighboring tiles to flip as well. Match them all to advance further!",
-                openInNewTab: false,
-              },
-              {
-                imageUrl: "Main-Website-Assets/webps/SOSS_cover_art.webp",
-                linkUrl:
-                  "https://store.steampowered.com/app/2061040/Save_Our_Solar_System/",
-                title: "Save Our Solar System",
-                description:
-                  "(Steam Game) Stave off countless waves of asteroids as you fight to protect the Solar System from extinction. A fresh look on the tower defense genre!",
-                openInNewTab: true,
-              },
-              {
-                imageUrl: "Main-Website-Assets/webps/AD_cover_art.webp",
-                linkUrl:
-                  "https://store.steampowered.com/app/2506740/Abyssal_Descent/",
-                title: "Abyssal Descent",
-                description:
-                  "(Steam Game) Embark on an epic platformer adventure through procedurally generated caves, solving intricate puzzles, and battling fearsome enemies!",
-                openInNewTab: true,
-              },
-              // !!!!!!!!!!!!!!!
-              // PLACEHOLDER COMING SOON BOX ALWAYS AT THE END. PUT NEW BOXES BEFORE THIS
-              // !!!!!!!!!!!!!!!
-              {
-                imageUrl:
-                  "Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
-                linkUrl: "https://github.com/ShaneBonkowski",
-                title: "More Games Coming Soon...",
-                description:
-                  "Nothing much here for now. Just a link to my GitHub. Keep an eye out for new games on the way!",
-                openInNewTab: true,
-              },
-            ];
+            // Create a search bar to filter for games.
+            const searchButtonContainer = createFunctionButtonContainer(
+              "searchButtonContainer",
+              "searchButton",
+              // No imgSrc or text since we are just using an icon for this button
+              "",
+              "",
+              "",
+              // No function passed in here, since we want to pass in a query
+              // input to the search function. See below searchButton.addEventListener
+              // for how this is done.
+              [],
+              ["game-search-button-container"],
+              // No imgSrc or text classes since we are just using an icon for this button
+              [],
+              [],
+              ["game-search-button"],
+              ["fas", "fa-magnifying-glass"]
+            );
+            const searchBarContainer = createSearchBarContainer(
+              ["game-search-container"],
+              ["game-search-bar"],
+              searchButtonContainer,
+              "Search for games..."
+            );
+
+            // If search button is pressed, then search
+            const searchButton = searchButtonContainer.querySelector(
+              ".game-search-button"
+            );
+            searchButton.addEventListener("click", () => {
+              // Have the event re-query to get these elements.
+              // Not necc. needed for a static site, but good practice
+              // for dynamic elements that can change often.
+              const searchButtonContainer = document.body.querySelector(
+                ".game-search-container"
+              );
+              const searchBar =
+                searchButtonContainer.querySelector(".game-search-bar");
+
+              // Search!
+              const query = searchBar.value.trim();
+              searchGames(query);
+            });
+
+            // If enter is pressed while the search bar is selected, search
+            const searchBar =
+              searchBarContainer.querySelector(".game-search-bar");
+            searchBar.addEventListener("keydown", (event) => {
+              // Enter == key code 13
+              if (event.keyCode === 13) {
+                // Have the event re-query to get these elements.
+                // Not necc. needed for a static site, but good practice
+                // for dynamic elements that can change often.
+                const searchButtonContainer = document.body.querySelector(
+                  ".game-search-container"
+                );
+                const searchBar =
+                  searchButtonContainer.querySelector(".game-search-bar");
+                // Check if the search bar is focused
+                if (document.activeElement === searchBar) {
+                  // Prevent form submission or other default action
+                  event.preventDefault();
+
+                  // Search!
+                  const query = searchBar.value.trim();
+                  searchGames(query);
+                }
+              }
+            });
+
+            document.body.appendChild(searchBarContainer);
 
             // Iterate over each game box data and create game boxes sequentially,
             // i..e wait for one to fully render in before calling the next one to render.
@@ -173,13 +207,9 @@
                 });
               }, Promise.resolve())
               .then(() => {
-                // Call these after all game boxes are loaded in
-                createFooter();
-                handleGameBoxHover();
-
-                // Apply click animation to all <a> elements
-                const links = document.querySelectorAll("a");
-                addClickAnimation(links);
+                // All actions that take place after game box rendering
+                // should occur in this function, so that search can work as intended.
+                postGameBoxRendering();
               })
               .catch((error) => {
                 console.error("Error creating game boxes:", error);
