@@ -152,3 +152,10 @@ a.title-link-anchor {
   font-weight: normal;
   width: var(--game-desc-text-width);
 }
+
+.no-results-found-text {
+  font-size: 15pt;
+  text-align: center;
+  color: var(--main-text-color);
+  font-weight: normal;
+}

@@ -4,7 +4,7 @@
  * @author Shane Bonkowski
  */
 
-import { createButtonWithContainer } from "./buttons.js";
+import { createLinkButtonContainer } from "./buttons.js";
 /**
  * Creates a footer for the website.
  * @param {HTMLElement|null} parentElement - The parent element to which the footer will be appended (optional).
@@ -25,7 +25,7 @@ export function createFooter(parentElement = null) {
 `;
 
   // LinkedIn button
-  const linkedInButtonContainer = createButtonWithContainer(
+  const linkedInButtonContainer = createLinkButtonContainer(
     "LinkedIn",
     "https://www.linkedin.com/in/shanebonkowski/",
     ["linkedIn-text"],
@@ -37,6 +37,14 @@ export function createFooter(parentElement = null) {
   // Append elements to their containers
   footerContainer.appendChild(footerMainTextDiv);
   footerContainer.appendChild(linkedInButtonContainer);
+
+  // Create an empty div element that will fill blank space
+  // before inserting the footer. This ensures that footer
+  // is always at the bottom, even if the content doesnt fill
+  // the whole page.
+  const emptyDiv = document.createElement("div");
+  emptyDiv.classList.add("blank-space-for-footer");
+  document.body.appendChild(emptyDiv);
 
   // Append the container to the body of the document
   // or a parent element if provided

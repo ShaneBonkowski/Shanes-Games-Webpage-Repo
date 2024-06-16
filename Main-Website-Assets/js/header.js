@@ -4,7 +4,7 @@
  * @author Shane Bonkowski
  */
 
-import { createButtonWithContainer } from "./buttons.js";
+import { createLinkButtonContainer } from "./buttons.js";
 import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
 
 /**
@@ -38,7 +38,7 @@ export function createHeader(logoImageSrc) {
   subtitleDiv.textContent = "Black Hole Reject";
 
   // Github button
-  const githubButtonContainer = createButtonWithContainer(
+  const githubButtonContainer = createLinkButtonContainer(
     "GitHub",
     "https://github.com/ShaneBonkowski",
     ["header-button-text", "github-text"],
@@ -48,7 +48,7 @@ export function createHeader(logoImageSrc) {
   );
 
   // About me button
-  const aboutMeButtonContainer = createButtonWithContainer(
+  const aboutMeButtonContainer = createLinkButtonContainer(
     "About Me",
     "about.html",
     ["header-button-text", "about-me-text"],
@@ -58,7 +58,7 @@ export function createHeader(logoImageSrc) {
   );
 
   // Home button
-  const homeButtonContainer = createButtonWithContainer(
+  const homeButtonContainer = createLinkButtonContainer(
     "Games",
     "index.html",
     ["header-button-text", "home-text"],
@@ -82,6 +82,6 @@ export function createHeader(logoImageSrc) {
 
   // Create and append blank space at the end
   const blankSpace = document.createElement("div");
-  blankSpace.classList.add("game-box-blank-space");
+  blankSpace.classList.add("header-blank-space");
   document.body.appendChild(blankSpace);
 }

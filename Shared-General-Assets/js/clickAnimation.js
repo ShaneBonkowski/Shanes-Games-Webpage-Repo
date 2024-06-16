@@ -10,7 +10,7 @@
  * }
  *
  * @param {HTMLElement|NodeList} elements - The element(s) to which the animation should be applied.
- * @param {number} [delay=200] - The duration of the animation in milliseconds.
+ * @param {number} [delay=200] - The duration of the animation in milliseconds. Controls how long the 'active' state persists.
  */
 export function addClickAnimation(elements, delay = 200) {
   // Convert a single element to an array, so that this works with/without a list
@@ -29,9 +29,15 @@ export function addClickAnimation(elements, delay = 200) {
     }, delay);
   }
 
-  // Add event listeners to each element
+  // Add event listeners to each element only if not already added
   elements.forEach((element) => {
-    element.addEventListener("click", handleClick);
-    element.addEventListener("touchstart", handleClick);
+    // Check if already initialized before adding event listeners
+    if (!element.hasAttribute("data-click-animation")) {
+      element.addEventListener("click", handleClick);
+      element.addEventListener("touchstart", handleClick);
+
+      // Mark as initialized
+      element.setAttribute("data-click-animation", "true");
+    }
   });
 }

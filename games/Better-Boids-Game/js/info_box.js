@@ -4,8 +4,8 @@
  * @author Shane Bonkowski
  */
 
-import { createUIWindow } from "../../Shared-Game-Assets/js/ui_window.js";
-import { addUIButton } from "../../Shared-Game-Assets/js/ui_button.js";
+import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
+import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 export function addInfoBox() {
   // Create infoWindow window and content
   const infoWindow = createUIWindow(
@@ -37,7 +37,7 @@ export function addInfoBox() {
   );
 
   // Create an open info Button
-  const infoButtonContainer = addUIButton(
+  const infoButtonContainer = createFunctionButtonContainer(
     "infoButtonContainer",
     "infoButton",
     "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
