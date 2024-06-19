@@ -1,0 +1,167 @@
+/* Import constants */
+@import "./main-website-styles.css";
+
+/* Define CONSTANT variables */
+:root {
+  /* Sizes */
+  --content-box-width: 90vw;
+  --content-box-height: 20vw;
+  /* Edge Margins */
+  --content-button-left-margin: 17%;
+  --content-desc-text-left-margin: 5%;
+  --content-title-text-top-margin: 10%;
+  --content-desc-text-top-margin: 30%;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  :root {
+    /* Sizes */
+    --content-box-height: 36vw;
+    --content-box-width: 95vw;
+    /* Edge Margins */
+    --content-button-left-margin: 22%;
+    --content-desc-text-left-margin: 8%;
+  }
+}
+
+/* Define DERIVED variables (aka ones based on others) */
+:root {
+  /* Sizes */
+  --content-button-width: calc(var(--content-box-width) / 3.3);
+  --content-button-height: calc(var(--content-box-height) * 0.95);
+  --content-desc-width: calc(var(--content-box-width) * (0.6));
+  --content-desc-height: calc(var(--content-box-height) * 0.95);
+  --content-box-blank-space-height: calc(var(--content-box-height) * 0.07);
+  /* Font Sizes */
+  --content-desc-title-font-size: calc(var(--content-button-width) * 0.06);
+  --content-desc-body-text-font-size: calc(var(--content-button-width) * 0.06);
+  /* Edge Margins */
+  --content-description-left-margin: calc(
+    var(--content-button-left-margin) + 50%
+  );
+}
+
+/* Media query to override DERIVED values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  :root {
+    /* Font Sizes */
+    --content-desc-title-font-size: calc(var(--content-button-width) * 0.06);
+    --content-desc-body-text-font-size: calc(
+      var(--content-button-width) * 0.06
+    );
+    /* Sizes */
+    --content-button-width: calc(var(--content-box-width) / 2.3);
+    --content-desc-width: calc(var(--content-box-width) * (0.5));
+    /* Edge Margins */
+    --content-description-left-margin: calc(
+      var(--content-button-left-margin) + 50%
+    );
+  }
+}
+
+/* Common styles for content box elements */
+a.content-box-button-link-anchor,
+.content-box-button-container,
+.content-button,
+.content-desc-container,
+a.title-link-anchor,
+.content-title,
+.content-description-text {
+  position: absolute; /* Position wrt to its parent */
+}
+
+.content-box-button-container,
+.content-desc-container {
+  transform: translate(
+    var(--centering-translation),
+    var(--centering-translation)
+  );
+}
+
+/* content_box.js content box Styling */
+.content-box {
+  position: relative; /* Position this wherever (this is the origin for all content-box's children */
+  width: var(--content-box-width);
+  height: var(--content-box-height);
+  left: var(--main-left-margin);
+}
+
+.content-box-blank-space {
+  height: var(--content-box-blank-space-height);
+}
+
+.content-box-button-container {
+  width: var(--content-button-width);
+  height: var(--content-button-height);
+  left: var(--content-button-left-margin);
+  top: var(--general-top-margin);
+}
+
+a.content-box-button-link-anchor {
+  /* Add styles if needed */
+}
+
+.content-button {
+  cursor: pointer;
+  transition: transform 0.3s, opacity 0.3s;
+  border-radius: var(--standard-edge_radius);
+  width: var(--content-button-width);
+  height: var(--content-button-height);
+  transition: transform 0.3s ease;
+}
+
+.content-button-hover-effect {
+  transform: scale(1.05);
+}
+
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click */
+.content-button-click-effect {
+  transform: scale(1.05);
+  filter: brightness(0.9) invert(10%);
+}
+
+.content-desc-container {
+  width: var(--content-desc-width);
+  height: var(--content-desc-height);
+  border-radius: var(--standard-edge_radius);
+  left: var(--content-description-left-margin);
+  top: var(--general-top-margin);
+  background-color: var(--panel-color);
+}
+
+a.title-link-anchor {
+  left: var(--content-desc-text-left-margin);
+  top: var(--content-title-text-top-margin);
+}
+
+.content-title {
+  font-size: var(--content-desc-title-font-size);
+  text-align: left;
+  color: var(--main-text-color);
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.content-title-hover-effect {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.content-description-text {
+  font-size: var(--content-desc-body-text-font-size);
+  text-align: left;
+  left: var(--content-desc-text-left-margin);
+  color: var(--main-text-color);
+  top: var(--content-desc-text-top-margin);
+  font-weight: normal;
+  width: var(--content-desc-text-width);
+}
+
+.no-results-found-text {
+  font-size: 15pt;
+  text-align: center;
+  color: var(--main-text-color);
+  font-weight: normal;
+}

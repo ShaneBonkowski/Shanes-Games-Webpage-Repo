@@ -59,7 +59,7 @@ export function createHeader(logoImageSrc) {
 
   // Home button
   const homeButtonContainer = createLinkButtonContainer(
-    "Games",
+    "Content",
     "index.html",
     ["header-button-text", "home-text"],
     [],

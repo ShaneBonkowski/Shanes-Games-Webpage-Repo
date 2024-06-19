@@ -7,16 +7,16 @@
   /* Transformations */
 
   /* Sizes */
-  --game-search-button-height: 6vh;
-  --game-search-button-width: 6vh;
-  --game-search-icon-size: 4vh;
-  --game-search-bar-width: 50%;
+  --content-search-button-height: 6vh;
+  --content-search-button-width: 6vh;
+  --content-search-icon-size: 4vh;
+  --content-search-bar-width: 50%;
 
   /* Edge Margins */
-  --game-search-container-left-margin: 3%;
-  --game-search-button-left-margin: 6vw;
-  --game-search-button-top-margin: 20%;
-  --game-search-container-bottom-margin: 40px;
+  --content-search-container-left-margin: 3%;
+  --content-search-button-left-margin: 6vw;
+  --content-search-button-top-margin: 20%;
+  --content-search-container-bottom-margin: 40px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -25,16 +25,16 @@
     /* Transformations */
 
     /* Sizes */
-    --game-search-button-height: 6vh;
-    --game-search-button-width: 10vw;
-    --game-search-icon-size: 3vh;
-    --game-search-bar-width: 65%;
+    --content-search-button-height: 6vh;
+    --content-search-button-width: 10vw;
+    --content-search-icon-size: 3vh;
+    --content-search-bar-width: 65%;
 
     /* Edge Margins */
-    --game-search-container-left-margin: 3%;
-    --game-search-button-left-margin: 6vw;
-    --game-search-button-top-margin: 20%;
-    --game-search-container-bottom-margin: 20px;
+    --content-search-container-left-margin: 3%;
+    --content-search-button-left-margin: 6vw;
+    --content-search-button-top-margin: 20%;
+    --content-search-container-bottom-margin: 20px;
   }
 }
 
@@ -43,41 +43,41 @@
   /* Sizes */
 
   /* Font Sizes */
-  --game-search-button-text-font-size: calc(
-    var(--game-search-button-height) * 0.24
+  --content-search-button-text-font-size: calc(
+    var(--content-search-button-height) * 0.24
   );
 }
 
-/* Game search bar container styling */
-.game-search-container {
-  margin: 10px 0px var(--game-search-container-bottom-margin) 0px;
+/* Content search bar container styling */
+.content-search-container {
+  margin: 10px 0px var(--content-search-container-bottom-margin) 0px;
   display: flex;
   justify-content: center;
   gap: 10px; /* Space between the search bar and button */
   width: 100%; /* Make container take full width */
 }
 
-/* Game search bar styling */
-.game-search-bar {
-  width: var(--game-search-bar-width);
+/* Content search bar styling */
+.content-search-bar {
+  width: var(--content-search-bar-width);
   padding: 10px;
   box-sizing: border-box; /* Ensure padding is included in the width */
 }
 
-.game-search-bar::placeholder {
+.content-search-bar::placeholder {
   color: #999; /* Example color */
 }
 
-/* Game search bar button styling */
-.game-search-button-container {
+/* Content search bar button styling */
+.content-search-button-container {
   display: flex;
   align-items: center; /* Center the button vertically with the search bar */
 }
 
-.game-search-button {
+.content-search-button {
   position: absolute;
-  width: var(--game-search-button-width);
-  height: var(--game-search-button-height);
+  width: var(--content-search-button-width);
+  height: var(--content-search-button-height);
   border: none;
   background-color: transparent;
   color: transparent;
@@ -90,19 +90,19 @@
   if this has a mouse. This prevents an issue where
   touchscreens are causing hover to get stuck */
 @media (hover: hover) {
-  .game-search-button:hover {
+  .content-search-button:hover {
     transform: scale(1.2);
   }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
   event listener to add and delete this CSS style on click */
-.game-search-button.active {
+.content-search-button.active {
   transform: scale(1.2);
   filter: brightness(0.88) invert(17%);
 }
 
 .fas.fa-magnifying-glass {
   color: var(--main-text-color); /* Set the color of the icon */
-  font-size: var(--game-search-icon-size); /* icon size */
+  font-size: var(--content-search-icon-size); /* icon size */
 }

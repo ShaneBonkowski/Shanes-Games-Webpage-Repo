@@ -34,14 +34,17 @@
       rel="stylesheet"
       href="Main-Website-Assets/css/main-website-styles.css"
     />
-    <link rel="stylesheet" href="Main-Website-Assets/css/game-box-styles.css" />
+    <link
+      rel="stylesheet"
+      href="Main-Website-Assets/css/content-box-styles.css"
+    />
     <link
       rel="stylesheet"
       href="Main-Website-Assets/css/header-footer-styles.css"
     />
     <link
       rel="stylesheet"
-      href="Main-Website-Assets/css/games-search-bar.css"
+      href="Main-Website-Assets/css/content-search-bar.css"
     />
     <link rel="stylesheet" href="Main-Website-Assets/css/cookie-styles.css" />
     <link
@@ -85,15 +88,15 @@
       import { createSearchBarContainer } from "/Main-Website-Assets/js/search_bar.js";
       import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
       import {
-        createGameBox,
-        gameBoxes,
-        postGameBoxRendering,
-        searchGames,
-      } from "/Main-Website-Assets/js/game_box.js";
+        createContentBox,
+        contentBoxes,
+        postContentBoxRendering,
+        searchContent,
+      } from "/Main-Website-Assets/js/content_box.js";
 
-      // Promisified version of the createGameBox function. This allows us to wait for
-      // completion of game box creation before rendering the next one.
-      function createGameBoxPromise(
+      // Promisified version of the createContentBox function. This allows us to wait for
+      // completion of content box creation before rendering the next one.
+      function createContentBoxPromise(
         imageUrl,
         linkUrl,
         title,
@@ -102,7 +105,13 @@
       ) {
         return createImage(imageUrl)
           .then((image) => {
-            createGameBox(imageUrl, linkUrl, title, description, openInNewTab);
+            createContentBox(
+              imageUrl,
+              linkUrl,
+              title,
+              description,
+              openInNewTab
+            );
           })
           .catch((error) => {
             console.error("Error loading image:", error);
@@ -119,7 +128,7 @@
             createHeader(image.src);
             createCookieBanner();
 
-            // Create a search bar to filter for games.
+            // Create a search bar to filter for content.
             const searchButtonContainer = createFunctionButtonContainer(
               "searchButtonContainer",
               "searchButton",
@@ -131,42 +140,44 @@
               // input to the search function. See below searchButton.addEventListener
               // for how this is done.
               [],
-              ["game-search-button-container"],
+              ["content-search-button-container"],
               // No imgSrc or text classes since we are just using an icon for this button
               [],
               [],
-              ["game-search-button"],
+              ["content-search-button"],
               ["fas", "fa-magnifying-glass"]
             );
             const searchBarContainer = createSearchBarContainer(
-              ["game-search-container"],
-              ["game-search-bar"],
+              ["content-search-container"],
+              ["content-search-bar"],
               searchButtonContainer,
-              "Search for games..."
+              "Search for games, writing, and art..."
             );
 
             // If search button is pressed, then search
             const searchButton = searchButtonContainer.querySelector(
-              ".game-search-button"
+              ".content-search-button"
             );
             searchButton.addEventListener("click", () => {
               // Have the event re-query to get these elements.
               // Not necc. needed for a static site, but good practice
               // for dynamic elements that can change often.
               const searchButtonContainer = document.body.querySelector(
-                ".game-search-container"
+                ".content-search-container"
               );
-              const searchBar =
-                searchButtonContainer.querySelector(".game-search-bar");
+              const searchBar = searchButtonContainer.querySelector(
+                ".content-search-bar"
+              );
 
               // Search!
               const query = searchBar.value.trim();
-              searchGames(query);
+              searchContent(query);
             });
 
             // If enter is pressed while the search bar is selected, search
-            const searchBar =
-              searchBarContainer.querySelector(".game-search-bar");
+            const searchBar = searchBarContainer.querySelector(
+              ".content-search-bar"
+            );
             searchBar.addEventListener("keydown", (event) => {
               // Enter == key code 13
               if (event.keyCode === 13) {
@@ -174,10 +185,11 @@
                 // Not necc. needed for a static site, but good practice
                 // for dynamic elements that can change often.
                 const searchButtonContainer = document.body.querySelector(
-                  ".game-search-container"
+                  ".content-search-container"
                 );
-                const searchBar =
-                  searchButtonContainer.querySelector(".game-search-bar");
+                const searchBar = searchButtonContainer.querySelector(
+                  ".content-search-bar"
+                );
                 // Check if the search bar is focused
                 if (document.activeElement === searchBar) {
                   // Prevent form submission or other default action
@@ -185,34 +197,34 @@
 
                   // Search!
                   const query = searchBar.value.trim();
-                  searchGames(query);
+                  searchContent(query);
                 }
               }
             });
 
             document.body.appendChild(searchBarContainer);
 
-            // Iterate over each game box data and create game boxes sequentially,
+            // Iterate over each content box data and create content boxes sequentially,
             // i..e wait for one to fully render in before calling the next one to render.
-            gameBoxes
-              .reduce((previousPromise, gameBoxData) => {
+            contentBoxes
+              .reduce((previousPromise, contentBoxData) => {
                 return previousPromise.then(() => {
-                  return createGameBoxPromise(
-                    gameBoxData.imageUrl,
-                    gameBoxData.linkUrl,
-                    gameBoxData.title,
-                    gameBoxData.description,
-                    gameBoxData.openInNewTab
+                  return createContentBoxPromise(
+                    contentBoxData.imageUrl,
+                    contentBoxData.linkUrl,
+                    contentBoxData.title,
+                    contentBoxData.description,
+                    contentBoxData.openInNewTab
                   );
                 });
               }, Promise.resolve())
               .then(() => {
-                // All actions that take place after game box rendering
+                // All actions that take place after content box rendering
                 // should occur in this function, so that search can work as intended.
-                postGameBoxRendering();
+                postContentBoxRendering();
               })
               .catch((error) => {
-                console.error("Error creating game boxes:", error);
+                console.error("Error creating content boxes:", error);
               });
           })
           .catch((error) => {
