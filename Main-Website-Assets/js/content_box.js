@@ -7,6 +7,9 @@
 import { createFooter } from "/Main-Website-Assets/js/footer.js";
 import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
 import { handleContentBoxHover } from "/Main-Website-Assets/js/content_box_hover_handling.js";
+import { createDropdown } from "./dropdown.js";
+import { createSearchBarContainer } from "/Main-Website-Assets/js/search_bar.js";
+import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
 
 // Array of content box data
 export const contentBoxes = [
@@ -171,6 +174,101 @@ function removePostContentBoxRendering() {
   emptySpaceForFooter.forEach((element) => {
     element.remove();
   });
+}
+
+/**
+ * Creates all elements neccesary for the content search bar to function as intended.
+ */
+export function initContentSearchBar() {
+  const searchBarContainer = createSearchBarContainer(
+    ["content-search-container"],
+    ["content-search-bar"],
+    "Search games, writing, art..."
+  );
+
+  const searchButtonContainer = createFunctionButtonContainer(
+    "searchButtonContainer",
+    "searchButton",
+    // No imgSrc or text since we are just using an icon for this button
+    "",
+    "",
+    "",
+    // No function passed in here, since we want to pass in a query
+    // input to the search function. See below searchButton.addEventListener
+    // for how this is done.
+    [],
+    ["content-search-button-container"],
+    // No imgSrc or text classes since we are just using an icon for this button
+    [],
+    [],
+    ["content-search-button"],
+    ["fas", "fa-magnifying-glass"]
+  );
+  searchBarContainer.appendChild(searchButtonContainer);
+
+  // Add content type dropdown box to the search bar container
+  const dropdownOptions = ["All", "Games", "Writing", "Art"];
+  const classNames = {
+    dropdown: "content-dropdown-container",
+    button: "content-dropdown-button",
+    content: "content-dropdown-option",
+  };
+  const contentDropdownBoxContainer = createDropdown(
+    dropdownOptions,
+    classNames
+  );
+  searchBarContainer.insertBefore(
+    contentDropdownBoxContainer,
+    searchBarContainer.firstChild
+  );
+
+  // If search button is pressed, then search
+  const searchButton = searchButtonContainer.querySelector(
+    ".content-search-button"
+  );
+  searchButton.addEventListener("click", () => {
+    // Have the event re-query to get these elements.
+    // Not necc. needed for a static site, but good practice
+    // for dynamic elements that can change often.
+    const searchButtonContainer = document.body.querySelector(
+      ".content-search-container"
+    );
+    const searchBar = searchButtonContainer.querySelector(
+      ".content-search-bar"
+    );
+
+    // Search!
+    const query = searchBar.value.trim();
+    searchContent(query);
+  });
+
+  // If enter is pressed while the search bar is selected, search
+  const searchBar = searchBarContainer.querySelector(".content-search-bar");
+  searchBar.addEventListener("keydown", (event) => {
+    // Enter == key code 13
+    if (event.keyCode === 13) {
+      // Have the event re-query to get these elements.
+      // Not necc. needed for a static site, but good practice
+      // for dynamic elements that can change often.
+      const searchButtonContainer = document.body.querySelector(
+        ".content-search-container"
+      );
+      const searchBar = searchButtonContainer.querySelector(
+        ".content-search-bar"
+      );
+      // Check if the search bar is focused
+      if (document.activeElement === searchBar) {
+        // Prevent form submission or other default action
+        event.preventDefault();
+
+        // Search!
+        const query = searchBar.value.trim();
+        searchContent(query);
+      }
+    }
+  });
+
+  document.body.appendChild(searchBarContainer);
 }
 
 /**

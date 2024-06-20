@@ -85,13 +85,11 @@
       import { createHeader } from "/Main-Website-Assets/js/header.js";
       import { createImage } from "/Shared-General-Assets/js/assetPromises.js";
       import { createCookieBanner } from "/Main-Website-Assets/js/cookie.js";
-      import { createSearchBarContainer } from "/Main-Website-Assets/js/search_bar.js";
-      import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
       import {
         createContentBox,
         contentBoxes,
         postContentBoxRendering,
-        searchContent,
+        initContentSearchBar,
       } from "/Main-Website-Assets/js/content_box.js";
 
       // Promisified version of the createContentBox function. This allows us to wait for
@@ -129,83 +127,10 @@
             createCookieBanner();
 
             // Create a search bar to filter for content.
-            const searchButtonContainer = createFunctionButtonContainer(
-              "searchButtonContainer",
-              "searchButton",
-              // No imgSrc or text since we are just using an icon for this button
-              "",
-              "",
-              "",
-              // No function passed in here, since we want to pass in a query
-              // input to the search function. See below searchButton.addEventListener
-              // for how this is done.
-              [],
-              ["content-search-button-container"],
-              // No imgSrc or text classes since we are just using an icon for this button
-              [],
-              [],
-              ["content-search-button"],
-              ["fas", "fa-magnifying-glass"]
-            );
-            const searchBarContainer = createSearchBarContainer(
-              ["content-search-container"],
-              ["content-search-bar"],
-              searchButtonContainer,
-              "Search for games, writing, and art..."
-            );
-
-            // If search button is pressed, then search
-            const searchButton = searchButtonContainer.querySelector(
-              ".content-search-button"
-            );
-            searchButton.addEventListener("click", () => {
-              // Have the event re-query to get these elements.
-              // Not necc. needed for a static site, but good practice
-              // for dynamic elements that can change often.
-              const searchButtonContainer = document.body.querySelector(
-                ".content-search-container"
-              );
-              const searchBar = searchButtonContainer.querySelector(
-                ".content-search-bar"
-              );
-
-              // Search!
-              const query = searchBar.value.trim();
-              searchContent(query);
-            });
-
-            // If enter is pressed while the search bar is selected, search
-            const searchBar = searchBarContainer.querySelector(
-              ".content-search-bar"
-            );
-            searchBar.addEventListener("keydown", (event) => {
-              // Enter == key code 13
-              if (event.keyCode === 13) {
-                // Have the event re-query to get these elements.
-                // Not necc. needed for a static site, but good practice
-                // for dynamic elements that can change often.
-                const searchButtonContainer = document.body.querySelector(
-                  ".content-search-container"
-                );
-                const searchBar = searchButtonContainer.querySelector(
-                  ".content-search-bar"
-                );
-                // Check if the search bar is focused
-                if (document.activeElement === searchBar) {
-                  // Prevent form submission or other default action
-                  event.preventDefault();
-
-                  // Search!
-                  const query = searchBar.value.trim();
-                  searchContent(query);
-                }
-              }
-            });
-
-            document.body.appendChild(searchBarContainer);
+            initContentSearchBar();
 
             // Iterate over each content box data and create content boxes sequentially,
-            // i..e wait for one to fully render in before calling the next one to render.
+            // i.e wait for one to fully render in before calling the next one to render.
             contentBoxes
               .reduce((previousPromise, contentBoxData) => {
                 return previousPromise.then(() => {

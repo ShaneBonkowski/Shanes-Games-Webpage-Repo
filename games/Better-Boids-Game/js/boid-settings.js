@@ -7,7 +7,7 @@
 import { BoidFactors, customEvents } from "./boid-utils.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
-import { createSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
+import { addSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
 export function addBoidSettings() {
   // Create ui window to hold the settings and sliders in (basically a window)
   function closeSettingsWindow() {
@@ -182,9 +182,9 @@ export function addBoidSettings() {
   const leaderToggleBoxContainer = document.createElement("div");
   leaderToggleBoxContainer.id = "leaderToggleBoxContainer";
   leaderToggleBoxContainer.classList.add("toggle-box-container");
-  createSelectionBox(
+  addSelectionBox(
     `leader-toggle-input"`,
-    ["Leader Boid"],
+    "Leader Boid",
     1,
     leaderToggleBoxContainer,
     // other boxes to be turned off when this one is turned on.
@@ -192,7 +192,7 @@ export function addBoidSettings() {
     [],
     ["toggle-input"],
     ["toggle-label"],
-    true, // start off with this one unchecked
+    true, // start off with this one checked
     function (checked) {
       // Update leaderBoidEnabled variable
       if (checked) {
