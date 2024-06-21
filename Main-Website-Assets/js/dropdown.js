@@ -46,11 +46,11 @@ export function createDropdown(options, classNames) {
     dropdownContent.appendChild(optionElement);
   });
 
-  // Toggle dropdown visibility on button click and touchstart
+  // Toggle dropdown visibility on button click and touchend
   dropdownButton.addEventListener("click", () => {
     dropdownContent.classList.toggle("content-dropdown-show");
   });
-  dropdownButton.addEventListener("touchstart", () => {
+  dropdownButton.addEventListener("touchend", () => {
     dropdownContent.classList.toggle("content-dropdown-show");
   });
 
