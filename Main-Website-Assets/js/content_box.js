@@ -67,7 +67,7 @@ export const contentBoxes = [
   },
   {
     imageUrl: "/Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
-    linkUrl: "/writing/Before-the-World-Dried-Up.html",
+    linkUrl: "/writing/Before-the-world-dried-up.html",
     title: "Before the World Dried Up",
     description:
       "Themes of mortality, existentialism, and the enduring beauty of an everchanging universe",
