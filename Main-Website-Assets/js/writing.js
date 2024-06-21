@@ -5,10 +5,9 @@
  * @param {string} title - The title of the article.
  * @param {string} subtitle - The subtitle of the article.
  * @param {string} date - The date of the article.
- * @param {Array} body - An array of objects where each object contains 'content' (string) and optional 'textAlign' (string).
- * @param {string} [defaultTextAlign='left'] - Default textAlign for paragraphs if not specified in 'body' items.
+ * @param {Array} body - An array of objects where each object contains 'content' (string) and optional 'textAlign' and 'fontStyle' (string).
  */
-export function createArticle(title, subtitle, date, body, defaultTextAlign) {
+export function createArticle(title, subtitle, date, body) {
   // Clear previous content
   const articleContainer = document.createElement("div");
   articleContainer.classList.add("article-container");
@@ -30,7 +29,8 @@ export function createArticle(title, subtitle, date, body, defaultTextAlign) {
     const contentElem = document.createElement("p");
     // Preserve whitespace and newlines using <pre>
     contentElem.innerHTML = item.content;
-    contentElem.style.textAlign = item.textAlign || defaultTextAlign || "left"; // Use defaultTextAlign or "left" if textAlign is not specified
+    contentElem.style.textAlign = item.textAlign || "center"; // Use defaultTextAlign of center if none provided
+    contentElem.style.fontStyle = item.fontStyle || "normal";
     bodyElem.appendChild(contentElem);
   });
 
