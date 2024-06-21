@@ -50,14 +50,19 @@ export function createDropdown(options, classNames) {
   dropdownButton.addEventListener("click", () => {
     dropdownContent.classList.toggle("content-dropdown-show");
   });
+
+  // Give touchstart a delay since phone has a tendency to
+  // click multiple times on one click
+  let canToggle = true;
   dropdownButton.addEventListener("touchstart", () => {
-    // Give touchstart a delay since phone has a tendency to
-    // click multiple times on one click
-    let touchTimer;
-    clearTimeout(touchTimer);
-    touchTimer = setTimeout(() => {
+    if (canToggle) {
       dropdownContent.classList.toggle("content-dropdown-show");
-    }, 200);
+
+      canToggle = false;
+      setTimeout(() => {
+        canToggle = true;
+      }, 200);
+    }
   });
 
   // Close the dropdown if user clicks or touches outside of it
