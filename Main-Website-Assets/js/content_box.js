@@ -19,6 +19,8 @@ export const contentBoxes = [
     title: "Better Boids",
     description:
       "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more",
+    search_tags: "birds, bird, boid, flying, simulation",
+    content_type: "games",
     openInNewTab: false,
   },
   {
@@ -27,6 +29,8 @@ export const contentBoxes = [
     title: "Flip Tile",
     description:
       "Classic 'lights out' style puzzle game. Flipping one tile causes neighboring tiles to flip as well. Match them all to advance further!",
+    search_tags: "flip, flop, tile, matrix",
+    content_type: "games",
     openInNewTab: false,
   },
   {
@@ -36,6 +40,8 @@ export const contentBoxes = [
     title: "Save Our Solar System",
     description:
       "(Steam Game) Stave off countless waves of asteroids as you fight to protect the Solar System from extinction. A fresh look on the tower defense genre!",
+    search_tags: "SOSS, SOS, radiohead, radio, head, asteroid",
+    content_type: "games",
     openInNewTab: true,
   },
   {
@@ -44,17 +50,8 @@ export const contentBoxes = [
     title: "Abyssal Descent",
     description:
       "(Steam Game) Embark on an epic platformer adventure through procedurally generated caves, solving intricate puzzles, and battling fearsome enemies!",
-    openInNewTab: true,
-  },
-  // !!!!!!!!!!!!!!!
-  // PLACEHOLDER COMING SOON BOX ALWAYS AT THE END. PUT NEW BOXES BEFORE THIS
-  // !!!!!!!!!!!!!!!
-  {
-    imageUrl: "Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
-    linkUrl: "https://github.com/ShaneBonkowski",
-    title: "More Coming Soon...",
-    description:
-      "Nothing much here for now. Just a link to my GitHub. Keep an eye out for new games, writing, and art on the way!",
+    search_tags: "ghost, boi, boy, jump, endless",
+    content_type: "games",
     openInNewTab: true,
   },
 ];
@@ -72,6 +69,7 @@ export function createContentBox(
   linkUrl,
   titleText,
   contentDescriptionText,
+  content_type,
   openInNewTab = false
 ) {
   // Create a container div for the box
@@ -121,6 +119,17 @@ export function createContentBox(
   contentDescTextDiv.classList.add("content-description-text");
   contentDescTextDiv.textContent = contentDescriptionText;
 
+  // Add an icon based on the content-type
+  const iconElement = document.createElement("i");
+
+  if (content_type.toLowerCase() === "games") {
+    iconElement.classList.add(...["fas", "fa-gamepad"]);
+  } else if (content_type.toLowerCase() === "writing") {
+    iconElement.classList.add(...["fas", "fa-pen-nib"]);
+  } else if (content_type.toLowerCase() === "art") {
+    iconElement.classList.add(...["fas", "fa-paint-brush"]);
+  }
+
   // Append elements to their containers
   buttonLinkElement.appendChild(imageButton);
   buttonContainer.appendChild(buttonLinkElement);
@@ -128,17 +137,13 @@ export function createContentBox(
   titleLinkElement.appendChild(titleDiv);
   contentDescContainer.appendChild(titleLinkElement);
   contentDescContainer.appendChild(contentDescTextDiv);
+  contentDescContainer.appendChild(iconElement);
 
   boxContainer.appendChild(buttonContainer);
   boxContainer.appendChild(contentDescContainer);
 
   // Append the container to the body of the document
   document.body.appendChild(boxContainer);
-
-  // Create and append blank space after the content box
-  const blankSpace = document.createElement("div");
-  blankSpace.classList.add("content-box-blank-space");
-  document.body.appendChild(blankSpace);
 }
 
 export function postContentBoxRendering() {
@@ -156,22 +161,13 @@ function removePostContentBoxRendering() {
     element.remove();
   });
 
-  const contentBoxBlankSpaceElements = document.querySelectorAll(
-    ".content-box-blank-space"
-  );
-  contentBoxBlankSpaceElements.forEach((element) => {
-    element.remove();
-  });
-
   const footerBannerElements = document.querySelectorAll(".footer-banner");
   footerBannerElements.forEach((element) => {
     element.remove();
   });
 
-  const emptySpaceForFooter = document.querySelectorAll(
-    ".blank-space-for-footer"
-  );
-  emptySpaceForFooter.forEach((element) => {
+  const flexGrowForFooter = document.querySelectorAll(".flex-grow-for-footer");
+  flexGrowForFooter.forEach((element) => {
     element.remove();
   });
 }
@@ -287,31 +283,61 @@ export function searchContent(query) {
     element.remove();
   });
 
-  // Filter to find close matches to titles and descriptions of content
+  // Filter by selected dropdown box content_type, e.g. games, or writing, or art
   let filteredContentBoxes;
+  const dropdownButton = document.querySelector(".content-dropdown-button");
+  if (dropdownButton) {
+    // Button text is the type we filter by, e.g. games, or writing, or art
+    const content_type_dropdown_selected = dropdownButton.textContent.trim();
+
+    if (content_type_dropdown_selected.toLowerCase() !== "all") {
+      filteredContentBoxes = contentBoxes.filter((contentBox) => {
+        const contentTypeDropdownMatch =
+          contentBox.content_type.toLowerCase() ===
+          content_type_dropdown_selected.toLowerCase();
+
+        return contentTypeDropdownMatch;
+      });
+    } else {
+      // If "all" is specified return all content boxes
+      filteredContentBoxes = contentBoxes;
+    }
+  } else {
+    // If query is empty, return all content boxes
+    filteredContentBoxes = contentBoxes;
+  }
+
+  // Filter to find close matches to titles, tags, and descriptions of content
+  let queryFilteredContentBoxes;
   if (query !== "") {
-    filteredContentBoxes = contentBoxes.filter((contentBox) => {
+    // Filter based on search config
+    queryFilteredContentBoxes = filteredContentBoxes.filter((contentBox) => {
       const nameMatch = contentBox.title
         .toLowerCase()
         .includes(query.toLowerCase());
       const descriptionMatch = contentBox.description
         .toLowerCase()
         .includes(query.toLowerCase());
-      return nameMatch || descriptionMatch;
+      const tagsMatch = contentBox.search_tags
+        .toLowerCase()
+        .includes(query.toLowerCase());
+
+      return nameMatch || descriptionMatch || tagsMatch;
     });
   } else {
-    // If query is empty, return all content boxes
-    filteredContentBoxes = contentBoxes;
+    // If query is empty, return all filteredContentBoxes from before
+    queryFilteredContentBoxes = filteredContentBoxes;
   }
 
   // Re-render the content boxes
-  if (filteredContentBoxes.length > 0) {
-    filteredContentBoxes.forEach((contentBox) => {
+  if (queryFilteredContentBoxes.length > 0) {
+    queryFilteredContentBoxes.forEach((contentBox) => {
       createContentBox(
         contentBox.imageUrl,
         contentBox.linkUrl,
         contentBox.title,
         contentBox.description,
+        contentBox.content_type,
         contentBox.openInNewTab
       );
     });

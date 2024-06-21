@@ -43,7 +43,7 @@ export function createFooter(parentElement = null) {
   // is always at the bottom, even if the content doesnt fill
   // the whole page.
   const emptyDiv = document.createElement("div");
-  emptyDiv.classList.add("blank-space-for-footer");
+  emptyDiv.classList.add("flex-grow-for-footer");
   document.body.appendChild(emptyDiv);
 
   // Append the container to the body of the document

@@ -41,11 +41,6 @@
   }
 }
 
-/* About me section */
-.about-me-blank-space {
-  height: 1vh;
-}
-
 .about-me-box {
   position: relative; /* Position this wherever (this is the origin for all of this obj's children */
   width: var(--about-me-box-width);
@@ -54,6 +49,9 @@
   left: var(--general-left-margin);
   top: var(--general-top-margin);
   transform: translate(var(--centering-translation), 0%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .about-me-image-container {

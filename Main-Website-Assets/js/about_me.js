@@ -36,9 +36,4 @@ export function createAboutMe() {
 
   // Append the container to the body of the document
   document.body.appendChild(boxContainer);
-
-  // Create and append blank space after
-  const blankSpace = document.createElement("div");
-  blankSpace.classList.add("about-me-blank-space");
-  document.body.appendChild(blankSpace);
 }

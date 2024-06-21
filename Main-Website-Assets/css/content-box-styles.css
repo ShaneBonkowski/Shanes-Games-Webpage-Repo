@@ -6,11 +6,18 @@
   /* Sizes */
   --content-box-width: 90vw;
   --content-box-height: 20vw;
+  --content-type-icon-size: 22px;
   /* Edge Margins */
   --content-button-left-margin: 17%;
   --content-desc-text-left-margin: 5%;
   --content-title-text-top-margin: 10%;
   --content-desc-text-top-margin: 30%;
+  --content-desc-margin-left: 50px;
+  --title-link-margin: 10px;
+  --content-desc-padding-left: 20px;
+  --content-desc-padding-top: 10px;
+  --content-icon-right-margin: 8%;
+  --content-icon-bottom-margin: 12%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -19,9 +26,16 @@
     /* Sizes */
     --content-box-height: 36vw;
     --content-box-width: 95vw;
+    --content-type-icon-size: 15px;
     /* Edge Margins */
     --content-button-left-margin: 22%;
     --content-desc-text-left-margin: 8%;
+    --content-desc-margin-left: 10px;
+    --title-link-margin: 5px;
+    --content-desc-padding-left: 10px;
+    --content-desc-padding-top: 5px;
+    --content-icon-right-margin: 8%;
+    --content-icon-bottom-margin: 10%;
   }
 }
 
@@ -32,7 +46,7 @@
   --content-button-height: calc(var(--content-box-height) * 0.95);
   --content-desc-width: calc(var(--content-box-width) * (0.6));
   --content-desc-height: calc(var(--content-box-height) * 0.95);
-  --content-box-blank-space-height: calc(var(--content-box-height) * 0.07);
+  --content-box-margin-bottom: calc(var(--content-box-height) * 0.07);
   /* Font Sizes */
   --content-desc-title-font-size: calc(var(--content-button-width) * 0.06);
   --content-desc-body-text-font-size: calc(var(--content-button-width) * 0.06);
@@ -60,42 +74,20 @@
   }
 }
 
-/* Common styles for content box elements */
-a.content-box-button-link-anchor,
-.content-box-button-container,
-.content-button,
-.content-desc-container,
-a.title-link-anchor,
-.content-title,
-.content-description-text {
-  position: absolute; /* Position wrt to its parent */
-}
-
-.content-box-button-container,
-.content-desc-container {
-  transform: translate(
-    var(--centering-translation),
-    var(--centering-translation)
-  );
-}
-
 /* content_box.js content box Styling */
 .content-box {
   position: relative; /* Position this wherever (this is the origin for all content-box's children */
   width: var(--content-box-width);
   height: var(--content-box-height);
   left: var(--main-left-margin);
-}
-
-.content-box-blank-space {
-  height: var(--content-box-blank-space-height);
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--content-box-margin-bottom);
 }
 
 .content-box-button-container {
   width: var(--content-button-width);
   height: var(--content-button-height);
-  left: var(--content-button-left-margin);
-  top: var(--general-top-margin);
 }
 
 a.content-box-button-link-anchor {
@@ -126,14 +118,18 @@ event listener to add and delete this CSS style on click */
   width: var(--content-desc-width);
   height: var(--content-desc-height);
   border-radius: var(--standard-edge_radius);
-  left: var(--content-description-left-margin);
-  top: var(--general-top-margin);
   background-color: var(--panel-color);
+  display: flex;
+  flex-direction: column;
+  padding: var(--content-desc-padding-left) var(--content-desc-padding-top)
+    var(--content-desc-padding-top) var(--content-desc-padding-left);
+  margin: 0px 0px 0px var(--content-desc-margin-left);
+  box-sizing: border-box;
 }
 
 a.title-link-anchor {
-  left: var(--content-desc-text-left-margin);
-  top: var(--content-title-text-top-margin);
+  margin: var(--title-link-margin);
+  text-decoration: none;
 }
 
 .content-title {
@@ -152,11 +148,10 @@ a.title-link-anchor {
 .content-description-text {
   font-size: var(--content-desc-body-text-font-size);
   text-align: left;
-  left: var(--content-desc-text-left-margin);
   color: var(--main-text-color);
-  top: var(--content-desc-text-top-margin);
   font-weight: normal;
   width: var(--content-desc-text-width);
+  margin: var(--title-link-margin);
 }
 
 .no-results-found-text {
@@ -164,4 +159,14 @@ a.title-link-anchor {
   text-align: center;
   color: var(--main-text-color);
   font-weight: normal;
+}
+
+.fas.fa-gamepad,
+.fas.fa-paint-brush,
+.fas.fa-pen-nib {
+  position: absolute;
+  bottom: var(--content-icon-bottom-margin);
+  right: var(--content-icon-right-margin);
+  color: #ffffff;
+  font-size: var(--content-type-icon-size);
 }
