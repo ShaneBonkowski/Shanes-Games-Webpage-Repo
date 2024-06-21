@@ -5,6 +5,7 @@
 /* Define variables */
 :root {
   /* Transformations */
+  --content-dropdown-option-shift-y: 10px;
 
   /* Sizes */
   --content-search-button-height: 6vh;
@@ -23,6 +24,7 @@
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Transformations */
+    --content-dropdown-option-shift-y: 8px;
 
     /* Sizes */
     --content-search-button-height: 6vh;
@@ -171,6 +173,7 @@ event listener to add and delete this CSS style on click */
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  transform: translate(0px, var(--content-dropdown-option-shift-y));
 }
 
 .content-dropdown-option a {
@@ -178,6 +181,17 @@ event listener to add and delete this CSS style on click */
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+  border: 1px solid black;
+  border-left: none;
+  border-right: none;
+}
+
+.content-dropdown-option a:first-child {
+  border-top: none; /* Remove top border from the first link */
+}
+
+.content-dropdown-option a:last-child {
+  border-bottom: none; /* Remove bottom border from the last link */
 }
 
 /* Only hover if the browser supports hover. Aka
