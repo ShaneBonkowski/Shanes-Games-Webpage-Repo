@@ -50,7 +50,7 @@
   --github-icon-size: calc(var(--header-height) * 0.2);
   --title-text-font-size: calc(var(--header-height) * 0.25);
   --subtitle-text-font-size: calc(var(--header-height) * 0.125);
-  --header-blank-space-height: calc(var(--header-height) * 0.18);
+  --header-margin-bottom: calc(var(--header-height) * 0.18);
   /* Font Sizes */
   --linkedin-icon-size: calc(var(--linkedin-button-height) * 0.45);
   --footer-main-text-font-size: calc(var(--footer-height) * 0.125);
@@ -65,10 +65,10 @@
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
   height: var(--header-height);
-}
-
-.header-blank-space {
-  height: var(--header-blank-space-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--header-margin-bottom);
 }
 
 .title-container,
@@ -252,7 +252,7 @@ event listener to add and delete this CSS style on click */
   text-decoration: underline; /* Add underline on click */
 }
 
-.blank-space-for-footer {
+.flex-grow-for-footer {
   flex-grow: 1;
 }
 

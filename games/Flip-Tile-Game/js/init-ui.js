@@ -11,7 +11,7 @@ import {
   difficulty,
   scoring,
 } from "./tile-utils.js";
-import { createSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
+import { addSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
 import { tiles } from "./main-game-scene.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 
@@ -63,9 +63,9 @@ export function initUI() {
   difficultySelectionBoxContainer.classList.add(
     "difficulty-selection-box-container"
   );
-  createSelectionBox(
+  addSelectionBox(
     `input-box-1`,
-    ["easy"],
+    "easy",
     1,
     difficultySelectionBoxContainer,
     // other boxes to be turned off when this one is turned on
@@ -74,9 +74,9 @@ export function initUI() {
     ["input-box-label-1"],
     true // start off with this one checked
   );
-  createSelectionBox(
+  addSelectionBox(
     `input-box-2`,
-    ["hard"],
+    "hard",
     2,
     difficultySelectionBoxContainer,
     // other boxes to be turned off when this one is turned on
@@ -84,9 +84,9 @@ export function initUI() {
     ["input-box-2"],
     ["input-box-label-2"]
   );
-  createSelectionBox(
+  addSelectionBox(
     `input-box-3`,
-    ["expert"],
+    "expert",
     3,
     difficultySelectionBoxContainer,
     // other boxes to be turned off when this one is turned on
@@ -99,13 +99,13 @@ export function initUI() {
   const solutionToggleBoxContainer = document.createElement("div");
   solutionToggleBoxContainer.id = "solutionToggleBoxContainer";
   solutionToggleBoxContainer.classList.add("sol-toggle-box-container");
-  createSelectionBox(
+  addSelectionBox(
     `sol-toggle-input"`,
-    ["reveal"],
+    "reveal",
     4,
     solutionToggleBoxContainer,
-    // other boxes to be turned off when this one is turned on.
-    // Empty so that this can be a toggle box.
+    // other boxes to be turned off when this one is turned on is
+    // empty so that this can be a toggle box.
     [],
     ["sol-toggle-input"],
     ["sol-toggle-label"],

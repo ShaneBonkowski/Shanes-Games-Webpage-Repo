@@ -12,13 +12,9 @@ import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
  * @param {string} logoImageSrc - The source URL (local path in this case) of the logo image.
  */
 export function createHeader(logoImageSrc) {
-  // Create a container div for the header box
-  const headerContainer = document.createElement("div");
-  headerContainer.classList.add("header-box");
-
   // Create a div for header banner itself
-  const headerBannerDiv = document.createElement("header");
-  headerBannerDiv.classList.add("header-banner");
+  const headerContainer = document.createElement("header");
+  headerContainer.classList.add("header-banner");
 
   // Create a container div for the logo
   const titleContainer = document.createElement("div");
@@ -59,7 +55,7 @@ export function createHeader(logoImageSrc) {
 
   // Home button
   const homeButtonContainer = createLinkButtonContainer(
-    "Games",
+    "Content",
     "index.html",
     ["header-button-text", "home-text"],
     [],
@@ -71,17 +67,11 @@ export function createHeader(logoImageSrc) {
   titleContainer.appendChild(titleElement);
   titleContainer.appendChild(subtitleDiv);
   titleContainer.appendChild(logoImage);
-  headerBannerDiv.appendChild(titleContainer);
-  headerBannerDiv.appendChild(githubButtonContainer);
-  headerBannerDiv.appendChild(aboutMeButtonContainer);
-  headerBannerDiv.appendChild(homeButtonContainer);
-  headerContainer.appendChild(headerBannerDiv);
+  headerContainer.appendChild(titleContainer);
+  headerContainer.appendChild(githubButtonContainer);
+  headerContainer.appendChild(aboutMeButtonContainer);
+  headerContainer.appendChild(homeButtonContainer);
 
   // Append the container to the body of the document
   document.body.appendChild(headerContainer);
-
-  // Create and append blank space at the end
-  const blankSpace = document.createElement("div");
-  blankSpace.classList.add("header-blank-space");
-  document.body.appendChild(blankSpace);
 }

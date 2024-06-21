@@ -1,0 +1,172 @@
+/* Import constants */
+@import "./main-website-styles.css";
+
+/* Define CONSTANT variables */
+:root {
+  /* Sizes */
+  --content-box-width: 90vw;
+  --content-box-height: 20vw;
+  --content-type-icon-size: 22px;
+  /* Edge Margins */
+  --content-button-left-margin: 17%;
+  --content-desc-text-left-margin: 5%;
+  --content-title-text-top-margin: 10%;
+  --content-desc-text-top-margin: 30%;
+  --content-desc-margin-left: 50px;
+  --title-link-margin: 10px;
+  --content-desc-padding-left: 20px;
+  --content-desc-padding-top: 10px;
+  --content-icon-right-margin: 8%;
+  --content-icon-bottom-margin: 12%;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  :root {
+    /* Sizes */
+    --content-box-height: 36vw;
+    --content-box-width: 95vw;
+    --content-type-icon-size: 15px;
+    /* Edge Margins */
+    --content-button-left-margin: 22%;
+    --content-desc-text-left-margin: 8%;
+    --content-desc-margin-left: 10px;
+    --title-link-margin: 5px;
+    --content-desc-padding-left: 10px;
+    --content-desc-padding-top: 5px;
+    --content-icon-right-margin: 8%;
+    --content-icon-bottom-margin: 10%;
+  }
+}
+
+/* Define DERIVED variables (aka ones based on others) */
+:root {
+  /* Sizes */
+  --content-button-width: calc(var(--content-box-width) / 3.3);
+  --content-button-height: calc(var(--content-box-height) * 0.95);
+  --content-desc-width: calc(var(--content-box-width) * (0.6));
+  --content-desc-height: calc(var(--content-box-height) * 0.95);
+  --content-box-margin-bottom: calc(var(--content-box-height) * 0.07);
+  /* Font Sizes */
+  --content-desc-title-font-size: calc(var(--content-button-width) * 0.06);
+  --content-desc-body-text-font-size: calc(var(--content-button-width) * 0.06);
+  /* Edge Margins */
+  --content-description-left-margin: calc(
+    var(--content-button-left-margin) + 50%
+  );
+}
+
+/* Media query to override DERIVED values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  :root {
+    /* Font Sizes */
+    --content-desc-title-font-size: calc(var(--content-button-width) * 0.06);
+    --content-desc-body-text-font-size: calc(
+      var(--content-button-width) * 0.06
+    );
+    /* Sizes */
+    --content-button-width: calc(var(--content-box-width) / 2.3);
+    --content-desc-width: calc(var(--content-box-width) * (0.5));
+    /* Edge Margins */
+    --content-description-left-margin: calc(
+      var(--content-button-left-margin) + 50%
+    );
+  }
+}
+
+/* content_box.js content box Styling */
+.content-box {
+  position: relative; /* Position this wherever (this is the origin for all content-box's children */
+  width: var(--content-box-width);
+  height: var(--content-box-height);
+  left: var(--main-left-margin);
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--content-box-margin-bottom);
+}
+
+.content-box-button-container {
+  width: var(--content-button-width);
+  height: var(--content-button-height);
+}
+
+a.content-box-button-link-anchor {
+  /* Add styles if needed */
+}
+
+.content-button {
+  cursor: pointer;
+  transition: transform 0.3s, opacity 0.3s;
+  border-radius: var(--standard-edge_radius);
+  width: var(--content-button-width);
+  height: var(--content-button-height);
+  transition: transform 0.3s ease;
+}
+
+.content-button-hover-effect {
+  transform: scale(1.05);
+}
+
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click */
+.content-button-click-effect {
+  transform: scale(1.05);
+  filter: brightness(0.9) invert(10%);
+}
+
+.content-desc-container {
+  width: var(--content-desc-width);
+  height: var(--content-desc-height);
+  border-radius: var(--standard-edge_radius);
+  background-color: var(--panel-color);
+  display: flex;
+  flex-direction: column;
+  padding: var(--content-desc-padding-left) var(--content-desc-padding-top)
+    var(--content-desc-padding-top) var(--content-desc-padding-left);
+  margin: 0px 0px 0px var(--content-desc-margin-left);
+  box-sizing: border-box;
+}
+
+a.title-link-anchor {
+  margin: var(--title-link-margin);
+  text-decoration: none;
+}
+
+.content-title {
+  font-size: var(--content-desc-title-font-size);
+  text-align: left;
+  color: var(--main-text-color);
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.content-title-hover-effect {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.content-description-text {
+  font-size: var(--content-desc-body-text-font-size);
+  text-align: left;
+  color: var(--main-text-color);
+  font-weight: normal;
+  width: var(--content-desc-text-width);
+  margin: var(--title-link-margin);
+}
+
+.no-results-found-text {
+  font-size: 15pt;
+  text-align: center;
+  color: var(--main-text-color);
+  font-weight: normal;
+}
+
+.fas.fa-gamepad,
+.fas.fa-paint-brush,
+.fas.fa-pen-nib {
+  position: absolute;
+  bottom: var(--content-icon-bottom-margin);
+  right: var(--content-icon-right-margin);
+  color: #ffffff;
+  font-size: var(--content-type-icon-size);
+}
