@@ -14,8 +14,8 @@ import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.j
 // Array of content box data
 export const contentBoxes = [
   {
-    imageUrl: "games/Better-Boids-Game/webps/Game_Cover_Picture.webp",
-    linkUrl: "games/Better-Boids-Game/BetterBoids.html",
+    imageUrl: "/games/Better-Boids-Game/webps/Game_Cover_Picture.webp",
+    linkUrl: "/games/Better-Boids-Game/BetterBoids.html",
     title: "Better Boids",
     description:
       "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more",
@@ -24,8 +24,8 @@ export const contentBoxes = [
     openInNewTab: false,
   },
   {
-    imageUrl: "games/Flip-Tile-Game/webps/Cover_Art.webp",
-    linkUrl: "games/Flip-Tile-Game/FlipTile.html",
+    imageUrl: "/games/Flip-Tile-Game/webps/Cover_Art.webp",
+    linkUrl: "/games/Flip-Tile-Game/FlipTile.html",
     title: "Flip Tile",
     description:
       "Classic 'lights out' style puzzle game. Flipping one tile causes neighboring tiles to flip as well. Match them all to advance further!",
@@ -34,7 +34,7 @@ export const contentBoxes = [
     openInNewTab: false,
   },
   {
-    imageUrl: "Main-Website-Assets/webps/SOSS_cover_art.webp",
+    imageUrl: "/Main-Website-Assets/webps/SOSS_cover_art.webp",
     linkUrl:
       "https://store.steampowered.com/app/2061040/Save_Our_Solar_System/",
     title: "Save Our Solar System",
@@ -45,7 +45,7 @@ export const contentBoxes = [
     openInNewTab: true,
   },
   {
-    imageUrl: "Main-Website-Assets/webps/AD_cover_art.webp",
+    imageUrl: "/Main-Website-Assets/webps/AD_cover_art.webp",
     linkUrl: "https://store.steampowered.com/app/2506740/Abyssal_Descent/",
     title: "Abyssal Descent",
     description:
@@ -53,6 +53,17 @@ export const contentBoxes = [
     search_tags: "ghost, boi, boy, jump, endless",
     content_type: "games",
     openInNewTab: true,
+  },
+  {
+    imageUrl: "/Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
+    linkUrl: "/writing/I-am-immortal.html",
+    title: "I am Immortal",
+    description:
+      "A cosmic journey of existence through life's beginnings in the aftermath of the Big Bang, with contemplations on mortality within the vast expanse of Infinity",
+    search_tags:
+      "life, death, universe, immortal, live, forever, spooky, eerie, sci-fi, science, fiction",
+    content_type: "writing",
+    openInNewTab: false,
   },
 ];
 

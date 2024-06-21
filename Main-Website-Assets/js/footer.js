@@ -21,7 +21,7 @@ export function createFooter(parentElement = null) {
   //   "Thanks for visiting!\nShane's Games by me (Shane)";
   footerMainTextDiv.innerHTML = `
     Thanks for visiting Shane's Games by me (Shane)<br>
-    <a href="././privacy-policy.html">Privacy Policy</a>
+    <a href="/privacy-policy.html">Privacy Policy</a>
 `;
 
   // LinkedIn button

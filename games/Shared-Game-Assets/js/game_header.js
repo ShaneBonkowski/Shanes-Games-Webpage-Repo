@@ -69,7 +69,7 @@ export function createGameHeader(
 
   // Add event listener to logo container, so it takes you to a link on click
   shanesGamesLogoContainer.addEventListener("click", function () {
-    window.location.href = "../../index.html"; // Redirect to index.html
+    window.location.href = "/index.html"; // Redirect to index.html
   });
 
   // Have a lil anim on click for the logo container too
