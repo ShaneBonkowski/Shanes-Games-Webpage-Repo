@@ -65,6 +65,17 @@ export const contentBoxes = [
     content_type: "writing",
     openInNewTab: false,
   },
+  {
+    imageUrl: "/Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
+    linkUrl: "/writing/Before-the-World-Dried-Up.html",
+    title: "Before the World Dried Up",
+    description:
+      "Themes of mortality, existentialism, and the enduring beauty of an everchanging universe",
+    search_tags:
+      "earth, world, universe, boat, water, ocean, existential, spooky, eerie, sci-fi, science, fiction",
+    content_type: "writing",
+    openInNewTab: false,
+  },
 ];
 
 /**
