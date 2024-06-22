@@ -16,8 +16,8 @@
   :root {
     /* Sizes */
     --cookie-banner-width: auto;
-    --cookie-banner-right-dist: 0;
-    --cookie-banner-bottom-dist: 0;
+    --cookie-banner-right-dist: 0px;
+    --cookie-banner-bottom-dist: 0px;
     --cookie-banner-edge-radius: auto;
     --cookie-banner-padding: 12px;
   }
@@ -25,20 +25,28 @@
 
 .cookie-banner {
   position: fixed;
-  bottom: var(--cookie-banner-bottom-dist);
-  right: var(--cookie-banner-right-dist);
+  bottom: 0;
+  right: 0;
+  margin: var(--cookie-banner-bottom-dist) var(--cookie-banner-right-dist)
+    var(--cookie-banner-bottom-dist) var(--cookie-banner-right-dist);
   width: var(--cookie-banner-width);
   background-color: var(--info-banner-background-color);
   padding: var(--cookie-banner-padding);
   text-align: center;
   z-index: 10;
   border-radius: var(--cookie-banner-edge-radius);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .cookie-banner p {
   font-size: 14px;
   padding: 5px 20px 10px 20px;
   text-align: center;
+  /* Prevent bug on phone where going landscape -> portrait causes cookie banner text to be huge */
+  /* -webkit-text-size-adjust: none; */
 }
 
 .cookie-banner a {
@@ -65,6 +73,7 @@ event listener to add and delete this CSS style on click */
 .cookie-button-container {
   display: flex;
   justify-content: space-between; /* Pushes buttons apart */
+  width: 100%;
 }
 
 .cookie-banner button {
