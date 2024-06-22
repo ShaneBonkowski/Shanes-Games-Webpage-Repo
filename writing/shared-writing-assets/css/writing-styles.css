@@ -14,11 +14,19 @@
 
 /* Define CONSTANT variables */
 :root {
+  --article-container-h1-font-size: 34pt;
+  --article-container-h2-font-size: 22pt;
+  --article-container-h3-font-size: 14pt;
+  --article-container-p-font-size: 16pt;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
+    --article-container-h1-font-size: 22pt;
+    --article-container-h2-font-size: 16pt;
+    --article-container-h3-font-size: 10pt;
+    --article-container-p-font-size: 12pt;
   }
 }
 
@@ -32,14 +40,14 @@ body {
   max-width: 880px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 10px;
+  padding: 0 15px;
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 
 .article-container h1 {
-  font-size: 38px;
+  font-size: var(--article-container-h1-font-size);
   color: var(--main-text-color);
   font-weight: bold;
   text-align: center;
@@ -47,7 +55,7 @@ body {
 }
 
 .article-container h2 {
-  font-size: 22px;
+  font-size: var(--article-container-h2-font-size);
   color: var(--main-text-color);
   font-weight: normal;
   font-style: italic;
@@ -56,7 +64,7 @@ body {
 }
 
 .article-container h3 {
-  font-size: 14px;
+  font-size: var(--article-container-h3-font-size);
   color: var(--main-text-color);
   font-weight: normal;
   text-align: center;
@@ -64,7 +72,7 @@ body {
 }
 
 .article-container p {
-  font-size: 16px;
+  font-size: var(--article-container-p-font-size);
   font-weight: normal;
   line-height: 1.6;
   color: var(--main-text-color);
