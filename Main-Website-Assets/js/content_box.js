@@ -59,7 +59,7 @@ export const contentBoxes = [
     linkUrl: "/writing/I-am-immortal.html",
     title: "I am Immortal",
     description:
-      "A cosmic journey of existence through life's beginnings in the aftermath of the Big Bang, with contemplations on mortality within the vast expanse of Infinity",
+      "If you ask me, I’m at least 13.8 billion years old. Born in the aftermath of the Big Bang. My life began the same way it will end: Scattered across Infinity.",
     search_tags:
       "life, death, universe, immortal, live, forever, spooky, eerie, sci-fi, science, fiction",
     content_type: "writing",
@@ -70,7 +70,7 @@ export const contentBoxes = [
     linkUrl: "/writing/Before-the-world-dried-up.html",
     title: "Before the World Dried Up",
     description:
-      "Themes of mortality, existentialism, and the enduring beauty of an everchanging universe",
+      "They ask me why I plan on sticking around this place. Why I haven't jumped ship with the rest of them. I let out a sigh as I gaze off across the lifeless desertscape.",
     search_tags:
       "earth, world, universe, boat, water, ocean, existential, spooky, eerie, sci-fi, science, fiction",
     content_type: "writing",

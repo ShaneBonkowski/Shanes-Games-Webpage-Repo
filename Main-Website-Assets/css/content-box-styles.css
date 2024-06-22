@@ -10,14 +10,15 @@
   /* Edge Margins */
   --content-button-left-margin: 17%;
   --content-desc-text-left-margin: 5%;
-  --content-title-text-top-margin: 10%;
-  --content-desc-text-top-margin: 30%;
+  --content-title-text-top-margin: 20px;
+  --content-desc-text-top-margin: 40px;
   --content-desc-margin-left: 50px;
   --title-link-margin: 10px;
   --content-desc-padding-left: 20px;
   --content-desc-padding-top: 10px;
-  --content-icon-right-margin: 8%;
-  --content-icon-bottom-margin: 12%;
+  --content-icon-left-margin: 30px;
+  --content-icon-top-margin: 33px;
+  --content-title-margin-left: 50px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -26,7 +27,7 @@
     /* Sizes */
     --content-box-height: 36vw;
     --content-box-width: 95vw;
-    --content-type-icon-size: 15px;
+    --content-type-icon-size: 13px;
     /* Edge Margins */
     --content-button-left-margin: 22%;
     --content-desc-text-left-margin: 8%;
@@ -34,8 +35,9 @@
     --title-link-margin: 5px;
     --content-desc-padding-left: 10px;
     --content-desc-padding-top: 5px;
-    --content-icon-right-margin: 8%;
-    --content-icon-bottom-margin: 10%;
+    --content-icon-left-margin: 15.2px;
+    --content-icon-top-margin: 15.2px;
+    --content-title-margin-left: 25px;
   }
 }
 
@@ -60,9 +62,9 @@
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Font Sizes */
-    --content-desc-title-font-size: calc(var(--content-button-width) * 0.06);
+    --content-desc-title-font-size: calc(var(--content-button-width) * 0.055);
     --content-desc-body-text-font-size: calc(
-      var(--content-button-width) * 0.06
+      var(--content-button-width) * 0.055
     );
     /* Sizes */
     --content-button-width: calc(var(--content-box-width) / 2.3);
@@ -115,6 +117,7 @@ event listener to add and delete this CSS style on click */
 }
 
 .content-desc-container {
+  position: relative;
   width: var(--content-desc-width);
   height: var(--content-desc-height);
   border-radius: var(--standard-edge_radius);
@@ -133,6 +136,7 @@ a.title-link-anchor {
 }
 
 .content-title {
+  margin: 0px 0px 0px var(--content-title-margin-left);
   font-size: var(--content-desc-title-font-size);
   text-align: left;
   color: var(--main-text-color);
@@ -165,8 +169,8 @@ a.title-link-anchor {
 .fas.fa-paint-brush,
 .fas.fa-pen-nib {
   position: absolute;
-  bottom: var(--content-icon-bottom-margin);
-  right: var(--content-icon-right-margin);
+  top: var(--content-icon-top-margin);
+  left: var(--content-icon-left-margin);
   color: #ffffff;
   font-size: var(--content-type-icon-size);
 }
