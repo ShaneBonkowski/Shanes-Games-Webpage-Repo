@@ -55,7 +55,7 @@ export const contentBoxes = [
     openInNewTab: true,
   },
   {
-    imageUrl: "/Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
+    imageUrl: "/writing/webps/I-am-immortal-image.webp",
     linkUrl: "/writing/I-am-immortal.html",
     title: "I am Immortal",
     description:
@@ -66,7 +66,7 @@ export const contentBoxes = [
     openInNewTab: false,
   },
   {
-    imageUrl: "/Main-Website-Assets/webps/Coming_Soon_Image_Option_2.webp",
+    imageUrl: "/writing/webps/Before-The-World-Dried-Boat-Cropped.webp",
     linkUrl: "/writing/Before-the-world-dried-up.html",
     title: "Before the World Dried Up",
     description:
