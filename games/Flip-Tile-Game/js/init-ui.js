@@ -287,7 +287,7 @@ function addInfoBox() {
 
   function showGameBanner() {
     const gameHeader = document.querySelector(".game-header-banner");
-    gameHeader.style.display = "block";
+    gameHeader.style.display = "flex";
   }
 
   // Event listener for UI menu open event

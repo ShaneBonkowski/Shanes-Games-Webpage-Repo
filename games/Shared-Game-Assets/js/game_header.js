@@ -17,20 +17,10 @@ import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
  * for the given game.
  * @param {string} gameName - The name of the game.
  * @param {string} gameIconSrc - The local path to the game icon image. Must be 200 by 200 px!
- * @param {number} gameLogoContainerLeftMarginPercentageComputer - The left margin percentage for the game logo container on a computer screen.
- * @param {number} gameLogoContainerLeftMarginPercentagePhone - The left margin percentage for the game logo container on a phone screen.
- * @param {number} gameTitleXShiftPercentage - The horizontal shift percentage for the game title.
- * @param {number} gameTitleYShiftPercentage - The vertical shift percentage for the game title.
+ * @param {number} gameTitleLeftMarginPx - The left margin for the game logo title in px.
  * @returns {HTMLElement} Game Header element.
  */
-export function createGameHeader(
-  gameName,
-  gameIconSrc,
-  gameLogoContainerLeftMarginPercentageComputer,
-  gameLogoContainerLeftMarginPercentagePhone,
-  gameTitleXShiftPercentage,
-  gameTitleYShiftPercentage
-) {
+export function createGameHeader(gameName, gameIconSrc, gameTitleLeftMarginPx) {
   const gameHeaderContainer = document.createElement("div");
   gameHeaderContainer.classList.add("game-header-banner");
   gameHeaderContainer.classList.add("disable-browser-default-touch-actions");
@@ -64,8 +54,8 @@ export function createGameHeader(
 
   // Append icon, title, and subtitle to the ShanesGames Logo container
   shanesGamesLogoContainer.appendChild(shanesGamesLogoIcon);
+  shanesGamesLogoTitle.appendChild(shanesGamesLogoSubtitle);
   shanesGamesLogoContainer.appendChild(shanesGamesLogoTitle);
-  shanesGamesLogoContainer.appendChild(shanesGamesLogoSubtitle);
 
   // Add event listener to logo container, so it takes you to a link on click
   shanesGamesLogoContainer.addEventListener("click", function () {
@@ -80,21 +70,6 @@ export function createGameHeader(
   gameLogoContainer.classList.add("game-logo-container");
   gameLogoContainer.classList.add("disable-browser-default-touch-actions");
 
-  // Set location of gameLogoContainer, and have it change when window size changes
-  function updateGameLogoContainer() {
-    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
-
-    if (window.innerWidth <= 600 || isPortrait) {
-      gameLogoContainer.style.marginLeft =
-        gameLogoContainerLeftMarginPercentagePhone + "%";
-    } else {
-      gameLogoContainer.style.marginLeft =
-        gameLogoContainerLeftMarginPercentageComputer + "%";
-    }
-  }
-  updateGameLogoContainer();
-  window.addEventListener("resize", updateGameLogoContainer);
-
   const gameLogoImage = document.createElement("img");
   gameLogoImage.src = gameIconSrc; // Must be 200 by 200 px!
   gameLogoImage.alt = gameName;
@@ -106,7 +81,7 @@ export function createGameHeader(
   gameTitle.classList.add("game-title-style");
   gameTitle.classList.add("game-title");
   gameTitle.classList.add("disable-browser-default-touch-actions");
-  gameTitle.style.transform = `translate(${gameTitleXShiftPercentage}%, ${gameTitleYShiftPercentage}%)`;
+  gameTitle.style.margin = `0px 0px 0px ${gameTitleLeftMarginPx}px`;
 
   // Append image and title to the Game Logo container
   gameLogoContainer.appendChild(gameLogoImage);

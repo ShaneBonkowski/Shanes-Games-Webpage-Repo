@@ -256,7 +256,7 @@ export function addBoidSettings() {
 
   function showGameBanner() {
     let gameHeader = document.querySelector(".game-header-banner");
-    gameHeader.style.display = "block";
+    gameHeader.style.display = "flex";
   }
 
   // Event listener for UI menu open event
