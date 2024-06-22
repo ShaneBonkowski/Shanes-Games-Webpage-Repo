@@ -11,6 +11,9 @@
     1.8 * 15vw
   ); /* Maintain 450 to 250 h to w ratio */
   --about-me-text-container-width: 60vw;
+
+  /* Margins */
+  --about-me-text-container-bottom-margin: 90px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -20,6 +23,9 @@
     --about-me-box-width: 85vw;
     --about-me-box-height: 80vh;
     --about-me-text-container-width: 85vw;
+
+    /* Margins */
+    --about-me-text-container-bottom-margin: 20px;
   }
 }
 
@@ -44,7 +50,6 @@
 .about-me-box {
   position: relative; /* Position this wherever (this is the origin for all of this obj's children */
   width: var(--about-me-box-width);
-  height: var(--about-me-box-height);
   border-radius: var(--standard-edge_radius);
   left: var(--general-left-margin);
   top: var(--general-top-margin);
@@ -56,7 +61,7 @@
 
 .about-me-image-container {
   position: absolute; /* Position wrt to its parent */
-  right: -5%;
+  right: -1%;
   top: 10%;
   transform: translate(var(--centering-translation), 5%);
   width: var(--about-me-image-width);
@@ -103,23 +108,28 @@
 }
 
 .about-me-text-container {
-  position: absolute;
   color: var(--main-text-color);
   text-align: left;
   width: var(--about-me-text-container-width);
-  height: var(--about-me-box-height);
-  top: 3%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Start on the left */
+  flex-direction: column;
+  margin: 30px 0px var(--about-me-text-container-bottom-margin) 0px;
 }
 
 .about-me-title {
   font-size: var(--about-me-title-font-size);
   font-weight: bold;
+  margin: 5px 0px;
 }
 
 .about-me-subtitle {
   font-size: var(--about-me-subtitle-font-size);
+  margin: 8px 0px;
 }
 
 .about-me-main-text {
   font-size: var(--about-me-main-text-font-size);
+  margin: 10px 0px;
 }
