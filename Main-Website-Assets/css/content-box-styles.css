@@ -146,6 +146,8 @@ a.title-link-anchor {
   color: var(--main-text-color);
   white-space: nowrap;
   font-weight: bold;
+  /* For some reason the text doesnt sit right if I dont do this */
+  line-height: 1;
 }
 
 .content-title-hover-effect {
@@ -173,6 +175,8 @@ a.title-link-anchor {
 .fas.fa-gamepad,
 .fas.fa-paint-brush,
 .fas.fa-pen-nib {
+  /* Shifted slightly up to be in line w/ title text */
+  margin: 0px 0px 3px 0px;
   color: #ffffff;
   font-size: var(--content-type-icon-size);
 }
