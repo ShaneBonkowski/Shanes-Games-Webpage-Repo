@@ -156,10 +156,10 @@ export function createContentBox(
   buttonLinkElement.appendChild(imageButton);
   buttonContainer.appendChild(buttonLinkElement);
 
+  titleLinkElement.appendChild(iconElement);
   titleLinkElement.appendChild(titleDiv);
   contentDescContainer.appendChild(titleLinkElement);
   contentDescContainer.appendChild(contentDescTextDiv);
-  contentDescContainer.appendChild(iconElement);
 
   boxContainer.appendChild(buttonContainer);
   boxContainer.appendChild(contentDescContainer);

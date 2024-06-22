@@ -6,7 +6,7 @@
   /* Sizes */
   --content-box-width: 90vw;
   --content-box-height: 20vw;
-  --content-type-icon-size: 22px;
+  --content-type-icon-size: 2vw;
   /* Edge Margins */
   --content-button-left-margin: 17%;
   --content-desc-text-left-margin: 5%;
@@ -18,7 +18,7 @@
   --content-desc-padding-top: 10px;
   --content-icon-left-margin: 30px;
   --content-icon-top-margin: 33px;
-  --content-title-margin-left: 50px;
+  --content-title-margin-left: 15px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -27,7 +27,7 @@
     /* Sizes */
     --content-box-height: 36vw;
     --content-box-width: 95vw;
-    --content-type-icon-size: 13px;
+    --content-type-icon-size: 2.5vw;
     /* Edge Margins */
     --content-button-left-margin: 22%;
     --content-desc-text-left-margin: 8%;
@@ -37,7 +37,7 @@
     --content-desc-padding-top: 5px;
     --content-icon-left-margin: 15.2px;
     --content-icon-top-margin: 15.2px;
-    --content-title-margin-left: 25px;
+    --content-title-margin-left: 8px;
   }
 }
 
@@ -133,9 +133,13 @@ event listener to add and delete this CSS style on click */
 a.title-link-anchor {
   margin: var(--title-link-margin);
   text-decoration: none;
+  display: flex;
+  justify-content: flex-start; /* Align items at the start (left) */
+  align-items: center;
 }
 
 .content-title {
+  position: relative;
   margin: 0px 0px 0px var(--content-title-margin-left);
   font-size: var(--content-desc-title-font-size);
   text-align: left;
@@ -168,9 +172,9 @@ a.title-link-anchor {
 .fas.fa-gamepad,
 .fas.fa-paint-brush,
 .fas.fa-pen-nib {
-  position: absolute;
-  top: var(--content-icon-top-margin);
-  left: var(--content-icon-left-margin);
+  /* top: var(--content-icon-top-margin);
+  left: var(--content-icon-left-margin); */
   color: #ffffff;
   font-size: var(--content-type-icon-size);
+  /* transform: translate(0%, -50%); */
 }
