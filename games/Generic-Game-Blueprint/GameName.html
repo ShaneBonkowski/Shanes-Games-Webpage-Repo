@@ -19,10 +19,10 @@
         position: relative;
         background-color: black;
         background-image: url("webps/Background.webp");
-        background-repeat: no-repeat; /* no repeat */
-        background-position: center; /* position relative to the top or center */
-        background-size: cover; /* Auto width, auto height */
-        overflow: hidden; /* Hide both horizontal and vertical scroll bars */
+        background-repeat: repeat-y;
+        /* Shift up by 0.5px to fix the rendering bug seen on phone with 1px thick line */
+        background-position: center calc(100% - 0.5px);
+        background-size: 100% auto;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
