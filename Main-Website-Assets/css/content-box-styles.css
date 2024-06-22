@@ -13,11 +13,10 @@
   --content-title-text-top-margin: 20px;
   --content-desc-text-top-margin: 40px;
   --content-desc-margin-left: 50px;
-  --title-link-margin: 10px;
+  --title-link-margin-top: 8px;
+  --title-link-margin-left: 10px;
   --content-desc-padding-left: 20px;
   --content-desc-padding-top: 10px;
-  --content-icon-left-margin: 30px;
-  --content-icon-top-margin: 33px;
   --content-title-margin-left: 15px;
 }
 
@@ -32,11 +31,10 @@
     --content-button-left-margin: 22%;
     --content-desc-text-left-margin: 8%;
     --content-desc-margin-left: 10px;
-    --title-link-margin: 5px;
+    --title-link-margin-top: 2.5px;
+    --title-link-margin-left: 5px;
     --content-desc-padding-left: 10px;
     --content-desc-padding-top: 5px;
-    --content-icon-left-margin: 15.2px;
-    --content-icon-top-margin: 15.2px;
     --content-title-margin-left: 8px;
   }
 }
@@ -131,11 +129,13 @@ event listener to add and delete this CSS style on click */
 }
 
 a.title-link-anchor {
-  margin: var(--title-link-margin);
+  margin: var(--title-link-margin-top) var(--title-link-margin-left)
+    var(--title-link-margin-top) var(--title-link-margin-left);
   text-decoration: none;
   display: flex;
   justify-content: flex-start; /* Align items at the start (left) */
   align-items: center;
+  min-height: 26px;
 }
 
 .content-title {
@@ -159,7 +159,8 @@ a.title-link-anchor {
   color: var(--main-text-color);
   font-weight: normal;
   width: var(--content-desc-text-width);
-  margin: var(--title-link-margin);
+  margin: var(--title-link-margin-top) var(--title-link-margin-left)
+    var(--title-link-margin-top) var(--title-link-margin-left);
 }
 
 .no-results-found-text {
@@ -172,9 +173,6 @@ a.title-link-anchor {
 .fas.fa-gamepad,
 .fas.fa-paint-brush,
 .fas.fa-pen-nib {
-  /* top: var(--content-icon-top-margin);
-  left: var(--content-icon-left-margin); */
   color: #ffffff;
   font-size: var(--content-type-icon-size);
-  /* transform: translate(0%, -50%); */
 }
