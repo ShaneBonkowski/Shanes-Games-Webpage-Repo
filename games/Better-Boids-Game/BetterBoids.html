@@ -19,9 +19,10 @@
         position: relative;
         background-color: black;
         background-image: url("webps/Boids_Background.webp");
-        background-repeat: repeat-y; /* Repeat the image vertically */
-        background-position: top center; /* position relative to the top or center */
-        background-size: 100% auto; /* Auto width, 100% height */
+        background-repeat: repeat-y;
+        /* Shift up by 0.5px to fix the rendering bug seen on phone with 1px thick line */
+        background-position: center calc(100% - 0.5px);
+        background-size: 100% auto;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
