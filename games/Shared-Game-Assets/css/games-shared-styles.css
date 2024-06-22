@@ -4,10 +4,6 @@
 /* Define variables */
 :root {
   /* Transformations */
-  --main-logo-title-translate-x: 35%;
-  --main-logo-title-translate-y: -125%;
-  --main-logo-subtitle-translate-x: 112%;
-  --main-logo-subtitle-translate-y: -20%;
   --loading-logo-translate-x: 0%;
   --loading-logo-translate-y: 20%;
   /* Sizes */
@@ -17,9 +13,11 @@
   --loading-content-size: 25vw;
   /* Font Sizes */
   --logo-title-font-size: calc(var(--game-header-height) * 0.125);
-  --logo-subtitle-font-size: calc(var(--game-header-height) * 0.0825);
+  --logo-subtitle-font-size: calc(var(--game-header-height) * 0.07);
   /* Edge Margins */
-  --header-small-top-margin: 23%;
+  --shanes-games-logo-container-for-games-top-margin: 1.3%;
+  --game-logo-container-margin-top: 2px;
+  --game-logo-title-margin-left: 12px;
   /* Other */
   --load-screen-dur: 5s;
 }
@@ -27,18 +25,16 @@
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
-    /* Transformations */
-    --main-logo-subtitle-translate-x: 123%;
     /* Sizes */
     --game-header-height: 24vw;
+    /* Edge Margins */
+    --shanes-games-logo-container-for-games-top-margin: 3%;
   }
 }
 
 /* Generic styles */
 .game-title-style,
 .game-subtitle-style {
-  position: absolute; /* Position wrt to its parent */
-  text-align: left;
   color: var(--main-text-color);
   white-space: nowrap;
 }
@@ -46,16 +42,18 @@
 .game-title-style {
   font-size: var(--logo-title-font-size);
   font-weight: bold;
+  text-align: left;
 }
 
 .game-subtitle-style {
   font-size: var(--logo-subtitle-font-size);
   font-weight: normal;
+  text-align: right;
 }
 
 /* Game Header Banner */
 .game-header-banner {
-  position: relative; /* Position this wherever (this is the origin for all of this obj's children */
+  position: relative;
   background-color: var(--hide-color); /*Banner color*/
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
@@ -64,19 +62,19 @@
   pointer-events: none; /* Disable pointer events for the banner itself */
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 /* Shanes Games Logo */
 .shanes-games-logo-container {
-  position: absolute; /* Position wrt to its parent */
-  margin: 0;
-  left: var(--main-left-margin);
-  top: var(--header-small-top-margin);
-  transform: translateY(var(--centering-translation));
+  position: relative; /* Position wrt to its parent */
   pointer-events: auto; /* Can click this to go back to main menu */
   cursor: pointer; /* hover pointer */
   transition: transform 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--shanes-games-logo-container-for-games-top-margin) 0px 0px 0px;
 }
 
 /* Only hover if the browser supports hover. Aka
@@ -84,65 +82,52 @@ if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
 @media (hover: hover) {
   .shanes-games-logo-container:hover {
-    transform: translateY(var(--centering-translation)) scale(1.05);
+    transform: scale(1.05);
   }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click */
 .shanes-games-logo-container.active {
-  transform: translateY(var(--centering-translation)) scale(1.05);
+  transform: scale(1.05);
   filter: brightness(0.82) invert(0%);
 }
 
 .main-logo-image {
-  position: absolute; /* Position wrt to its parent */
   border-radius: var(--standard-edge_radius);
   width: var(--header-icon-size);
   height: var(--header-icon-size);
-  transform: translateY(var(--centering-translation));
+  margin: 0px 0px 0px var(--main-left-margin);
 }
 
 .main-logo-title {
-  transform: translate(
-    var(--main-logo-title-translate-x),
-    var(--main-logo-title-translate-y)
-  );
+  margin: 0px 0px 0px 8px;
 }
 
 .main-logo-subtitle {
-  transform: translate(
-    var(--main-logo-subtitle-translate-x),
-    var(--main-logo-subtitle-translate-y)
-  );
+  margin: 3px 0px 0px 0px;
 }
 
 /* Generic Game Logo */
 .game-logo-container {
-  position: absolute; /* Position wrt to its parent */
-  margin: 0;
-  /* left: var(--game-logo-container-left-margin); */ /* This is now handled in game_header.js */
-  top: var(--header-small-top-margin);
-  transform: translate(0%, var(--centering-translation));
-  background-color: white;
+  position: relative; /* Position wrt to its parent */
+  margin: var(--game-logo-container-margin-top) var(--main-left-margin) 0px 0px;
   pointer-events: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .game-logo-image {
-  position: absolute; /* Position wrt to its parent */
   border-radius: var(--standard-edge_radius);
   width: var(--game-logo-icon-size);
   height: var(--game-logo-icon-size);
-  transform: translateY(var(--centering-translation));
   pointer-events: none;
 }
 
 .game-title {
-  /* transform: translate(
-    var(--game-title-translate-x),
-    var(--game-title-translate-y)
-  ); */ /* This is now handled in game_header.js */
   pointer-events: none;
+  /* margin is handled in game_header.js!! */
 }
 
 /* Game fade in dark screen */
