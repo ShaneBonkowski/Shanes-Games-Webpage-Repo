@@ -6,6 +6,7 @@
 
 import { createLinkButtonContainer } from "./buttons.js";
 import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
+import { addClickAnimation } from "../../Shared-General-Assets/js/clickAnimation.js";
 
 /**
  * Creates a header containing a logo, title, subtitle, and navigation buttons.
@@ -19,6 +20,14 @@ export function createHeader(logoImageSrc) {
   // Create a container div for the logo
   const titleContainer = document.createElement("div");
   titleContainer.classList.add("title-container");
+
+  // Add event listener to title logo container, so it takes you to a link on click
+  titleContainer.addEventListener("click", function () {
+    window.location.href = "/index.html"; // Redirect to index.html
+  });
+
+  // Have a lil anim on click for the logo container too
+  addClickAnimation(titleContainer);
 
   // Logo image, title, subtitle
   const logoImage = document.createElement("img");

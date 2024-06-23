@@ -77,11 +77,30 @@
 
 .title-container {
   position: relative;
+  pointer-events: auto; /* Can click this to go back to main menu */
+  cursor: pointer; /* hover pointer */
+  transition: transform 0.3s ease;
   margin: 0;
   left: var(--title-container-left-margin);
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .title-container:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click */
+.title-container.active {
+  transform: scale(1.05);
+  filter: brightness(0.82) invert(0%);
 }
 
 .logo-image {
