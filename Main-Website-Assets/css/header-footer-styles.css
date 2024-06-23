@@ -20,6 +20,8 @@
   --right-button-right-margin: 2vw;
   --linkedIn-button-right-margin: 6vw;
   --linkedIn-button-bottom-margin: 20%;
+  --header-button-margin-left-right: 10px;
+  --content-button-margin-right: 20px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -36,6 +38,8 @@
     --right-button-right-margin: 4vw;
     --linkedIn-button-right-margin: 6vw;
     --linkedIn-button-bottom-margin: 20%;
+    --header-button-margin-left-right: 5px;
+    --content-button-margin-right: 15px;
   }
 }
 
@@ -71,63 +75,74 @@
   margin-bottom: var(--header-margin-bottom);
 }
 
-.title-container,
-.logo-image,
-h1.title-text-style,
-.sub-title-text,
-.header-button-container,
-.header-button-text,
-.fab.fa-github,
-.footer-main-text,
-.linkedIn-button-container,
-.linkedIn-button-link,
-.linkedIn-text,
-.fab.fa-linkedin {
-  position: absolute;
-}
-
 .title-container {
+  position: relative;
+  pointer-events: auto; /* Can click this to go back to main menu */
+  cursor: pointer; /* hover pointer */
+  transition: transform 0.3s ease;
   margin: 0;
   left: var(--title-container-left-margin);
-  top: var(--general-top-margin);
-  transform: translateY(var(--centering-translation));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-h1.title-text-style,
-.sub-title-text {
-  color: var(--main-text-color);
-  white-space: nowrap;
-  text-align: left;
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .title-container:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click with addClickAnimation() */
+.title-container.active {
+  transform: scale(1.05);
+  filter: brightness(0.82) invert(0%);
 }
 
 .logo-image {
   border-radius: var(--standard-edge_radius);
   width: var(--logo-image-size);
   height: var(--logo-image-size);
-  transform: translateY(var(--centering-translation));
 }
 
 h1.title-text-style {
+  color: var(--main-text-color);
+  white-space: nowrap;
+  text-align: left;
   font-size: var(--title-text-font-size);
-  transform: translate(35%, -120%);
   font-weight: bold;
+  margin: 0px 0px 0px 8px;
 }
 
 .sub-title-text {
+  color: var(--main-text-color);
+  white-space: nowrap;
+  text-align: right;
   font-size: var(--subtitle-text-font-size);
-  transform: translate(var(--sub-title-translate-x), 50%);
   font-weight: normal;
+  margin: 3px 0px 0px 0px;
 }
 
 /* Header button styling */
+.header-buttons-parent {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .header-button-container {
+  position: relative;
   width: var(--header-button-width);
   height: var(--header-button-height);
   background-color: var(--button-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
-  top: 25%;
 }
 
 /* Only hover if the browser supports hover. Aka
@@ -142,12 +157,13 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .header-button-container.active {
   filter: brightness(0.8) invert(20%);
 }
 
 .header-button-text {
+  position: absolute;
   color: var(--main-text-color);
   text-align: center;
   top: var(--general-top-margin);
@@ -159,8 +175,10 @@ event listener to add and delete this CSS style on click */
 
 /* github button styling */
 .github-button-container {
-  right: var(--middle-button-right-margin);
-  position: absolute;
+  position: relative;
+  right: 0;
+  margin: 0px var(--header-button-margin-left-right) 0px
+    var(--header-button-margin-left-right);
 }
 
 .github-text {
@@ -168,6 +186,7 @@ event listener to add and delete this CSS style on click */
 }
 
 .fab.fa-github {
+  position: absolute;
   color: #ffffff; /* Set the color of the GitHub icon */
   font-size: var(
     --github-icon-size
@@ -179,8 +198,10 @@ event listener to add and delete this CSS style on click */
 
 /* about me button styling */
 .about-me-button-container {
-  right: var(--left-button-right-margin);
-  position: absolute;
+  position: relative;
+  right: 0;
+  margin: 0px var(--header-button-margin-left-right) 0px
+    var(--header-button-margin-left-right);
 }
 
 .about-me-text {
@@ -192,8 +213,10 @@ event listener to add and delete this CSS style on click */
 
 /* home button styling */
 .home-button-container {
-  right: var(--right-button-right-margin);
-  position: absolute;
+  position: relative;
+  right: 0;
+  margin: 0px var(--content-button-margin-right) 0px
+    var(--header-button-margin-left-right);
 }
 
 .home-text {
@@ -216,6 +239,7 @@ event listener to add and delete this CSS style on click */
 }
 
 .footer-main-text {
+  position: absolute;
   font-size: var(--footer-main-text-font-size);
   text-align: center;
   color: var(--main-text-color);
@@ -247,7 +271,7 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .footer-main-text a.active {
   text-decoration: underline; /* Add underline on click */
 }
@@ -258,6 +282,7 @@ event listener to add and delete this CSS style on click */
 
 /* LinkedIn footer button styling */
 .linkedIn-button-container {
+  position: absolute;
   width: var(--linkedin-button-width);
   height: var(--linkedin-button-height);
   background-color: var(--button-color); /* Button Color */
@@ -281,12 +306,13 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .linkedIn-button-container.active {
   filter: brightness(0.8) invert(20%);
 }
 
 .linkedIn-text {
+  position: absolute;
   color: var(--main-text-color);
   text-align: center;
   top: var(--general-top-margin);
@@ -296,7 +322,12 @@ event listener to add and delete this CSS style on click */
   font-weight: normal;
 }
 
+.linkedIn-button-link {
+  position: absolute;
+}
+
 .fab.fa-linkedin {
+  position: absolute;
   color: #ffffff; /* Set the color of the GitHub icon */
   font-size: var(--linkedin-icon-size); /* icon size */
   top: var(--general-top-margin);

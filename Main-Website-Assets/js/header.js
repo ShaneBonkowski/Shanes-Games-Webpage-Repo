@@ -6,6 +6,7 @@
 
 import { createLinkButtonContainer } from "./buttons.js";
 import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
+import { addClickAnimation } from "../../Shared-General-Assets/js/clickAnimation.js";
 
 /**
  * Creates a header containing a logo, title, subtitle, and navigation buttons.
@@ -20,6 +21,14 @@ export function createHeader(logoImageSrc) {
   const titleContainer = document.createElement("div");
   titleContainer.classList.add("title-container");
 
+  // Add event listener to title logo container, so it takes you to a link on click
+  titleContainer.addEventListener("click", function () {
+    window.location.href = "/index.html"; // Redirect to index.html
+  });
+
+  // Have a lil anim on click for the logo container too
+  addClickAnimation(titleContainer);
+
   // Logo image, title, subtitle
   const logoImage = document.createElement("img");
   logoImage.classList.add("logo-image");
@@ -32,6 +41,9 @@ export function createHeader(logoImageSrc) {
   const subtitleDiv = document.createElement("div");
   subtitleDiv.classList.add("sub-title-text");
   subtitleDiv.textContent = "Black Hole Reject";
+
+  const headerButtonsParent = document.createElement("div");
+  headerButtonsParent.classList.add("header-buttons-parent");
 
   // Github button
   const githubButtonContainer = createLinkButtonContainer(
@@ -64,13 +76,14 @@ export function createHeader(logoImageSrc) {
   );
 
   // Append elements to their containers
-  titleContainer.appendChild(titleElement);
-  titleContainer.appendChild(subtitleDiv);
   titleContainer.appendChild(logoImage);
+  titleElement.appendChild(subtitleDiv);
+  titleContainer.appendChild(titleElement);
   headerContainer.appendChild(titleContainer);
-  headerContainer.appendChild(githubButtonContainer);
-  headerContainer.appendChild(aboutMeButtonContainer);
-  headerContainer.appendChild(homeButtonContainer);
+  headerButtonsParent.appendChild(aboutMeButtonContainer);
+  headerButtonsParent.appendChild(githubButtonContainer);
+  headerButtonsParent.appendChild(homeButtonContainer);
+  headerContainer.appendChild(headerButtonsParent);
 
   // Append the container to the body of the document
   document.body.appendChild(headerContainer);

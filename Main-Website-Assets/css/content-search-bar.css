@@ -102,7 +102,7 @@
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-  event listener to add and delete this CSS style on click */
+  event listener to add and delete this CSS style on click with addClickAnimation() */
 .content-search-button.active {
   transform: scale(1.2);
   filter: brightness(0.88) invert(17%);
@@ -161,7 +161,7 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .content-dropdown-button.active {
   filter: brightness(0.8) invert(20%);
 }
@@ -206,7 +206,7 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .content-dropdown-option a.active {
   filter: brightness(0.8) invert(20%);
 }
