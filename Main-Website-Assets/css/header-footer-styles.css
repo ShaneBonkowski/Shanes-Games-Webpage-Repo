@@ -80,7 +80,7 @@
   pointer-events: auto; /* Can click this to go back to main menu */
   cursor: pointer; /* hover pointer */
   transition: transform 0.3s ease;
-  margin: 0;
+  margin: 8px 0px 0px 0px;
   left: var(--title-container-left-margin);
   display: flex;
   justify-content: space-between;
