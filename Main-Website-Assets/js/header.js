@@ -33,6 +33,9 @@ export function createHeader(logoImageSrc) {
   subtitleDiv.classList.add("sub-title-text");
   subtitleDiv.textContent = "Black Hole Reject";
 
+  const headerButtonsParent = document.createElement("div");
+  headerButtonsParent.classList.add("header-buttons-parent");
+
   // Github button
   const githubButtonContainer = createLinkButtonContainer(
     "GitHub",
@@ -64,13 +67,14 @@ export function createHeader(logoImageSrc) {
   );
 
   // Append elements to their containers
-  titleContainer.appendChild(titleElement);
-  titleContainer.appendChild(subtitleDiv);
   titleContainer.appendChild(logoImage);
+  titleElement.appendChild(subtitleDiv);
+  titleContainer.appendChild(titleElement);
   headerContainer.appendChild(titleContainer);
-  headerContainer.appendChild(githubButtonContainer);
-  headerContainer.appendChild(aboutMeButtonContainer);
-  headerContainer.appendChild(homeButtonContainer);
+  headerButtonsParent.appendChild(aboutMeButtonContainer);
+  headerButtonsParent.appendChild(githubButtonContainer);
+  headerButtonsParent.appendChild(homeButtonContainer);
+  headerContainer.appendChild(headerButtonsParent);
 
   // Append the container to the body of the document
   document.body.appendChild(headerContainer);
