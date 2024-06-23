@@ -97,7 +97,7 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .title-container.active {
   transform: scale(1.05);
   filter: brightness(0.82) invert(0%);
@@ -157,7 +157,7 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .header-button-container.active {
   filter: brightness(0.8) invert(20%);
 }
@@ -271,7 +271,7 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .footer-main-text a.active {
   text-decoration: underline; /* Add underline on click */
 }
@@ -306,7 +306,7 @@ touchscreens are causing hover to get stuck */
 }
 
 /* What to do when clicked. Check the actual JS that adds an
-event listener to add and delete this CSS style on click */
+event listener to add and delete this CSS style on click with addClickAnimation() */
 .linkedIn-button-container.active {
   filter: brightness(0.8) invert(20%);
 }
