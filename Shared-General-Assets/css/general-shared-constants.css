@@ -20,3 +20,10 @@
   /* Radii */
   --standard-edge_radius: 10%;
 }
+
+/* "*" means apply to all elements. Important assumption here is that 
+general-shared-constants is imported in all css files in this project. */
+* {
+  /* Ensures that all browsers calculate border box properly for all elements */
+  box-sizing: border-box;
+}

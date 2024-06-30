@@ -1,5 +1,6 @@
 /* Import constants */
-@import "./main-website-styles.css";
+@import "/Shared-General-Assets/css/general-shared-constants.css";
+@import "/Main-Website-Assets/css/main-website-styles.css";
 
 /* Define CONSTANT variables */
 :root {

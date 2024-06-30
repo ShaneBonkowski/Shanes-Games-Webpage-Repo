@@ -1,5 +1,5 @@
 /* Import constants */
-@import "../../../Shared-General-Assets/css/general-shared-constants.css";
+@import "/Shared-General-Assets/css/general-shared-constants.css";
 
 /* Define variables */
 :root {
@@ -40,7 +40,7 @@
     --updateTilegrid-button-margin-bottom: 11vh;
     --resetTilegrid-button-margin-left: 16vw;
     --resetTilegrid-button-margin-bottom: 20vh;
-    --flip-tile-input-box-label-margin-bottom: 0.5vh;
+    --flip-tile-input-box-label-margin-bottom: 0vh;
     --difficulty-selection-box-container-left: 36vw;
     --difficulty-selection-box-container-bottom: 6vh;
     --flip-tile-selection-box-right-margin: 12vw;
@@ -68,13 +68,13 @@
 /* Main page attributes, such as background, font, etc. */
 @font-face {
   font-family: MyCustomFont;
-  src: url("../../../Shared-General-Assets/fonts/Ronysiswadi15Bold-6YAwY.ttf")
+  src: url("/Shared-General-Assets/fonts/Ronysiswadi15Bold-6YAwY.ttf")
     format("truetype");
   font-weight: bold;
 }
 @font-face {
   font-family: MyCustomFont;
-  src: url("../../../Shared-General-Assets/fonts/Ronysiswadi15-51Dv8.ttf")
+  src: url("/Shared-General-Assets/fonts/Ronysiswadi15-51Dv8.ttf")
     format("truetype");
   font-weight: normal;
 }
