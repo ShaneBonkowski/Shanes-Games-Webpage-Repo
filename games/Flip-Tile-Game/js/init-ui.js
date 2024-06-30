@@ -296,14 +296,14 @@ function addInfoBox() {
     );
     difficultySelectionBoxContainers.forEach(
       (difficultySelectionBoxContainer) => {
-        difficultySelectionBoxContainer.style.display = "block";
+        difficultySelectionBoxContainer.style.display = "flex";
       }
     );
     const solSelectionBoxContainers = document.querySelectorAll(
       ".sol-toggle-box-container"
     );
     solSelectionBoxContainers.forEach((solSelectionBoxContainer) => {
-      solSelectionBoxContainer.style.display = "block";
+      solSelectionBoxContainer.style.display = "flex";
     });
   }
 
