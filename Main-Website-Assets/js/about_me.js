@@ -12,7 +12,7 @@ export function createAboutMe() {
   boxContainer.classList.add("about-me-box");
 
   const imageAboutMe = document.createElement("img");
-  imageAboutMe.src = "Main-Website-Assets/webps/Radiohead.webp";
+  imageAboutMe.src = "/Main-Website-Assets/webps/Radiohead.webp";
   imageAboutMe.classList.add("about-me-image");
 
   const imageContainer = document.createElement("div");

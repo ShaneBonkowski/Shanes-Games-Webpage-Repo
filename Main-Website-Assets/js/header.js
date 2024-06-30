@@ -58,7 +58,7 @@ export function createHeader(logoImageSrc) {
   // About me button
   const aboutMeButtonContainer = createLinkButtonContainer(
     "About Me",
-    "/about.html",
+    "/Main-Website-Assets/about.html",
     ["header-button-text", "about-me-text"],
     [],
     ["header-button-container", "about-me-button-container"],
