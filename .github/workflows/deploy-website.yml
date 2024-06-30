@@ -26,6 +26,9 @@ jobs:
         run: |
           pip install csscompressor
 
+      - name: Run Autoprefixer on css files for better browser compatibility
+        run: npx autoprefixer --input '**/*.css' --autoprefixer.browsers '> 1%, last 2 versions, Firefox ESR'
+
       - name: Minify CSS files with Python script
         run: python Python-Utils/File-Utils/css-minify.py
 
