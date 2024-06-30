@@ -107,13 +107,16 @@ input[type="range"]:active {
 
 /* Toggle box styles */
 .toggle-box-container {
-  display: flex;
-  align-items: center;
-  position: relative;
   left: var(--slider-container-left-margin);
   top: var(--slider-top-margin);
   height: var(--input-slider-height);
   width: var(--input-slider-width);
+  display: flex;
+  align-items: center;
+  position: relative;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .toggle-label {
