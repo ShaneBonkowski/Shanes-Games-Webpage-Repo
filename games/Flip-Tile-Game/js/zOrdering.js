@@ -37,19 +37,19 @@ export function setZOrderForSharedElements(game) {
   // helloWorldBox.style.zIndex = "-1"; // far back
   game.canvas.style.zIndex = "0";
   gameHeader.style.zIndex = "2";
-  updateTilegridButton.style.zIndex = "3";
-  resetTilegridButton.style.zIndex = "3";
   difficultySelectionBoxContainer.style.zIndex = "3";
   solToggleBoxContainer.style.zIndex = "3";
-  flipTileInfoButtonContainer.style.zIndex = "3";
+  updateTilegridButton.style.zIndex = "4";
+  resetTilegridButton.style.zIndex = "4";
+  flipTileInfoButtonContainer.style.zIndex = "4";
 
-  scoreText.style.zIndex = "4";
+  scoreText.style.zIndex = "5";
 
   infoBoxs.forEach((infoBox) => {
-    infoBox.style.zIndex = "5";
+    infoBox.style.zIndex = "6";
   });
   closeButtons.forEach((closeButton) => {
-    closeButton.style.zIndex = "6";
+    closeButton.style.zIndex = "7";
   });
 }
 

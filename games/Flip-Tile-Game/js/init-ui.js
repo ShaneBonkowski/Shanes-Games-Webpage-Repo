@@ -63,11 +63,26 @@ export function initUI() {
   difficultySelectionBoxContainer.classList.add(
     "difficulty-selection-box-container"
   );
+
+  const difficultySelectionBoxInputContainer = document.createElement("div");
+  difficultySelectionBoxInputContainer.id =
+    "difficultySelectionBoxInputContainer";
+  difficultySelectionBoxInputContainer.classList.add(
+    "difficulty-selection-box-input-container"
+  );
+
+  const difficultySelectionBoxLabelContainer = document.createElement("div");
+  difficultySelectionBoxLabelContainer.id =
+    "difficultySelectionBoxLabelContainer";
+  difficultySelectionBoxLabelContainer.classList.add(
+    "difficulty-selection-box-label-container"
+  );
   addSelectionBox(
     `input-box-1`,
     "easy",
     1,
-    difficultySelectionBoxContainer,
+    difficultySelectionBoxInputContainer,
+    difficultySelectionBoxLabelContainer,
     // other boxes to be turned off when this one is turned on
     ["input-box-2", "input-box-3"],
     ["input-box-1"],
@@ -78,7 +93,8 @@ export function initUI() {
     `input-box-2`,
     "hard",
     2,
-    difficultySelectionBoxContainer,
+    difficultySelectionBoxInputContainer,
+    difficultySelectionBoxLabelContainer,
     // other boxes to be turned off when this one is turned on
     ["input-box-1", "input-box-3"],
     ["input-box-2"],
@@ -88,11 +104,19 @@ export function initUI() {
     `input-box-3`,
     "expert",
     3,
-    difficultySelectionBoxContainer,
+    difficultySelectionBoxInputContainer,
+    difficultySelectionBoxLabelContainer,
     // other boxes to be turned off when this one is turned on
     ["input-box-1", "input-box-2"],
     ["input-box-3"],
     ["input-box-label-3"]
+  );
+
+  difficultySelectionBoxContainer.appendChild(
+    difficultySelectionBoxLabelContainer
+  );
+  difficultySelectionBoxContainer.appendChild(
+    difficultySelectionBoxInputContainer
   );
 
   // Toggle box to show solutions
@@ -103,6 +127,8 @@ export function initUI() {
     `sol-toggle-input"`,
     "reveal",
     4,
+    // Input and label container are the same here
+    solutionToggleBoxContainer,
     solutionToggleBoxContainer,
     // other boxes to be turned off when this one is turned on is
     // empty so that this can be a toggle box.
@@ -137,7 +163,8 @@ export function initUI() {
           }
         }
       }
-    }
+    },
+    true
   );
 
   // Score Text

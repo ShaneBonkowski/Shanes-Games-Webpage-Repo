@@ -11,7 +11,7 @@
   --input-box-1-margin-left: 0vw;
   --input-box-2-margin-left: 8vw;
   --input-box-3-margin-left: 16vw;
-  --input-box-label-margin-top: -5vh;
+  --input-box-label-margin-bottom: 1vh;
   --difficulty-selection-box-container-left: 14vw;
   --difficulty-selection-box-container-bottom: 6vh;
   --sol-toggle-box-margin-left: 14vw;
@@ -45,7 +45,7 @@
     --input-box-1-margin-left: 0vw;
     --input-box-2-margin-left: 17vw;
     --input-box-3-margin-left: 34vw;
-    --input-box-label-margin-top: -3vh;
+    --input-box-label-margin-bottom: 0.5vh;
     --difficulty-selection-box-container-left: 36vw;
     --difficulty-selection-box-container-bottom: 6vh;
     --sol-toggle-box-margin-left: 36vw;
@@ -197,65 +197,56 @@ input[type="checkbox" i] {
   cursor: default;
   appearance: auto;
   box-sizing: border-box;
-  margin: 0px;
+  margin: 0px 55px 0px 0px;
   padding: initial;
   border: initial;
 }
 
 /* Difficulty Selection Boxes */
 .difficulty-selection-box-container {
-  position: fixed;
-  left: var(--difficulty-selection-box-container-left);
+  position: absolute;
   bottom: var(--difficulty-selection-box-container-bottom);
-  width: var(--selection-box-width);
-  height: var(--selection-box-height);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.difficulty-selection-box-input-container {
+  margin-left: var(--difficulty-selection-box-container-left);
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.difficulty-selection-box-label-container {
+  margin-left: var(--difficulty-selection-box-container-left);
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .input-box-1,
 .input-box-2,
 .input-box-3 {
-  position: absolute;
   width: var(--selection-box-width);
   height: var(--selection-box-height);
+  min-width: calc(0.5 * var(--fliptile-button-height));
+  min-height: calc(0.5 * var(--fliptile-button-height));
   cursor: pointer;
-  transform: translate(-50%, 0%);
-}
-
-.input-box-1 {
-  left: var(--input-box-1-margin-left);
-}
-
-.input-box-2 {
-  left: var(--input-box-2-margin-left);
-}
-
-.input-box-3 {
-  left: var(--input-box-3-margin-left);
 }
 
 .input-box-label-1,
 .input-box-label-2,
 .input-box-label-3 {
-  position: absolute;
+  width: var(--selection-box-width);
   color: var(--main-text-color);
   font-size: var(--flip-tile-label-text-size);
   text-align: center;
-  transform: translate(-25%, 0%);
-}
-
-.input-box-label-1 {
-  left: var(--input-box-1-margin-left);
-  top: var(--input-box-label-margin-top);
-}
-
-.input-box-label-2 {
-  left: var(--input-box-2-margin-left);
-  top: var(--input-box-label-margin-top);
-}
-
-.input-box-label-3 {
-  left: var(--input-box-3-margin-left);
-  top: var(--input-box-label-margin-top);
+  margin: 0px 55px var(--input-box-label-margin-bottom) 0px;
 }
 
 /* Toggle box styles */
@@ -264,24 +255,25 @@ input[type="checkbox" i] {
   bottom: var(--sol-toggle-box-margin-bottom);
   position: fixed;
   width: var(--selection-box-width);
-  height: var(--selection-box-height);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .sol-toggle-label {
-  position: absolute;
-  transform: translate(-50%, 0%);
-  top: var(--input-box-label-margin-top);
   font-size: var(--flip-tile-label-text-size);
   white-space: nowrap;
   color: white;
+  text-align: center;
+  margin: 0px 0px var(--input-box-label-margin-bottom) 0px;
 }
 
 .sol-toggle-input {
-  position: absolute;
   width: var(--selection-box-width);
   height: var(--selection-box-height);
   cursor: pointer;
-  transform: translate(-50%, 0%);
+  min-width: calc(0.5 * var(--fliptile-button-height));
+  min-height: calc(0.5 * var(--fliptile-button-height));
 }
 
 /* Info screen styles */

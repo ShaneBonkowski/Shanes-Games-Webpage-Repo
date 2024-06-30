@@ -186,6 +186,8 @@ export function addBoidSettings() {
     `leader-toggle-input"`,
     "Leader Boid",
     1,
+    // Add the label and the input to the same parent
+    leaderToggleBoxContainer,
     leaderToggleBoxContainer,
     // other boxes to be turned off when this one is turned on.
     // Empty so that this can be a toggle box.
