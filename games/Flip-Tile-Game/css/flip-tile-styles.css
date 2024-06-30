@@ -204,7 +204,7 @@ input[type="checkbox" i] {
 
 /* Difficulty Selection Boxes */
 .difficulty-selection-box-container {
-  position: absolute;
+  position: fixed;
   bottom: var(--difficulty-selection-box-container-bottom);
   width: 100vw;
   display: flex;
