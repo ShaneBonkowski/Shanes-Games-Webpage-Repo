@@ -34,12 +34,16 @@ general-shared-constants is imported in all css files in this project. */
   src: url("/Shared-General-Assets/fonts/Ronysiswadi15Bold-6YAwY.ttf")
     format("truetype");
   font-weight: bold;
+  line-height: 1;
+  font-display: swap; /* Ensures text remains visible while font is loading */
 }
 @font-face {
   font-family: MyCustomFont;
   src: url("/Shared-General-Assets/fonts/Ronysiswadi15-51Dv8.ttf")
     format("truetype");
   font-weight: normal;
+  line-height: 1;
+  font-display: swap; /* Ensures text remains visible while font is loading */
 }
 
 body {
