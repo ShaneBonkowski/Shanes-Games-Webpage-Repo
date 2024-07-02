@@ -20,9 +20,9 @@ export function addInfoBox() {
         In general, Boids follow three rules:
       </p>
       <ul>
-        <li><b>Alignment:</b> Boids try to align their direction with other nearby Boids</li>
-        <li><b>Cohesion:</b> Boids move towards the average position of nearby Boids</li>
-        <li><b>Separation:</b> Boids avoid crowding near other Boids</li>
+        <li><b>Alignment:</b> Boids try to align their direction with other nearby Boids.</li>
+        <li><b>Cohesion:</b> Boids move towards the average position of nearby Boids.</li>
+        <li><b>Separation:</b> Boids avoid crowding near other Boids.</li>
       </ul>
       <p>
         From these three simple rules, complex emergent behavior and intricate patterns can arise. 
