@@ -18,7 +18,7 @@ export const contentBoxes = [
     linkUrl: "/games/Better-Boids-Game/BetterBoids.html",
     title: "Better Boids",
     description:
-      "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more",
+      "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more.",
     search_tags: "birds, bird, boid, flying, simulation",
     content_type: "games",
     openInNewTab: false,
