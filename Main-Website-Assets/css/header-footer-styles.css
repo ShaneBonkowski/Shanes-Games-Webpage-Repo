@@ -47,19 +47,19 @@
 :root {
   /* Sizes */
   --logo-image-size: calc(var(--header-height) * (2 / 3));
-  --linkedin-button-width: calc(var(--footer-height) * 0.8);
+  --linkedin-button-width: calc(var(--footer-height) * 0.65);
   --linkedin-button-height: calc(var(--footer-height) * 0.3);
-  --header-button-width: calc(var(--header-height) * 0.83);
+  --header-button-width: calc(var(--header-height) * 0.9);
   --header-button-height: calc(var(--header-height) * 0.45);
-  --github-icon-size: calc(var(--header-height) * 0.2);
+  --github-icon-size: calc(var(--header-height) * 0.19);
   --title-text-font-size: calc(var(--header-height) * 0.25);
-  --subtitle-text-font-size: calc(var(--header-height) * 0.125);
+  --subtitle-text-font-size: calc(var(--header-height) * 0.15);
   --header-margin-bottom: calc(var(--header-height) * 0.18);
   /* Font Sizes */
   --linkedin-icon-size: calc(var(--linkedin-button-height) * 0.45);
-  --footer-main-text-font-size: calc(var(--footer-height) * 0.125);
-  --header-button-text-size: calc(var(--header-button-width) * 0.16);
-  --linkedin-text-font-size: calc(var(--linkedin-button-height) * 0.24);
+  --footer-main-text-font-size: calc(var(--footer-height) * 0.13);
+  --header-button-text-size: calc(var(--header-button-width) * 0.17);
+  --linkedin-text-font-size: calc(var(--linkedin-button-height) * 0.3);
 }
 
 /* header.js styling */
@@ -136,13 +136,16 @@ h1.title-text-style {
 }
 
 .header-button-container {
-  position: relative;
   width: var(--header-button-width);
   height: var(--header-button-height);
   background-color: var(--button-color); /* Button Color */
   border-radius: var(--standard-edge_radius);
   transition: background-color 0.3s ease;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none; /* No underline */
 }
 
 /* Only hover if the browser supports hover. Aka
@@ -163,11 +166,8 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .header-button-text {
-  position: absolute;
   color: var(--main-text-color);
   text-align: center;
-  top: var(--general-top-margin);
-  left: var(--general-left-margin);
   font-size: var(--header-button-text-size);
   font-weight: normal;
   white-space: nowrap;
@@ -182,18 +182,15 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .github-text {
-  transform: translate(-20%, var(--centering-translation));
+  transform: translate(0%, 0%);
 }
 
 .fab.fa-github {
-  position: absolute;
   color: #ffffff; /* Set the color of the GitHub icon */
   font-size: var(
     --github-icon-size
   ); /* Called font, but its really the size of the GitHub icon */
-  top: var(--general-top-margin);
-  left: var(--general-left-margin);
-  transform: translate(-185%, calc(var(--centering-translation) - 5%));
+  margin: 0px 8% 0px 0px;
 }
 
 /* about me button styling */
@@ -205,10 +202,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .about-me-text {
-  transform: translate(
-    var(--centering-translation),
-    var(--centering-translation)
-  );
+  transform: translate(0%, 0%);
 }
 
 /* home button styling */
@@ -220,10 +214,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .home-text {
-  transform: translate(
-    var(--centering-translation),
-    var(--centering-translation)
-  );
+  transform: translate(0%, 0%);
 }
 
 /* footer.js Styling */
@@ -291,7 +282,10 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   text-align: center;
   right: var(--linkedIn-button-right-margin);
   bottom: var(--linkedIn-button-bottom-margin);
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none; /* No underline */
 }
 
 /* Only hover if the browser supports hover. Aka
@@ -312,12 +306,8 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .linkedIn-text {
-  position: absolute;
   color: var(--main-text-color);
   text-align: center;
-  top: var(--general-top-margin);
-  left: var(--general-left-margin);
-  transform: translate(-20%, var(--centering-translation));
   font-size: var(--linkedin-text-font-size);
   font-weight: normal;
 }
@@ -327,10 +317,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .fab.fa-linkedin {
-  position: absolute;
   color: #ffffff; /* Set the color of the GitHub icon */
   font-size: var(--linkedin-icon-size); /* icon size */
-  top: var(--general-top-margin);
-  left: var(--general-left-margin);
-  transform: translate(-195%, calc(var(--centering-translation) - 8%));
+  margin: 0px 8% 0px 0px;
 }

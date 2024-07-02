@@ -64,77 +64,81 @@ export function initUI() {
     "difficulty-selection-box-container"
   );
 
-  const difficultySelectionBoxInputContainer = document.createElement("div");
-  difficultySelectionBoxInputContainer.id =
-    "difficultySelectionBoxInputContainer";
-  difficultySelectionBoxInputContainer.classList.add(
-    "difficulty-selection-box-input-container"
-  );
-
-  const difficultySelectionBoxLabelContainer = document.createElement("div");
-  difficultySelectionBoxLabelContainer.id =
-    "difficultySelectionBoxLabelContainer";
-  difficultySelectionBoxLabelContainer.classList.add(
-    "difficulty-selection-box-label-container"
-  );
+  const difficultyInputBox1Container = document.createElement("div");
+  difficultyInputBox1Container.id = "difficultyInputBox1Container";
+  difficultyInputBox1Container.classList.add("flip-tile-toggle-box-container");
   addSelectionBox(
     `input-box-1`,
     "easy",
     1,
-    difficultySelectionBoxInputContainer,
-    difficultySelectionBoxLabelContainer,
+    difficultyInputBox1Container,
     // other boxes to be turned off when this one is turned on
-    ["input-box-2", "input-box-3"],
-    ["input-box-1"],
-    ["input-box-label-1"],
-    true // start off with this one checked
+    ["flip-tile-toggle-input-2", "flip-tile-toggle-input-3"],
+    ["flip-tile-toggle-input-1"],
+    ["flip-tile-toggle-label"],
+    true, // start off with this one checked
+    null,
+    true
   );
+
+  const difficultyInputBox2Container = document.createElement("div");
+  difficultyInputBox2Container.id = "difficultyInputBox2Container";
+  difficultyInputBox2Container.classList.add("flip-tile-toggle-box-container");
   addSelectionBox(
     `input-box-2`,
     "hard",
     2,
-    difficultySelectionBoxInputContainer,
-    difficultySelectionBoxLabelContainer,
+    difficultyInputBox2Container,
     // other boxes to be turned off when this one is turned on
-    ["input-box-1", "input-box-3"],
-    ["input-box-2"],
-    ["input-box-label-2"]
+    ["flip-tile-toggle-input-1", "flip-tile-toggle-input-3"],
+    ["flip-tile-toggle-input-2"],
+    ["flip-tile-toggle-label"],
+    false,
+    null,
+    true
   );
+
+  const difficultyInputBox3Container = document.createElement("div");
+  difficultyInputBox3Container.id = "difficultyInputBox3Container";
+  difficultyInputBox3Container.classList.add("flip-tile-toggle-box-container");
   addSelectionBox(
     `input-box-3`,
     "expert",
     3,
-    difficultySelectionBoxInputContainer,
-    difficultySelectionBoxLabelContainer,
+    difficultyInputBox3Container,
     // other boxes to be turned off when this one is turned on
-    ["input-box-1", "input-box-2"],
-    ["input-box-3"],
-    ["input-box-label-3"]
+    ["flip-tile-toggle-input-1", "flip-tile-toggle-input-2"],
+    ["flip-tile-toggle-input-3"],
+    ["flip-tile-toggle-label"],
+    false,
+    null,
+    true
   );
 
-  difficultySelectionBoxContainer.appendChild(
-    difficultySelectionBoxLabelContainer
-  );
-  difficultySelectionBoxContainer.appendChild(
-    difficultySelectionBoxInputContainer
-  );
+  difficultySelectionBoxContainer.appendChild(difficultyInputBox1Container);
+  difficultySelectionBoxContainer.appendChild(difficultyInputBox2Container);
+  difficultySelectionBoxContainer.appendChild(difficultyInputBox3Container);
 
   // Toggle box to show solutions
-  const solutionToggleBoxContainer = document.createElement("div");
-  solutionToggleBoxContainer.id = "solutionToggleBoxContainer";
-  solutionToggleBoxContainer.classList.add("sol-toggle-box-container");
+  const solutionSelectionBoxMainContainer = document.createElement("div");
+  solutionSelectionBoxMainContainer.id = "solutionToggleContainer";
+  solutionSelectionBoxMainContainer.classList.add(
+    "solution-selection-box-container"
+  );
+
+  const solToggleBoxContainer = document.createElement("div");
+  solToggleBoxContainer.id = "solToggleBoxContainer";
+  solToggleBoxContainer.classList.add("flip-tile-toggle-box-container");
   addSelectionBox(
     `sol-toggle-input"`,
     "reveal",
     4,
-    // Input and label container are the same here
-    solutionToggleBoxContainer,
-    solutionToggleBoxContainer,
+    solToggleBoxContainer,
     // other boxes to be turned off when this one is turned on is
     // empty so that this can be a toggle box.
     [],
-    ["sol-toggle-input"],
-    ["sol-toggle-label"],
+    ["flip-tile-sol-toggle-input"],
+    ["flip-tile-toggle-label"],
     false, // start off with this one unchecked
     function (checked) {
       // Update leaderBoidEnabled variable
@@ -166,6 +170,7 @@ export function initUI() {
     },
     true
   );
+  solutionSelectionBoxMainContainer.appendChild(solToggleBoxContainer);
 
   // Score Text
   const textContainer = document.createElement("div");
@@ -207,7 +212,7 @@ export function initUI() {
   document.body.appendChild(updateTilegridButtonContainer);
   document.body.appendChild(resetTilegridButtonContainer);
   document.body.appendChild(difficultySelectionBoxContainer);
-  document.body.appendChild(solutionToggleBoxContainer);
+  document.body.appendChild(solutionSelectionBoxMainContainer);
 }
 
 function addInfoBox() {
@@ -227,7 +232,7 @@ function addInfoBox() {
         Watch <a href="https://www.youtube.com/watch?v=0fHkKcy0x_U" target="_blank">
           Solving the "Lights Out" Problem
         </a>
-        for more context on how linear algebra can be used to solve this game!
+        for more context on how linear algebra can be used to automatically solve this game!
       </p>
     `,
     [closeInfoWindow, onClickX],
@@ -276,7 +281,7 @@ function addInfoBox() {
       }
     );
     const solSelectionBoxContainers = document.querySelectorAll(
-      ".sol-toggle-box-container"
+      ".solution-selection-box-container"
     );
     solSelectionBoxContainers.forEach((solSelectionBoxContainer) => {
       solSelectionBoxContainer.style.display = "none";
@@ -300,7 +305,7 @@ function addInfoBox() {
       }
     );
     const solSelectionBoxContainers = document.querySelectorAll(
-      ".sol-toggle-box-container"
+      ".solution-selection-box-container"
     );
     solSelectionBoxContainers.forEach((solSelectionBoxContainer) => {
       solSelectionBoxContainer.style.display = "flex";

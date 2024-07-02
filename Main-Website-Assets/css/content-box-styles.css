@@ -27,7 +27,7 @@
     /* Sizes */
     --content-box-height: 36vw;
     --content-box-width: 95vw;
-    --content-type-icon-size: 2.5vw;
+    --content-type-icon-size: 2.85vw;
     /* Edge Margins */
     --content-button-left-margin: 22%;
     --content-desc-text-left-margin: 8%;
@@ -49,8 +49,8 @@
   --content-desc-height: calc(var(--content-box-height) * 0.95);
   --content-box-margin-bottom: calc(var(--content-box-height) * 0.07);
   /* Font Sizes */
-  --content-desc-title-font-size: calc(var(--content-button-width) * 0.06);
-  --content-desc-body-text-font-size: calc(var(--content-button-width) * 0.06);
+  --content-desc-title-font-size: calc(var(--content-button-width) * 0.075);
+  --content-desc-body-text-font-size: calc(var(--content-button-width) * 0.072);
   /* Edge Margins */
   --content-description-left-margin: calc(
     var(--content-button-left-margin) + 50%
@@ -61,9 +61,9 @@
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Font Sizes */
-    --content-desc-title-font-size: calc(var(--content-button-width) * 0.055);
+    --content-desc-title-font-size: calc(var(--content-button-width) * 0.07);
     --content-desc-body-text-font-size: calc(
-      var(--content-button-width) * 0.055
+      var(--content-button-width) * 0.07
     );
     /* Sizes */
     --content-button-width: calc(var(--content-box-width) / 2.3);
@@ -176,8 +176,7 @@ a.title-link-anchor {
 .fas.fa-gamepad,
 .fas.fa-paint-brush,
 .fas.fa-pen-nib {
-  /* Shifted slightly up to be in line w/ title text */
-  margin: 0px 0px 3px 0px;
+  margin: 0px 0px 0px 0px;
   color: #ffffff;
   font-size: var(--content-type-icon-size);
 }

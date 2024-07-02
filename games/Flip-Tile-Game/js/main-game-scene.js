@@ -123,7 +123,7 @@ export class MainGameScene extends Phaser.Scene {
   }
 
   reset_reveal_solution_toggle() {
-    const toggleInput = document.querySelector(".sol-toggle-input");
+    const toggleInput = document.querySelector(".flip-tile-sol-toggle-input");
 
     if (toggleInput) {
       toggleInput.checked = false;
@@ -158,7 +158,7 @@ export class MainGameScene extends Phaser.Scene {
 
     // Update to a new tile pattern in a grid as a Promise (so that we can run this async)
     for (let i = 1; i <= ui_vars.numCheckboxes; i++) {
-      let className = `.input-box-${i}`;
+      let className = `.flip-tile-toggle-input-${i}`;
       const checkbox = document.querySelector(className);
       if (checkbox.checked) {
         if (i == 1) {
@@ -250,7 +250,7 @@ export class MainGameScene extends Phaser.Scene {
 
       // Update score..
       // Only give score if solution is not revealed
-      const toggleInput = document.querySelector(".sol-toggle-input");
+      const toggleInput = document.querySelector(".flip-tile-sol-toggle-input");
 
       if (
         toggleInput &&
