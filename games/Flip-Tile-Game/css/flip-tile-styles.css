@@ -11,7 +11,7 @@
   --flip-tile-input-box-label-margin-bottom: 1vh;
   --difficulty-selection-box-container-left: 14vw;
   --difficulty-selection-box-container-bottom: 6vh;
-  --flip-tile-selection-box-right-margin: 1.5vw;
+  --flip-tile-selection-box-right-margin: 0.75vw;
   --sol-toggle-box-margin-left: 14vw;
   --sol-toggle-box-margin-bottom: 23vh;
   --flip-tile-info-button-margin-right: 6vw;
@@ -20,13 +20,13 @@
   --flip-tile-info-header-x-button-margin-top: 5%;
   --score-text-top: 10%;
   /* Font */
-  --flip-tile-text-size: calc(10vw * 0.15);
-  --flip-tile-label-text-size: calc(10vw * 0.12);
+  --flip-tile-text-size: calc(10vw * 0.175);
+  --flip-tile-label-text-size: calc(10vw * 0.16);
   --score-text-size: calc(10vh * 0.8);
   /* Font Sizes */
-  --test-font-size: calc(10vw * 0.2);
+  --test-font-size: calc(10vw * 0.25);
   /* Sizes */
-  --fliptile-button-width: calc(10vw * 0.6);
+  --fliptile-button-width: calc(10vw * 0.75);
   --fliptile-button-height: calc(10vh * 0.8);
   --selection-box-width: calc(10vw * 0.5);
   --selection-box-height: calc(10vh * 0.5);
@@ -43,7 +43,7 @@
     --flip-tile-input-box-label-margin-bottom: 0vh;
     --difficulty-selection-box-container-left: 36vw;
     --difficulty-selection-box-container-bottom: 6vh;
-    --flip-tile-selection-box-right-margin: 12vw;
+    --flip-tile-selection-box-right-margin: 6vw;
     --sol-toggle-box-margin-left: 36vw;
     --sol-toggle-box-margin-bottom: 15vh;
     --flip-tile-info-button-margin-right: 16vw;
@@ -53,10 +53,10 @@
     --score-text-top: 15%;
     /* Font */
     --flip-tile-text-size: calc(10vh * 0.2);
-    --flip-tile-label-text-size: calc(10vh * 0.15);
+    --flip-tile-label-text-size: calc(10vh * 0.175);
     --score-text-size: calc(10vh * 0.75);
     /* Font Sizes */
-    --test-font-size: calc(10vw * 0.38);
+    --test-font-size: calc(10vw * 0.5);
     /* Sizes */
     --fliptile-button-width: calc(20vw * 0.85);
     --fliptile-button-height: calc(10vh * 0.43);
@@ -178,71 +178,40 @@ input[type="checkbox" i] {
   cursor: default;
   appearance: auto;
   box-sizing: border-box;
-  margin: 0px var(--flip-tile-selection-box-right-margin) 0px 0px;
+  margin: 0px var(--flip-tile-selection-box-right-margin) 0px
+    var(--flip-tile-selection-box-right-margin);
   padding: initial;
   border: initial;
 }
 
-/* Difficulty Selection Boxes */
+/* Difficulty Selection Boxes stored in one big container */
 .difficulty-selection-box-container {
   position: fixed;
+  left: var(--difficulty-selection-box-container-left);
   bottom: var(--difficulty-selection-box-container-bottom);
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.difficulty-selection-box-input-container {
-  margin-left: var(--difficulty-selection-box-container-left);
-  width: 100vw;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-.difficulty-selection-box-label-container {
-  margin-left: var(--difficulty-selection-box-container-left);
-  width: 100vw;
+/* Solution Selection Box stored in one big container */
+.solution-selection-box-container {
+  position: fixed;
+  left: var(--sol-toggle-box-margin-left);
+  bottom: var(--sol-toggle-box-margin-bottom);
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-}
-
-.input-box-1,
-.input-box-2,
-.input-box-3 {
-  width: var(--selection-box-width);
-  height: var(--selection-box-height);
-  min-width: calc(0.5 * var(--fliptile-button-height));
-  min-height: calc(0.5 * var(--fliptile-button-height));
-  cursor: pointer;
-}
-
-.input-box-label-1,
-.input-box-label-2,
-.input-box-label-3 {
-  width: var(--selection-box-width);
-  color: var(--main-text-color);
-  font-size: var(--flip-tile-label-text-size);
-  text-align: center;
-  margin: 0px var(--flip-tile-selection-box-right-margin)
-    var(--flip-tile-input-box-label-margin-bottom) 0px;
 }
 
 /* Toggle box styles */
-.sol-toggle-box-container {
-  left: var(--sol-toggle-box-margin-left);
-  bottom: var(--sol-toggle-box-margin-bottom);
-  position: fixed;
-  width: var(--selection-box-width);
+.flip-tile-toggle-box-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
 
-.sol-toggle-label {
+.flip-tile-toggle-label {
   font-size: var(--flip-tile-label-text-size);
   white-space: nowrap;
   color: white;
@@ -250,7 +219,12 @@ input[type="checkbox" i] {
   margin: 0px 0px var(--flip-tile-input-box-label-margin-bottom) 0px;
 }
 
-.sol-toggle-input {
+/* Need the 1, 2, 3 to keep their names since the JS code
+in the game queries these classes by name */
+.flip-tile-sol-toggle-input,
+.flip-tile-toggle-input-1,
+.flip-tile-toggle-input-2,
+.flip-tile-toggle-input-3 {
   width: var(--selection-box-width);
   height: var(--selection-box-height);
   cursor: pointer;

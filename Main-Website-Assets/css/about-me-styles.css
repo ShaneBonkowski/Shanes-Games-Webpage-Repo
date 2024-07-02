@@ -33,18 +33,18 @@
 /* Define DERIVED variables (aka ones based on others) */
 :root {
   /* Font Sizes */
-  --about-me-title-font-size: calc(var(--about-me-box-height) * 0.065);
-  --about-me-subtitle-font-size: calc(var(--about-me-box-height) * 0.04);
-  --about-me-main-text-font-size: calc(var(--about-me-box-height) * 0.03);
+  --about-me-title-font-size: calc(var(--about-me-box-height) * 0.075);
+  --about-me-subtitle-font-size: calc(var(--about-me-box-height) * 0.055);
+  --about-me-main-text-font-size: calc(var(--about-me-box-height) * 0.034);
 }
 
 /* Media query to override DERIVED values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Font Sizes */
-    --about-me-title-font-size: calc(var(--about-me-box-height) * 0.039);
-    --about-me-subtitle-font-size: calc(var(--about-me-box-height) * 0.028);
-    --about-me-main-text-font-size: calc(var(--about-me-box-height) * 0.021);
+    --about-me-title-font-size: calc(var(--about-me-box-height) * 0.045);
+    --about-me-subtitle-font-size: calc(var(--about-me-box-height) * 0.033);
+    --about-me-main-text-font-size: calc(var(--about-me-box-height) * 0.025);
   }
 }
 

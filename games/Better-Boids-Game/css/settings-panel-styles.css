@@ -6,9 +6,9 @@
   /* Size */
 
   /* Margins */
-  --settings-panel-top: 9%;
-  --settings-panel-left: 32%;
-  --settings-panel-width: 60%;
+  --settings-panel-top: 12%;
+  --settings-panel-left: 30%;
+  --settings-panel-width: 65%;
   --settings-panel-height: 70%;
   --settings-image-left: 25%;
 
@@ -24,14 +24,14 @@
     /* Size */
 
     /* Margins */
-    --settings-panel-top: 8%;
+    --settings-panel-top: 6%;
     --settings-panel-left: 4%;
     --settings-panel-width: 92%;
     --settings-panel-height: 80%;
     --settings-image-left: 20%;
 
     /* Font Sizes */
-    --settings-font-size: 3vw;
+    --settings-font-size: 4.1vw;
   }
 }
 

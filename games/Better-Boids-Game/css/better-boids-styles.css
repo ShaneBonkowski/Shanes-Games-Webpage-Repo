@@ -23,7 +23,7 @@
     /* Font Sizes */
     --info-button-size: calc(20vh * 0.65);
     /* Font Sizes */
-    --test-font-size: calc(10vw * 0.38);
+    --test-font-size: calc(10vw * 0.5);
     --info-button-font-size: calc(10vh * 0.25);
     /* Edge Margins */
     --info-button-margin-right: 20vw;
@@ -151,6 +151,11 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   font-size: var(--test-font-size);
   color: var(--main-text-color);
   pointer-events: auto;
+}
+
+/* Distance between bullet points */
+li {
+  margin-bottom: 1vh;
 }
 
 .close-button {

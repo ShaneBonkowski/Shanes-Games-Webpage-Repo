@@ -13,7 +13,7 @@
   --loading-content-size: 25vw;
   /* Font Sizes */
   --logo-title-font-size: calc(var(--game-header-height) * 0.125);
-  --logo-subtitle-font-size: calc(var(--game-header-height) * 0.07);
+  --logo-subtitle-font-size: calc(var(--game-header-height) * 0.085);
   /* Edge Margins */
   --shanes-games-logo-container-for-games-top-margin: 1.3%;
   --game-logo-container-margin-top: 2px;

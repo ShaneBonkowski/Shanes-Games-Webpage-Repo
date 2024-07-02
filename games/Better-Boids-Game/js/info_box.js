@@ -17,12 +17,12 @@ export function addInfoBox() {
         The
         <a href="https://en.wikipedia.org/wiki/Boids" target="_blank">Boids algorithm</a>, 
         devised by Craig Reynolds, mimics the flocking behavior seen in birds and other animals. 
-        In general, Boids typically have three rules:
+        In general, Boids follow three rules:
       </p>
       <ul>
-        <li>Alignment: Boids try to align their direction with other nearby Boids</li>
-        <li>Cohesion: Boids move towards the average position of nearby Boids</li>
-        <li>Separation: Boids avoid crowding together</li>
+        <li><b>Alignment:</b> Boids try to align their direction with other nearby Boids</li>
+        <li><b>Cohesion:</b> Boids move towards the average position of nearby Boids</li>
+        <li><b>Separation:</b> Boids avoid crowding near other Boids</li>
       </ul>
       <p>
         From these three simple rules, complex emergent behavior and intricate patterns can arise. 

@@ -11,10 +11,10 @@
   /* Margins */
   --slider-top-margin: 25vh;
   --slider-container-left-margin: 4%;
-  --hover-slider-label-top-margin: 25%;
-  --hover-slider-label-left-margin: 120%;
+  --hover-slider-label-top-margin: 0%;
+  --hover-slider-label-right-margin: 0%;
   /* Translations */
-  --slider-label-x-shift: -80%;
+  --slider-label-y-shift: -80%;
   /* Font Sizes */
   --slider-font-size: calc(10vw * 0.14);
 }
@@ -27,11 +27,13 @@
     --slider-blank-space-height: 5vh;
     --leader-toggle-size: calc(10vh * 0.25);
     /* Margins */
-    --hover-slider-label-top-margin: 37.5%;
+    --hover-slider-label-top-margin: 0%;
     --slider-container-left-margin: 6%;
     --slider-top-margin: 30vh;
+    /* Translations */
+    --slider-label-y-shift: -30%;
     /* Font Sizes */
-    --slider-font-size: calc(10vw * 0.266);
+    --slider-font-size: calc(10vw * 0.35);
   }
 }
 
@@ -56,12 +58,15 @@ body {
   pointer-events: none;
   height: var(--input-slider-height);
   width: var(--input-slider-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .slider-label {
   position: absolute;
   left: 0;
-  transform: translate(0%, var(--slider-label-x-shift));
+  top: var(--slider-label-y-shift);
   pointer-events: none;
   font-size: var(--slider-font-size);
   white-space: nowrap;
@@ -70,8 +75,8 @@ body {
 
 .slider-hover-label {
   position: absolute;
-  top: var(--hover-slider-label-top-margin);
-  left: var(--hover-slider-label-left-margin);
+  top: var(--slider-label-y-shift);
+  right: var(--hover-slider-label-right-margin);
   display: none; /* Hide the label until we hover on it below */
   font-size: var(--slider-font-size);
   white-space: nowrap;
@@ -110,7 +115,6 @@ input[type="range"]:active {
   left: var(--slider-container-left-margin);
   top: var(--slider-top-margin);
   height: var(--input-slider-height);
-  width: var(--input-slider-width);
   display: flex;
   align-items: center;
   position: relative;

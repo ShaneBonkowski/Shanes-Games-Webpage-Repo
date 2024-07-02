@@ -12,8 +12,7 @@
  * @param {string} id - The ID attribute for the selection box input element.
  * @param {string} label - The label text for the selection box.
  * @param {string} value - The value attribute for the selection box input element (e.g. if this is 1 of 3 selection boxes, the numbers for each would be 1, 2, 3 respectively).
- * @param {HTMLElement} inputParentElement - The parent element to which the selection box will be appended.
- * @param {HTMLElement} labelParentElement - The parent element to which the selection box labels will be appended.
+ * @param {HTMLElement} parentElement - The parent element to which the selection box will be appended.
  * @param {string[]} [otherRelatedSelectionBoxClasses=[]] - An array of CSS class names of all selection box elements that should be turned off when this one is turned on. Leave blank to make this behave as a single toggle box that does not affect other boses instead.
  * @param {string[]} [inputClasses=[]] - An array of CSS classes to be added to the selection box input element.
  * @param {string[]} [labelElementClasses=[]] - An array of CSS classes to be added to the label element.
@@ -25,8 +24,7 @@ export function addSelectionBox(
   id,
   label,
   value,
-  inputParentElement,
-  labelParentElement,
+  parentElement,
   otherRelatedSelectionBoxClasses = [],
   inputClasses = [],
   labelElementClasses = [],
@@ -50,11 +48,11 @@ export function addSelectionBox(
   labelElement.classList.add(...labelElementClasses);
 
   if (labelFirst) {
-    labelParentElement.appendChild(labelElement);
-    inputParentElement.appendChild(input);
+    parentElement.appendChild(labelElement);
+    parentElement.appendChild(input);
   } else {
-    inputParentElement.appendChild(input);
-    labelParentElement.appendChild(labelElement);
+    parentElement.appendChild(input);
+    parentElement.appendChild(labelElement);
   }
 
   // Add event listener to uncheck other boxes when this one is checked (if provided)

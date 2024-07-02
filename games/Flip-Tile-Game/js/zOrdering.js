@@ -23,7 +23,7 @@ export function setZOrderForSharedElements(game) {
     ".difficulty-selection-box-container"
   );
   const solToggleBoxContainer = document.querySelector(
-    ".sol-toggle-box-container"
+    ".solution-selection-box-container"
   );
   const flipTileInfoButtonContainer = document.querySelector(
     ".info-button-container"

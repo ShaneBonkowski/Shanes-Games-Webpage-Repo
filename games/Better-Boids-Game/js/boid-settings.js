@@ -50,7 +50,7 @@ export function addBoidSettings() {
     `
       <h2>Boid Alignment:</h2>
       <p>
-          Alignment is the tendency for Boids to try to fly in the same direction. The higher this value, the more Boids of the same type try to align with neighbors.
+          Alignment is the tendency for Boids of the same type to fly in the same direction. The higher this value, the more Boids will try to align.
       </p>
     `
   );
@@ -60,7 +60,7 @@ export function addBoidSettings() {
     `
       <h2>Boid Cohesion:</h2>
       <p>
-          Cohesion is the tendency for Boids to try to flock together. The higher this value, the more Boids of the same type try to stay close to their neighbors.
+          Cohesion is the tendency for Boids of the same type to flock together. The higher this value, the more Boids try to stay close together.
       </p>
     `
   );
@@ -80,7 +80,7 @@ export function addBoidSettings() {
     `
       <h2>Boid Separation:</h2>
       <p>
-          Separation is how much Boids will try to separate if they are colliding. A higher value means Boids will oppose touching to a greater degree.
+          Separation is how much Boids will try to separate if they are colliding. A higher value means Boids will oppose colliding more.
       </p>
     `
   );
@@ -186,8 +186,6 @@ export function addBoidSettings() {
     `leader-toggle-input"`,
     "Leader Boid",
     1,
-    // Add the label and the input to the same parent
-    leaderToggleBoxContainer,
     leaderToggleBoxContainer,
     // other boxes to be turned off when this one is turned on.
     // Empty so that this can be a toggle box.
