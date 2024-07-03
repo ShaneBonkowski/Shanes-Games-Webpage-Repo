@@ -6,13 +6,14 @@
   /* Size */
   --input-slider-width: 15vw;
   --input-slider-height: 5vh;
-  --slider-blank-space-height: 6vh;
-  --toggle-top-margin: 3vh;
+  --slider-blank-space-height: 3vh;
+  --toggle-top-margin: 4vh;
   --leader-toggle-size: calc(10vw * 0.2);
   /* Margins */
-  --hover-slider-label-right-margin: 0%;
+  --hover-slider-label-right-margin: -115%;
+  --input-left-margin: 70%;
   /* Translations */
-  --slider-label-y-shift: -80%;
+  --slider-label-y-shift: 0%;
   /* Font Sizes */
   --slider-font-size: calc(10vw * 0.14);
 }
@@ -26,8 +27,10 @@
     --toggle-top-margin: 2.5vh;
     --leader-toggle-size: calc(10vh * 0.25);
     /* Margins */
+    --input-left-margin: 0%;
+    --hover-slider-label-right-margin: 0%;
     /* Translations */
-    --slider-label-y-shift: -30%;
+    --slider-label-y-shift: -43%;
     /* Font Sizes */
     --slider-font-size: calc(10vw * 0.35);
   }
@@ -69,21 +72,33 @@ body {
 .slider-label {
   position: absolute;
   left: 0;
-  top: var(--slider-label-y-shift);
   pointer-events: none;
   font-size: var(--slider-font-size);
   white-space: nowrap;
   color: white;
 }
 
+/* iPhone only! */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  .slider-label {
+    top: var(--slider-label-y-shift);
+  }
+}
+
 .slider-hover-label {
   position: absolute;
-  top: var(--slider-label-y-shift);
   right: var(--hover-slider-label-right-margin);
   display: none; /* Hide the label until we hover on it below */
   font-size: var(--slider-font-size);
   white-space: nowrap;
   color: white;
+}
+
+/* iPhone only! */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  .slider-hover-label {
+    top: var(--slider-label-y-shift);
+  }
 }
 
 /* DONT do the @media (hover: hover) thing for fixing hovering */
@@ -101,6 +116,7 @@ fine since theyre likely to tap elsewjere to fix it soon after. */
 }
 
 input[type="range"] {
+  left: var(--input-left-margin);
   position: absolute;
   cursor: pointer;
   pointer-events: auto; /* Can click on this */
