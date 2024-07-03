@@ -46,7 +46,7 @@ export const customEvents = {
 };
 
 export const sharedTileAttrs = {
-  clickTimer: 0.425, // click tile anim timer
+  clickTimer: 0.5, // click tile anim timer
   solvedTimer: 0.7, // how long solution animation takes, and how long to wait before revealing next puzzle in that case
 };
 
