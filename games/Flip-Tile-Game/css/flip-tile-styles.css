@@ -9,10 +9,10 @@
   --resetTilegrid-button-margin-left: 6vw;
   --resetTilegrid-button-margin-bottom: 30vh;
   --flip-tile-input-box-label-margin-bottom: 1vh;
-  --difficulty-selection-box-container-left: 14vw;
+  --difficulty-selection-box-container-left: 12vw;
   --difficulty-selection-box-container-bottom: 6vh;
   --flip-tile-selection-box-right-margin: 0.75vw;
-  --sol-toggle-box-margin-left: 14vw;
+  --sol-toggle-box-margin-left: 12vw;
   --sol-toggle-box-margin-bottom: 23vh;
   --flip-tile-info-button-margin-right: 6vw;
   --flip-tile-info-button-margin-bottom: 13vh;
@@ -41,10 +41,10 @@
     --resetTilegrid-button-margin-left: 16vw;
     --resetTilegrid-button-margin-bottom: 20vh;
     --flip-tile-input-box-label-margin-bottom: 0vh;
-    --difficulty-selection-box-container-left: 36vw;
+    --difficulty-selection-box-container-left: 30vw;
     --difficulty-selection-box-container-bottom: 6vh;
     --flip-tile-selection-box-right-margin: 6vw;
-    --sol-toggle-box-margin-left: 36vw;
+    --sol-toggle-box-margin-left: 30vw;
     --sol-toggle-box-margin-bottom: 15vh;
     --flip-tile-info-button-margin-right: 16vw;
     --flip-tile-info-button-margin-bottom: 29vh;

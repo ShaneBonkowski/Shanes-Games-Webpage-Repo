@@ -8,6 +8,67 @@ import { BoidFactors, customEvents } from "./boid-utils.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import { addSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
+
+const velocityPanelInfo = {
+  imagePath: "./webps/Velocity_Graphic.webp",
+  htmlContent: `
+    <h2>Max Speed:</h2>
+    <p>
+        The maximum speed that the Boids are allowed to go. When changing directions, Boids will accelerate until they hit this speed limit.
+    </p>
+  `,
+};
+
+const alignmentPanelInfo = {
+  imagePath: "./webps/Alignment_Graphic.webp",
+  htmlContent: `
+    <h2>Boid Alignment:</h2>
+    <p>
+        Alignment is the tendency for Boids of the same type to fly in the same direction. The higher this value, the more Boids will try to align.
+    </p>
+  `,
+};
+
+const cohesionPanelInfo = {
+  imagePath: "./webps/Cohesion_Graphic.webp",
+  htmlContent: `
+    <h2>Boid Cohesion:</h2>
+    <p>
+        Cohesion is the tendency for Boids of the same type to flock together. The higher this value, the more Boids try to stay close together.
+    </p>
+  `,
+};
+
+const radiusPanelInfo = {
+  imagePath: "./webps/Search_Radius_Graphic.webp",
+  htmlContent: `
+    <h2>Flock Radius:</h2>
+    <p>
+        Flock Radius is how far Boids will search for neighbors. All Boids within this distance from one another are considered neighbors.
+    </p>
+  `,
+};
+
+const separationPanelInfo = {
+  imagePath: "./webps/Separation_Graphic.webp",
+  htmlContent: `
+    <h2>Boid Separation:</h2>
+    <p>
+        Separation is how much Boids will try to separate if they are colliding. A higher value means Boids will oppose colliding more.
+    </p>
+  `,
+};
+
+const leaderPanelInfo = {
+  imagePath: "./webps/Leader_Follow_Graphic.webp",
+  htmlContent: `
+    <h2>Leader Boid:</h2>
+    <p>
+        If enabled, Leader Boid will spawn wherever your pointer is located at on the screen. Boids will all follow the Leader!
+    </p>
+  `,
+};
+
 export function addBoidSettings() {
   // Create ui window to hold the settings and sliders in (basically a window)
   function closeSettingsWindow() {
@@ -33,75 +94,13 @@ export function addBoidSettings() {
     ["close-button"]
   );
 
-  // Create side panels for the settings window with desired text and image that can be revealed / hidden
-  const speedPanel = createSettingsSidePanel(
-    "./webps/Velocity_Graphic.webp",
-    `
-      <h2>Max Speed:</h2>
-      <p>
-          The maximum speed that the Boids are allowed to go. When changing directions, Boids will accelerate until they hit this speed limit.
-      </p>
-    `
+  // Create a side panels for the settings window with desired text and image.
+  // Start off with the speed panel.
+  const settingsSidePanel = createSettingsSidePanel(
+    velocityPanelInfo.imagePath,
+    velocityPanelInfo.htmlContent
   );
-  speedPanel.style.display = "flex"; // start with speed panel revealed (panels are flex boxes)
-
-  const alignmentPanel = createSettingsSidePanel(
-    "./webps/Alignment_Graphic.webp",
-    `
-      <h2>Boid Alignment:</h2>
-      <p>
-          Alignment is the tendency for Boids of the same type to fly in the same direction. The higher this value, the more Boids will try to align.
-      </p>
-    `
-  );
-
-  const cohesionPanel = createSettingsSidePanel(
-    "./webps/Cohesion_Graphic.webp",
-    `
-      <h2>Boid Cohesion:</h2>
-      <p>
-          Cohesion is the tendency for Boids of the same type to flock together. The higher this value, the more Boids try to stay close together.
-      </p>
-    `
-  );
-
-  const radiusPanel = createSettingsSidePanel(
-    "./webps/Search_Radius_Graphic.webp",
-    `
-      <h2>Flock Radius:</h2>
-      <p>
-          Flock Radius is how far Boids will search for neighbors. All Boids within this distance from one another are considered neighbors.
-      </p>
-    `
-  );
-
-  const separationPanel = createSettingsSidePanel(
-    "./webps/Separation_Graphic.webp",
-    `
-      <h2>Boid Separation:</h2>
-      <p>
-          Separation is how much Boids will try to separate if they are colliding. A higher value means Boids will oppose colliding more.
-      </p>
-    `
-  );
-
-  const leaderPanel = createSettingsSidePanel(
-    "./webps/Leader_Follow_Graphic.webp",
-    `
-      <h2>Leader Boid:</h2>
-      <p>
-          If enabled, Leader Boid will spawn wherever your pointer is located at on the screen. Boids will all follow the Leader!
-      </p>
-    `
-  );
-
-  // Add panels to the settingsWindow
-  settingsWindow.appendChild(speedPanel);
-  settingsWindow.appendChild(alignmentPanel);
-  settingsWindow.appendChild(cohesionPanel);
-  settingsWindow.appendChild(radiusPanel);
-  settingsWindow.appendChild(separationPanel);
-  settingsWindow.appendChild(leaderPanel);
+  settingsSidePanel.style.display = "flex"; // start with speed panel revealed (panels are flex boxes)
 
   // Add an open settings Button
   function openSettingsWindow() {
@@ -136,7 +135,8 @@ export function addBoidSettings() {
     "0.05",
     "1",
     "0.05",
-    speedPanel
+    settingsSidePanel,
+    velocityPanelInfo
   );
 
   const alignmentSliderContainer = instantiateSlider(
@@ -145,7 +145,8 @@ export function addBoidSettings() {
     "0",
     "1",
     "0.001",
-    alignmentPanel
+    settingsSidePanel,
+    alignmentPanelInfo
   );
 
   const cohesionSliderContainer = instantiateSlider(
@@ -154,7 +155,8 @@ export function addBoidSettings() {
     "0",
     "1",
     "0.001",
-    cohesionPanel
+    settingsSidePanel,
+    cohesionPanelInfo
   );
 
   const radiusSliderContainer = instantiateSlider(
@@ -163,7 +165,8 @@ export function addBoidSettings() {
     `${BoidFactors.boidProtectedRadius + 5}`, // Cannot go smaller than protected radius with some buffer
     "500",
     "1",
-    radiusPanel
+    settingsSidePanel,
+    radiusPanelInfo
   );
 
   const separationSliderContainer = instantiateSlider(
@@ -172,7 +175,8 @@ export function addBoidSettings() {
     "0",
     "1",
     "0.001",
-    separationPanel
+    settingsSidePanel,
+    separationPanelInfo
   );
 
   addFlockRadiusIndicator(radiusSliderContainer);
@@ -203,14 +207,13 @@ export function addBoidSettings() {
         document.dispatchEvent(customEvents.leaderBoidChangeEvent);
       }
 
-      // Hide all other "settings-side-panel"
-      const settingsPanels = document.querySelectorAll(".settings-side-panel");
-      settingsPanels.forEach((panel) => {
-        panel.style.display = "none";
-      });
-
-      // Show the provided panel
-      leaderPanel.style.display = "flex"; // panels are flex boxes
+      // Reveal leader panel info
+      const settingsPanel = document.querySelector(".settings-side-panel");
+      updateSettingsSidePanel(
+        settingsPanel,
+        leaderPanelInfo.imagePath,
+        leaderPanelInfo.htmlContent
+      );
     }
   );
 
@@ -219,19 +222,27 @@ export function addBoidSettings() {
   document.addEventListener("uiMenuClosed", uiMenuCloseHandler);
 
   // Set up parenting structure and append to body of document
-  settingsWindow.appendChild(speedSliderContainer);
-  appendBlankSpace(settingsWindow);
-  settingsWindow.appendChild(alignmentSliderContainer);
-  appendBlankSpace(settingsWindow);
-  settingsWindow.appendChild(cohesionSliderContainer);
-  appendBlankSpace(settingsWindow);
-  settingsWindow.appendChild(radiusSliderContainer);
-  appendBlankSpace(settingsWindow);
-  settingsWindow.appendChild(separationSliderContainer);
-  appendBlankSpace(settingsWindow);
-  settingsWindow.appendChild(leaderToggleBoxContainer);
-  appendBlankSpace(settingsWindow);
+  const uiSettingsOptionsContainer = document.createElement("div");
+  uiSettingsOptionsContainer.id = "ui-settings-options-container";
+  uiSettingsOptionsContainer.classList.add("ui-settings-options-container");
 
+  uiSettingsOptionsContainer.appendChild(speedSliderContainer);
+  uiSettingsOptionsContainer.appendChild(alignmentSliderContainer);
+  uiSettingsOptionsContainer.appendChild(cohesionSliderContainer);
+  uiSettingsOptionsContainer.appendChild(radiusSliderContainer);
+  uiSettingsOptionsContainer.appendChild(separationSliderContainer);
+  uiSettingsOptionsContainer.appendChild(leaderToggleBoxContainer);
+
+  const settingsSidePanelBottomHalf = settingsSidePanel.querySelector(
+    ".settings-side-panel-bottom-half"
+  );
+  settingsSidePanelBottomHalf.insertBefore(
+    uiSettingsOptionsContainer,
+    settingsSidePanelBottomHalf.firstChild
+  );
+  settingsSidePanel.appendChild(settingsSidePanelBottomHalf);
+
+  settingsWindow.appendChild(settingsSidePanel);
   document.body.appendChild(settingsWindow);
   document.body.appendChild(settingsButtonContainer);
 
@@ -271,12 +282,6 @@ export function addBoidSettings() {
     showGameBanner();
   }
 
-  function appendBlankSpace(parent) {
-    const blankSpace = document.createElement("div");
-    blankSpace.classList.add("slider-blank-space");
-    parent.appendChild(blankSpace);
-  }
-
   function addTouchEventListenersToSliders() {
     // Add touch event listeners to slider containers so that we can show the hover text
     // if someone on a phone touches on a slider.
@@ -302,7 +307,15 @@ export function addBoidSettings() {
     );
   }
 
-  function instantiateSlider(name, value, min, max, step, panelProvided) {
+  function instantiateSlider(
+    name,
+    value,
+    min,
+    max,
+    step,
+    panelProvided,
+    panelInfoProvided
+  ) {
     // init slider container
     const sliderContainer = document.createElement("div");
     sliderContainer.classList.add("slider-container");
@@ -329,7 +342,13 @@ export function addBoidSettings() {
     sliderContainer.appendChild(hoverLabel);
 
     // Append sliders to the document body
-    initSliderEvents(slider, name, hoverLabel, panelProvided);
+    initSliderEvents(
+      slider,
+      name,
+      hoverLabel,
+      panelProvided,
+      panelInfoProvided
+    );
 
     return sliderContainer;
   }
@@ -439,7 +458,13 @@ export function addBoidSettings() {
     }
   }
 
-  function initSliderEvents(slider, name, hoverLabel, panelProvided) {
+  function initSliderEvents(
+    slider,
+    name,
+    hoverLabel,
+    panelProvided,
+    panelInfoProvided
+  ) {
     // When a user clicks on the slider, update the handle of the slider to be where the player touched
     slider.addEventListener(
       "pointerdown",
@@ -470,14 +495,12 @@ export function addBoidSettings() {
 
     // Reveal only the provided panel when interacted with
     slider.addEventListener("pointerdown", function () {
-      // Hide all other "settings-side-panel"
-      const settingsPanels = document.querySelectorAll(".settings-side-panel");
-      settingsPanels.forEach((panel) => {
-        panel.style.display = "none";
-      });
-
-      // Show the provided panel
-      panelProvided.style.display = "flex"; // panels are flex boxes
+      // Reveal provided panel info
+      updateSettingsSidePanel(
+        panelProvided,
+        panelInfoProvided.imagePath,
+        panelInfoProvided.htmlContent
+      );
     });
   }
 
@@ -512,14 +535,40 @@ export function addBoidSettings() {
 
     // contentContainer holds the text for this panel
     const contentContainer = document.createElement("div");
+    contentContainer.classList.add("settings-content-container");
     contentContainer.innerHTML = htmlContent;
     panel.appendChild(contentContainer);
+
+    const panelBottomHalf = document.createElement("div");
+    panelBottomHalf.classList.add("settings-side-panel-bottom-half");
 
     const image = document.createElement("img");
     image.src = imagePath;
     image.alt = "Settings Side Panel Image";
-    panel.appendChild(image);
+    panelBottomHalf.appendChild(image);
+
+    panel.appendChild(panelBottomHalf);
 
     return panel;
+  }
+
+  function updateSettingsSidePanel(panel, imagePath, htmlContent) {
+    // Select the existing content container and image
+    const contentContainer = panel.querySelector(".settings-content-container");
+    const image = panel.querySelector("img");
+
+    // Update the content container's HTML
+    if (contentContainer) {
+      contentContainer.innerHTML = htmlContent;
+    } else {
+      debug.log("ERROR: content container is missing from settings panel");
+    }
+
+    // Update the image's src
+    if (image) {
+      image.src = imagePath;
+    } else {
+      debug.log("ERROR: image is missing from settings panel");
+    }
   }
 }
