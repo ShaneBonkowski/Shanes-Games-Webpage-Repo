@@ -8,8 +8,8 @@
   --content-dropdown-option-shift-y: 10px;
 
   /* Sizes */
-  --content-search-button-height: 6vh;
-  --content-search-button-width: 6vh;
+  --content-search-button-height: 8vh;
+  --content-search-button-width: 8vh;
   --content-search-icon-size: 4vh;
   --content-search-bar-width: 50%;
 
@@ -27,8 +27,8 @@
     --content-dropdown-option-shift-y: 8px;
 
     /* Sizes */
-    --content-search-button-height: 6vh;
-    --content-search-button-width: 10vw;
+    --content-search-button-height: 5vh;
+    --content-search-button-width: 5vw;
     --content-search-icon-size: 3vh;
     --content-search-bar-width: 55%;
 

@@ -4,13 +4,12 @@
 /* Define variables */
 :root {
   /* Transformations */
-  --loading-logo-translate-x: 0%;
-  --loading-logo-translate-y: 20%;
+  --loading-logo-translate-y: 0%;
   /* Sizes */
   --game-header-height: 14vw;
   --header-icon-size: calc(var(--game-header-height) * (1 / 3));
   --game-logo-icon-size: calc(var(--game-header-height) * (1 / 2));
-  --loading-content-size: 25vw;
+  --loading-content-size: 20vw;
   /* Font Sizes */
   --logo-title-font-size: calc(var(--game-header-height) * 0.125);
   --logo-subtitle-font-size: calc(var(--game-header-height) * 0.085);
@@ -19,14 +18,17 @@
   --game-logo-container-margin-top: 2px;
   --game-logo-title-margin-left: 12px;
   /* Other */
-  --load-screen-dur: 5s;
+  --load-screen-dur: 2.5s;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
+    /* Transformations */
+    --loading-logo-translate-y: 60%;
     /* Sizes */
     --game-header-height: 24vw;
+    --loading-content-size: 35vw;
     /* Edge Margins */
     --shanes-games-logo-container-for-games-top-margin: 3%;
   }
@@ -110,7 +112,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 
 /* Generic Game Logo */
 .game-logo-container {
-  position: relative; /* Position wrt to its parent */
+  position: relative;
   margin: var(--game-logo-container-margin-top) var(--main-left-margin) 0px 0px;
   pointer-events: none;
   display: flex;
@@ -136,24 +138,29 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   opacity: 1; /* Initially fully opaque */
   z-index: 9999; /* Ensure it's on top of other content */
   animation: fadeOutOverlay var(--load-screen-dur) forwards; /* Play fade-out animation */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .loading-content {
+  position: relative;
   text-align: center;
   color: white;
   opacity: 1; /* Initially fully opaque */
-  animation: loadingAnim var(--load-screen-dur) forwards;
-  transform: translate(
-      var(--loading-logo-translate-x),
-      var(--loading-logo-translate-y)
-    )
-    scale(1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .loading-content img {
+  position: absolute;
   width: var(--loading-content-size); /* Adjust size as needed */
   height: auto;
   pointer-events: none;
+  animation: loadingAnim var(--load-screen-dur) forwards;
+  transform: scale(1);
+  margin: 0px 0px var(--loading-logo-translate-y) 0px;
 }
 
 @keyframes fadeOutOverlay {
@@ -170,24 +177,12 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 
 @keyframes loadingAnim {
   0% {
-    transform: translate(
-        var(--loading-logo-translate-x),
-        var(--loading-logo-translate-y)
-      )
-      scale(1);
+    transform: scale(1) rotate(0deg);
   }
   50% {
-    transform: translate(
-        var(--loading-logo-translate-x),
-        var(--loading-logo-translate-y)
-      )
-      scale(1.1);
+    transform: scale(1.25) rotate(180deg);
   }
   100% {
-    transform: translate(
-        var(--loading-logo-translate-x),
-        var(--loading-logo-translate-y)
-      )
-      scale(1);
+    transform: scale(1) rotate(360deg);
   }
 }

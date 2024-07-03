@@ -7,11 +7,9 @@
   --input-slider-width: 15vw;
   --input-slider-height: 5vh;
   --slider-blank-space-height: 6vh;
+  --toggle-top-margin: 3vh;
   --leader-toggle-size: calc(10vw * 0.2);
   /* Margins */
-  --slider-top-margin: 25vh;
-  --slider-container-left-margin: 4%;
-  --hover-slider-label-top-margin: 0%;
   --hover-slider-label-right-margin: 0%;
   /* Translations */
   --slider-label-y-shift: -80%;
@@ -25,11 +23,9 @@
     /* Size */
     --input-slider-width: 28.5vw;
     --slider-blank-space-height: 5vh;
+    --toggle-top-margin: 2.5vh;
     --leader-toggle-size: calc(10vh * 0.25);
     /* Margins */
-    --hover-slider-label-top-margin: 0%;
-    --slider-container-left-margin: 6%;
-    --slider-top-margin: 30vh;
     /* Translations */
     --slider-label-y-shift: -30%;
     /* Font Sizes */
@@ -51,16 +47,23 @@ body {
   height: var(--slider-blank-space-height);
 }
 
+.ui-settings-options-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 0px 0px 0px 5%;
+}
+
 .slider-container {
   position: relative;
-  left: var(--slider-container-left-margin);
-  top: var(--slider-top-margin);
   pointer-events: none;
   height: var(--input-slider-height);
   width: var(--input-slider-width);
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: var(--slider-blank-space-height) 0px 0px 0px;
 }
 
 .slider-label {
@@ -99,21 +102,19 @@ fine since theyre likely to tap elsewjere to fix it soon after. */
 
 input[type="range"] {
   position: absolute;
-  height: 100%;
-  width: 100%;
   cursor: pointer;
   pointer-events: auto; /* Can click on this */
+  height: var(--input-slider-height);
+  width: var(--input-slider-width);
 }
 
 /* Define styles for when the slider is being interacted with */
 input[type="range"]:active {
-  transform: scale(1.25); /* Increase the scale of the slider */
+  transform: scale(1.18); /* Increase the scale of the slider */
 }
 
 /* Toggle box styles */
 .toggle-box-container {
-  left: var(--slider-container-left-margin);
-  top: var(--slider-top-margin);
   height: var(--input-slider-height);
   display: flex;
   align-items: center;
@@ -121,6 +122,7 @@ input[type="range"]:active {
   align-content: center;
   flex-wrap: wrap;
   justify-content: flex-start;
+  margin: var(--toggle-top-margin) 0px 0px 0px;
 }
 
 .toggle-label {

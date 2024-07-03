@@ -6,11 +6,10 @@
   /* Size */
 
   /* Margins */
-  --settings-panel-top: 12%;
-  --settings-panel-left: 30%;
-  --settings-panel-width: 65%;
-  --settings-panel-height: 70%;
-  --settings-image-left: 25%;
+  --settings-panel-top: 0%;
+  --settings-image-right: 25%;
+  --settings-image-top: 2%;
+  --settings-bottom-panel-top-margin: -3%;
 
   /* Translations */
 
@@ -24,57 +23,47 @@
     /* Size */
 
     /* Margins */
-    --settings-panel-top: 6%;
-    --settings-panel-left: 4%;
-    --settings-panel-width: 92%;
-    --settings-panel-height: 80%;
-    --settings-image-left: 20%;
+    --settings-panel-top: 3.5%;
+    --settings-image-right: 5%;
+    --settings-image-top: 10%;
+    --settings-bottom-panel-top-margin: 0%;
 
     /* Font Sizes */
-    --settings-font-size: 4.1vw;
+    --settings-font-size: 4vw;
   }
+}
+
+.settings-content-container {
+  margin: 0px 5% 0px 5%;
+  text-align: center;
+  color: white;
+  font-size: var(--settings-font-size);
 }
 
 .settings-side-panel {
   position: absolute;
   top: var(--settings-panel-top);
-  left: var(--settings-panel-left);
-  width: var(--settings-panel-width);
-  height: var(--settings-panel-height);
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
   padding: 10px;
   box-sizing: border-box;
   display: none; /* hide at first */
+  align-items: flex-start;
+}
+
+.settings-side-panel-bottom-half {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  align-items: flex-start;
+  margin: var(--settings-bottom-panel-top-margin) 0px 0px 0px;
 }
 
 .settings-side-panel img {
-  max-width: 60%;
-  margin-bottom: 20px;
-  max-height: 50%;
-}
-
-/* Media query for phone screens */
-@media screen and (orientation: portrait), (max-width: 600px) {
-  .settings-side-panel img {
-    position: relative;
-    left: var(
-      --settings-image-left
-    ); /* Set the image position for phone screens */
-  }
-}
-
-/* Media query for computer screens */
-@media screen and (min-width: 601px) {
-  .settings-side-panel img {
-    align-self: center;
-  }
-}
-
-.settings-side-panel div {
-  margin-bottom: 20px;
-  text-align: center;
-  color: white;
-  font-size: var(--settings-font-size);
+  margin: var(--settings-image-top) var(--settings-image-right) 0px 0px;
+  max-width: 50%;
+  max-height: 40%;
 }
