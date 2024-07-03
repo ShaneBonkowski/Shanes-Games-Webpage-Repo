@@ -4,12 +4,13 @@
 /* Define CONSTANT variables */
 :root {
   /* Size */
+  --settings-img-size: 24vw;
 
   /* Margins */
   --settings-panel-top: 0%;
-  --settings-image-right: 25%;
-  --settings-image-top: 2%;
-  --settings-bottom-panel-top-margin: -3%;
+  --settings-image-right: 20%;
+  --settings-image-top: 0%;
+  --settings-bottom-panel-top-margin: 0%;
 
   /* Translations */
 
@@ -21,6 +22,7 @@
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Size */
+    --settings-img-size: 42vw;
 
     /* Margins */
     --settings-panel-top: 3.5%;
@@ -58,12 +60,19 @@
   justify-content: space-between;
   padding: 10px;
   box-sizing: border-box;
-  align-items: flex-start;
+  align-items: center;
   margin: var(--settings-bottom-panel-top-margin) 0px 0px 0px;
+}
+
+/* Different format for phone */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  .settings-side-panel-bottom-half {
+    align-items: flex-start;
+  }
 }
 
 .settings-side-panel img {
   margin: var(--settings-image-top) var(--settings-image-right) 0px 0px;
-  max-width: 50%;
-  max-height: 40%;
+  width: var(--settings-img-size);
+  height: var(--settings-img-size);
 }
