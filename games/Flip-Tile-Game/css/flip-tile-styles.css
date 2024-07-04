@@ -41,18 +41,18 @@
     --ft-resetTilegrid-button-container-ml: 16vw;
     --ft-resetTilegrid-button-container-mb: 18vh;
     --ft-mute-button-container-mr: 16vw;
-    --ft-mute-button-container-mb: 27vh;
+    --ft-mute-button-container-mb: 18vh;
     --ft-toggle-label-mb: 0vh;
-    --ft-difficulty-selection-box-container-ml: 30vw;
+    --ft-difficulty-selection-box-container-ml: 27vw;
     --ft-difficulty-selection-box-container-mb: 4vh;
-    --ft-input-mr: 6vw;
-    --ft-solution-selection-box-container-ml: 30vw;
+    --ft-input-mr: 3vw;
+    --ft-solution-selection-box-container-ml: 27vw;
     --ft-solution-selection-box-container-mb: 13vh;
     --ft-info-button-container-mr: 16vw;
-    --ft-info-button-container-mb: 27vh;
+    --ft-info-button-container-mb: 9vh;
     --ft-info-header-ml: 90%;
     --ft-info-header-mt: 5%;
-    --ft-score-text-mt: 15%;
+    --ft-score-text-mt: 12%;
     /* Font */
     --ft-button-text-size: calc(10vh * 0.2);
     --ft-toggle-label-text-size: calc(10vh * 0.175);
@@ -259,15 +259,6 @@ in the game queries these classes by name */
   position: fixed;
   right: var(--ft-info-button-container-mr);
   bottom: var(--ft-info-button-container-mb);
-}
-
-/* Phone screen has it in a different location */
-@media screen and (orientation: portrait), (max-width: 600px) {
-  .info-button-container {
-    position: fixed;
-    left: var(--ft-info-button-container-mr);
-    bottom: var(--ft-info-button-container-mb);
-  }
 }
 
 .info-box {

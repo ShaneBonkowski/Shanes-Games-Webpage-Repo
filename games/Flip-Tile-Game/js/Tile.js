@@ -239,7 +239,7 @@ export class Tile {
 
     // for phones change the center location
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.41;
+      centerY = this.scene.game.canvas.height * 0.43;
     }
 
     let tileSpacing = this.scene.game.canvas.height / 5.8;
