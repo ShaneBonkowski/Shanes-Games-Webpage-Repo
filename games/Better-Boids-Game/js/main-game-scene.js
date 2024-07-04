@@ -115,7 +115,6 @@ export class MainGameScene extends Phaser.Scene {
 
   // Disable scrolling
   disableScroll() {
-    //document.body.style.overflow = "hidden"; // this prevents the page from being able to overflow (aka have more content out of view that you can see via scrolling)
     document.addEventListener("touchmove", this.preventDefault.bind(this), {
       passive: false,
     });
