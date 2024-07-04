@@ -8,6 +8,7 @@ import { instantiateBoids } from "./boid-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
+import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
 
 // Used to determine if pointer is held down
 const holdThreshold = 0.1; // seconds
@@ -22,11 +23,15 @@ export class MainGameScene extends Phaser.Scene {
     this.gameStarted = false;
     this.isInteracting = false; // is the  player actively interacting with the game?
     this.uiMenuOpen = false;
+    this.sound_array = [];
     this.audioMuted = true; // audio muted to start!
 
     // Store the last known window size so we can update boids positions etc.
     // based on this as the screen size changes
     this.lastKnownWindowSize = new Vec2(0, 0);
+
+    // Bind "this" to refer to the scene for necc. functions
+    this.onClickMuteSound = this.onClickMuteSound.bind(this);
   }
 
   preload() {
@@ -88,6 +93,25 @@ export class MainGameScene extends Phaser.Scene {
       // After everything is loaded in, we can begin the game
       this.gameStarted = true;
     });
+
+    // Create a mute sound button
+    const muteSoundButtonContainer = createFunctionButtonContainer(
+      "muteSoundButtonContainer",
+      "muteSoundButton",
+      "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
+      "Mute Sound",
+      "",
+      [this.onClickMuteSound],
+      ["mute-button-container"],
+      ["info-icon-img"],
+      ["info-icon-text"],
+      ["info-button"],
+      ["fas", "fa-volume-xmark"]
+    );
+    muteSoundButtonContainer.classList.add(
+      "disable-browser-default-touch-actions"
+    );
+    document.body.appendChild(muteSoundButtonContainer);
   }
 
   update(time, delta) {
@@ -109,8 +133,38 @@ export class MainGameScene extends Phaser.Scene {
 
   initBackgroundSounds() {
     let backgroundMusicSound = this.sound.add("Background music");
-    backgroundMusicSound.setVolume(1.0);
     backgroundMusicSound.setLoop(true);
+    backgroundMusicSound.play();
+    this.sound_array.push(backgroundMusicSound);
+  }
+
+  onClickMuteSound() {
+    // Toggle mute
+    this.audioMuted = !this.audioMuted;
+    this.sound_array.forEach((sound) => {
+      if (this.audioMuted) {
+        sound.setVolume(0);
+      } else {
+        sound.setVolume(1);
+      }
+    });
+
+    // Update icon of mute button based on state
+    const muteSoundButtonContainer = document.querySelector(
+      ".mute-button-container"
+    );
+    const muteSoundButton =
+      muteSoundButtonContainer.querySelector(".info-button");
+    const muteSoundButtonIcon = muteSoundButton.querySelector(".fas");
+
+    // Remove all existing Font Awesome classes
+    muteSoundButtonIcon.classList.remove("fa-volume-xmark", "fa-volume-high");
+
+    if (!this.audioMuted) {
+      muteSoundButtonIcon.classList.add("fa-volume-high");
+    } else {
+      muteSoundButtonIcon.classList.add("fa-volume-xmark");
+    }
   }
 
   // Disable scrolling

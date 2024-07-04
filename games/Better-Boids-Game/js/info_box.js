@@ -64,6 +64,7 @@ export function addInfoBox() {
     });
     document.dispatchEvent(customEvent);
   }
+
   function openInfoWindow() {
     infoWindow.style.display = "block";
   }
