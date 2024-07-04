@@ -239,14 +239,14 @@ export class Tile {
 
     // for phones change the center location
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.43;
+      centerY = this.scene.game.canvas.height * 0.41;
     }
 
-    let tileSpacing = this.scene.game.canvas.width / 10;
+    let tileSpacing = this.scene.game.canvas.height / 5.8;
 
     // for phones change the tile spacing
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      tileSpacing = this.scene.game.canvas.width / 4.5;
+      tileSpacing = this.scene.game.canvas.height / 7.5;
     }
 
     // Calculate the starting position for the top-left tile in the grid
@@ -271,12 +271,12 @@ export class Tile {
 
   calculateTileSize() {
     // Calculate the tile size based on the screen width
-    let tileSize = window.innerWidth * 0.00009 * 3;
+    let tileSize = window.innerHeight * 0.0002 * 3;
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Phone screen has larger tile
     if (window.innerWidth <= 600 || isPortrait) {
-      tileSize = window.innerWidth * 0.00026 * 3;
+      tileSize = window.innerHeight * 0.00016 * 3;
     }
 
     return tileSize;
