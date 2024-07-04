@@ -277,6 +277,33 @@ function addInfoBox() {
   document.body.appendChild(infoButtonContainer);
   document.body.appendChild(infoWindow);
 
+  // Mute sound button
+  function onClickMuteSound() {
+    let customEvent = new CustomEvent("mute", {
+      detail: {
+        message: "mute button clicked",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  }
+  const muteSoundButtonContainer = createFunctionButtonContainer(
+    "muteSoundButtonContainer",
+    "muteSoundButton",
+    "../Flip-Tile-Game/webps/Button.webp",
+    "Mute Sound",
+    "",
+    [onClickMuteSound],
+    ["mute-button-container"],
+    ["fliptile-icon-img"],
+    ["fliptile-icon-text"],
+    ["fliptile-button"],
+    ["fas", "fa-volume-xmark"]
+  );
+  muteSoundButtonContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
+  document.body.appendChild(muteSoundButtonContainer);
+
   function hideButtonsAndCheckboxes() {
     // Button
     const buttons = document.querySelectorAll(".fliptile-button");

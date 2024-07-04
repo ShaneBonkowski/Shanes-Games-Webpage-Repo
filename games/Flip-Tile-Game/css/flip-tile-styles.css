@@ -5,6 +5,8 @@
   --ft-updateTilegrid-button-container-mb: 13vh;
   --ft-resetTilegrid-button-container-ml: 6vw;
   --ft-resetTilegrid-button-container-mb: 30vh;
+  --ft-mute-button-container-mr: 6vw;
+  --ft-mute-button-container-mb: 30vh;
   --ft-toggle-label-mb: 1vh;
   --ft-difficulty-selection-box-container-ml: 12vw;
   --ft-difficulty-selection-box-container-mb: 6vh;
@@ -27,6 +29,7 @@
   --ft-button-h: calc(10vh * 0.8);
   --ft-toggle-input-w: calc(10vw * 0.5);
   --ft-toggle-input-h: calc(10vh * 0.5);
+  --mute-icon-size: 75%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -37,6 +40,8 @@
     --ft-updateTilegrid-button-container-mb: 11vh;
     --ft-resetTilegrid-button-container-ml: 16vw;
     --ft-resetTilegrid-button-container-mb: 20vh;
+    --ft-mute-button-container-mr: 16vw;
+    --ft-mute-button-container-mb: 29vh;
     --ft-toggle-label-mb: 0vh;
     --ft-difficulty-selection-box-container-ml: 30vw;
     --ft-difficulty-selection-box-container-mb: 6vh;
@@ -59,6 +64,7 @@
     --ft-button-h: calc(10vh * 0.43);
     --ft-toggle-input-w: calc(10vw * 0.55);
     --ft-toggle-input-h: calc(10vh * 0.55);
+    --mute-icon-size: 75%;
   }
 }
 
@@ -98,6 +104,26 @@ a.active {
   position: fixed;
   left: var(--ft-resetTilegrid-button-container-ml);
   bottom: var(--ft-resetTilegrid-button-container-mb);
+}
+
+.mute-button-container {
+  position: fixed;
+  right: var(--ft-mute-button-container-mr);
+  bottom: var(--ft-mute-button-container-mb);
+}
+
+.fas.fa-volume-xmark {
+  position: relative;
+  color: #000000;
+  font-size: var(--mute-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
+}
+
+.fas.fa-volume-high {
+  position: relative;
+  color: #000000;
+  font-size: var(--mute-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
 }
 
 .fliptile-button {

@@ -18,6 +18,7 @@ import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { ui_vars } from "./init-ui.js";
+import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
 
 export const intendedNewTileAttrs = {
   tileCount: 9, // initial values
@@ -39,6 +40,13 @@ export class MainGameScene extends Phaser.Scene {
     this.uiMenuOpen = false;
     this.score = 0;
     this.revealedAtLeastOnceThisLevel = false;
+    this.sound_array = [];
+    this.audioMuted = true; // audio muted to start!
+
+    // Bind "this" to refer to the scene for necc. functions
+    this.onClickMuteSound = this.onClickMuteSound.bind(this);
+    this.toggleMuteAllAudio = this.toggleMuteAllAudio.bind(this);
+    this.playDesiredSound = this.playDesiredSound.bind(this);
   }
 
   preload() {
@@ -46,11 +54,18 @@ export class MainGameScene extends Phaser.Scene {
     this.load.image("Tile Blue", "./webps/Flip_Tile_Blue.webp");
     this.load.image("Tile Red", "./webps/Flip_Tile_Red.webp");
     this.load.image("Tile Green", "./webps/Flip_Tile_Green.webp");
+
+    // Audio
+    this.load.audio("Button Click", [
+      "/games/Shared-Game-Assets/audio/ui-button-click.mp3",
+    ]);
+    this.load.audio("Success", ["/games/Shared-Game-Assets/audio/success.mp3"]);
   }
 
   create() {
     // Set the Z order of all elements
     setZOrderForMainGameElements(this.game);
+    this.initSounds();
 
     // Observe window resizing with ResizeObserver since it works
     // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
@@ -83,6 +98,71 @@ export class MainGameScene extends Phaser.Scene {
     }
   }
 
+  // Sounds
+  initSounds() {
+    // UI sounds
+    let uiButtonClickSound = this.sound.add("Button Click");
+    uiButtonClickSound.setVolume(0); // mute to start
+    this.sound_array.push({ sound: uiButtonClickSound, type: "UI" });
+
+    let successSound = this.sound.add("Success");
+    successSound.setVolume(0); // mute to start
+    this.sound_array.push({ sound: successSound, type: "UI" });
+  }
+
+  onClickMuteSound() {
+    // Toggle mute
+    this.audioMuted = !this.audioMuted;
+    this.toggleMuteAllAudio();
+
+    if (!this.audioMuted) {
+      showMessage(this, "May need to turn off silent mode to hear audio!");
+    }
+
+    // Update icon of mute button based on state
+    const muteSoundButtonContainer = document.querySelector(
+      ".mute-button-container"
+    );
+    const muteSoundButton =
+      muteSoundButtonContainer.querySelector(".fliptile-button");
+    const muteSoundButtonIcon = muteSoundButton.querySelector(".fas");
+
+    muteSoundButtonIcon.classList.remove("fa-volume-xmark", "fa-volume-high");
+    if (!this.audioMuted) {
+      muteSoundButtonIcon.classList.add("fa-volume-high");
+    } else {
+      muteSoundButtonIcon.classList.add("fa-volume-xmark");
+    }
+
+    // Play sound!
+    this.playDesiredSound("Button Click");
+  }
+
+  playDesiredSound(soundKey) {
+    let soundObj = this.sound.get(soundKey);
+    if (soundObj) {
+      soundObj.play();
+    } else {
+      console.error(`Sound with key "${soundKey}" not found.`);
+    }
+  }
+
+  toggleMuteAllAudio() {
+    this.sound_array.forEach((sound_obj) => {
+      if (this.audioMuted) {
+        sound_obj["sound"].setVolume(0);
+        sound_obj["sound"].stop();
+      } else {
+        sound_obj["sound"].setVolume(1);
+
+        if (sound_obj["type"] === "background") {
+          sound_obj["sound"].play();
+        }
+      }
+    });
+  }
+
+  // Enable / disable click
   tryToDisableClick() {
     if (this.canClickTile == true) {
       this.canClickTile = false;
@@ -313,6 +393,9 @@ export class MainGameScene extends Phaser.Scene {
       function (event) {
         if (this.uiMenuOpen == false) {
           this.uiMenuOpen = true;
+
+          // Play sound!
+          this.playDesiredSound("Button Click");
         }
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
@@ -321,7 +404,18 @@ export class MainGameScene extends Phaser.Scene {
       function (event) {
         if (this.uiMenuOpen == true) {
           this.uiMenuOpen = false;
+
+          // Play sound!
+          this.playDesiredSound("Button Click");
         }
+      }.bind(this)
+    ); // Bind 'this' to refer to the class instance
+
+    // Mute when event occurs
+    document.addEventListener(
+      "mute",
+      function (event) {
+        this.onClickMuteSound();
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
 
@@ -330,6 +424,9 @@ export class MainGameScene extends Phaser.Scene {
       "onTilegridChange",
       function (event) {
         this.newTilePattern();
+
+        // Play sound!
+        this.playDesiredSound("Button Click");
       }.bind(this)
     );
 
@@ -338,6 +435,18 @@ export class MainGameScene extends Phaser.Scene {
       "onTilegridReset",
       function (event) {
         this.resetCurrentTilePattern();
+
+        // Play sound!
+        this.playDesiredSound("Button Click");
+      }.bind(this)
+    );
+
+    // When solved play a sound!
+    document.addEventListener(
+      "onScoreChange",
+      function (event) {
+        // Play sound!
+        this.playDesiredSound("Success");
       }.bind(this)
     );
   }
