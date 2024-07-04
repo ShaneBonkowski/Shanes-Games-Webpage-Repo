@@ -39,6 +39,9 @@ export function initUI() {
     ["fliptile-icon-text"],
     ["fliptile-button"]
   );
+  updateTilegridButtonContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
 
   // Add a button to reset the tilegrid layout back to how it was
   function onClickResetTileGrid() {
@@ -55,6 +58,9 @@ export function initUI() {
     ["fliptile-icon-img"],
     ["fliptile-icon-text"],
     ["fliptile-button"]
+  );
+  resetTilegridButtonContainer.classList.add(
+    "disable-browser-default-touch-actions"
   );
 
   // Create selection boxes for the difficulty
@@ -118,6 +124,9 @@ export function initUI() {
   difficultySelectionBoxContainer.appendChild(difficultyInputBox1Container);
   difficultySelectionBoxContainer.appendChild(difficultyInputBox2Container);
   difficultySelectionBoxContainer.appendChild(difficultyInputBox3Container);
+  difficultySelectionBoxContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
 
   // Toggle box to show solutions
   const solutionSelectionBoxMainContainer = document.createElement("div");
@@ -171,6 +180,9 @@ export function initUI() {
     true
   );
   solutionSelectionBoxMainContainer.appendChild(solToggleBoxContainer);
+  solutionSelectionBoxMainContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
 
   // Score Text
   const textContainer = document.createElement("div");
@@ -255,6 +267,7 @@ function addInfoBox() {
     ["fliptile-icon-text"],
     ["fliptile-button"]
   );
+  infoButtonContainer.classList.add("disable-browser-default-touch-actions");
 
   // When ui is open, hide certain UI, when it is closed, reveal them
   document.addEventListener("uiMenuOpen", uiMenuOpenHandler);

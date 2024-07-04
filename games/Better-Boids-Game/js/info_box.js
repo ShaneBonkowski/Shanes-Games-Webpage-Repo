@@ -49,6 +49,7 @@ export function addInfoBox() {
     ["info-icon-text"],
     ["info-button"]
   );
+  infoButtonContainer.classList.add("disable-browser-default-touch-actions");
 
   // Append infoButtonContainer and infoWindow to document body
   document.body.appendChild(infoButtonContainer);
