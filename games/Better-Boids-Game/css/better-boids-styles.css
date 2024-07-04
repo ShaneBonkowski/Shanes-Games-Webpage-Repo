@@ -1,9 +1,6 @@
 /* Define variables */
 :root {
   /* Edge Margins */
-  --bb-info-button-container-mr: 7vw;
-  --bb-settings-button-container-ml: 7vw;
-  --bb-general-button-mb: 20vh;
   --bb-info-header-ml: 95%;
   --bb-info-header-mt: 5%;
   /* Size */
@@ -19,12 +16,9 @@
     /* Font Sizes */
     --bb-info-button-size: calc(20vh * 0.65);
     /* Font Sizes */
-    --bb-content-font-size: calc(10vw * 0.5);
+    --bb-content-font-size: calc(10vw * 0.44);
     --bb-info-button-font-size: calc(10vh * 0.25);
     /* Edge Margins */
-    --bb-info-button-container-mr: 20vw;
-    --bb-settings-button-container-ml: 20vw;
-    --bb-general-button-mb: 13vh;
     --bb-info-header-ml: 90%;
     --bb-info-header-mt: 5%;
   }
@@ -62,13 +56,30 @@ a.active {
 }
 
 .info-button-container {
-  right: var(--bb-info-button-container-mr);
-  bottom: var(--bb-general-button-mb);
+  left: 7vw;
+  bottom: 20vh;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  .info-button-container {
+    left: 18vw;
+    bottom: 14vh;
+  }
 }
 
 .settings-button-container {
-  left: var(--bb-settings-button-container-ml);
-  bottom: var(--bb-general-button-mb);
+  left: 7vw;
+  bottom: 35vh;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  .settings-button-container {
+    left: unset; /* Unset left positioning to avoid conflicts */
+    right: 18vw; /* Now w.r.t right */
+    bottom: 14vh;
+  }
 }
 
 .info-button {
