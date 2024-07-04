@@ -1,16 +1,14 @@
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-
 /* Define CONSTANT variables */
 :root {
   /* Edge Margins */
-  --privacy-policy-left-margin: 5%;
+  --privacy-policy-container-ml: 5%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Edge Margins */
-    --privacy-policy-left-margin: 5%;
+    --privacy-policy-container-ml: 5%;
   }
 }
 
@@ -19,8 +17,8 @@ body {
 
 .privacy-policy-container {
   max-width: 1100px;
-  margin-left: var(--privacy-policy-left-margin);
-  margin-right: var(--privacy-policy-left-margin);
+  margin-left: var(--privacy-policy-container-ml);
+  margin-right: var(--privacy-policy-container-ml);
 }
 
 .privacy-policy-container h1 {

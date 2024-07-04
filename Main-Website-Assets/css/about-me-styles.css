@@ -1,59 +1,53 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-@import "/Main-Website-Assets/css/main-website-styles.css";
-
 /* Define CONSTANT variables */
 :root {
   /* Sizes */
-  --about-me-box-width: 90vw;
-  --about-me-box-height: 85vh;
-  --about-me-image-width: 15vw;
-  --about-me-image-height: calc(
-    1.8 * 15vw
-  ); /* Maintain 450 to 250 h to w ratio */
-  --about-me-text-container-width: 60vw;
+  --about-me-box-w: 90vw;
+  --about-me-box-h: 85vh;
+  --about-me-image-w: 15vw;
+  --about-me-image-h: calc(1.8 * 15vw); /* Maintain 450 to 250 h to w ratio */
+  --about-me-text-container-w: 60vw;
 
   /* Margins */
-  --about-me-text-container-bottom-margin: 90px;
+  --about-me-text-container-mb: 90px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Sizes */
-    --about-me-box-width: 85vw;
-    --about-me-box-height: 80vh;
-    --about-me-text-container-width: 85vw;
+    --about-me-box-w: 85vw;
+    --about-me-box-h: 80vh;
+    --about-me-text-container-w: 85vw;
 
     /* Margins */
-    --about-me-text-container-bottom-margin: 20px;
+    --about-me-text-container-mb: 20px;
   }
 }
 
 /* Define DERIVED variables (aka ones based on others) */
 :root {
   /* Font Sizes */
-  --about-me-title-font-size: calc(var(--about-me-box-height) * 0.075);
-  --about-me-subtitle-font-size: calc(var(--about-me-box-height) * 0.055);
-  --about-me-main-text-font-size: calc(var(--about-me-box-height) * 0.034);
+  --about-me-title-font-size: calc(var(--about-me-box-h) * 0.075);
+  --about-me-subtitle-font-size: calc(var(--about-me-box-h) * 0.055);
+  --about-me-main-text-font-size: calc(var(--about-me-box-h) * 0.034);
 }
 
 /* Media query to override DERIVED values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Font Sizes */
-    --about-me-title-font-size: calc(var(--about-me-box-height) * 0.045);
-    --about-me-subtitle-font-size: calc(var(--about-me-box-height) * 0.033);
-    --about-me-main-text-font-size: calc(var(--about-me-box-height) * 0.025);
+    --about-me-title-font-size: calc(var(--about-me-box-h) * 0.045);
+    --about-me-subtitle-font-size: calc(var(--about-me-box-h) * 0.033);
+    --about-me-main-text-font-size: calc(var(--about-me-box-h) * 0.025);
   }
 }
 
 .about-me-box {
   position: relative; /* Position this wherever (this is the origin for all of this obj's children */
-  width: var(--about-me-box-width);
-  border-radius: var(--standard-edge_radius);
-  left: var(--general-left-margin);
-  top: var(--general-top-margin);
+  width: var(--about-me-box-w);
+  border-radius: var(--standard-border-radius);
+  left: var(--general-ml);
+  top: var(--general-mt);
   transform: translate(var(--centering-translation), 0%);
   display: flex;
   justify-content: space-between;
@@ -65,8 +59,8 @@
   right: -1%;
   top: 10%;
   transform: translate(var(--centering-translation), 5%);
-  width: var(--about-me-image-width);
-  height: var(--about-me-image-height);
+  width: var(--about-me-image-w);
+  height: var(--about-me-image-h);
 }
 
 /* Circle for the astronaut helmet (one circle behind and one in front) */
@@ -77,8 +71,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -100%);
-  width: calc(var(--about-me-image-width) * 0.95);
-  height: calc(var(--about-me-image-width) * 0.95);
+  width: calc(var(--about-me-image-w) * 0.95);
+  height: calc(var(--about-me-image-w) * 0.95);
   border-radius: 50%;
 }
 
@@ -94,9 +88,9 @@
 
 .about-me-image {
   position: absolute; /* Position wrt to its parent */
-  border-radius: var(--standard-edge_radius);
-  width: var(--about-me-image-width);
-  height: var(--about-me-image-height);
+  border-radius: var(--standard-border-radius);
+  width: var(--about-me-image-w);
+  height: var(--about-me-image-h);
 }
 
 /* Media query to hide the about me image for vertical screens (portrait orientation) */
@@ -111,12 +105,12 @@
 .about-me-text-container {
   color: var(--main-text-color);
   text-align: left;
-  width: var(--about-me-text-container-width);
+  width: var(--about-me-text-container-w);
   display: flex;
   justify-content: space-between;
   align-items: flex-start; /* Start on the left */
   flex-direction: column;
-  margin: 30px 0px var(--about-me-text-container-bottom-margin) 0px;
+  margin: 30px 0px var(--about-me-text-container-mb) 0px;
 }
 
 .about-me-title {

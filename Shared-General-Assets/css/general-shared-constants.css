@@ -14,11 +14,11 @@
   /* Transformations */
   --centering-translation: -50%;
   /* Edge Margins */
-  --main-left-margin: 3vw;
-  --general-top-margin: 50%;
-  --general-left-margin: 50%;
+  --main-ml: 3vw;
+  --general-mt: 50%;
+  --general-ml: 50%;
   /* Radii */
-  --standard-edge_radius: 10%;
+  --standard-border-radius: 10%;
 }
 
 /* "*" means apply to all elements. Important assumption here is that 

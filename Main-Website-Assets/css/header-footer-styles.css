@@ -1,65 +1,49 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-@import "/Main-Website-Assets/css/main-website-styles.css";
-
 /* Define variables */
 :root {
-  /* Transformations */
-  --header-button-separation: 120%;
-  --header-button-vertical-translation: 65%;
-  --sub-title-translate-x: 180%;
   /* Sizes */
-  --header-height: 8vw;
-  --footer-height: 14vw;
+  --header-banner-h: 8vw;
+  --footer-banner-h: 14vw;
   /* Edge Margins */
-  --title-container-left-margin: 3%;
-  --footer-text-left-margin: 50%;
-  --footer-text-top-margin: 30%;
-  --left-button-right-margin: 18vw;
-  --middle-button-right-margin: 10vw;
-  --right-button-right-margin: 2vw;
-  --linkedIn-button-right-margin: 6vw;
-  --linkedIn-button-bottom-margin: 20%;
-  --header-button-margin-left-right: 10px;
-  --content-button-margin-right: 20px;
+  --title-container-ml: 3%;
+  --footer-main-text-ml: 50%;
+  --footer-main-text-mt: 30%;
+  --linkedIn-button-container-mr: 6vw;
+  --linkedIn-button-container-mb: 20%;
+  --header-button-ml: 10px;
+  --home-button-container-mr: 20px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
-    /* Transformations */
-    --sub-title-translate-x: 162%;
     /* Sizes */
-    --header-height: 14.4vw;
-    --footer-height: 25.2vw;
+    --header-banner-h: 14.4vw;
+    --footer-banner-h: 25.2vw;
     /* Edge Margins */
-    --left-button-right-margin: 34vw;
-    --middle-button-right-margin: 19vw;
-    --right-button-right-margin: 4vw;
-    --linkedIn-button-right-margin: 6vw;
-    --linkedIn-button-bottom-margin: 20%;
-    --header-button-margin-left-right: 5px;
-    --content-button-margin-right: 15px;
+    --linkedIn-button-container-mr: 6vw;
+    --linkedIn-button-container-mb: 20%;
+    --header-button-ml: 5px;
+    --home-button-container-mr: 15px;
   }
 }
 
 /* Define DERIVED variables (aka ones based on others) */
 :root {
   /* Sizes */
-  --logo-image-size: calc(var(--header-height) * (2 / 3));
-  --linkedin-button-width: calc(var(--footer-height) * 0.65);
-  --linkedin-button-height: calc(var(--footer-height) * 0.3);
-  --header-button-width: calc(var(--header-height) * 0.9);
-  --header-button-height: calc(var(--header-height) * 0.45);
-  --github-icon-size: calc(var(--header-height) * 0.19);
-  --title-text-font-size: calc(var(--header-height) * 0.25);
-  --subtitle-text-font-size: calc(var(--header-height) * 0.15);
-  --header-margin-bottom: calc(var(--header-height) * 0.18);
+  --logo-image-size: calc(var(--header-banner-h) * (2 / 3));
+  --linkedin-button-container-w: calc(var(--footer-banner-h) * 0.65);
+  --linkedin-button-container-h: calc(var(--footer-banner-h) * 0.3);
+  --header-button-container-w: calc(var(--header-banner-h) * 0.9);
+  --header-button-container-h: calc(var(--header-banner-h) * 0.45);
+  --github-icon-size: calc(var(--header-banner-h) * 0.19);
+  --h1-title-text-style-font-size: calc(var(--header-banner-h) * 0.25);
+  --sub-title-text-font-size: calc(var(--header-banner-h) * 0.15);
+  --header-banner-mb: calc(var(--header-banner-h) * 0.18);
   /* Font Sizes */
-  --linkedin-icon-size: calc(var(--linkedin-button-height) * 0.45);
-  --footer-main-text-font-size: calc(var(--footer-height) * 0.13);
-  --header-button-text-size: calc(var(--header-button-width) * 0.17);
-  --linkedin-text-font-size: calc(var(--linkedin-button-height) * 0.3);
+  --linkedin-icon-size: calc(var(--linkedin-button-container-h) * 0.45);
+  --footer-main-text-font-size: calc(var(--footer-banner-h) * 0.13);
+  --header-button-text-font-size: calc(var(--header-button-container-w) * 0.17);
+  --linkedIn-text-font-size: calc(var(--linkedin-button-container-h) * 0.3);
 }
 
 /* header.js styling */
@@ -68,11 +52,11 @@
   background-color: var(--hide-color); /*Banner color*/
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
-  height: var(--header-height);
+  height: var(--header-banner-h);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--header-margin-bottom);
+  margin-bottom: var(--header-banner-mb);
 }
 
 .title-container {
@@ -81,7 +65,7 @@
   cursor: pointer; /* hover pointer */
   transition: transform 0.3s ease;
   margin: 8px 0px 0px 0px;
-  left: var(--title-container-left-margin);
+  left: var(--title-container-ml);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -104,7 +88,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .logo-image {
-  border-radius: var(--standard-edge_radius);
+  border-radius: var(--standard-border-radius);
   width: var(--logo-image-size);
   height: var(--logo-image-size);
 }
@@ -113,7 +97,7 @@ h1.title-text-style {
   color: var(--main-text-color);
   white-space: nowrap;
   text-align: left;
-  font-size: var(--title-text-font-size);
+  font-size: var(--h1-title-text-style-font-size);
   font-weight: bold;
   margin: 0px 0px 0px 8px;
 }
@@ -122,7 +106,7 @@ h1.title-text-style {
   color: var(--main-text-color);
   white-space: nowrap;
   text-align: right;
-  font-size: var(--subtitle-text-font-size);
+  font-size: var(--sub-title-text-font-size);
   font-weight: normal;
   margin: 3px 0px 0px 0px;
 }
@@ -136,10 +120,10 @@ h1.title-text-style {
 }
 
 .header-button-container {
-  width: var(--header-button-width);
-  height: var(--header-button-height);
+  width: var(--header-button-container-w);
+  height: var(--header-button-container-h);
   background-color: var(--button-color); /* Button Color */
-  border-radius: var(--standard-edge_radius);
+  border-radius: var(--standard-border-radius);
   transition: background-color 0.3s ease;
   text-align: center;
   display: flex;
@@ -168,7 +152,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 .header-button-text {
   color: var(--main-text-color);
   text-align: center;
-  font-size: var(--header-button-text-size);
+  font-size: var(--header-button-text-font-size);
   font-weight: normal;
   white-space: nowrap;
 }
@@ -177,8 +161,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 .github-button-container {
   position: relative;
   right: 0;
-  margin: 0px var(--header-button-margin-left-right) 0px
-    var(--header-button-margin-left-right);
+  margin: 0px var(--header-button-ml) 0px var(--header-button-ml);
 }
 
 .github-text {
@@ -197,8 +180,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 .about-me-button-container {
   position: relative;
   right: 0;
-  margin: 0px var(--header-button-margin-left-right) 0px
-    var(--header-button-margin-left-right);
+  margin: 0px var(--header-button-ml) 0px var(--header-button-ml);
 }
 
 .about-me-text {
@@ -209,8 +191,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 .home-button-container {
   position: relative;
   right: 0;
-  margin: 0px var(--content-button-margin-right) 0px
-    var(--header-button-margin-left-right);
+  margin: 0px var(--home-button-container-mr) 0px var(--header-button-ml);
 }
 
 .home-text {
@@ -223,7 +204,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   background-color: var(--hide-color); /*Banner color*/
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
-  height: var(--footer-height);
+  height: var(--footer-banner-h);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -234,8 +215,8 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   font-size: var(--footer-main-text-font-size);
   text-align: center;
   color: var(--main-text-color);
-  left: var(--footer-text-left-margin);
-  top: var(--footer-text-top-margin);
+  left: var(--footer-main-text-ml);
+  top: var(--footer-main-text-mt);
   font-weight: normal;
   transform: translate(
     var(--centering-translation),
@@ -274,14 +255,14 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 /* LinkedIn footer button styling */
 .linkedIn-button-container {
   position: absolute;
-  width: var(--linkedin-button-width);
-  height: var(--linkedin-button-height);
+  width: var(--linkedin-button-container-w);
+  height: var(--linkedin-button-container-h);
   background-color: var(--button-color); /* Button Color */
-  border-radius: var(--standard-edge_radius);
+  border-radius: var(--standard-border-radius);
   transition: background-color 0.3s ease;
   text-align: center;
-  right: var(--linkedIn-button-right-margin);
-  bottom: var(--linkedIn-button-bottom-margin);
+  right: var(--linkedIn-button-container-mr);
+  bottom: var(--linkedIn-button-container-mb);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -308,7 +289,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 .linkedIn-text {
   color: var(--main-text-color);
   text-align: center;
-  font-size: var(--linkedin-text-font-size);
+  font-size: var(--linkedIn-text-font-size);
   font-weight: normal;
 }
 

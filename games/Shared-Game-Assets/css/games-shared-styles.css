@@ -1,6 +1,3 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-
 /* Define variables */
 :root {
   /* Transformations */
@@ -96,10 +93,10 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .main-logo-image {
-  border-radius: var(--standard-edge_radius);
+  border-radius: var(--standard-border-radius);
   width: var(--header-icon-size);
   height: var(--header-icon-size);
-  margin: 0px 0px 0px var(--main-left-margin);
+  margin: 0px 0px 0px var(--main-ml);
 }
 
 .main-logo-title {
@@ -113,7 +110,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 /* Generic Game Logo */
 .game-logo-container {
   position: relative;
-  margin: var(--game-logo-container-margin-top) var(--main-left-margin) 0px 0px;
+  margin: var(--game-logo-container-margin-top) var(--main-ml) 0px 0px;
   pointer-events: none;
   display: flex;
   justify-content: flex-start;
@@ -121,7 +118,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .game-logo-image {
-  border-radius: var(--standard-edge_radius);
+  border-radius: var(--standard-border-radius);
   width: var(--game-logo-icon-size);
   height: var(--game-logo-icon-size);
   pointer-events: none;
