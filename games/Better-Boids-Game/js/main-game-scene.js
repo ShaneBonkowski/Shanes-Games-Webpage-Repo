@@ -9,6 +9,7 @@ import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
+import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
 
 // Used to determine if pointer is held down
 const holdThreshold = 0.1; // seconds
@@ -144,6 +145,10 @@ export class MainGameScene extends Phaser.Scene {
     // Toggle mute
     this.audioMuted = !this.audioMuted;
     this.toggleMuteAllAudio();
+
+    if (!this.audioMuted) {
+      showMessage(this, "May need to turn off silent mode to hear audio!");
+    }
 
     // Update icon of mute button based on state
     const muteSoundButtonContainer = document.querySelector(
