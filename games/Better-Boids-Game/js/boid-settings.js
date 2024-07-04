@@ -127,6 +127,9 @@ export function addBoidSettings() {
     ["info-icon-text"],
     ["info-button"]
   );
+  settingsButtonContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
 
   // Create sliders and their containers
   const speedSliderContainer = instantiateSlider(
@@ -232,6 +235,9 @@ export function addBoidSettings() {
   uiSettingsOptionsContainer.appendChild(radiusSliderContainer);
   uiSettingsOptionsContainer.appendChild(separationSliderContainer);
   uiSettingsOptionsContainer.appendChild(leaderToggleBoxContainer);
+  uiSettingsOptionsContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
 
   const settingsSidePanelBottomHalf = settingsSidePanel.querySelector(
     ".settings-side-panel-bottom-half"
