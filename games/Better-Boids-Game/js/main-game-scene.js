@@ -22,6 +22,7 @@ export class MainGameScene extends Phaser.Scene {
     this.gameStarted = false;
     this.isInteracting = false; // is the  player actively interacting with the game?
     this.uiMenuOpen = false;
+    this.audioMuted = true; // audio muted to start!
 
     // Store the last known window size so we can update boids positions etc.
     // based on this as the screen size changes
@@ -29,10 +30,12 @@ export class MainGameScene extends Phaser.Scene {
   }
 
   preload() {
-    // Preload assets if needed
+    // Images
     this.load.image("Bad Boid", "./webps/Bad_Boid.webp");
     this.load.image("Good Boid", "./webps/Good_Boid.webp");
     this.load.image("Leader Boid", "./webps/Leader_Boid.webp");
+
+    // Spritesheets
     this.load.spritesheet(
       "Bad Boid Anim",
       "./webps/Bad_Boid_Anim_Spritesheet.webp",
@@ -48,11 +51,19 @@ export class MainGameScene extends Phaser.Scene {
       "./webps/Leader_Boid_Anim_Spritesheet.webp",
       { frameWidth: 200, frameHeight: 200 }
     );
+
+    // Audio
+    this.load.audio("Background music", [
+      "/games/Shared-Game-Assets/audio/birds-chirping.mp3",
+    ]);
+    this.load.audio("Button Click", [
+      "/games/Shared-Game-Assets/audio/ui-button-click.mp3",
+    ]);
   }
 
   create() {
-    // Set the Z order of all elements
     setZOrderForMainGameElements(this.game);
+    this.initBackgroundSounds();
 
     // Observe window resizing with ResizeObserver since it works
     // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
@@ -68,7 +79,6 @@ export class MainGameScene extends Phaser.Scene {
 
     // Spawn in x random boids as a Promise (so that we can run this async), and then
     // when that promise is fufilled, we can move on to other init logic
-
     instantiateBoids(this, 40).then((boids) => {
       this.boids = boids;
 
@@ -95,6 +105,12 @@ export class MainGameScene extends Phaser.Scene {
         }
       }
     }
+  }
+
+  initBackgroundSounds() {
+    let backgroundMusicSound = this.sound.add("Background music");
+    backgroundMusicSound.setVolume(1.0);
+    backgroundMusicSound.setLoop(true);
   }
 
   // Disable scrolling
