@@ -35,7 +35,10 @@
 
 html,
 body {
-  /* overflow: hidden;  */
+  /* Hide both horizontal and vertical scroll bars 
+  and prevent player from scrolling on accident on phone
+  for example */
+  overflow: hidden;
   height: 100%;
 }
 
