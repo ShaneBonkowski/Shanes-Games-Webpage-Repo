@@ -19,6 +19,7 @@ export function setZOrderForSharedElements(game) {
   const resetTilegridButton = document.querySelector(
     ".resetTilegrid-button-container"
   );
+  const muteSoundButton = document.querySelector(".mute-button-container");
   const difficultySelectionBoxContainer = document.querySelector(
     ".difficulty-selection-box-container"
   );
@@ -41,6 +42,7 @@ export function setZOrderForSharedElements(game) {
   solToggleBoxContainer.style.zIndex = "3";
   updateTilegridButton.style.zIndex = "4";
   resetTilegridButton.style.zIndex = "4";
+  muteSoundButton.style.zIndex = "4";
   flipTileInfoButtonContainer.style.zIndex = "4";
 
   scoreText.style.zIndex = "5";

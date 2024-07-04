@@ -25,6 +25,9 @@ export function setZOrderForSharedElements(game) {
   const settingsButtonContainers = document.querySelectorAll(
     ".settings-button-container"
   );
+  const muteSoundButtonContainers = document.querySelectorAll(
+    ".mute-button-container"
+  );
   const infoButtons = document.querySelectorAll(".info-button");
   const infoBoxs = document.querySelectorAll(".info-box");
 
@@ -44,6 +47,9 @@ export function setZOrderForSharedElements(game) {
   });
   settingsButtonContainers.forEach((settingsButtonContainer) => {
     settingsButtonContainer.style.zIndex = "6";
+  });
+  muteSoundButtonContainers.forEach((muteSoundButtonContainer) => {
+    muteSoundButtonContainer.style.zIndex = "6";
   });
   infoButtonContainers.forEach((infoButtonContainer) => {
     infoButtonContainer.style.zIndex = "6";

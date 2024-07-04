@@ -34,6 +34,7 @@ export class MainGameScene extends Phaser.Scene {
     // Bind "this" to refer to the scene for necc. functions
     this.onClickMuteSound = this.onClickMuteSound.bind(this);
     this.toggleMuteAllAudio = this.toggleMuteAllAudio.bind(this);
+    this.playDesiredSound = this.playDesiredSound.bind(this);
   }
 
   preload() {
@@ -70,7 +71,7 @@ export class MainGameScene extends Phaser.Scene {
 
   create() {
     setZOrderForMainGameElements(this.game);
-    this.initBackgroundSounds();
+    this.initSounds();
 
     // Observe window resizing with ResizeObserver since it works
     // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
@@ -95,25 +96,6 @@ export class MainGameScene extends Phaser.Scene {
       // After everything is loaded in, we can begin the game
       this.gameStarted = true;
     });
-
-    // Create a mute sound button
-    const muteSoundButtonContainer = createFunctionButtonContainer(
-      "muteSoundButtonContainer",
-      "muteSoundButton",
-      "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
-      "Mute Sound",
-      "",
-      [this.onClickMuteSound],
-      ["mute-button-container"],
-      ["info-icon-img"],
-      ["info-icon-text"],
-      ["info-button"],
-      ["fas", "fa-volume-xmark"]
-    );
-    muteSoundButtonContainer.classList.add(
-      "disable-browser-default-touch-actions"
-    );
-    document.body.appendChild(muteSoundButtonContainer);
   }
 
   update(time, delta) {
@@ -133,12 +115,19 @@ export class MainGameScene extends Phaser.Scene {
     }
   }
 
-  initBackgroundSounds() {
+  // Sounds
+  initSounds() {
+    // Background sounds
     let backgroundMusicSound = this.sound.add("Background music");
     backgroundMusicSound.setLoop(true);
     backgroundMusicSound.setVolume(0); // mute to start
     backgroundMusicSound.play();
     this.sound_array.push({ sound: backgroundMusicSound, type: "background" });
+
+    // UI Button sound
+    let uiButtonClickSound = this.sound.add("Button Click");
+    uiButtonClickSound.setVolume(0); // mute to start
+    this.sound_array.push({ sound: uiButtonClickSound, type: "UI" });
   }
 
   onClickMuteSound() {
@@ -163,6 +152,18 @@ export class MainGameScene extends Phaser.Scene {
       muteSoundButtonIcon.classList.add("fa-volume-high");
     } else {
       muteSoundButtonIcon.classList.add("fa-volume-xmark");
+    }
+
+    // Play sound!
+    this.playDesiredSound("Button Click");
+  }
+
+  playDesiredSound(soundKey) {
+    let soundObj = this.sound.get(soundKey);
+    if (soundObj) {
+      soundObj.play();
+    } else {
+      console.error(`Sound with key "${soundKey}" not found.`);
     }
   }
 
@@ -215,6 +216,9 @@ export class MainGameScene extends Phaser.Scene {
       function (event) {
         if (this.uiMenuOpen == false) {
           this.uiMenuOpen = true;
+
+          // Play sound!
+          this.playDesiredSound("Button Click");
         }
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
@@ -223,7 +227,18 @@ export class MainGameScene extends Phaser.Scene {
       function (event) {
         if (this.uiMenuOpen == true) {
           this.uiMenuOpen = false;
+
+          // Play sound!
+          this.playDesiredSound("Button Click");
         }
+      }.bind(this)
+    ); // Bind 'this' to refer to the class instance
+
+    // Mute button event listener
+    document.addEventListener(
+      "mute",
+      function (event) {
+        this.onClickMuteSound();
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
 

@@ -12,9 +12,12 @@ export function showMessage(scene, messageText) {
 
   let message = scene.add.text(centerX, centerY, messageText, {
     fontFamily: "sans-serif",
-    fontSize: "16pt",
+    fontSize: "22pt",
     color: "#ffffff",
     align: "center",
+    // Black outline
+    stroke: "#000000",
+    strokeThickness: 5,
     fixedWidth: window.innerWidth * 0.8,
     wordWrap: { width: window.innerWidth * 0.8 },
   });
@@ -47,9 +50,12 @@ function handleWindowResize(message) {
     message.setPosition(window.innerWidth / 2, window.innerHeight / 2);
     message.setStyle({
       fontFamily: "sans-serif",
-      fontSize: "16pt",
+      fontSize: "22pt",
       color: "#ffffff",
       align: "center",
+      // Black outline
+      stroke: "#000000",
+      strokeThickness: 5,
       fixedWidth: window.innerWidth * 0.8,
       wordWrap: { width: window.innerWidth * 0.8 },
     });

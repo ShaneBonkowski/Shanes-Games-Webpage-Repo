@@ -131,6 +131,32 @@ export function addBoidSettings() {
     "disable-browser-default-touch-actions"
   );
 
+  // Mute sound button
+  function onClickMuteSound() {
+    let customEvent = new CustomEvent("mute", {
+      detail: {
+        message: "mute button clicked",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  }
+  const muteSoundButtonContainer = createFunctionButtonContainer(
+    "muteSoundButtonContainer",
+    "muteSoundButton",
+    "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
+    "Mute Sound",
+    "",
+    [onClickMuteSound],
+    ["mute-button-container"],
+    ["info-icon-img"],
+    ["info-icon-text"],
+    ["info-button"],
+    ["fas", "fa-volume-xmark"]
+  );
+  muteSoundButtonContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
+
   // Create sliders and their containers
   const speedSliderContainer = instantiateSlider(
     "Max Speed",
@@ -251,6 +277,7 @@ export function addBoidSettings() {
   settingsWindow.appendChild(settingsSidePanel);
   document.body.appendChild(settingsWindow);
   document.body.appendChild(settingsButtonContainer);
+  document.body.appendChild(muteSoundButtonContainer);
 
   function hideInfoButtons() {
     const infoButtons = document.querySelectorAll(".info-button");
