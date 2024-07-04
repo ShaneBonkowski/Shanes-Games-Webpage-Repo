@@ -37,19 +37,19 @@
   :root {
     /* Edge Margins */
     --ft-updateTilegrid-button-container-ml: 16vw;
-    --ft-updateTilegrid-button-container-mb: 11vh;
+    --ft-updateTilegrid-button-container-mb: 9vh;
     --ft-resetTilegrid-button-container-ml: 16vw;
-    --ft-resetTilegrid-button-container-mb: 20vh;
+    --ft-resetTilegrid-button-container-mb: 18vh;
     --ft-mute-button-container-mr: 16vw;
-    --ft-mute-button-container-mb: 29vh;
+    --ft-mute-button-container-mb: 27vh;
     --ft-toggle-label-mb: 0vh;
     --ft-difficulty-selection-box-container-ml: 30vw;
-    --ft-difficulty-selection-box-container-mb: 6vh;
+    --ft-difficulty-selection-box-container-mb: 4vh;
     --ft-input-mr: 6vw;
     --ft-solution-selection-box-container-ml: 30vw;
-    --ft-solution-selection-box-container-mb: 15vh;
+    --ft-solution-selection-box-container-mb: 13vh;
     --ft-info-button-container-mr: 16vw;
-    --ft-info-button-container-mb: 29vh;
+    --ft-info-button-container-mb: 27vh;
     --ft-info-header-ml: 90%;
     --ft-info-header-mt: 5%;
     --ft-score-text-mt: 15%;
