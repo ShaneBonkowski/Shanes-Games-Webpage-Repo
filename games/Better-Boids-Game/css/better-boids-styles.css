@@ -8,6 +8,7 @@
   /* Font Sizes */
   --bb-content-font-size: calc(10vw * 0.2);
   --bb-info-button-font-size: calc(10vw * 0.2);
+  --mute-icon-size: 75%;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -21,6 +22,7 @@
     /* Edge Margins */
     --bb-info-header-ml: 90%;
     --bb-info-header-mt: 5%;
+    --mute-icon-size: 75%;
   }
 }
 
@@ -51,7 +53,8 @@ a.active {
 
 /* Info and settings screen styles */
 .info-button-container,
-.settings-button-container {
+.settings-button-container,
+.mute-button-container {
   position: fixed;
 }
 
@@ -80,6 +83,33 @@ a.active {
     right: 18vw; /* Now w.r.t right */
     bottom: 14vh;
   }
+}
+
+.mute-button-container {
+  left: 7vw;
+  bottom: 50vh;
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  .mute-button-container {
+    left: 50vw;
+    bottom: 14vh;
+  }
+}
+
+.fas.fa-volume-xmark {
+  position: relative;
+  color: #ffffff;
+  font-size: var(--mute-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
+}
+
+.fas.fa-volume-high {
+  position: relative;
+  color: #ffffff;
+  font-size: var(--mute-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
 }
 
 .info-button {
