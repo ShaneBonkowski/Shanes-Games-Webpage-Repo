@@ -32,6 +32,7 @@ export class MainGameScene extends Phaser.Scene {
 
     // Bind "this" to refer to the scene for necc. functions
     this.onClickMuteSound = this.onClickMuteSound.bind(this);
+    this.toggleMuteAllAudio = this.toggleMuteAllAudio.bind(this);
   }
 
   preload() {
@@ -136,19 +137,13 @@ export class MainGameScene extends Phaser.Scene {
     backgroundMusicSound.setLoop(true);
     backgroundMusicSound.setVolume(0); // mute to start
     backgroundMusicSound.play();
-    this.sound_array.push(backgroundMusicSound);
+    this.sound_array.push({ sound: backgroundMusicSound, type: "background" });
   }
 
   onClickMuteSound() {
     // Toggle mute
     this.audioMuted = !this.audioMuted;
-    this.sound_array.forEach((sound) => {
-      if (this.audioMuted) {
-        sound.setVolume(0);
-      } else {
-        sound.setVolume(1);
-      }
-    });
+    this.toggleMuteAllAudio();
 
     // Update icon of mute button based on state
     const muteSoundButtonContainer = document.querySelector(
@@ -158,14 +153,27 @@ export class MainGameScene extends Phaser.Scene {
       muteSoundButtonContainer.querySelector(".info-button");
     const muteSoundButtonIcon = muteSoundButton.querySelector(".fas");
 
-    // Remove all existing Font Awesome classes
     muteSoundButtonIcon.classList.remove("fa-volume-xmark", "fa-volume-high");
-
     if (!this.audioMuted) {
       muteSoundButtonIcon.classList.add("fa-volume-high");
     } else {
       muteSoundButtonIcon.classList.add("fa-volume-xmark");
     }
+  }
+
+  toggleMuteAllAudio() {
+    this.sound_array.forEach((sound_obj) => {
+      if (this.audioMuted) {
+        sound_obj["sound"].setVolume(0);
+        sound_obj["sound"].stop();
+      } else {
+        sound_obj["sound"].setVolume(1);
+
+        if (sound_obj["type"] === "background") {
+          sound_obj["sound"].play();
+        }
+      }
+    });
   }
 
   // Disable scrolling
