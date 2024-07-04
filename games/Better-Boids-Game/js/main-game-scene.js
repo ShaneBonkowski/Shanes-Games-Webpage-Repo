@@ -134,6 +134,7 @@ export class MainGameScene extends Phaser.Scene {
   initBackgroundSounds() {
     let backgroundMusicSound = this.sound.add("Background music");
     backgroundMusicSound.setLoop(true);
+    backgroundMusicSound.setVolume(0); // mute to start
     backgroundMusicSound.play();
     this.sound_array.push(backgroundMusicSound);
   }
