@@ -1,6 +1,3 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-
 body {
   /* Background-related styles for body are defined in the .html file since they are urgent and we want to guarentee those render in */
 }

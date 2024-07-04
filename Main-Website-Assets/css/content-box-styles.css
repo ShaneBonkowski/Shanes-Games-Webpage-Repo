@@ -1,94 +1,74 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-@import "/Main-Website-Assets/css/main-website-styles.css";
-
 /* Define CONSTANT variables */
 :root {
   /* Sizes */
-  --content-box-width: 90vw;
-  --content-box-height: 20vw;
+  --content-box-w: 90vw;
+  --content-box-h: 20vw;
   --content-type-icon-size: 2vw;
   /* Edge Margins */
-  --content-button-left-margin: 17%;
-  --content-desc-text-left-margin: 5%;
-  --content-title-text-top-margin: 20px;
-  --content-desc-text-top-margin: 40px;
-  --content-desc-margin-left: 50px;
-  --title-link-margin-top: 14px;
-  --title-link-margin-left: 10px;
-  --content-desc-padding-left: 20px;
-  --content-desc-padding-top: 10px;
-  --content-title-margin-left: 15px;
+  --content-desc-container-ml: 50px;
+  --title-link-anchor-mt: 14px;
+  --title-link-anchor-ml: 10px;
+  --content-desc-container-pl: 20px;
+  --content-desc-container-pt: 10px;
+  --content-title-ml: 15px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Sizes */
-    --content-box-height: 36vw;
-    --content-box-width: 95vw;
+    --content-box-h: 36vw;
+    --content-box-w: 95vw;
     --content-type-icon-size: 2.85vw;
     /* Edge Margins */
-    --content-button-left-margin: 22%;
-    --content-desc-text-left-margin: 8%;
-    --content-desc-margin-left: 10px;
-    --title-link-margin-top: 2.5px;
-    --title-link-margin-left: 5px;
-    --content-desc-padding-left: 10px;
-    --content-desc-padding-top: 5px;
-    --content-title-margin-left: 8px;
+    --content-desc-container-ml: 10px;
+    --title-link-anchor-mt: 2.5px;
+    --title-link-anchor-ml: 5px;
+    --content-desc-container-pl: 10px;
+    --content-desc-container-pt: 5px;
+    --content-title-ml: 8px;
   }
 }
 
 /* Define DERIVED variables (aka ones based on others) */
 :root {
   /* Sizes */
-  --content-button-width: calc(var(--content-box-width) / 3.3);
-  --content-button-height: calc(var(--content-box-height) * 0.95);
-  --content-desc-width: calc(var(--content-box-width) * (0.6));
-  --content-desc-height: calc(var(--content-box-height) * 0.95);
-  --content-box-margin-bottom: calc(var(--content-box-height) * 0.07);
+  --content-button-w: calc(var(--content-box-w) / 3.3);
+  --content-button-h: calc(var(--content-box-h) * 0.95);
+  --content-desc-container-w: calc(var(--content-box-w) * (0.6));
+  --content-desc-container-h: calc(var(--content-box-h) * 0.95);
+  --content-box-mb: calc(var(--content-box-h) * 0.07);
   /* Font Sizes */
-  --content-desc-title-font-size: calc(var(--content-button-width) * 0.075);
-  --content-desc-body-text-font-size: calc(var(--content-button-width) * 0.072);
-  /* Edge Margins */
-  --content-description-left-margin: calc(
-    var(--content-button-left-margin) + 50%
-  );
+  --content-title-font-size: calc(var(--content-button-w) * 0.075);
+  --content-description-text-font-size: calc(var(--content-button-w) * 0.072);
 }
 
 /* Media query to override DERIVED values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Font Sizes */
-    --content-desc-title-font-size: calc(var(--content-button-width) * 0.07);
-    --content-desc-body-text-font-size: calc(
-      var(--content-button-width) * 0.07
-    );
+    --content-title-font-size: calc(var(--content-button-w) * 0.07);
+    --content-description-text-font-size: calc(var(--content-button-w) * 0.07);
     /* Sizes */
-    --content-button-width: calc(var(--content-box-width) / 2.3);
-    --content-desc-width: calc(var(--content-box-width) * (0.5));
-    /* Edge Margins */
-    --content-description-left-margin: calc(
-      var(--content-button-left-margin) + 50%
-    );
+    --content-button-w: calc(var(--content-box-w) / 2.3);
+    --content-desc-container-w: calc(var(--content-box-w) * (0.5));
   }
 }
 
 /* content_box.js content box Styling */
 .content-box {
   position: relative; /* Position this wherever (this is the origin for all content-box's children */
-  width: var(--content-box-width);
-  height: var(--content-box-height);
-  left: var(--main-left-margin);
+  width: var(--content-box-w);
+  height: var(--content-box-h);
+  left: var(--main-ml);
   display: flex;
   align-items: center;
-  margin-bottom: var(--content-box-margin-bottom);
+  margin-bottom: var(--content-box-mb);
 }
 
 .content-box-button-container {
-  width: var(--content-button-width);
-  height: var(--content-button-height);
+  width: var(--content-button-w);
+  height: var(--content-button-h);
 }
 
 a.content-box-button-link-anchor {
@@ -98,9 +78,9 @@ a.content-box-button-link-anchor {
 .content-button {
   cursor: pointer;
   transition: transform 0.3s, opacity 0.3s;
-  border-radius: var(--standard-edge_radius);
-  width: var(--content-button-width);
-  height: var(--content-button-height);
+  border-radius: var(--standard-border-radius);
+  width: var(--content-button-w);
+  height: var(--content-button-h);
   transition: transform 0.3s ease;
 }
 
@@ -117,21 +97,21 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 
 .content-desc-container {
   position: relative;
-  width: var(--content-desc-width);
-  height: var(--content-desc-height);
-  border-radius: var(--standard-edge_radius);
+  width: var(--content-desc-container-w);
+  height: var(--content-desc-container-h);
+  border-radius: var(--standard-border-radius);
   background-color: var(--panel-color);
   display: flex;
   flex-direction: column;
-  padding: var(--content-desc-padding-left) var(--content-desc-padding-top)
-    var(--content-desc-padding-top) var(--content-desc-padding-left);
-  margin: 0px 0px 0px var(--content-desc-margin-left);
+  padding: var(--content-desc-container-pl) var(--content-desc-container-pt)
+    var(--content-desc-container-pt) var(--content-desc-container-pl);
+  margin: 0px 0px 0px var(--content-desc-container-ml);
   box-sizing: border-box;
 }
 
 a.title-link-anchor {
-  margin: var(--title-link-margin-top) var(--title-link-margin-left)
-    var(--title-link-margin-top) var(--title-link-margin-left);
+  margin: var(--title-link-anchor-mt) var(--title-link-anchor-ml)
+    var(--title-link-anchor-mt) var(--title-link-anchor-ml);
   text-decoration: none;
   display: flex;
   justify-content: flex-start; /* Align items at the start (left) */
@@ -141,8 +121,8 @@ a.title-link-anchor {
 
 .content-title {
   position: relative;
-  margin: 0px 0px 0px var(--content-title-margin-left);
-  font-size: var(--content-desc-title-font-size);
+  margin: 0px 0px 0px var(--content-title-ml);
+  font-size: var(--content-title-font-size);
   text-align: left;
   color: var(--main-text-color);
   white-space: nowrap;
@@ -157,13 +137,13 @@ a.title-link-anchor {
 }
 
 .content-description-text {
-  font-size: var(--content-desc-body-text-font-size);
+  font-size: var(--content-description-text-font-size);
   text-align: left;
   color: var(--main-text-color);
   font-weight: normal;
   width: var(--content-desc-text-width);
-  margin: var(--title-link-margin-top) var(--title-link-margin-left)
-    var(--title-link-margin-top) var(--title-link-margin-left);
+  margin: var(--title-link-anchor-mt) var(--title-link-anchor-ml)
+    var(--title-link-anchor-mt) var(--title-link-anchor-ml);
 }
 
 .no-results-found-text {

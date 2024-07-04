@@ -1,37 +1,34 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-
 /* Define CONSTANT variables */
 :root {
   /* Size */
-  --settings-img-size: 24vw;
+  --bb-settings-side-panel-img-size: 24vw;
 
   /* Margins */
-  --settings-panel-top: 0%;
-  --settings-image-right: 20%;
-  --settings-image-top: 0%;
-  --settings-bottom-panel-top-margin: 0%;
+  --settings-side-panel-mt: 0%;
+  --bb-settings-side-panel-img-mr: 20%;
+  --bb-settings-side-panel-img-mt: 0%;
+  --bb-settings-side-panel-bottom-half-mt: 0%;
 
   /* Translations */
 
   /* Font Sizes */
-  --settings-font-size: 2vw;
+  --bb-settings-font-size: 2vw;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Size */
-    --settings-img-size: 42vw;
+    --bb-settings-side-panel-img-size: 42vw;
 
     /* Margins */
-    --settings-panel-top: 3.5%;
-    --settings-image-right: 5%;
-    --settings-image-top: 10%;
-    --settings-bottom-panel-top-margin: 0%;
+    --settings-side-panel-mt: 3.5%;
+    --bb-settings-side-panel-img-mr: 5%;
+    --bb-settings-side-panel-img-mt: 10%;
+    --bb-settings-side-panel-bottom-half-mt: 0%;
 
     /* Font Sizes */
-    --settings-font-size: 4vw;
+    --bb-settings-font-size: 4vw;
   }
 }
 
@@ -39,12 +36,12 @@
   margin: 0px 5% 0px 5%;
   text-align: center;
   color: white;
-  font-size: var(--settings-font-size);
+  font-size: var(--bb-settings-font-size);
 }
 
 .settings-side-panel {
   position: absolute;
-  top: var(--settings-panel-top);
+  top: var(--settings-side-panel-mt);
   flex-direction: column;
   justify-content: flex-start;
   padding: 10px;
@@ -61,7 +58,7 @@
   padding: 10px;
   box-sizing: border-box;
   align-items: center;
-  margin: var(--settings-bottom-panel-top-margin) 0px 0px 0px;
+  margin: var(--bb-settings-side-panel-bottom-half-mt) 0px 0px 0px;
 }
 
 /* Different format for phone */
@@ -72,7 +69,8 @@
 }
 
 .settings-side-panel img {
-  margin: var(--settings-image-top) var(--settings-image-right) 0px 0px;
-  width: var(--settings-img-size);
-  height: var(--settings-img-size);
+  margin: var(--bb-settings-side-panel-img-mt)
+    var(--bb-settings-side-panel-img-mr) 0px 0px;
+  width: var(--bb-settings-side-panel-img-size);
+  height: var(--bb-settings-side-panel-img-size);
 }

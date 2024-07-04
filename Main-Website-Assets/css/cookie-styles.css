@@ -1,13 +1,10 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-
 /* Define variables */
 :root {
   /* Sizes */
-  --cookie-banner-width: 40%;
-  --cookie-banner-right-dist: 8px;
-  --cookie-banner-bottom-dist: 8px;
-  --cookie-banner-edge-radius: 10px;
+  --cookie-banner-w: 40%;
+  --cookie-banner-mr: 8px;
+  --cookie-banner-mb: 8px;
+  --cookie-banner-border-radius: 10px;
   --cookie-banner-padding: 16px;
 }
 
@@ -15,10 +12,10 @@
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Sizes */
-    --cookie-banner-width: auto;
-    --cookie-banner-right-dist: 0px;
-    --cookie-banner-bottom-dist: 0px;
-    --cookie-banner-edge-radius: auto;
+    --cookie-banner-w: auto;
+    --cookie-banner-mr: 0px;
+    --cookie-banner-mb: 0px;
+    --cookie-banner-border-radius: auto;
     --cookie-banner-padding: 12px;
   }
 }
@@ -27,14 +24,14 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  margin: var(--cookie-banner-bottom-dist) var(--cookie-banner-right-dist)
-    var(--cookie-banner-bottom-dist) var(--cookie-banner-right-dist);
-  width: var(--cookie-banner-width);
+  margin: var(--cookie-banner-mb) var(--cookie-banner-mr)
+    var(--cookie-banner-mb) var(--cookie-banner-mr);
+  width: var(--cookie-banner-w);
   background-color: var(--info-banner-background-color);
   padding: var(--cookie-banner-padding);
   text-align: center;
   z-index: 10;
-  border-radius: var(--cookie-banner-edge-radius);
+  border-radius: var(--cookie-banner-border-radius);
   display: flex;
   flex-direction: column;
   justify-content: center;

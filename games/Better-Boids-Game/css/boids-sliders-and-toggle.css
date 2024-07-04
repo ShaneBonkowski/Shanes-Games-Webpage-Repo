@@ -1,38 +1,35 @@
-/* Import constants */
-@import "/Shared-General-Assets/css/general-shared-constants.css";
-
 /* Define CONSTANT variables */
 :root {
   /* Size */
-  --input-slider-width: 15vw;
-  --input-slider-height: 5vh;
-  --slider-blank-space-height: 3vh;
-  --toggle-top-margin: 4vh;
-  --leader-toggle-size: calc(10vw * 0.2);
+  --bb-input-slider-w: 15vw;
+  --bb-input-slider-h: 5vh;
+  --bb-slider-container-mt: 3vh;
+  --bb-toggle-box-container-mt: 4vh;
+  --bb-leader-toggle-size: calc(10vw * 0.2);
   /* Margins */
-  --hover-slider-label-right-margin: -115%;
-  --input-left-margin: 70%;
+  --bb-slider-hover-label-mr: -115%;
+  --bb-input-ml: 70%;
   /* Translations */
-  --slider-label-y-shift: 0%;
+  --bb-slider-label-mt: 0%;
   /* Font Sizes */
-  --slider-font-size: calc(10vw * 0.14);
+  --bb-slider-font-size: calc(10vw * 0.14);
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Size */
-    --input-slider-width: 28.5vw;
-    --slider-blank-space-height: 5vh;
-    --toggle-top-margin: 2.5vh;
-    --leader-toggle-size: calc(10vh * 0.25);
+    --bb-input-slider-w: 28.5vw;
+    --bb-slider-container-mt: 5vh;
+    --bb-toggle-box-container-mt: 2.5vh;
+    --bb-leader-toggle-size: calc(10vh * 0.25);
     /* Margins */
-    --input-left-margin: 0%;
-    --hover-slider-label-right-margin: 0%;
+    --bb-input-ml: 0%;
+    --bb-slider-hover-label-mr: 0%;
     /* Translations */
-    --slider-label-y-shift: -43%;
+    --bb-slider-label-mt: -43%;
     /* Font Sizes */
-    --slider-font-size: calc(10vw * 0.35);
+    --bb-slider-font-size: calc(10vw * 0.35);
   }
 }
 
@@ -46,10 +43,6 @@ body {
   position: relative; /* ABOVE SCROLL PREVENTION DOES NOT WORK IF THIS IS NOT RELATIVE ... idk why see this https://stackoverflow.com/questions/10592411/disable-scrolling-in-all-mobile-devices */
 }
 
-.slider-blank-space {
-  height: var(--slider-blank-space-height);
-}
-
 .ui-settings-options-container {
   display: flex;
   justify-content: center;
@@ -61,19 +54,19 @@ body {
 .slider-container {
   position: relative;
   pointer-events: none;
-  height: var(--input-slider-height);
-  width: var(--input-slider-width);
+  height: var(--bb-input-slider-h);
+  width: var(--bb-input-slider-w);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: var(--slider-blank-space-height) 0px 0px 0px;
+  margin: var(--bb-slider-container-mt) 0px 0px 0px;
 }
 
 .slider-label {
   position: absolute;
   left: 0;
   pointer-events: none;
-  font-size: var(--slider-font-size);
+  font-size: var(--bb-slider-font-size);
   white-space: nowrap;
   color: white;
 }
@@ -81,15 +74,15 @@ body {
 /* iPhone only! */
 @media screen and (orientation: portrait), (max-width: 600px) {
   .slider-label {
-    top: var(--slider-label-y-shift);
+    top: var(--bb-slider-label-mt);
   }
 }
 
 .slider-hover-label {
   position: absolute;
-  right: var(--hover-slider-label-right-margin);
+  right: var(--bb-slider-hover-label-mr);
   display: none; /* Hide the label until we hover on it below */
-  font-size: var(--slider-font-size);
+  font-size: var(--bb-slider-font-size);
   white-space: nowrap;
   color: white;
 }
@@ -97,7 +90,7 @@ body {
 /* iPhone only! */
 @media screen and (orientation: portrait), (max-width: 600px) {
   .slider-hover-label {
-    top: var(--slider-label-y-shift);
+    top: var(--bb-slider-label-mt);
   }
 }
 
@@ -116,12 +109,12 @@ fine since theyre likely to tap elsewjere to fix it soon after. */
 }
 
 input[type="range"] {
-  left: var(--input-left-margin);
+  left: var(--bb-input-ml);
   position: absolute;
   cursor: pointer;
   pointer-events: auto; /* Can click on this */
-  height: var(--input-slider-height);
-  width: var(--input-slider-width);
+  height: var(--bb-input-slider-h);
+  width: var(--bb-input-slider-w);
 }
 
 /* Define styles for when the slider is being interacted with */
@@ -131,25 +124,25 @@ input[type="range"]:active {
 
 /* Toggle box styles */
 .toggle-box-container {
-  height: var(--input-slider-height);
+  height: var(--bb-input-slider-h);
   display: flex;
   align-items: center;
   position: relative;
   align-content: center;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin: var(--toggle-top-margin) 0px 0px 0px;
+  margin: var(--bb-toggle-box-container-mt) 0px 0px 0px;
 }
 
 .toggle-label {
-  margin-left: calc(var(--leader-toggle-size) * 0.5);
-  font-size: var(--slider-font-size);
+  margin-left: calc(var(--bb-leader-toggle-size) * 0.5);
+  font-size: var(--bb-slider-font-size);
   white-space: nowrap;
   color: white;
 }
 
 .toggle-input {
-  width: var(--leader-toggle-size);
-  height: var(--leader-toggle-size);
+  width: var(--bb-leader-toggle-size);
+  height: var(--bb-leader-toggle-size);
   cursor: pointer;
 }
