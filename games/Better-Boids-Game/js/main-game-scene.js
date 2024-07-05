@@ -120,13 +120,15 @@ export class MainGameScene extends Phaser.Scene {
     // Background sounds
     let backgroundMusicSound = this.sound.add("Background music");
     backgroundMusicSound.setLoop(true);
-    backgroundMusicSound.setVolume(0); // mute to start
+    backgroundMusicSound.setVolume(1.0);
+    backgroundMusicSound.mute = true; // mute to start
     backgroundMusicSound.play();
     this.sound_array.push({ sound: backgroundMusicSound, type: "background" });
 
     // UI Button sound
     let uiButtonClickSound = this.sound.add("Button Click");
-    uiButtonClickSound.setVolume(0); // mute to start
+    uiButtonClickSound.setVolume(0.5);
+    uiButtonClickSound.mute = true; // mute to start
     this.sound_array.push({ sound: uiButtonClickSound, type: "UI" });
   }
 
@@ -160,7 +162,7 @@ export class MainGameScene extends Phaser.Scene {
 
   playDesiredSound(soundKey) {
     let soundObj = this.sound.get(soundKey);
-    if (soundObj) {
+    if (soundObj && !soundObj.isPlaying) {
       soundObj.play();
     } else {
       console.error(`Sound with key "${soundKey}" not found.`);
@@ -170,10 +172,10 @@ export class MainGameScene extends Phaser.Scene {
   toggleMuteAllAudio() {
     this.sound_array.forEach((sound_obj) => {
       if (this.audioMuted) {
-        sound_obj["sound"].setVolume(0);
+        sound_obj["sound"].mute = true;
         sound_obj["sound"].stop();
       } else {
-        sound_obj["sound"].setVolume(1);
+        sound_obj["sound"].mute = false;
 
         if (sound_obj["type"] === "background") {
           sound_obj["sound"].play();

@@ -60,6 +60,9 @@ export class MainGameScene extends Phaser.Scene {
       "/games/Shared-Game-Assets/audio/ui-button-click.mp3",
     ]);
     this.load.audio("Success", ["/games/Shared-Game-Assets/audio/success.mp3"]);
+    this.load.audio("Tile Spin", [
+      "/games/Shared-Game-Assets/audio/stone-push.mp3",
+    ]);
   }
 
   create() {
@@ -102,12 +105,19 @@ export class MainGameScene extends Phaser.Scene {
   initSounds() {
     // UI sounds
     let uiButtonClickSound = this.sound.add("Button Click");
-    uiButtonClickSound.setVolume(0); // mute to start
+    uiButtonClickSound.setVolume(0.5);
+    uiButtonClickSound.mute = true; // mute to start
     this.sound_array.push({ sound: uiButtonClickSound, type: "UI" });
 
     let successSound = this.sound.add("Success");
-    successSound.setVolume(0); // mute to start
+    successSound.setVolume(1.0);
+    successSound.mute = true; // mute to start
     this.sound_array.push({ sound: successSound, type: "UI" });
+
+    let tileSpinSound = this.sound.add("Tile Spin");
+    tileSpinSound.setVolume(1.0);
+    tileSpinSound.mute = true; // mute to start
+    this.sound_array.push({ sound: tileSpinSound, type: "UI" });
   }
 
   onClickMuteSound() {
@@ -150,10 +160,10 @@ export class MainGameScene extends Phaser.Scene {
   toggleMuteAllAudio() {
     this.sound_array.forEach((sound_obj) => {
       if (this.audioMuted) {
-        sound_obj["sound"].setVolume(0);
+        sound_obj["sound"].mute = true;
         sound_obj["sound"].stop();
       } else {
-        sound_obj["sound"].setVolume(1);
+        sound_obj["sound"].mute = false;
 
         if (sound_obj["type"] === "background") {
           sound_obj["sound"].play();
@@ -447,6 +457,15 @@ export class MainGameScene extends Phaser.Scene {
       function (event) {
         // Play sound!
         this.playDesiredSound("Success");
+      }.bind(this)
+    );
+
+    // When solved play a sound!
+    document.addEventListener(
+      "onTileSpin",
+      function (event) {
+        // Play sound!
+        this.playDesiredSound("Tile Spin");
       }.bind(this)
     );
   }
