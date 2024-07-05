@@ -43,6 +43,7 @@ export const customEvents = {
   tileGridChangeEvent: new Event("onTilegridChange"),
   tileGridResetEvent: new Event("onTilegridReset"),
   scoreUpdateEvent: new Event("onScoreChange"),
+  tileSpinEvent: new Event("onTileSpin"),
 };
 
 export const sharedTileAttrs = {
