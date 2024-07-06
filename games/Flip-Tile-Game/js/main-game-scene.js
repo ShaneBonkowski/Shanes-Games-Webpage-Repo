@@ -151,7 +151,16 @@ export class MainGameScene extends Phaser.Scene {
   playDesiredSound(soundKey) {
     let soundObj = this.sound.get(soundKey);
     if (soundObj) {
-      soundObj.play();
+      // Checking to prevent sound from playing a bunch of times in a row,
+      // pretty much needs to be either not playing or a little ways in already
+      // before it can play
+      if (
+        !soundObj.isPlaying ||
+        (soundObj.isPlaying && soundObj.seek / soundObj.duration > 0.15)
+      ) {
+        soundObj.stop();
+        soundObj.play();
+      }
     } else {
       console.error(`Sound with key "${soundKey}" not found.`);
     }
