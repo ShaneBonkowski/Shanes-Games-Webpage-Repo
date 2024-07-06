@@ -1,3 +1,4 @@
+let currentMessage = null;
 let resizeObserver = null;
 
 /**
@@ -6,6 +7,15 @@ let resizeObserver = null;
  * @param {string} messageText - The text to display in the message.
  */
 export function showMessage(scene, messageText) {
+  // Destroy the current message if it exists
+  if (currentMessage) {
+    currentMessage.destroy();
+    if (resizeObserver) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
+    }
+  }
+
   // Create a text object for the message
   let centerX = window.innerWidth / 2;
   let centerY = window.innerHeight / 2;
@@ -30,11 +40,20 @@ export function showMessage(scene, messageText) {
     duration: 500, // Fade out duration in milliseconds
     delay: 1500, // Delay before starting the fade out
     onComplete: function () {
-      message.destroy();
-      resizeObserver.disconnect();
-      resizeObserver = null;
+      if (message) {
+        message.destroy();
+      }
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+        resizeObserver = null;
+      }
+
+      currentMessage = null;
     },
   });
+
+  // Set the current message
+  currentMessage = message;
 
   // Observe window resizing with ResizeObserver since it works
   // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
