@@ -105,7 +105,7 @@ export class MainGameScene extends Phaser.Scene {
   initSounds() {
     // UI sounds
     let uiButtonClickSound = this.sound.add("Button Click");
-    uiButtonClickSound.setVolume(0.5);
+    uiButtonClickSound.setVolume(0.1);
     uiButtonClickSound.mute = true; // mute to start
     this.sound_array.push({ sound: uiButtonClickSound, type: "UI" });
 
