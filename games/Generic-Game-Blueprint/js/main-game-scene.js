@@ -21,6 +21,9 @@ export class MainGameScene extends Phaser.Scene {
   create() {
     setZOrderForMainGameElements(this.game);
     this.subscribeToEvents();
+
+    // After everything is loaded in, we can begin the game
+    this.gameStarted = true;
   }
 
   update(time, delta) {

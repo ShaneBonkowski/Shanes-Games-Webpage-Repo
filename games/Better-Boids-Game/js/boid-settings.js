@@ -349,32 +349,27 @@ export function addBoidSettings() {
     panelProvided,
     panelInfoProvided
   ) {
-    // init slider container
     const sliderContainer = document.createElement("div");
     sliderContainer.classList.add("slider-container");
 
-    // init slider
     const slider = document.createElement("input");
     slider.setAttribute("type", "range");
     slider.setAttribute("min", min);
     slider.setAttribute("max", max);
     slider.setAttribute("step", step);
-    slider.value = value; // Set initial value
+    slider.value = value;
     sliderContainer.appendChild(slider);
 
-    // Add label
     const label = document.createElement("label");
     label.textContent = name;
     label.classList.add("slider-label");
     sliderContainer.appendChild(label);
 
-    // Slide value hover label
     const hoverLabel = document.createElement("div");
     hoverLabel.classList.add("slider-hover-label");
     hoverLabel.textContent = slider.value; // init hover text
     sliderContainer.appendChild(hoverLabel);
 
-    // Append sliders to the document body
     initSliderEvents(
       slider,
       name,
@@ -395,12 +390,11 @@ export function addBoidSettings() {
     // Initially hide the circle
     circle.style.display = "none";
 
-    // Find the input range element within the container
+    // On input, update the flock radius circle to be visible
     const inputRange = radiusSliderContainer.querySelector(
       "input[type='range']"
     );
 
-    // On input, update the flock radius circle to be visible
     inputRange.addEventListener(
       "input",
       function (event) {
@@ -444,7 +438,7 @@ export function addBoidSettings() {
   }
 
   function updateFlockRadiusIndicator(circle, radius) {
-    // Set the circle's radius and position
+    // Update the circle's radius
     let diameter = radius * 2;
     circle.style.width = diameter + "px";
     circle.style.height = diameter + "px";
@@ -455,7 +449,6 @@ export function addBoidSettings() {
     circle.style.transform = "translate(-50%, -50%)";
     circle.style.zIndex = "6";
 
-    // Adjust transparency based on radius value
     let transparency = 0.5;
     circle.style.backgroundColor = `rgba(255, 0, 0, ${transparency})`;
 
@@ -519,10 +512,7 @@ export function addBoidSettings() {
 
     // Add input event listeners to each slider to update slider value
     slider.addEventListener("input", function () {
-      // Update the value of the actual variable as the slider changes
       updateFactor(name, parseFloat(slider.value));
-
-      // Update hover label text
       hoverLabel.textContent = slider.value;
     });
 
