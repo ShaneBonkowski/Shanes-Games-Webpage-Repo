@@ -76,6 +76,16 @@ export const contentBoxes = [
     content_type: "writing",
     openInNewTab: false,
   },
+  {
+    imageUrl: "/writing/webps/The-Moon-Tarot.webp",
+    linkUrl: "/writing/The-Moon.html",
+    title: "The Moon",
+    description:
+      "Step by step, I trudge on through the long night. My body aches and my bones tremble under the weight of her gaze, a constant reminder of my imprisonment.",
+    search_tags: "Tarot, Moon, Stars, Star, Sun, Card, Shimmer, Glitter, Space",
+    content_type: "writing",
+    openInNewTab: false,
+  },
 ];
 
 /**
