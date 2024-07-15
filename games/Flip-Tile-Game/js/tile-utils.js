@@ -38,12 +38,11 @@ export const TilePatternAttrs = {
   difficultyLevel: difficulty.EASY,
 };
 
-export const customEvents = {
-  tileUpdateEvent: new Event("onTileUpdate"),
-  tileGridChangeEvent: new Event("onTilegridChange"),
-  tileGridResetEvent: new Event("onTilegridReset"),
-  scoreUpdateEvent: new Event("onScoreChange"),
-  tileSpinEvent: new Event("onTileSpin"),
+export const tileGridEventNames = {
+  onTilegridChange: "onTilegridChange",
+  onTilegridReset: "onTilegridReset",
+  onScoreChange: "onScoreChange",
+  onTileSpin: "onTileSpin",
 };
 
 export const sharedTileAttrs = {

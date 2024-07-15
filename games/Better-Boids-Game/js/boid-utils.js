@@ -22,9 +22,9 @@ export const BoidFactors = {
   leaderBoidEnabled: true,
 };
 
-export const customEvents = {
-  speedChangeEvent: new Event("onSpeedChange"),
-  leaderBoidChangeEvent: new Event("onLeaderBoidChange"),
+export const boidEventNames = {
+  onSpeedChange: "onSpeedChange",
+  pointerholdclick: "pointerholdclick",
 };
 
 const seededRandom = new SeededRandom(1234);

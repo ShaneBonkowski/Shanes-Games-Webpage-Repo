@@ -12,7 +12,7 @@ import {
   sharedTileAttrs,
   TilePatternAttrs,
   update_all_tiles_text,
-  customEvents,
+  tileGridEventNames,
 } from "./tile-utils.js";
 import { tiles } from "./main-game-scene.js";
 
@@ -146,7 +146,7 @@ export class Tile extends GameObject {
   }
 
   playClickSpinAnim() {
-    document.dispatchEvent(customEvents.tileSpinEvent);
+    document.dispatchEvent(new Event(tileGridEventNames.onTileSpin));
 
     // cannot click during animation
     this.scene.tryToDisableClick();

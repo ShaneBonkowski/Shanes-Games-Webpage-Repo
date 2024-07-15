@@ -6,7 +6,7 @@
 
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import {
-  customEvents,
+  tileGridEventNames,
   TilePatternAttrs,
   difficulty,
   scoring,
@@ -14,6 +14,7 @@ import {
 import { addSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
 import { tiles } from "./main-game-scene.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
 
 export const ui_vars = {
   numCheckboxes: 3,
@@ -25,7 +26,7 @@ export function initUI() {
 
   // Add a button to update the tilegrid layout
   function onClickUpdateTileGrid() {
-    document.dispatchEvent(customEvents.tileGridChangeEvent);
+    document.dispatchEvent(new Event(tileGridEventNames.onTilegridChange));
   }
   const updateTilegridButtonContainer = createFunctionButtonContainer(
     "updateTilegridContainer",
@@ -45,7 +46,7 @@ export function initUI() {
 
   // Add a button to reset the tilegrid layout back to how it was
   function onClickResetTileGrid() {
-    document.dispatchEvent(customEvents.tileGridResetEvent);
+    document.dispatchEvent(new Event(tileGridEventNames.onTilegridReset));
   }
   const resetTilegridButtonContainer = createFunctionButtonContainer(
     "resetTilegridContainer",
@@ -195,7 +196,7 @@ export function initUI() {
   textContainer.appendChild(textElement);
 
   // When the ScoreChangeEvent occurs, the text updates for the score
-  document.addEventListener("onScoreChange", function (event) {
+  document.addEventListener(tileGridEventNames.onScoreChange, function (event) {
     let scoreAdd = 0;
     if (TilePatternAttrs.difficultyLevel == difficulty.EASY) {
       scoreAdd = scoring.EASY;
@@ -270,8 +271,14 @@ function addInfoBox() {
   infoButtonContainer.classList.add("disable-browser-default-touch-actions");
 
   // When ui is open, hide certain UI, when it is closed, reveal them
-  document.addEventListener("uiMenuOpen", uiMenuOpenHandler);
-  document.addEventListener("uiMenuClosed", uiMenuCloseHandler);
+  document.addEventListener(
+    genericGameEventNames.uiMenuOpen,
+    uiMenuOpenHandler
+  );
+  document.addEventListener(
+    genericGameEventNames.uiMenuClosed,
+    uiMenuCloseHandler
+  );
 
   // Append infoButtonContainer and infoWindow to document body
   document.body.appendChild(infoButtonContainer);
@@ -279,7 +286,7 @@ function addInfoBox() {
 
   // Mute sound button
   function onClickMuteSound() {
-    let customEvent = new CustomEvent("mute", {
+    let customEvent = new CustomEvent(genericGameEventNames.mute, {
       detail: {
         message: "mute button clicked",
       },
@@ -376,7 +383,7 @@ function addInfoBox() {
 
   // Show the info Window when the button is clicked
   function onClickInfo() {
-    let customEvent = new CustomEvent("uiMenuOpen", {
+    let customEvent = new CustomEvent(genericGameEventNames.uiMenuOpen, {
       detail: {
         message: "Info Menu Opened",
       },
@@ -389,7 +396,7 @@ function addInfoBox() {
 
   // Close the info Window when the close button is clicked
   function onClickX() {
-    let customEvent = new CustomEvent("uiMenuClosed", {
+    let customEvent = new CustomEvent(genericGameEventNames.uiMenuClosed, {
       detail: {
         message: "Info Menu Closed",
       },

@@ -4,14 +4,16 @@
  * @author Shane Bonkowski
  */
 
-import { instantiateBoids } from "./boid-utils.js";
+import { instantiateBoids, boidEventNames } from "./boid-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
+import { rigidBody2DEventNames } from "../../Shared-Game-Assets/js/rigid_body_2D.js";
 import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
 import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
 import { GameObject } from "../../Shared-Game-Assets/js/game_object.js";
 import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
 
 // Used to determine if pointer is held down
 const holdThreshold = 0.1; // seconds
@@ -195,21 +197,24 @@ export class MainGameScene extends Generic2DGameScene {
 
   subscribeToEvents() {
     // If a boid screenEdgeCollision occurs:
-    document.addEventListener("screenEdgeCollision", (event) => {
-      const { gameObjectId, direction } = event.detail;
+    document.addEventListener(
+      rigidBody2DEventNames.screenEdgeCollision,
+      (event) => {
+        const { gameObjectId, direction } = event.detail;
 
-      // Find the GameObject by ID
-      const collidedObject = GameObject.getById(gameObjectId);
+        // Find the GameObject by ID
+        const collidedObject = GameObject.getById(gameObjectId);
 
-      // If the object is found and its name is "Boid", call onCollideScreenEdge
-      if (collidedObject && collidedObject.name === "Boid") {
-        collidedObject.onCollideScreenEdge(direction);
+        // If the object is found and its name is "Boid", call onCollideScreenEdge
+        if (collidedObject && collidedObject.name === "Boid") {
+          collidedObject.onCollideScreenEdge(direction);
+        }
       }
-    });
+    );
 
     // Event listener for ui menu open / closed
     document.addEventListener(
-      "uiMenuOpen",
+      genericGameEventNames.uiMenuOpen,
       function (event) {
         if (this.uiMenuOpen == false) {
           this.uiMenuOpen = true;
@@ -220,7 +225,7 @@ export class MainGameScene extends Generic2DGameScene {
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
     document.addEventListener(
-      "uiMenuClosed",
+      genericGameEventNames.uiMenuClosed,
       function (event) {
         if (this.uiMenuOpen == true) {
           this.uiMenuOpen = false;
@@ -233,7 +238,7 @@ export class MainGameScene extends Generic2DGameScene {
 
     // Mute button event listener
     document.addEventListener(
-      "mute",
+      genericGameEventNames.mute,
       function (event) {
         this.onClickMuteSound();
       }.bind(this)
@@ -269,7 +274,9 @@ export class MainGameScene extends Generic2DGameScene {
             // If we are still holding down, dispatch pointerholdclick to tell the event listeners that we are held down
             let holdDuration = Date.now() - pointerDownTime;
             if (holdDuration >= holdThreshold) {
-              document.dispatchEvent(new Event("pointerholdclick"));
+              document.dispatchEvent(
+                new Event(boidEventNames.pointerholdclick)
+              );
             }
 
             // Reset holdTimer after it's triggered

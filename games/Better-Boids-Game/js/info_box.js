@@ -6,6 +6,8 @@
 
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
+
 export function addInfoBox() {
   // Create infoWindow window and content
   const infoWindow = createUIWindow(
@@ -57,7 +59,7 @@ export function addInfoBox() {
 
   // Show the info Window when the button is clicked
   function onClickInfo() {
-    let customEvent = new CustomEvent("uiMenuOpen", {
+    let customEvent = new CustomEvent(genericGameEventNames.uiMenuOpen, {
       detail: {
         message: "Info Menu Opened",
       },
@@ -71,7 +73,7 @@ export function addInfoBox() {
 
   // Close the info Window when the close button is clicked
   function onClickX() {
-    let customEvent = new CustomEvent("uiMenuClosed", {
+    let customEvent = new CustomEvent(genericGameEventNames.uiMenuClosed, {
       detail: {
         message: "Info Menu Closed",
       },

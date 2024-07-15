@@ -4,10 +4,11 @@
  * @author Shane Bonkowski
  */
 
-import { BoidFactors, customEvents } from "./boid-utils.js";
+import { BoidFactors, boidEventNames } from "./boid-utils.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import { addSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
 
 const velocityPanelInfo = {
   imagePath: "./webps/Velocity_Graphic.webp",
@@ -76,7 +77,7 @@ export function addBoidSettings() {
   }
 
   function onClickX() {
-    let customEvent = new CustomEvent("uiMenuClosed", {
+    let customEvent = new CustomEvent(genericGameEventNames.uiMenuClosed, {
       detail: {
         message: "Settings Menu Closed",
       },
@@ -108,7 +109,7 @@ export function addBoidSettings() {
   }
 
   function onClickSettings() {
-    let customEvent = new CustomEvent("uiMenuOpen", {
+    let customEvent = new CustomEvent(genericGameEventNames.uiMenuOpen, {
       detail: {
         message: "Settings Menu Opened",
       },
@@ -133,7 +134,7 @@ export function addBoidSettings() {
 
   // Mute sound button
   function onClickMuteSound() {
-    let customEvent = new CustomEvent("mute", {
+    let customEvent = new CustomEvent(genericGameEventNames.mute, {
       detail: {
         message: "mute button clicked",
       },
@@ -230,10 +231,8 @@ export function addBoidSettings() {
       // Update leaderBoidEnabled variable
       if (checked) {
         BoidFactors.leaderBoidEnabled = true;
-        document.dispatchEvent(customEvents.leaderBoidChangeEvent);
       } else {
         BoidFactors.leaderBoidEnabled = false;
-        document.dispatchEvent(customEvents.leaderBoidChangeEvent);
       }
 
       // Reveal leader panel info
@@ -247,8 +246,14 @@ export function addBoidSettings() {
   );
 
   // When ui is open, hide certain UI, when it is closed, reveal them
-  document.addEventListener("uiMenuOpen", uiMenuOpenHandler);
-  document.addEventListener("uiMenuClosed", uiMenuCloseHandler);
+  document.addEventListener(
+    genericGameEventNames.uiMenuOpen,
+    uiMenuOpenHandler
+  );
+  document.addEventListener(
+    genericGameEventNames.uiMenuClosed,
+    uiMenuCloseHandler
+  );
 
   // Set up parenting structure and append to body of document
   const uiSettingsOptionsContainer = document.createElement("div");
@@ -465,7 +470,7 @@ export function addBoidSettings() {
         BoidFactors.speed = value;
 
         // Dispatch a custom event for specifically the speed slider
-        document.dispatchEvent(customEvents.speedChangeEvent);
+        document.dispatchEvent(new Event(boidEventNames.onSpeedChange));
         break;
       case "Alignment":
         BoidFactors.alignmentFactor = value;

@@ -1,3 +1,9 @@
+export const genericGameEventNames = {
+  uiMenuOpen: "uiMenuOpen",
+  uiMenuClosed: "uiMenuClosed",
+  mute: "mute",
+};
+
 // Export so other scripts can access this
 export class Generic2DGameScene extends Phaser.Scene {
   /**

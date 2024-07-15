@@ -1,5 +1,10 @@
 import { Vec2 } from "/games/Shared-Game-Assets/js/vector.js";
 
+export const rigidBody2DEventNames = {
+  bodyOnBodyCollision: "bodyOnBodyCollision",
+  screenEdgeCollision: "screenEdgeCollision",
+};
+
 /**
  * Class representing a 2D rigid body.
  */
@@ -38,7 +43,7 @@ export class RigidBody2D {
 
     if (isColliding) {
       // Dispatch a collision event
-      const collisionEvent = new CustomEvent("collision", {
+      const collisionEvent = new CustomEvent("bodyOnBodyCollision", {
         detail: {
           thisId: this.gameObject.id,
           otherId: otherBody.gameObject.id,
@@ -84,12 +89,15 @@ export class RigidBody2D {
 
     // If a collision direction was detected, dispatch an event
     if (collisionDirection) {
-      const collisionEvent = new CustomEvent("screenEdgeCollision", {
-        detail: {
-          gameObjectId: this.gameObject.id,
-          direction: collisionDirection,
-        },
-      });
+      const collisionEvent = new CustomEvent(
+        rigidBody2DEventNames.screenEdgeCollision,
+        {
+          detail: {
+            gameObjectId: this.gameObject.id,
+            direction: collisionDirection,
+          },
+        }
+      );
       document.dispatchEvent(collisionEvent);
     }
   }

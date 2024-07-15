@@ -8,7 +8,7 @@ import { GameObject } from "/games/Shared-Game-Assets/js/game_object.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
-import { BoidFactors } from "./boid-utils.js";
+import { BoidFactors, boidEventNames } from "./boid-utils.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
 
 const seededRandom = new SeededRandom(1234);
@@ -96,7 +96,7 @@ export class Boid extends GameObject {
   subscribeToEvents() {
     // Ensure that the boid updates its own speed when the speed value changes
     document.addEventListener(
-      "onSpeedChange",
+      boidEventNames.onSpeedChange,
       function (event) {
         this.updateBoidSpeed();
       }.bind(this)
@@ -116,7 +116,7 @@ export class Boid extends GameObject {
 
       // Hide / reveal leader on pointer up / down
       document.addEventListener(
-        "pointerholdclick",
+        boidEventNames.pointerholdclick,
         function () {
           // Enable leader boid if ui menu is closed
           if (!this.scene.uiMenuOpen) {
