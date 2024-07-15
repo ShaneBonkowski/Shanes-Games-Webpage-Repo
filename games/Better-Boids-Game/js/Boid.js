@@ -4,6 +4,7 @@
  * @author Shane Bonkowski
  */
 
+import { GameObject } from "/games/Shared-Game-Assets/js/game_object.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
@@ -12,41 +13,50 @@ import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
 
 const seededRandom = new SeededRandom(1234);
 
-export class Boid {
+export class Boid extends GameObject {
   constructor(scene, spawnX, spawnY, leaderBoid, boidNumber) {
-    // Store some attributes about this boid
+    // Set some properties on the parent GameObject class
+    super(
+      "Boid",
+      // init size just so its set, will reset to something else later
+      new Vec2(1, 1),
+      // Add physicsBody2D
+      true,
+      // Add rigidBody2D
+      true
+    );
 
     this.scene = scene;
     this.mainBoid = leaderBoid;
     this.boidNumber = boidNumber;
 
-    // Leader is disabled to start
-    if (this.mainBoid == true) {
-      this.disabled = true;
-    } else {
-      this.disabled = false;
-    }
-
     this.initBoidType();
-    this.velocity = this.initVelocity();
+    this.physicsBody2D.velocity = this.initVelocity();
 
     // Create a graphics object for the boid
     this.graphic = null;
     this.initBoid();
 
     // Init at provided location, and centered
-    this.graphic.x = spawnX;
-    this.graphic.y = spawnY;
+    this.physicsBody2D.position.x = spawnX;
+    this.physicsBody2D.position.y = spawnY;
+
+    // Leader is disabled to start
+    if (this.mainBoid == true) {
+      this.disable();
+    } else {
+      this.enable();
+    }
 
     // Subscribe to relevant events
     this.subscribeToEvents();
   }
 
   initBoid() {
-    this.size = this.calculateBoidSize();
+    this.updateBoidSize();
 
+    // Init the graphics
     let boidAnimName = "";
-    // Spawn in graphic of size provided, and center the graphic on itself
     if (this.boid_type == "Good") {
       boidAnimName = "Good Boid Anim";
     } else if (this.boid_type == "Bad") {
@@ -56,6 +66,7 @@ export class Boid {
     }
 
     this.graphic = this.scene.add.sprite(0, 0, boidAnimName); // spawn at 0,0 to start
+    this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
 
     // Define an animation for the sprite
     this.graphic.anims.create({
@@ -67,16 +78,7 @@ export class Boid {
       frameRate: 6, // Adjust frame rate as needed
       repeat: -1, // Repeat indefinitely
     });
-
-    // Play the animation
     this.graphic.anims.play("boidAnimation");
-
-    // Set the scale and origin
-    this.graphic.setScale(this.size);
-    this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
-
-    // If disabled, hide. If not disabled, reveal
-    this.graphic.setVisible(!this.disabled);
   }
 
   initBoidType() {
@@ -104,12 +106,12 @@ export class Boid {
     if (this.mainBoid) {
       // Follow pointer
       this.scene.input.on("pointerdown", (pointer) => {
-        this.graphic.x = pointer.worldX;
-        this.graphic.y = pointer.worldY;
+        this.physicsBody2D.position.x = pointer.worldX;
+        this.physicsBody2D.position.y = pointer.worldY;
       });
       this.scene.input.on("pointermove", (pointer) => {
-        this.graphic.x = pointer.worldX;
-        this.graphic.y = pointer.worldY;
+        this.physicsBody2D.position.x = pointer.worldX;
+        this.physicsBody2D.position.y = pointer.worldY;
       });
 
       // Hide / reveal leader on pointer up / down
@@ -118,7 +120,10 @@ export class Boid {
         function () {
           // Enable leader boid if ui menu is closed
           if (!this.scene.uiMenuOpen) {
-            this.enable();
+            // can only enable if leader is toggled on
+            if (BoidFactors.leaderBoidEnabled == true) {
+              this.enable();
+            }
           }
         }.bind(this),
         { capture: true }
@@ -131,21 +136,6 @@ export class Boid {
         }.bind(this),
         { capture: true }
       );
-    }
-  }
-
-  // Method to disable the boid
-  disable() {
-    this.disabled = true;
-    this.graphic.setVisible(false);
-  }
-
-  // Method to enable the boid
-  enable() {
-    // can only enable if leader is toggled on
-    if (BoidFactors.leaderBoidEnabled == true) {
-      this.disabled = false;
-      this.graphic.setVisible(true);
     }
   }
 
@@ -164,11 +154,10 @@ export class Boid {
 
   handleWindowResize(new_x, new_y) {
     // Reinitialize the boid and its graphic on resize
-    this.size = this.calculateBoidSize();
-    this.graphic.setScale(this.size);
+    this.updateBoidSize();
 
-    this.graphic.x = new_x;
-    this.graphic.y = new_y;
+    this.physicsBody2D.position.x = new_x;
+    this.physicsBody2D.position.y = new_y;
   }
 
   initVelocity() {
@@ -182,10 +171,17 @@ export class Boid {
     return velocity_desired;
   }
 
+  updateBoidSize() {
+    this.size = this.calculateBoidSize();
+    this.rigidBody2D.hitboxSize = this.size;
+  }
+
   updateBoidSpeed() {
     // Update's boid speed (mostly used so that when the "speed" value is changed by the slider, each boid can adjust their velocity to be
     // capped at the new speed)
-    this.velocity = this.clampVelocity(this.velocity);
+    this.physicsBody2D.velocity = this.clampVelocity(
+      this.physicsBody2D.velocity
+    );
   }
 
   clampVelocity(velocity_desired) {
@@ -215,27 +211,28 @@ export class Boid {
       let desired_velocity = this.handleBoidFlocking(boids);
 
       // Handle collisions
-      desired_velocity = this.handleCollisions(boids, desired_velocity);
+      this.rigidBody2D.checkCollideScreenEdge();
 
       // Lerp toward desired velocity
       let lerpFactor = 0.1;
-      this.velocity.x = more_math.lerp(
-        this.velocity.x,
+      this.physicsBody2D.velocity.x = more_math.lerp(
+        this.physicsBody2D.velocity.x,
         desired_velocity.x,
         lerpFactor
       );
-      this.velocity.y = more_math.lerp(
-        this.velocity.y,
+      this.physicsBody2D.velocity.y = more_math.lerp(
+        this.physicsBody2D.velocity.y,
         desired_velocity.y,
         lerpFactor
       );
 
       // We can lerp, but never exceed speed limits
-      this.velocity = this.clampVelocity(this.velocity);
+      this.physicsBody2D.velocity = this.clampVelocity(
+        this.physicsBody2D.velocity
+      );
 
       // Position update
-      this.graphic.x += this.velocity.x * Physics.physicsUpdateInterval; // x = vx * t
-      this.graphic.y += this.velocity.y * Physics.physicsUpdateInterval;
+      this.physicsBody2D.updatePosition();
     }
   }
 
@@ -271,7 +268,10 @@ export class Boid {
             BoidFactors.leaderFollowRadius * BoidFactors.leaderFollowRadius
           ) {
             followLeader = true;
-            leader_pos = new Vec2(otherBoid.graphic.x, otherBoid.graphic.y);
+            leader_pos = new Vec2(
+              otherBoid.physicsBody2D.position.x,
+              otherBoid.physicsBody2D.position.y
+            );
           }
         }
 
@@ -287,10 +287,13 @@ export class Boid {
               similarNeighborsCount++;
 
               // Total up avg veloc and position for neighboring boids
-              veloc_sum = Vec2.add(veloc_sum, otherBoid.velocity);
+              veloc_sum = Vec2.add(veloc_sum, otherBoid.physicsBody2D.velocity);
               pos_sum = Vec2.add(
                 pos_sum,
-                new Vec2(otherBoid.graphic.x, otherBoid.graphic.y)
+                new Vec2(
+                  otherBoid.physicsBody2D.position.x,
+                  otherBoid.physicsBody2D.position.y
+                )
               );
 
               // If any boids are within the protected radius of a boid, steer away from them
@@ -315,7 +318,10 @@ export class Boid {
             opposingNeighborsCount += 1;
             opposing_pos_sum = Vec2.add(
               opposing_pos_sum,
-              new Vec2(otherBoid.graphic.x, otherBoid.graphic.y)
+              new Vec2(
+                otherBoid.physicsBody2D.position.x,
+                otherBoid.physicsBody2D.position.y
+              )
             );
           }
         }
@@ -323,9 +329,9 @@ export class Boid {
     }
 
     // Calculate and update the new velocity based on the rules.
-    // Using Object.assign({}, this.velocity); makes desired_velocity a copy of
-    // this.velocity instead of pointing to the same loc in memory
-    let desired_velocity = Object.assign({}, this.velocity);
+    // Using Object.assign({}, this.physicsBody2D.velocity); makes desired_velocity a copy of
+    // this.physicsBody2D.velocity instead of pointing to the same loc in memory
+    let desired_velocity = Object.assign({}, this.physicsBody2D.velocity);
 
     // Follow the alignment, cohesion, and separation rules for similar (same boid_type) neighbors
     if (similarNeighborsCount > 0) {
@@ -336,9 +342,11 @@ export class Boid {
         veloc_sum.y / similarNeighborsCount
       );
       desired_velocity.x +=
-        (avg_veloc.x - this.velocity.x) * BoidFactors.alignmentFactor;
+        (avg_veloc.x - this.physicsBody2D.velocity.x) *
+        BoidFactors.alignmentFactor;
       desired_velocity.y +=
-        (avg_veloc.y - this.velocity.y) * BoidFactors.alignmentFactor;
+        (avg_veloc.y - this.physicsBody2D.velocity.y) *
+        BoidFactors.alignmentFactor;
 
       // Cohesion: Steer toward average neighboring boid position (aka center of mass)
       let avg_pos = new Vec2(0, 0);
@@ -348,15 +356,15 @@ export class Boid {
       );
 
       let directionObj = this.getMovementDirectionVectorThroughTorus(
-        this.graphic,
+        this.physicsBody2D.position,
         avg_pos
       );
       desired_velocity.x +=
-        Math.abs(avg_pos.x - this.graphic.x) *
+        Math.abs(avg_pos.x - this.physicsBody2D.position.x) *
         directionObj.direction_x *
         BoidFactors.cohesionFactor;
       desired_velocity.y +=
-        Math.abs(avg_pos.y - this.graphic.y) *
+        Math.abs(avg_pos.y - this.physicsBody2D.position.y) *
         directionObj.direction_y *
         BoidFactors.cohesionFactor;
 
@@ -369,15 +377,15 @@ export class Boid {
     if (followLeader) {
       // Follow Leader
       let directionObj = this.getMovementDirectionVectorThroughTorus(
-        this.graphic,
+        this.physicsBody2D.position,
         leader_pos
       );
       desired_velocity.x +=
-        Math.abs(leader_pos.x - this.graphic.x) *
+        Math.abs(leader_pos.x - this.physicsBody2D.position.x) *
         directionObj.direction_x *
         BoidFactors.leaderFollowFactor;
       desired_velocity.y +=
-        Math.abs(leader_pos.y - this.graphic.y) *
+        Math.abs(leader_pos.y - this.physicsBody2D.position.y) *
         directionObj.direction_y *
         BoidFactors.leaderFollowFactor;
     }
@@ -392,18 +400,18 @@ export class Boid {
       );
 
       let directionObj = this.getMovementDirectionVectorThroughTorus(
-        this.graphic,
+        this.physicsBody2D.position,
         opposing_avg_pos
       );
 
       // Bad boid chases
       if (this.boid_type == "Bad") {
         desired_velocity.x +=
-          Math.abs(opposing_avg_pos.x - this.graphic.x) *
+          Math.abs(opposing_avg_pos.x - this.physicsBody2D.position.x) *
           directionObj.direction_x *
           BoidFactors.predatorPreyFactor;
         desired_velocity.y +=
-          Math.abs(opposing_avg_pos.y - this.graphic.y) *
+          Math.abs(opposing_avg_pos.y - this.physicsBody2D.position.y) *
           directionObj.direction_y *
           BoidFactors.predatorPreyFactor;
       }
@@ -411,12 +419,12 @@ export class Boid {
       else if (this.boid_type == "Good") {
         desired_velocity.x +=
           -1 *
-          Math.abs(opposing_avg_pos.x - this.graphic.x) *
+          Math.abs(opposing_avg_pos.x - this.physicsBody2D.position.x) *
           directionObj.direction_x *
           BoidFactors.predatorPreyFactor;
         desired_velocity.y +=
           -1 *
-          Math.abs(opposing_avg_pos.y - this.graphic.y) *
+          Math.abs(opposing_avg_pos.y - this.physicsBody2D.position.y) *
           directionObj.direction_y *
           BoidFactors.predatorPreyFactor;
       }
@@ -430,8 +438,8 @@ export class Boid {
 
   getBoidDistance(otherBoid) {
     // Calculate distance between this boid and the other
-    let dx = otherBoid.graphic.x - this.graphic.x;
-    let dy = otherBoid.graphic.y - this.graphic.y;
+    let dx = otherBoid.physicsBody2D.position.x - this.physicsBody2D.position.x;
+    let dy = otherBoid.physicsBody2D.position.y - this.physicsBody2D.position.y;
 
     // Because boids can overflow to the other side of the screen, we need to check the
     // "torus" distance as well to see if the boids are closer in that direction.
@@ -503,81 +511,25 @@ export class Boid {
     };
   }
 
-  handleCollisions(boids, desired_velocity) {
-    this.checkCollideScreenEdge();
-    // desired_velocity = this.checkCollideWithOtherBoids(boids, desired_velocity);
-
-    return desired_velocity;
-  }
-
-  checkCollideScreenEdge() {
+  onCollideScreenEdge(collisionDirection = null) {
     const edgeMargin = 1;
-    // Check if the boid is too close to the left or right edge
-    if (
-      this.graphic.x <= edgeMargin + this.size / 2 ||
-      this.graphic.x >= window.innerWidth - edgeMargin - this.size / 2
-    ) {
-      // If left, teleport to right side of screen
-      if (this.graphic.x <= edgeMargin + this.size / 2) {
-        this.graphic.x = window.innerWidth - edgeMargin - this.size / 2;
-      }
-      // If right, teleport to left side of screen
-      else {
-        this.graphic.x = edgeMargin + this.size / 2;
-      }
+    // If left, teleport to right side of screen
+    if (collisionDirection === "left") {
+      this.physicsBody2D.position.x =
+        window.innerWidth - edgeMargin - this.size / 2;
     }
-
-    // Check if the boid is too close to the top or bottom edge
-    if (
-      this.graphic.y <= edgeMargin + this.size / 2 ||
-      this.graphic.y >= window.innerHeight - edgeMargin - this.size / 2
-    ) {
-      // If top, move to bottom
-      if (this.graphic.y <= edgeMargin + this.size / 2) {
-        this.graphic.y = window.innerHeight - edgeMargin - this.size / 2;
-      }
-      // If bottom, move to top
-      else {
-        this.graphic.y = edgeMargin + this.size / 2;
-      }
+    // If right, teleport to left side of screen
+    else if (collisionDirection === "right") {
+      this.physicsBody2D.position.x = edgeMargin + this.size / 2;
     }
-  }
-
-  checkCollideWithOtherBoids(boids, desired_velocity) {
-    const boidForceMagnitude = 1;
-
-    // Collisions with other boids
-    for (let otherBoid of boids) {
-      if (otherBoid !== this && !otherBoid.disabled) {
-        let dx = otherBoid.graphic.x - this.graphic.x;
-        let dy = otherBoid.graphic.y - this.graphic.y;
-        let distanceSquared = dx * dx + dy * dy;
-
-        // Check if there's a collision
-        if (
-          Physics.checkCircleCollision(
-            distanceSquared,
-            this.size / 2,
-            otherBoid.size / 2
-          )
-        ) {
-          // Calculate the repulsive force (inversely proportional to distance)
-          let direction = Vec2.normalize(new Vec2(dx, dy));
-          let repulsiveForceMag =
-            boidForceMagnitude / Math.sqrt(distanceSquared);
-          let repulsiveForce = Vec2.scale(direction, repulsiveForceMag);
-
-          // Adjust velocity so that current boid moves away from boid it collided into (hence why we subtract).
-          // Only update current boid's veloc since other boid should be calling this fucntion as well and moving away on its own.
-          let desired_velocity = Vec2.subtract(
-            desired_velocity,
-            repulsiveForce
-          );
-          desired_velocity = this.clampVelocity(desired_velocity);
-        }
-      }
+    // If top, move to bottom
+    else if (collisionDirection === "top") {
+      this.physicsBody2D.position.y =
+        window.innerHeight - edgeMargin - this.size / 2;
     }
-
-    return desired_velocity;
+    // If bottom, move to top
+    else if (collisionDirection === "bottom") {
+      this.physicsBody2D.position.y = edgeMargin + this.size / 2;
+    }
   }
 }

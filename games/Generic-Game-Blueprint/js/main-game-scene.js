@@ -6,11 +6,11 @@
 
 import { setZOrderForMainGameElements } from "./zOrdering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
+import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
 
-export class MainGameScene extends Phaser.Scene {
+export class MainGameScene extends Generic2DGameScene {
   constructor() {
     super({ key: "MainGameScene" });
-    this.gameStarted = false;
   }
 
   preload() {

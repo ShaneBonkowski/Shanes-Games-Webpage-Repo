@@ -19,6 +19,7 @@ import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { ui_vars } from "./init-ui.js";
 import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
+import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
 
 export const intendedNewTileAttrs = {
   tileCount: 9, // initial values
@@ -30,23 +31,16 @@ export const intendedNewTileAttrs = {
 export const tiles = [];
 
 // Export so other scripts can access this
-export class MainGameScene extends Phaser.Scene {
+export class MainGameScene extends Generic2DGameScene {
   constructor() {
     super({ key: "MainGameScene" });
-    this.gameStarted = false;
-    this.isInteracting = false; // is the  player actively interacting with the game?
     this.canClickTile = true; // can the player click a tile?
     this.disableClickID = 0;
-    this.uiMenuOpen = false;
     this.score = 0;
     this.revealedAtLeastOnceThisLevel = false;
-    this.sound_array = [];
-    this.audioMuted = true; // audio muted to start!
 
     // Bind "this" to refer to the scene for necc. functions
     this.onClickMuteSound = this.onClickMuteSound.bind(this);
-    this.toggleMuteAllAudio = this.toggleMuteAllAudio.bind(this);
-    this.playDesiredSound = this.playDesiredSound.bind(this);
   }
 
   preload() {
@@ -70,13 +64,20 @@ export class MainGameScene extends Phaser.Scene {
     setZOrderForMainGameElements(this.game);
     this.initSounds();
 
-    // Observe window resizing with ResizeObserver since it works
-    // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
-    // Seems to be more responsive to quick snaps and changes.
+    // Observe window resizing with ResizeObserver since it
+    // is good for snappy changes
     const resizeObserver = new ResizeObserver((entries) => {
       this.handleWindowResize();
     });
     resizeObserver.observe(document.documentElement);
+
+    // Also checking for resize or orientation change to try
+    // to handle edge cases that ResizeObserver misses!
+    window.addEventListener("resize", this.handleWindowResize.bind(this));
+    window.addEventListener(
+      "orientationchange",
+      this.handleWindowResize.bind(this)
+    );
 
     // Final setup for main game
     this.subscribeToEvents();
@@ -89,14 +90,12 @@ export class MainGameScene extends Phaser.Scene {
 
   update(time, delta) {
     if (this.gameStarted) {
-      // Check if it's time to perform a physics update
-      if (
-        time - Physics.lastPhysicsUpdateTime >=
-        Physics.physicsUpdateInterval
-      ) {
-        Physics.performPhysicsUpdate(time);
-
-        // Do physics things here ...
+      // Handle the graphic updates
+      for (let row = 0; row < tiles.length; row++) {
+        for (let col = 0; col < tiles[row].length; col++) {
+          let tile = tiles[row][col];
+          tile.updateGraphic();
+        }
       }
     }
   }
@@ -146,39 +145,6 @@ export class MainGameScene extends Phaser.Scene {
 
     // Play sound!
     this.playDesiredSound("Button Click");
-  }
-
-  playDesiredSound(soundKey) {
-    let soundObj = this.sound.get(soundKey);
-    if (soundObj) {
-      // Checking to prevent sound from playing a bunch of times in a row,
-      // pretty much needs to be either not playing or a little ways in already
-      // before it can play
-      if (
-        !soundObj.isPlaying ||
-        (soundObj.isPlaying && soundObj.seek / soundObj.duration > 0.15)
-      ) {
-        soundObj.stop();
-        soundObj.play();
-      }
-    } else {
-      console.error(`Sound with key "${soundKey}" not found.`);
-    }
-  }
-
-  toggleMuteAllAudio() {
-    this.sound_array.forEach((sound_obj) => {
-      if (this.audioMuted) {
-        sound_obj["sound"].mute = true;
-        sound_obj["sound"].stop();
-      } else {
-        sound_obj["sound"].mute = false;
-
-        if (sound_obj["type"] === "background") {
-          sound_obj["sound"].play();
-        }
-      }
-    });
   }
 
   // Enable / disable click
