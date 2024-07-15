@@ -10,10 +10,11 @@ export function showMessage(scene, messageText) {
   // Destroy the current message if it exists
   if (currentMessage) {
     currentMessage.destroy();
-    if (resizeObserver) {
-      resizeObserver.disconnect();
-      resizeObserver = null;
-    }
+    currentMessage = null;
+  }
+  if (resizeObserver) {
+    resizeObserver.disconnect();
+    resizeObserver = null;
   }
 
   // Create a text object for the message
@@ -42,6 +43,7 @@ export function showMessage(scene, messageText) {
     onComplete: function () {
       if (message) {
         message.destroy();
+        message = null;
       }
       if (resizeObserver) {
         resizeObserver.disconnect();
@@ -55,13 +57,17 @@ export function showMessage(scene, messageText) {
   // Set the current message
   currentMessage = message;
 
-  // Observe window resizing with ResizeObserver since it works
-  // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
-  // Seems to be more responsive to quick snaps and changes.
+  // Observe window resizing with ResizeObserver since it
+  // is good for snappy changes
   resizeObserver = new ResizeObserver((entries) => {
     handleWindowResize(message);
   });
   resizeObserver.observe(document.documentElement);
+
+  // Also checking for resize or orientation change to try
+  // to handle edge cases that ResizeObserver misses!
+  window.addEventListener("resize", handleWindowResize(message));
+  window.addEventListener("orientationchange", handleWindowResize(message));
 }
 
 function handleWindowResize(message) {

@@ -4,6 +4,7 @@
  * @author Shane Bonkowski
  */
 
+import { GameObject } from "/games/Shared-Game-Assets/js/game_object.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import {
@@ -15,8 +16,19 @@ import {
 } from "./tile-utils.js";
 import { tiles } from "./main-game-scene.js";
 
-export class Tile {
+export class Tile extends GameObject {
   constructor(scene, tileSpaceX, tileSpaceY, gridSize, tileState) {
+    // Set some properties on the parent GameObject class
+    super(
+      "Tile",
+      // init size just so its set, will reset to something else later
+      new Vec2(1, 1),
+      // physicsBody2D
+      true,
+      // rigidBody2D
+      false
+    );
+
     // Store some attributes about this tile
     this.scene = scene;
     this.tileSpaceCoord = new Vec2(tileSpaceX, tileSpaceY);
@@ -31,8 +43,8 @@ export class Tile {
 
     // Init at provided location, and centered
     let spawnLoc = this.findTileLocFromTileSpace();
-    this.graphic.x = spawnLoc.x;
-    this.graphic.y = spawnLoc.y;
+    this.physicsBody2D.position.x = spawnLoc.x;
+    this.physicsBody2D.position.y = spawnLoc.y;
 
     this.addText();
 
@@ -45,9 +57,6 @@ export class Tile {
     this.graphic = this.scene.add.sprite(0, 0, "Tile Red"); // init, will be changed in updateTileColor
     this.graphic.setInteractive(); // make it so this graphic can be clicked on etc.
     this.updateTileColor();
-
-    // Set the scale and origin
-    this.graphic.setScale(this.size);
     this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
 
     // TODO: add particles or something when new is spawned in
@@ -57,19 +66,22 @@ export class Tile {
   addText() {
     // Add text to the top right corner of the graphic
     this.text = this.scene.add.text(
-      this.graphic.x + this.graphic.displayWidth / 2, // Position relative to graphic's top right corner
-      this.graphic.y - this.graphic.displayHeight / 2, // Position relative to graphic's top right corner
+      // Position relative to graphic's top right corner
+      this.physicsBody2D.position.x + this.graphic.displayWidth / 2,
+      this.physicsBody2D.position.y - this.graphic.displayHeight / 2,
       "1",
       { fontFamily: "Arial", fontSize: 40, color: "#FFFFFF" } // init text size here, but in reality it is updated in updateTextSize()
     );
-    this.updateTextSize();
     this.text.setOrigin(-0.2, 0.7); // Origin on the top right corner of the text
     this.text.setDepth(10); // Ensure the text appears on top of the graphic
+
+    this.updateTextPos();
+    this.updateTextSize();
     this.hideText();
   }
 
   updateTextSize() {
-    let fontSize = 40;
+    let fontSize = 30;
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // for phones change the font size
@@ -81,8 +93,8 @@ export class Tile {
 
   updateTextPos() {
     this.text.setPosition(
-      this.graphic.x + this.graphic.displayWidth / 2,
-      this.graphic.y - this.graphic.displayHeight / 2
+      this.physicsBody2D.position.x + this.graphic.displayWidth / 2,
+      this.physicsBody2D.position.y - this.graphic.displayHeight / 2
     );
   }
 
@@ -96,7 +108,9 @@ export class Tile {
 
   showText() {
     this.text.setVisible(true);
-    this.updateTextSize(); // make sure text size is right
+
+    this.updateTextPos();
+    this.updateTextSize();
 
     // Make sure scene is aware we have revealed the solution
     this.scene.revealedAtLeastOnceThisLevel = true;
@@ -174,6 +188,10 @@ export class Tile {
       duration: duration / 2, // /2 since yoyo doubles the time
       ease: "Linear",
       yoyo: true, // Return to original scale and rotation after the animation
+      onUpdate: (tween, target) => {
+        // Ensures that the size variable reflects the scale as it changes with the tween
+        this.size = target.scale;
+      },
       onComplete: () => {
         // Can click after all animations are done
         this.animationPlaying = false;
@@ -288,12 +306,11 @@ export class Tile {
   handleWindowResize() {
     // Reinitialize the tile and its graphic on resize
     this.size = this.calculateTileSize();
-    this.graphic.setScale(this.size);
 
     // Init at provided location, and centered
     let spawnLoc = this.findTileLocFromTileSpace();
-    this.graphic.x = spawnLoc.x;
-    this.graphic.y = spawnLoc.y;
+    this.physicsBody2D.position.x = spawnLoc.x;
+    this.physicsBody2D.position.y = spawnLoc.y;
 
     // Update text
     this.updateTextPos();

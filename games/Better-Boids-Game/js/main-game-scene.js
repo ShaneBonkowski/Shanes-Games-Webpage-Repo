@@ -10,6 +10,8 @@ import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
 import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
 import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
+import { GameObject } from "../../Shared-Game-Assets/js/game_object.js";
+import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
 
 // Used to determine if pointer is held down
 const holdThreshold = 0.1; // seconds
@@ -17,24 +19,14 @@ let pointerDownTime = 0;
 let holdTimer = null;
 
 // Export so other scripts can access this
-export class MainGameScene extends Phaser.Scene {
+export class MainGameScene extends Generic2DGameScene {
   constructor() {
     super({ key: "MainGameScene" });
     this.boids = [];
-    this.gameStarted = false;
-    this.isInteracting = false; // is the  player actively interacting with the game?
-    this.uiMenuOpen = false;
-    this.sound_array = [];
-    this.audioMuted = true; // audio muted to start!
-
-    // Store the last known window size so we can update boids positions etc.
-    // based on this as the screen size changes
     this.lastKnownWindowSize = new Vec2(0, 0);
 
     // Bind "this" to refer to the scene for necc. functions
     this.onClickMuteSound = this.onClickMuteSound.bind(this);
-    this.toggleMuteAllAudio = this.toggleMuteAllAudio.bind(this);
-    this.playDesiredSound = this.playDesiredSound.bind(this);
   }
 
   preload() {
@@ -73,14 +65,23 @@ export class MainGameScene extends Phaser.Scene {
     setZOrderForMainGameElements(this.game);
     this.initSounds();
 
-    // Observe window resizing with ResizeObserver since it works
-    // better than window.addEventListener("resize", this.handleWindowResize.bind(this));
-    // Seems to be more responsive to quick snaps and changes.
+    // Observe window resizing with ResizeObserver since it seems
+    // to be more responsive to quick snaps and changes.
+    // NOTE: We store the last known window size so we can update boids positions etc.
+    // based on this as the screen size changes
     this.lastKnownWindowSize = new Vec2(window.innerWidth, window.innerHeight);
     const resizeObserver = new ResizeObserver((entries) => {
       this.handleWindowResize();
     });
     resizeObserver.observe(document.documentElement);
+
+    // Also checking for resize or orientation change to try
+    // to handle edge cases that ResizeObserver misses!
+    window.addEventListener("resize", this.handleWindowResize.bind(this));
+    window.addEventListener(
+      "orientationchange",
+      this.handleWindowResize.bind(this)
+    );
 
     this.subscribeToEvents();
     this.disableScroll();
@@ -100,7 +101,7 @@ export class MainGameScene extends Phaser.Scene {
 
   update(time, delta) {
     if (this.gameStarted) {
-      // Check if it's time to perform a physics update
+      // Physics update at a slower rate
       if (
         time - Physics.lastPhysicsUpdateTime >=
         Physics.physicsUpdateInterval
@@ -111,6 +112,11 @@ export class MainGameScene extends Phaser.Scene {
         for (let boid of this.boids) {
           boid.handlePhysics(this.boids);
         }
+      }
+
+      // Graphics update will occur every frame
+      for (let boid of this.boids) {
+        boid.updateGraphic();
       }
     }
   }
@@ -160,39 +166,6 @@ export class MainGameScene extends Phaser.Scene {
     this.playDesiredSound("Button Click");
   }
 
-  playDesiredSound(soundKey) {
-    let soundObj = this.sound.get(soundKey);
-    if (soundObj) {
-      // Checking to prevent sound from playing a bunch of times in a row,
-      // pretty much needs to be either not playing or a little ways in already
-      // before it can play
-      if (
-        !soundObj.isPlaying ||
-        (soundObj.isPlaying && soundObj.seek / soundObj.duration > 0.15)
-      ) {
-        soundObj.stop();
-        soundObj.play();
-      }
-    } else {
-      console.error(`Sound with key "${soundKey}" not found.`);
-    }
-  }
-
-  toggleMuteAllAudio() {
-    this.sound_array.forEach((sound_obj) => {
-      if (this.audioMuted) {
-        sound_obj["sound"].mute = true;
-        sound_obj["sound"].stop();
-      } else {
-        sound_obj["sound"].mute = false;
-
-        if (sound_obj["type"] === "background") {
-          sound_obj["sound"].play();
-        }
-      }
-    });
-  }
-
   // Disable scrolling
   disableScroll() {
     document.addEventListener("touchmove", this.preventDefault.bind(this), {
@@ -221,6 +194,19 @@ export class MainGameScene extends Phaser.Scene {
   }
 
   subscribeToEvents() {
+    // If a boid screenEdgeCollision occurs:
+    document.addEventListener("screenEdgeCollision", (event) => {
+      const { gameObjectId, direction } = event.detail;
+
+      // Find the GameObject by ID
+      const collidedObject = GameObject.getById(gameObjectId);
+
+      // If the object is found and its name is "Boid", call onCollideScreenEdge
+      if (collidedObject && collidedObject.name === "Boid") {
+        collidedObject.onCollideScreenEdge(direction);
+      }
+    });
+
     // Event listener for ui menu open / closed
     document.addEventListener(
       "uiMenuOpen",
@@ -322,9 +308,12 @@ export class MainGameScene extends Phaser.Scene {
       // Everything but main boid:
       if (boid.mainBoid == false) {
         // Calculate new position based on percentage of old position
-        let new_x = (boid.graphic.x / this.lastKnownWindowSize.x) * screenWidth;
+        let new_x =
+          (boid.physicsBody2D.position.x / this.lastKnownWindowSize.x) *
+          screenWidth;
         let new_y =
-          (boid.graphic.y / this.lastKnownWindowSize.y) * screenHeight;
+          (boid.physicsBody2D.position.y / this.lastKnownWindowSize.y) *
+          screenHeight;
 
         // handle re-sizing etc. of boid
         boid.handleWindowResize(new_x, new_y);
@@ -332,7 +321,10 @@ export class MainGameScene extends Phaser.Scene {
       // Main boid only:
       else {
         // handle re-sizing etc. of boid ONLY... no new position like other boids
-        boid.handleWindowResize(boid.graphic.x, boid.graphic.y);
+        boid.handleWindowResize(
+          boid.physicsBody2D.position.x,
+          boid.physicsBody2D.position.y
+        );
       }
     }
 
