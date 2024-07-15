@@ -8,7 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
-    <title>Flip Tile</title>
+    <title>Better Boids</title>
 
     <!-- Defining "urgent" css styles that I want to guarentee render in, hence why they are referenced in the header -->
     <!-- Other less "urgent" attr's of body are modified in the .css file it appears in -->
@@ -18,14 +18,11 @@
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("webps/Background.webp");
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        /* Hide both horizontal and vertical scroll bars 
-        and prevent player from scrolling on accident on phone
-        for example */
-        overflow: hidden;
+        background-image: url("webps/Boids-Background.webp");
+        background-repeat: repeat-y;
+        /* Shift up a lil to fix the rendering bug seen on phone with 1px thick line */
+        background-position: center calc(100% - 4px);
+        background-size: 100% auto;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -34,7 +31,7 @@
 
     <link
       rel="icon"
-      href="/Shared-General-Assets/webps/Mars_circle_logo_small.webp"
+      href="/Shared-General-Assets/webps/Mars-circle-logo-small.webp"
     />
 
     <!-- Set up css files used -->
@@ -50,7 +47,9 @@
       rel="stylesheet"
       href="../Shared-Game-Assets/css/games-shared-styles.css"
     />
-    <link rel="stylesheet" href="css/flip-tile-styles.css" />
+    <link rel="stylesheet" href="css/boids-sliders-and-toggle.css" />
+    <link rel="stylesheet" href="css/settings-panel-styles.css" />
+    <link rel="stylesheet" href="css/better-boids-styles.css" />
     <!-- Load in Font Awesome CDN to access GitHub, linkedin, etc. icons -->
     <link
       rel="stylesheet"
@@ -66,7 +65,7 @@
         class="loading-content overlay-styler disable-browser-default-touch-actions"
       >
         <img
-          src="../../Shared-General-Assets/webps/Mars_circle.webp"
+          src="../../Shared-General-Assets/webps/Mars-circle.webp"
           alt="Loading Image"
           class="disable-browser-default-touch-actions"
         />
@@ -80,19 +79,20 @@
     <script type="module">
       // Import modules
       import { LaunchGame } from "./js/game.js";
-      import { initUI } from "./js/init-ui.js";
+      import { addBoidSettings } from "./js/boid-settings.js";
+      import { addInfoBox } from "../Better-Boids-Game/js/info-box.js";
       import { createGameHeader } from "../Shared-Game-Assets/js/game-header.js";
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
         createGameHeader(
-          "flip tile",
-          "./webps/flip_tile_logo.webp",
-          -1 // gameTitleLeftMarginPx
+          "better boids",
+          "webps/better-boids-logo.webp",
+          12 // gameTitleLeftMarginPx
         );
-
-        initUI();
+        addBoidSettings();
+        addInfoBox();
         LaunchGame();
 
         // Apply click animation to all <a> elements

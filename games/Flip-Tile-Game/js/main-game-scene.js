@@ -46,9 +46,9 @@ export class MainGameScene extends Generic2DGameScene {
 
   preload() {
     // Preload assets if needed
-    this.load.image("Tile Blue", "./webps/Flip_Tile_Blue.webp");
-    this.load.image("Tile Red", "./webps/Flip_Tile_Red.webp");
-    this.load.image("Tile Green", "./webps/Flip_Tile_Green.webp");
+    this.load.image("Tile Blue", "./webps/Flip-Tile-Blue.webp");
+    this.load.image("Tile Red", "./webps/Flip-Tile-Red.webp");
+    this.load.image("Tile Green", "./webps/Flip-Tile-Green.webp");
 
     // Audio
     this.load.audio("Button Click", [

@@ -42,7 +42,7 @@ export function addInfoBox() {
   const infoButtonContainer = createFunctionButtonContainer(
     "infoButtonContainer",
     "infoButton",
-    "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
+    "../Better-Boids-Game/webps/Boids-Logo-Option-2.webp",
     "Info Icon",
     "i",
     [onClickInfo, openInfoWindow],

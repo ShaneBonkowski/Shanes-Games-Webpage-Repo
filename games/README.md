@@ -10,7 +10,7 @@ be filled in with one's actual name of their game etc.
 
 Main points to consider in this framework are the following:
 
-- The `GameName.html` is the entry point into the game from the Shane's Games website. This will initialize
+- The `Game-Name.html` is the entry point into the game from the Shane's Games website. This will initialize
   neccesary variables and call the functions that enter into the game loop. The comments contained in this
   file should be helpful in explaining what each portion of the code is doing.
 - `z-ordering.js` is helpful for dictating the z-positioning of elements on the page. As new elements are added,

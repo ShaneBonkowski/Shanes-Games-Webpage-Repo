@@ -11,7 +11,7 @@ import { addSelectionBox } from "../../../Main-Website-Assets/js/selection-box.j
 import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
 const velocityPanelInfo = {
-  imagePath: "./webps/Velocity_Graphic.webp",
+  imagePath: "./webps/Velocity-Graphic.webp",
   htmlContent: `
     <h2>Max Speed:</h2>
     <p>
@@ -21,7 +21,7 @@ const velocityPanelInfo = {
 };
 
 const alignmentPanelInfo = {
-  imagePath: "./webps/Alignment_Graphic.webp",
+  imagePath: "./webps/Alignment-Graphic.webp",
   htmlContent: `
     <h2>Boid Alignment:</h2>
     <p>
@@ -31,7 +31,7 @@ const alignmentPanelInfo = {
 };
 
 const cohesionPanelInfo = {
-  imagePath: "./webps/Cohesion_Graphic.webp",
+  imagePath: "./webps/Cohesion-Graphic.webp",
   htmlContent: `
     <h2>Boid Cohesion:</h2>
     <p>
@@ -41,7 +41,7 @@ const cohesionPanelInfo = {
 };
 
 const radiusPanelInfo = {
-  imagePath: "./webps/Search_Radius_Graphic.webp",
+  imagePath: "./webps/Search-Radius-Graphic.webp",
   htmlContent: `
     <h2>Flock Radius:</h2>
     <p>
@@ -51,7 +51,7 @@ const radiusPanelInfo = {
 };
 
 const separationPanelInfo = {
-  imagePath: "./webps/Separation_Graphic.webp",
+  imagePath: "./webps/Separation-Graphic.webp",
   htmlContent: `
     <h2>Boid Separation:</h2>
     <p>
@@ -61,7 +61,7 @@ const separationPanelInfo = {
 };
 
 const leaderPanelInfo = {
-  imagePath: "./webps/Leader_Follow_Graphic.webp",
+  imagePath: "./webps/Leader-Follow-Graphic.webp",
   htmlContent: `
     <h2>Leader Boid:</h2>
     <p>
@@ -119,7 +119,7 @@ export function addBoidSettings() {
   const settingsButtonContainer = createFunctionButtonContainer(
     "settingsButtonContainer",
     "settingsButton",
-    "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
+    "../Better-Boids-Game/webps/Boids-Logo-Option-2.webp",
     "Settings Icon",
     "u",
     [onClickSettings, openSettingsWindow],
@@ -144,7 +144,7 @@ export function addBoidSettings() {
   const muteSoundButtonContainer = createFunctionButtonContainer(
     "muteSoundButtonContainer",
     "muteSoundButton",
-    "../Better-Boids-Game/webps/Boids_Logo_Option_2.webp",
+    "../Better-Boids-Game/webps/Boids-Logo-Option-2.webp",
     "Mute Sound",
     "",
     [onClickMuteSound],

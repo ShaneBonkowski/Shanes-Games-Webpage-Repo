@@ -34,7 +34,7 @@ export function createGameHeader(gameName, gameIconSrc, gameTitleLeftMarginPx) {
 
   const shanesGamesLogoIcon = document.createElement("img");
   shanesGamesLogoIcon.src =
-    "../../Shared-General-Assets/webps/Mars_circle_logo_small.webp"; // ShanesGames logo
+    "../../Shared-General-Assets/webps/Mars-circle-logo-small.webp"; // ShanesGames logo
   shanesGamesLogoIcon.classList.add("main-logo-image");
   shanesGamesLogoIcon.classList.add("disable-browser-default-touch-actions");
 
