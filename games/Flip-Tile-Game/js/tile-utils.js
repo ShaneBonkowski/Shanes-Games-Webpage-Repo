@@ -5,12 +5,12 @@
  */
 
 import { Tile } from "./Tile.js";
-import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import { Matrix } from "../../Shared-Game-Assets/js/matrix.js";
 import {
   SeededRandom,
   randomType,
-} from "../../Shared-Game-Assets/js/Seedable_Random.js";
+} from "../../Shared-Game-Assets/js/seedable-random.js";
 import { intendedNewTileAttrs } from "./main-game-scene.js";
 
 export const tileStates = {
@@ -33,7 +33,7 @@ export const scoring = {
 
 export const TilePatternAttrs = {
   tileCount: 9, // initial values
-  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
+  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more-math instead of seedable-random
   qtyStatesBeingUsed: 2, // init
   difficultyLevel: difficulty.EASY,
 };

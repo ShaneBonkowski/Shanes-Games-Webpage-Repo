@@ -1,6 +1,6 @@
 import { Vec2 } from "/games/Shared-Game-Assets/js/vector.js";
-import { RigidBody2D } from "./rigid_body_2D.js";
-import { PhysicsBody2D } from "./physics_body_2D.js";
+import { RigidBody2D } from "./rigid-body-2d.js";
+import { PhysicsBody2D } from "./physics-body-2d.js";
 
 /**
  * Class representing a game object.

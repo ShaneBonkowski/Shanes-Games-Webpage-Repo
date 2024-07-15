@@ -5,10 +5,10 @@
  */
 
 import { createFooter } from "/Main-Website-Assets/js/footer.js";
-import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
-import { handleContentBoxHover } from "/Main-Website-Assets/js/content_box_hover_handling.js";
+import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
+import { handleContentBoxHover } from "/Main-Website-Assets/js/content-box-hover-handling.js";
 import { createDropdown } from "./dropdown.js";
-import { createSearchBarContainer } from "/Main-Website-Assets/js/search_bar.js";
+import { createSearchBarContainer } from "/Main-Website-Assets/js/search-bar.js";
 import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
 
 // Array of content box data

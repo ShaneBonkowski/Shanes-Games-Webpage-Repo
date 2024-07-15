@@ -7,7 +7,7 @@
  *
  * @author Shane Bonkowski
  *
- * @requires ShanesGames\games\Shared-Game-Assets\js\Seedable_Random.js
+ * @requires ShanesGames\games\Shared-Game-Assets\js\seedable-random.js
  */
 
 /**

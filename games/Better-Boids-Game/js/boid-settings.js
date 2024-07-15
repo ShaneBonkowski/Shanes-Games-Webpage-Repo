@@ -7,8 +7,8 @@
 import { BoidFactors, boidEventNames } from "./boid-utils.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
-import { addSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
-import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
+import { addSelectionBox } from "../../../Main-Website-Assets/js/selection-box.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
 const velocityPanelInfo = {
   imagePath: "./webps/Velocity_Graphic.webp",

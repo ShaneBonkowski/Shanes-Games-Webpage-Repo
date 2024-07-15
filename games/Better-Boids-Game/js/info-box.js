@@ -6,7 +6,7 @@
 
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
-import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
 export function addInfoBox() {
   // Create infoWindow window and content

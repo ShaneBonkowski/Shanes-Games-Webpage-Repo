@@ -5,15 +5,15 @@
  */
 
 import { instantiateBoids, boidEventNames } from "./boid-utils.js";
-import { setZOrderForMainGameElements } from "./zOrdering.js";
+import { setZOrderForMainGameElements } from "./z-ordering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
-import { rigidBody2DEventNames } from "../../Shared-Game-Assets/js/rigid_body_2D.js";
+import { rigidBody2DEventNames } from "../../Shared-Game-Assets/js/rigid-body-2d.js";
 import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.js";
-import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
-import { GameObject } from "../../Shared-Game-Assets/js/game_object.js";
-import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
-import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
+import { showMessage } from "../../Shared-Game-Assets/js/phaser-message.js";
+import { GameObject } from "../../Shared-Game-Assets/js/game-object.js";
+import { Generic2DGameScene } from "../../Shared-Game-Assets/js/game-scene-2d.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
 // Used to determine if pointer is held down
 const holdThreshold = 0.1; // seconds

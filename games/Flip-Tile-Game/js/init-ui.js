@@ -11,10 +11,10 @@ import {
   difficulty,
   scoring,
 } from "./tile-utils.js";
-import { addSelectionBox } from "../../../Main-Website-Assets/js/selection_box.js";
+import { addSelectionBox } from "../../../Main-Website-Assets/js/selection-box.js";
 import { tiles } from "./main-game-scene.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
-import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
 export const ui_vars = {
   numCheckboxes: 3,

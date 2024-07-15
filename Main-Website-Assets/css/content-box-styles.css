@@ -55,7 +55,7 @@
   }
 }
 
-/* content_box.js content box Styling */
+/* content-box.js content box Styling */
 .content-box {
   position: relative; /* Position this wherever (this is the origin for all content-box's children */
   width: var(--content-box-w);
