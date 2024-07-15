@@ -14,8 +14,8 @@ import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.j
 // Array of content box data
 export const contentBoxes = [
   {
-    imageUrl: "/games/Better-Boids-Game/webps/Game_Cover_Picture.webp",
-    linkUrl: "/games/Better-Boids-Game/BetterBoids.html",
+    imageUrl: "/games/Better-Boids-Game/webps/Game-Cover-Picture.webp",
+    linkUrl: "/games/Better-Boids-Game/Better-Boids.html",
     title: "Better Boids",
     description:
       "A unique twist to the classic Boids algorithm. Player controlled Boid, predator-prey relationships, customizable toggles & more.",
@@ -24,8 +24,8 @@ export const contentBoxes = [
     openInNewTab: false,
   },
   {
-    imageUrl: "/games/Flip-Tile-Game/webps/Cover_Art.webp",
-    linkUrl: "/games/Flip-Tile-Game/FlipTile.html",
+    imageUrl: "/games/Flip-Tile-Game/webps/Cover-Art.webp",
+    linkUrl: "/games/Flip-Tile-Game/Flip-Tile.html",
     title: "Flip Tile",
     description:
       "Classic 'lights out' style puzzle game. Flipping one tile causes neighboring tiles to flip as well. Match them all to advance further!",
@@ -34,7 +34,7 @@ export const contentBoxes = [
     openInNewTab: false,
   },
   {
-    imageUrl: "/Main-Website-Assets/webps/SOSS_cover_art.webp",
+    imageUrl: "/Main-Website-Assets/webps/SOSS-cover-art.webp",
     linkUrl:
       "https://store.steampowered.com/app/2061040/Save_Our_Solar_System/",
     title: "Save Our Solar System",
@@ -45,7 +45,7 @@ export const contentBoxes = [
     openInNewTab: true,
   },
   {
-    imageUrl: "/Main-Website-Assets/webps/AD_cover_art.webp",
+    imageUrl: "/Main-Website-Assets/webps/AD-cover-art.webp",
     linkUrl: "https://store.steampowered.com/app/2506740/Abyssal_Descent/",
     title: "Abyssal Descent",
     description:

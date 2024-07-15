@@ -8,17 +8,17 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
-    <title>Better Boids</title>
+    <title>Game Name</title>
 
-    <!-- Defining "urgent" css styles that I want to guarentee render in, hence why they are referenced in the header -->
-    <!-- Other less "urgent" attr's of body are modified in the .css file it appears in -->
+    <!-- Defining "urgent" css styles that I want to guarentee render in, 
+     hence why they are referenced in the header instead of the styles.css -->
     <style>
       body {
         margin: 0;
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("webps/Boids_Background.webp");
+        background-image: url("webps/Background.webp");
         background-repeat: repeat-y;
         /* Shift up a lil to fix the rendering bug seen on phone with 1px thick line */
         background-position: center calc(100% - 4px);
@@ -31,10 +31,10 @@
 
     <link
       rel="icon"
-      href="/Shared-General-Assets/webps/Mars_circle_logo_small.webp"
+      href="/Shared-General-Assets/webps/Mars-circle-logo-small.webp"
     />
 
-    <!-- Set up css files used -->
+    <!-- Inport css files used for the game -->
     <link
       rel="stylesheet"
       href="/Shared-General-Assets/css/general-shared-constants.css"
@@ -47,17 +47,16 @@
       rel="stylesheet"
       href="../Shared-Game-Assets/css/games-shared-styles.css"
     />
-    <link rel="stylesheet" href="css/boids-sliders-and-toggle.css" />
-    <link rel="stylesheet" href="css/settings-panel-styles.css" />
-    <link rel="stylesheet" href="css/better-boids-styles.css" />
     <!-- Load in Font Awesome CDN to access GitHub, linkedin, etc. icons -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <!-- Screen starts black with a loading screen and fades when page is openned -->
+    <!-- Play anim where screen starts black with a loading screen 
+     and fades when page is openned -->
     <div
       class="game-load-in-overlay overlay-styler disable-browser-default-touch-actions"
     >
@@ -65,7 +64,7 @@
         class="loading-content overlay-styler disable-browser-default-touch-actions"
       >
         <img
-          src="../../Shared-General-Assets/webps/Mars_circle.webp"
+          src="../../Shared-General-Assets/webps/Mars-circle.webp"
           alt="Loading Image"
           class="disable-browser-default-touch-actions"
         />
@@ -79,23 +78,24 @@
     <script type="module">
       // Import modules
       import { LaunchGame } from "./js/game.js";
-      import { addBoidSettings } from "./js/boid-settings.js";
-      import { addInfoBox } from "../Better-Boids-Game/js/info-box.js";
       import { createGameHeader } from "../Shared-Game-Assets/js/game-header.js";
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
         createGameHeader(
-          "better boids",
-          "webps/better_boids_logo.webp",
-          12 // gameTitleLeftMarginPx
+          "Name",
+          "./webps/game-logo.webp",
+          -1 // gameTitleLeftMarginPx
         );
-        addBoidSettings();
-        addInfoBox();
+
+        // Launch the game!
         LaunchGame();
 
-        // Apply click animation to all <a> elements
+        // Add more functions here..
+        // ...
+
+        // Apply click animation to all <a> elements last
         const links = document.querySelectorAll("a");
         addClickAnimation(links);
       };

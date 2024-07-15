@@ -33,24 +33,24 @@ export class MainGameScene extends Generic2DGameScene {
 
   preload() {
     // Images
-    this.load.image("Bad Boid", "./webps/Bad_Boid.webp");
-    this.load.image("Good Boid", "./webps/Good_Boid.webp");
-    this.load.image("Leader Boid", "./webps/Leader_Boid.webp");
+    this.load.image("Bad Boid", "./webps/Bad-Boid.webp");
+    this.load.image("Good Boid", "./webps/Good-Boid.webp");
+    this.load.image("Leader Boid", "./webps/Leader-Boid.webp");
 
     // Spritesheets
     this.load.spritesheet(
       "Bad Boid Anim",
-      "./webps/Bad_Boid_Anim_Spritesheet.webp",
+      "./webps/Bad-Boid-Anim-Spritesheet.webp",
       { frameWidth: 200, frameHeight: 200 }
     );
     this.load.spritesheet(
       "Good Boid Anim",
-      "./webps/Good_Boid_Anim_Spritesheet.webp",
+      "./webps/Good-Boid-Anim-Spritesheet.webp",
       { frameWidth: 200, frameHeight: 200 }
     );
     this.load.spritesheet(
       "Leader Boid Anim",
-      "./webps/Leader_Boid_Anim_Spritesheet.webp",
+      "./webps/Leader-Boid-Anim-Spritesheet.webp",
       { frameWidth: 200, frameHeight: 200 }
     );
 
