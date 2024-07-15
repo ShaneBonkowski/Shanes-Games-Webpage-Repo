@@ -11,7 +11,7 @@ import {
   difficulty,
   checkIfTileGridSolved,
   tilesToTilespaceMatrix,
-  customEvents,
+  tileGridEventNames,
   scoring,
 } from "./tile-utils.js";
 import { setZOrderForMainGameElements } from "./zOrdering.js";
@@ -20,6 +20,7 @@ import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
 import { ui_vars } from "./init-ui.js";
 import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
 import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
 
 export const intendedNewTileAttrs = {
   tileCount: 9, // initial values
@@ -322,7 +323,7 @@ export class MainGameScene extends Generic2DGameScene {
         !toggleInput.checked &&
         !this.revealedAtLeastOnceThisLevel
       ) {
-        document.dispatchEvent(customEvents.scoreUpdateEvent);
+        document.dispatchEvent(new Event(tileGridEventNames.onScoreChange));
         if (TilePatternAttrs.difficultyLevel == difficulty.EASY) {
           this.score += scoring.EASY;
         } else if (TilePatternAttrs.difficultyLevel == difficulty.HARD) {
@@ -374,7 +375,7 @@ export class MainGameScene extends Generic2DGameScene {
   subscribeToEvents() {
     // Event listener for ui menu open / closed
     document.addEventListener(
-      "uiMenuOpen",
+      genericGameEventNames.uiMenuOpen,
       function (event) {
         if (this.uiMenuOpen == false) {
           this.uiMenuOpen = true;
@@ -385,7 +386,7 @@ export class MainGameScene extends Generic2DGameScene {
       }.bind(this)
     ); // Bind 'this' to refer to the class instance
     document.addEventListener(
-      "uiMenuClosed",
+      genericGameEventNames.uiMenuClosed,
       function (event) {
         if (this.uiMenuOpen == true) {
           this.uiMenuOpen = false;
@@ -398,7 +399,7 @@ export class MainGameScene extends Generic2DGameScene {
 
     // Mute when event occurs
     document.addEventListener(
-      "mute",
+      genericGameEventNames.mute,
       function (event) {
         this.onClickMuteSound();
       }.bind(this)
@@ -406,7 +407,7 @@ export class MainGameScene extends Generic2DGameScene {
 
     // When we ask to change the tile grid, spawn a new tile pattern
     document.addEventListener(
-      "onTilegridChange",
+      tileGridEventNames.onTilegridChange,
       function (event) {
         this.newTilePattern();
 
@@ -417,7 +418,7 @@ export class MainGameScene extends Generic2DGameScene {
 
     // When we ask to change the tile grid, spawn a new tile pattern
     document.addEventListener(
-      "onTilegridReset",
+      tileGridEventNames.onTilegridReset,
       function (event) {
         this.resetCurrentTilePattern();
 
@@ -428,7 +429,7 @@ export class MainGameScene extends Generic2DGameScene {
 
     // When solved play a sound!
     document.addEventListener(
-      "onScoreChange",
+      tileGridEventNames.onScoreChange,
       function (event) {
         // Play sound!
         this.playDesiredSound("Success");
@@ -437,7 +438,7 @@ export class MainGameScene extends Generic2DGameScene {
 
     // When solved play a sound!
     document.addEventListener(
-      "onTileSpin",
+      tileGridEventNames.onTileSpin,
       function (event) {
         // Play sound!
         this.playDesiredSound("Tile Spin");
