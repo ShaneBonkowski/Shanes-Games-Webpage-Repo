@@ -5,8 +5,8 @@
  */
 
 import { Boid } from "./Boid.js";
-import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
-import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
+import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
+import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
 
 // Define constants for the boids rules
 export const BoidFactors = {

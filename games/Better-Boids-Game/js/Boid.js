@@ -4,12 +4,12 @@
  * @author Shane Bonkowski
  */
 
-import { GameObject } from "/games/Shared-Game-Assets/js/game_object.js";
+import { GameObject } from "/games/Shared-Game-Assets/js/game-object.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
-import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import { BoidFactors, boidEventNames } from "./boid-utils.js";
-import { SeededRandom } from "../../Shared-Game-Assets/js/Seedable_Random.js";
+import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
 
 const seededRandom = new SeededRandom(1234);
 

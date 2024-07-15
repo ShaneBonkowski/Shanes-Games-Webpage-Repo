@@ -4,9 +4,9 @@
  * @author Shane Bonkowski
  */
 
-import { GameObject } from "/games/Shared-Game-Assets/js/game_object.js";
+import { GameObject } from "/games/Shared-Game-Assets/js/game-object.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
-import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import {
   tileStates,
   sharedTileAttrs,

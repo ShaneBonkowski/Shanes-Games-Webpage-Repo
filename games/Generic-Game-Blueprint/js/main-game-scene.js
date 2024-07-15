@@ -4,9 +4,9 @@
  * @author Author Name
  */
 
-import { setZOrderForMainGameElements } from "./zOrdering.js";
+import { setZOrderForMainGameElements } from "./z-ordering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
-import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
+import { Generic2DGameScene } from "../../Shared-Game-Assets/js/game-scene-2d.js";
 
 export class MainGameScene extends Generic2DGameScene {
   constructor() {

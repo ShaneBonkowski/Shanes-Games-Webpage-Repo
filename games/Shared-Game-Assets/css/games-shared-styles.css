@@ -126,7 +126,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 
 .game-title {
   pointer-events: none;
-  /* margin is handled in game_header.js!! */
+  /* margin is handled in game-header.js!! */
 }
 
 /* Game fade in dark screen */

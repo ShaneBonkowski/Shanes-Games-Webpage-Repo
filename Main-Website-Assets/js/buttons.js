@@ -4,7 +4,7 @@
  * @author Shane Bonkowski
  */
 
-import { addClickAnimation } from "/Shared-General-Assets/js/clickAnimation.js";
+import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 
 /**
  * Creates a button with a container that, when clicked, redirects the user to the specified URL.

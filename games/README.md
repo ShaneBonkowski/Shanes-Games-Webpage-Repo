@@ -13,7 +13,7 @@ Main points to consider in this framework are the following:
 - The `GameName.html` is the entry point into the game from the Shane's Games website. This will initialize
   neccesary variables and call the functions that enter into the game loop. The comments contained in this
   file should be helpful in explaining what each portion of the code is doing.
-- `zOrdering.js` is helpful for dictating the z-positioning of elements on the page. As new elements are added,
+- `z-ordering.js` is helpful for dictating the z-positioning of elements on the page. As new elements are added,
   be sure to update this file!
 - `main-game-scene.js`, as the name suggests defines the main game scene for which gameplay takes place. Phaser.js
   works using a "scene" framework. One may consider having for example a "main menu" scene, a "main game" scene,
@@ -23,7 +23,7 @@ Main points to consider in this framework are the following:
 ### Step 1.) Create a Content Box that will appear on the main page of the website.
 
 This content box will be where players click to be directed to the page with the game. To add a new content box,
-simply go into the `content_box.js` file and add to the `const contentBoxes` array. This requires a link to the html
+simply go into the `content-box.js` file and add to the `const contentBoxes` array. This requires a link to the html
 file for the game, as well as a url to the cover image for the game.
 
 ### Step 2.) Add and modify as you see fit!

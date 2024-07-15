@@ -1,4 +1,4 @@
-import { addClickAnimation } from "../../Shared-General-Assets/js/clickAnimation.js";
+import { addClickAnimation } from "../../Shared-General-Assets/js/click-animation.js";
 
 /**
  * Creates a dropdown menu with the specified options and class names.

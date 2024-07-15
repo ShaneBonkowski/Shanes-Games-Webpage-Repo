@@ -1,6 +1,6 @@
 # Local Testing Server for Shane's Games
 
-The JavaScript file `local_test_server.js` creates a local test server that allows you to preview changes to the website code etc. in your browser before deploying them live. Follow the instructions below to set up and run the local test server.
+The JavaScript file `local-test-server.js` creates a local test server that allows you to preview changes to the website code etc. in your browser before deploying them live. Follow the instructions below to set up and run the local test server.
 
 ## Prerequisites
 
@@ -15,7 +15,7 @@ The JavaScript file `local_test_server.js` creates a local test server that allo
 3. Run the following command to start the local test server:
 
 ```bash
-node .\Local-Testing\local_test_server.js
+node .\Local-Testing\local-test-server.js
 ```
 
 4. Once the server is running, you should see a message indicating that the server is live and listening on a specific port. The default port is `3000`.

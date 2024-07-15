@@ -14,17 +14,17 @@ import {
   tileGridEventNames,
   scoring,
 } from "./tile-utils.js";
-import { setZOrderForMainGameElements } from "./zOrdering.js";
+import { setZOrderForMainGameElements } from "./z-ordering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
-import { more_math } from "../../Shared-Game-Assets/js/more_math.js";
+import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import { ui_vars } from "./init-ui.js";
-import { showMessage } from "../../Shared-Game-Assets/js/phaser_message.js";
-import { Generic2DGameScene } from "../../Shared-Game-Assets/js/2d_game_scene.js";
-import { genericGameEventNames } from "/games/Shared-Game-Assets/js/2d_game_scene.js";
+import { showMessage } from "../../Shared-Game-Assets/js/phaser-message.js";
+import { Generic2DGameScene } from "../../Shared-Game-Assets/js/game-scene-2d.js";
+import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
 export const intendedNewTileAttrs = {
   tileCount: 9, // initial values
-  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more_math isnstead of Seedable_Random
+  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more-math instead of seedable-random
   qtyStatesBeingUsed: 2, // init
   difficultyLevel: difficulty.EASY,
 };

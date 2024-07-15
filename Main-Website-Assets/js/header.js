@@ -5,8 +5,8 @@
  */
 
 import { createLinkButtonContainer } from "./buttons.js";
-import { createImage } from "../../Shared-General-Assets/js/assetPromises.js";
-import { addClickAnimation } from "../../Shared-General-Assets/js/clickAnimation.js";
+import { createImage } from "../../Shared-General-Assets/js/asset-promises.js";
+import { addClickAnimation } from "../../Shared-General-Assets/js/click-animation.js";
 
 /**
  * Creates a header containing a logo, title, subtitle, and navigation buttons.
