@@ -86,6 +86,17 @@ export const contentBoxes = [
     content_type: "writing",
     openInNewTab: false,
   },
+  {
+    imageUrl: "/writing/webps/The-Star-Tarot.webp",
+    linkUrl: "/writing/The-Star.html",
+    title: "The Star",
+    description:
+      "She was the healer. The silent observer. The glue that held it all together until the very end. Great fires would rage and she would drag the ocean down from the heavens.",
+    search_tags:
+      "Tarot, Stars, Star, Card, Shimmer, Glitter, Space, Goddess, God",
+    content_type: "writing",
+    openInNewTab: false,
+  },
 ];
 
 /**
