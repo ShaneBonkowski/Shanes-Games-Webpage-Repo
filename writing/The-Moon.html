@@ -78,12 +78,12 @@
             const title = "The Moon";
             const subtitle = "Shane Bonkowski";
             const date = "July 13, 2024";
+            const image_url = "/writing/webps/The-Moon-Tarot.webp";
 
             // PC screen (or horizontal) if conditions hold
             let body = [
               {
-                content: `
-Step by step, I trudge on through the long night. My body aches and my bones tremble under the weight of her gaze, a constant reminder of my imprisonment. There is no backward, only forward. It's all I've ever known. 
+                content: `Step by step, I trudge on through the long night. My body aches and my bones tremble under the weight of her gaze, a constant reminder of my imprisonment. There is no backward, only forward. It's all I've ever known. 
 
 On the horizon, gently nestled between two colossal towers lay my captor. Ancient beasts of stone and mortar with no apparent entrance or exit. They look as if they have always existed—as if they will exist long after the universe lets out its last whimper and fades into the night.`,
                 fontStyle: "normal",
@@ -175,7 +175,7 @@ With a deep breath, I step into the light as the curtains close behind me. With 
             // Phone screen (or vertical) if conditions hold
             let body_phone = null; // same as computer formatting
 
-            createArticle(title, subtitle, date, body, body_phone);
+            createArticle(title, subtitle, date, body, body_phone, image_url);
             createFooter();
 
             // Apply click animation to all <a> elements
