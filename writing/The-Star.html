@@ -78,14 +78,14 @@
             const title = "The Star";
             const subtitle = "Shane Bonkowski";
             const date = "August 12, 2024";
+            const image_url = "/writing/webps/The-Star-Tarot.webp";
 
             // Horizontal version and phone version look
             // slightly different for style reasons
             // PC screen (or horizontal) if conditions hold
             let body = [
               {
-                content: `
-She was the healer. 
+                content: `She was the healer. 
 The silent observer. 
 The glue that held it all together until the very end. 
 
@@ -198,7 +198,7 @@ It is said if you gaze above in the night sky you can still see her forgotten ki
             // Phone screen (or vertical) if conditions hold
             let body_phone = null; // same as computer formatting
 
-            createArticle(title, subtitle, date, body, body_phone);
+            createArticle(title, subtitle, date, body, body_phone, image_url);
             createFooter();
 
             // Apply click animation to all <a> elements

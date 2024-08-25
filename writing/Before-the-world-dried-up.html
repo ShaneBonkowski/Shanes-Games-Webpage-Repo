@@ -78,14 +78,15 @@
             const title = "Before the World Dried Up";
             const subtitle = "Shane Bonkowski";
             const date = "June 20, 2024";
+            const image_url =
+              "/writing/webps/Before-The-World-Dried-Boat-Cropped.webp";
 
             // Horizontal version and phone version look
             // slightly different for style reasons
             // PC screen (or horizontal) if conditions hold
             let body = [
               {
-                content: `
-It was a year so far in the distant future that they decided to stop counting altogether. Whether they lost count or it simply didn't matter anymore remains a mystery. Two distant cosmic archaeologists, armed with the goal of tracking the origins of man, find themselves in a long-forgotten corner of some long since forgotten galaxy.
+                content: `It was a year so far in the distant future that they decided to stop counting altogether. Whether they lost count or it simply didn't matter anymore remains a mystery. Two distant cosmic archaeologists, armed with the goal of tracking the origins of man, find themselves in a long-forgotten corner of some long since forgotten galaxy.
 
 How they ended up here was unclear, but the planet they sighted was scorched beyond recognition. It was a small, rocky planet orbiting a dim White Dwarf with just enough energy to glow, and nothing more. Cleary not a place hospitable for life, but maybe one day years and years ago it would have been ripe for life. Or so the faint biosignatures radiating off of it led them to believe.
 
@@ -161,8 +162,7 @@ The days before the world dried up.
             // Phone screen (or vertical) if conditions hold
             let body_phone = [
               {
-                content: `
-It was a year so far in the distant future that they decided to stop counting altogether. Whether they lost count or it simply didn't matter anymore remains a mystery. Two distant cosmic archaeologists, armed with the goal of tracking the origins of man, find themselves in a long-forgotten corner of some long since forgotten galaxy.
+                content: `It was a year so far in the distant future that they decided to stop counting altogether. Whether they lost count or it simply didn't matter anymore remains a mystery. Two distant cosmic archaeologists, armed with the goal of tracking the origins of man, find themselves in a long-forgotten corner of some long since forgotten galaxy.
 
 How they ended up here was unclear, but the planet they sighted was scorched beyond recognition. It was a small, rocky planet orbiting a dim White Dwarf with just enough energy to glow, and nothing more. Cleary not a place hospitable for life, but maybe one day years and years ago it would have been ripe for life. Or so the faint biosignatures radiating off of it led them to believe.
 
@@ -228,7 +228,7 @@ The days before the world dried up.
               },
             ];
 
-            createArticle(title, subtitle, date, body, body_phone);
+            createArticle(title, subtitle, date, body, body_phone, image_url);
             createFooter();
 
             // Apply click animation to all <a> elements

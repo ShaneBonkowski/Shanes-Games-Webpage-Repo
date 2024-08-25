@@ -78,10 +78,10 @@
             const title = "I am Immortal";
             const subtitle = "Shane Bonkowski";
             const date = "March 16, 2024";
+            const image_url = "/writing/webps/I-am-immortal-image.webp";
             const body = [
               {
-                content: `
-If you ask me, I'm at least 13.8 billion years old. 
+                content: `If you ask me, I'm at least 13.8 billion years old. 
 Born in the aftermath of the Big Bang. 
 My life began the same way it will end:
 Scattered across Infinity.
@@ -125,8 +125,7 @@ If you ask me, I am immortal and so are you.
 
             const body_phone = [
               {
-                content: `
-If you ask me, I'm at least 13.8 billion years old. Born in the aftermath of the Big Bang. 
+                content: `If you ask me, I'm at least 13.8 billion years old. Born in the aftermath of the Big Bang. 
 My life began the same way it will end:
 Scattered across Infinity.
 
@@ -167,7 +166,7 @@ If you ask me, I am immortal and so are you.
               },
             ];
 
-            createArticle(title, subtitle, date, body, body_phone);
+            createArticle(title, subtitle, date, body, body_phone, image_url);
             createFooter();
 
             // Apply click animation to all <a> elements

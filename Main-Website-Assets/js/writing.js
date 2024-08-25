@@ -6,9 +6,17 @@
  * @param {string} subtitle - The subtitle of the article.
  * @param {string} date - The date of the article.
  * @param {Array} body - An array of objects where each object contains 'content' (string) and optional 'textAlign' and 'fontStyle' (string).
- * @param {Array} body_phone - Same as above, but for phone, so it can be slightly different. Can be null if phone matches regular body.
+ * @param {Array} body_phone - (optional) Same as above, but for phone, so it can be slightly different. Can be null if phone matches regular body.
+ * @param {string} image_url - (optional) url to the image to display at the top of the article.
  */
-export function createArticle(title, subtitle, date, body, body_phone = null) {
+export function createArticle(
+  title,
+  subtitle,
+  date,
+  body,
+  body_phone = null,
+  image_url = null
+) {
   // Clear previous content
   const articleContainer = document.createElement("div");
   articleContainer.classList.add("article-container");
@@ -22,6 +30,14 @@ export function createArticle(title, subtitle, date, body, body_phone = null) {
 
   const dateElem = document.createElement("h3");
   dateElem.innerHTML = "-------------------------------------<br>" + date;
+
+  var imgElem = null;
+  if (image_url) {
+    imgElem = document.createElement("img");
+    imgElem.classList.add("article-container-image");
+    imgElem.src = image_url;
+    imgElem.alt = "Image to accompany the story.";
+  }
 
   const bodyElem = document.createElement("div");
 
@@ -44,6 +60,9 @@ export function createArticle(title, subtitle, date, body, body_phone = null) {
   // Append elements to container
   articleContainer.appendChild(titleElem);
   articleContainer.appendChild(subtitleElem);
+  if (imgElem) {
+    articleContainer.appendChild(imgElem);
+  }
   articleContainer.appendChild(bodyElem);
   articleContainer.appendChild(dateElem);
   document.body.appendChild(articleContainer);

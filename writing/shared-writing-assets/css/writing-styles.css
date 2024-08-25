@@ -4,6 +4,7 @@
   --article-container-h2-font-size: 22pt;
   --article-container-h3-font-size: 14pt;
   --article-container-p-font-size: 16pt;
+  --article-container-img-width: 30vw;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -13,6 +14,7 @@
     --article-container-h2-font-size: 18pt;
     --article-container-h3-font-size: 12pt;
     --article-container-p-font-size: 14pt;
+    --article-container-img-width: 60vw;
   }
 }
 
@@ -61,4 +63,11 @@ body {
   color: var(--main-text-color);
   margin: 0px 10px 0px 10px;
   white-space: pre-wrap; /* Preserve newlines and wrap text */
+}
+
+.article-container-image {
+  display: block; /* Make the image a block element to center it */
+  width: var(--article-container-img-width);
+  height: auto;
+  margin: 40px auto 40px auto;
 }
