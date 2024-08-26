@@ -77,6 +77,17 @@ export const contentBoxes = [
     openInNewTab: false,
   },
   {
+    imageUrl: "/writing/webps/The-Sun-Tarot.webp",
+    linkUrl: "/writing/The-Sun.html",
+    title: "The Sun",
+    description:
+      "To my firstborn: Do you ever stop and wonder, if the wind did not blow, would the wilted flowers remain in frozen perfection for all eternity?",
+    search_tags:
+      "Tarot, Sun, Stars, Star, Sun, Card, Shimmer, Glitter, Space, Crow, Crows, Bird, Birds, Flowers, Flower, tree, forest",
+    content_type: "writing",
+    openInNewTab: false,
+  },
+  {
     imageUrl: "/writing/webps/The-Moon-Tarot.webp",
     linkUrl: "/writing/The-Moon.html",
     title: "The Moon",
