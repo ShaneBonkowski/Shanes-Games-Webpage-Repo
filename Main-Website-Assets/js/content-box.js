@@ -108,6 +108,17 @@ export const contentBoxes = [
     content_type: "writing",
     openInNewTab: false,
   },
+  {
+    imageUrl: "/writing/webps/Death-Tarot.webp",
+    linkUrl: "/writing/Death.html",
+    title: "Death",
+    description:
+      "A man sits alone at a rundown bar after a long day of work, his soulless eyes projecting a heavy, lingering despair. Deep in the mind of the troubled man, a war is brewing.",
+    search_tags:
+      "Tarot, Death, Revelation, Card, Revelations, Bible, Space, Goddess, God, Horse",
+    content_type: "writing",
+    openInNewTab: false,
+  },
 ];
 
 /**
