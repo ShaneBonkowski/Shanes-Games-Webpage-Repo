@@ -28,8 +28,8 @@ export function createArticle(
   const subtitleElem = document.createElement("h2");
   subtitleElem.innerHTML = subtitle;
 
-  const dateElem = document.createElement("h3");
-  dateElem.innerHTML = "-------------------------------------<br>" + date;
+  const dateElem = document.createElement("h4");
+  dateElem.innerHTML = date;
 
   var imgElem = null;
   if (image_url) {
@@ -48,14 +48,73 @@ export function createArticle(
 
   // Iterate over each item in the body list,
   // set it to body by default.
+  var totalWordCount = 0;
   body.forEach((item) => {
     const contentElem = document.createElement("p");
     // Preserve whitespace and newlines using <pre>
     contentElem.innerHTML = item.content;
     contentElem.style.textAlign = item.textAlign || "center"; // Use defaultTextAlign of center if none provided
     contentElem.style.fontStyle = item.fontStyle || "normal";
+
+    // If textAlign is "justify", make this look book-like with hyphens etc.
+    if (item.textAlign === "justify") {
+      // Enable automatic hyphenation
+      contentElem.style.hyphens = "auto";
+
+      // WebKit-specific properties for Safari
+      contentElem.style.webkitHyphens = "auto"; // Enable hyphenation in WebKit browsers
+      contentElem.style.webkitHyphenateLimitBefore = "3"; // Max chars before hyphen
+      contentElem.style.webkitHyphenateLimitAfter = "3"; // Max chars after hyphen
+      contentElem.style.webkitHyphenateLimitChars = "6 3 3"; // Min chars in word, max before/after hyphen
+      contentElem.style.webkitHyphenateLimitLines = "2"; // Max lines with hyphenation
+      contentElem.style.webkitHyphenateLimitLast = "always"; // Last line can be hyphenated
+      contentElem.style.webkitHyphenateLimitZone = "8%"; // Zone margin for hyphenation
+
+      // Mozilla-specific properties for Firefox
+      contentElem.style.mozHyphens = "auto"; // Enable hyphenation in Firefox
+      contentElem.style.mozHyphenateLimitChars = "6 3 3"; // Min chars in word, max before/after hyphen
+      contentElem.style.mozHyphenateLimitLines = "2"; // Max lines with hyphenation
+      contentElem.style.mozHyphenateLimitLast = "always"; // Last line can be hyphenated
+      contentElem.style.mozHyphenateLimitZone = "8%"; // Zone margin for hyphenation
+
+      // Microsoft-specific properties for Edge
+      contentElem.style.msHyphens = "auto"; // Enable hyphenation in MS browsers
+      contentElem.style.msHyphenateLimitChars = "6 3 3"; // Min chars in word, max before/after hyphen
+      contentElem.style.msHyphenateLimitLines = "2"; // Max lines with hyphenation
+      contentElem.style.msHyphenateLimitLast = "always"; // Last line can be hyphenated
+      contentElem.style.msHyphenateLimitZone = "8%"; // Zone margin for hyphenation
+    } else {
+      // Disable automatic hyphenation
+      contentElem.style.hyphens = "none";
+
+      // WebKit-specific properties for Safari
+      contentElem.style.webkitHyphens = "none";
+
+      // Mozilla-specific properties for Firefox
+      contentElem.style.mozHyphens = "none";
+
+      // Microsoft-specific properties for Edge
+      contentElem.style.msHyphens = "none";
+    }
+
     bodyElem.appendChild(contentElem);
+
+    const wordCount = item.content.trim().split(/\s+/).length;
+    totalWordCount += wordCount;
   });
+
+  // Read duration:
+  // Avg WPM source https://www.sciencedirect.com/science/article/abs/pii/S0749596X19300786#:~:text=Based%20on%20the%20analysis%20of,and%20260%20wpm%20for%20fiction.
+  const avgWPMReading = 238;
+  var totalReadDurationMinutes = Math.ceil(totalWordCount / avgWPMReading) + 1;
+
+  const readDurationElem = document.createElement("h3");
+  readDurationElem.innerHTML = `${totalReadDurationMinutes} minute read`;
+  readDurationElem.style.textAlign = "center";
+  console.log("Total Read Duration:", Math.ceil(totalReadDurationMinutes));
+
+  // Horizontal line
+  const hrElem = document.createElement("hr");
 
   // Append elements to container
   articleContainer.appendChild(titleElem);
@@ -63,7 +122,10 @@ export function createArticle(
   if (imgElem) {
     articleContainer.appendChild(imgElem);
   }
+  articleContainer.appendChild(readDurationElem);
+  articleContainer.appendChild(hrElem);
   articleContainer.appendChild(bodyElem);
+  articleContainer.appendChild(hrElem.cloneNode(true));
   articleContainer.appendChild(dateElem);
   document.body.appendChild(articleContainer);
 
