@@ -1,7 +1,7 @@
 /* Define CONSTANT variables */
 :root {
   --article-container-h1-font-size: 34pt;
-  --article-container-h2-font-size: 22pt;
+  --article-container-h2-font-size: 20pt;
   --article-container-h3-font-size: 14pt;
   --article-container-p-font-size: 16pt;
   --article-container-img-width: 30vw;
@@ -11,9 +11,9 @@
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     --article-container-h1-font-size: 28pt;
-    --article-container-h2-font-size: 18pt;
+    --article-container-h2-font-size: 16pt;
     --article-container-h3-font-size: 12pt;
-    --article-container-p-font-size: 14pt;
+    --article-container-p-font-size: 12pt;
     --article-container-img-width: 60vw;
   }
 }
@@ -36,7 +36,7 @@ body {
   color: var(--main-text-color);
   font-weight: bold;
   text-align: center;
-  margin: 10px;
+  margin: 8px 0px 8px 0px;
 }
 
 .article-container h2 {
@@ -45,7 +45,7 @@ body {
   font-weight: normal;
   font-style: italic;
   text-align: center;
-  margin: 7px;
+  margin: 0px;
 }
 
 .article-container h3 {
@@ -53,7 +53,22 @@ body {
   color: var(--main-text-color);
   font-weight: normal;
   text-align: center;
-  margin: 0px 10px 50px 10px;
+  margin: 0px 0px 30px 0px;
+}
+
+.article-container h4 {
+  font-size: var(--article-container-h3-font-size);
+  color: var(--main-text-color);
+  font-weight: normal;
+  text-align: center;
+  margin: 0px 0px 50px 0px;
+}
+
+/* Horizontal line element */
+.article-container hr {
+  width: 80%;
+  border: 1px solid var(--main-text-color);
+  margin: 0 auto 30px auto;
 }
 
 .article-container p {
@@ -61,13 +76,40 @@ body {
   font-weight: normal;
   line-height: 1.6;
   color: var(--main-text-color);
-  margin: 0px 10px 0px 10px;
+  margin: 0px 20px 0px 20px;
   white-space: pre-wrap; /* Preserve newlines and wrap text */
+
+  /* If hypenation is enabled, impose some constraints on how it is used */
+  -webkit-hyphens: auto;
+  -webkit-hyphenate-limit-before: 3;
+  -webkit-hyphenate-limit-after: 3;
+  -webkit-hyphenate-limit-chars: 6 3 3;
+  -webkit-hyphenate-limit-lines: 2;
+  -webkit-hyphenate-limit-last: always;
+  -webkit-hyphenate-limit-zone: 8%;
+
+  -moz-hyphens: auto;
+  -moz-hyphenate-limit-chars: 6 3 3;
+  -moz-hyphenate-limit-lines: 2;
+  -moz-hyphenate-limit-last: always;
+  -moz-hyphenate-limit-zone: 8%;
+
+  -ms-hyphens: auto;
+  -ms-hyphenate-limit-chars: 6 3 3;
+  -ms-hyphenate-limit-lines: 2;
+  -ms-hyphenate-limit-last: always;
+  -ms-hyphenate-limit-zone: 8%;
+
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 3;
+  hyphenate-limit-lines: 2;
+  hyphenate-limit-last: always;
+  hyphenate-limit-zone: 8%;
 }
 
 .article-container-image {
   display: block; /* Make the image a block element to center it */
   width: var(--article-container-img-width);
   height: auto;
-  margin: 40px auto 40px auto;
+  margin: 30px auto 30px auto;
 }
