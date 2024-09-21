@@ -35,7 +35,6 @@
   /* Sizes */
   --content-button-w: calc(var(--content-box-w) / 3.3);
   --content-button-h: calc(var(--content-box-h) * 0.95);
-  --content-desc-container-w: calc(var(--content-box-w) * (0.6));
   --content-desc-container-h: calc(var(--content-box-h) * 0.95);
   --content-box-mb: calc(var(--content-box-h) * 0.07);
   /* Font Sizes */
@@ -51,19 +50,17 @@
     --content-description-text-font-size: calc(var(--content-button-w) * 0.07);
     /* Sizes */
     --content-button-w: calc(var(--content-box-w) / 2.3);
-    --content-desc-container-w: calc(var(--content-box-w) * (0.5));
   }
 }
 
 /* content-box.js content box Styling */
 .content-box {
   position: relative; /* Position this wherever (this is the origin for all content-box's children */
-  width: var(--content-box-w);
   height: var(--content-box-h);
-  left: var(--main-ml);
   display: flex;
   align-items: center;
-  margin-bottom: var(--content-box-mb);
+  margin: 0px var(--main-ml) var(--content-box-mb) var(--main-ml);
+  gap: var(--content-desc-container-ml);
 }
 
 .content-box-button-container {
@@ -97,7 +94,6 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 
 .content-desc-container {
   position: relative;
-  width: var(--content-desc-container-w);
   height: var(--content-desc-container-h);
   border-radius: var(--standard-border-radius);
   background-color: var(--panel-color);
@@ -105,7 +101,6 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   flex-direction: column;
   padding: var(--content-desc-container-pl) var(--content-desc-container-pt)
     var(--content-desc-container-pt) var(--content-desc-container-pl);
-  margin: 0px 0px 0px var(--content-desc-container-ml);
   box-sizing: border-box;
 }
 
