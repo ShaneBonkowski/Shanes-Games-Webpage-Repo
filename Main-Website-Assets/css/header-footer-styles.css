@@ -30,7 +30,6 @@
   --header-banner-mb: calc(var(--header-banner-h) * 0.18);
   /* Font Sizes */
   --footer-main-text-font-size: calc(var(--footer-banner-h) * 0.13);
-  --footer-priv-policy-text-font-size: calc(var(--footer-banner-h) * 0.11);
   --header-button-text-font-size: calc(var(--header-button-container-w) * 0.17);
 }
 
