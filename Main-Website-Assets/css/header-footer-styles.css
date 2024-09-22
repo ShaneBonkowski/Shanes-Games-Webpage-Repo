@@ -7,10 +7,8 @@
   --title-container-ml: 3%;
   --footer-main-text-ml: 50%;
   --footer-main-text-mt: 30%;
-  --linkedIn-button-container-mr: 6vw;
-  --linkedIn-button-container-mb: 20%;
+  --linkedIn-button-container-mb: 18%;
   --header-button-ml: 10px;
-  --home-button-container-mr: 20px;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -20,10 +18,8 @@
     --header-banner-h: 14.4vw;
     --footer-banner-h: 25.2vw;
     /* Edge Margins */
-    --linkedIn-button-container-mr: 6vw;
-    --linkedIn-button-container-mb: 20%;
+    --linkedIn-button-container-mb: 10%;
     --header-button-ml: 5px;
-    --home-button-container-mr: 15px;
   }
 }
 
@@ -191,7 +187,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 .home-button-container {
   position: relative;
   right: 0;
-  margin: 0px var(--home-button-container-mr) 0px var(--header-button-ml);
+  margin: 0px var(--main-ml) 0px var(--header-button-ml);
 }
 
 .home-text {
@@ -261,7 +257,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   border-radius: var(--standard-border-radius);
   transition: background-color 0.3s ease;
   text-align: center;
-  right: var(--linkedIn-button-container-mr);
+  right: var(--main-ml);
   bottom: var(--linkedIn-button-container-mb);
   display: flex;
   justify-content: center;

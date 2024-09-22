@@ -68,7 +68,12 @@ body {
 .article-container hr {
   width: 80%;
   border: 1px solid var(--main-text-color);
-  margin: 0 auto 30px auto;
+}
+.top-hr {
+  margin: 0 auto 45px auto;
+}
+.bottom-hr {
+  margin: 15px auto 30px auto;
 }
 
 .article-container p {

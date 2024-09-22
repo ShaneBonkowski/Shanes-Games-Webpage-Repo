@@ -114,7 +114,10 @@ export function createArticle(
   console.log("Total Read Duration:", Math.ceil(totalReadDurationMinutes));
 
   // Horizontal line
-  const hrElem = document.createElement("hr");
+  const hrElemTop = document.createElement("hr");
+  hrElemTop.classList.add("top-hr");
+  const hrElemBot = document.createElement("hr");
+  hrElemBot.classList.add("bottom-hr");
 
   // Append elements to container
   articleContainer.appendChild(titleElem);
@@ -123,9 +126,9 @@ export function createArticle(
     articleContainer.appendChild(imgElem);
   }
   articleContainer.appendChild(readDurationElem);
-  articleContainer.appendChild(hrElem);
+  articleContainer.appendChild(hrElemTop);
   articleContainer.appendChild(bodyElem);
-  articleContainer.appendChild(hrElem.cloneNode(true));
+  articleContainer.appendChild(hrElemBot);
   articleContainer.appendChild(dateElem);
   document.body.appendChild(articleContainer);
 
