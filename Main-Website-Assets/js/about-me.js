@@ -24,9 +24,9 @@ export function createAboutMe() {
   textContainer.innerHTML = `
     <h1 class="about-me-title">Shane Bonkowski</h1>
     <p class="about-me-subtitle">Engineering, Software & Game Development, Art, Writing, and really anything in between.</p>
-    <p class="about-me-main-text">I'm a lifelong learner with a degree in Aerospace Engineering from the University of Maryland, College Park. Despite my formal education, my journey into programming and game development has been almost entirely "self-taught" on the internet.</p>
-    <p class="about-me-main-text">I'm a firm believer in the power of open source and collaboration. In making the decision to open source all of the games I create here on GitHub, I hope to empower others to modify, improve, and maybe even learn a thing or two from my work.</p>
-    <p class="about-me-main-text">If you'd like to connect or learn more about my professional background, feel free to visit my LinkedIn profile. I'm always eager to collaborate, connect, and share ideas.</p>
+    <p class="about-me-main-text">I'm a lifelong learner with a degree in Aerospace Engineering from the University of Maryland, College Park. I love creating—whether it's games, short stories, art, or even this custom website.</p>
+    <p class="about-me-main-text">Everything on this website is open source and available on my <a href="https://github.com/ShaneBonkowski" target="_blank">GitHub</a>. Feel free to use my code as a starting point to create your own content.</p>
+    <p class="about-me-main-text">Shane's Games embodies the recreational side of me. If you'd like to learn more about my professional background, visit my <a href="https://www.linkedin.com/in/shanebonkowski/" target="_blank">LinkedIn</a> profile. I'm always eager to collaborate, exchange ideas, and make new connections!</p>
   `;
 
   // Append elements to their containers

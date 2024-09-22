@@ -27,9 +27,9 @@
 /* Define DERIVED variables (aka ones based on others) */
 :root {
   /* Font Sizes */
-  --about-me-title-font-size: calc(var(--about-me-box-h) * 0.075);
-  --about-me-subtitle-font-size: calc(var(--about-me-box-h) * 0.055);
-  --about-me-main-text-font-size: calc(var(--about-me-box-h) * 0.034);
+  --about-me-title-font-size: calc(var(--about-me-box-h) * 0.096);
+  --about-me-subtitle-font-size: calc(var(--about-me-box-h) * 0.066);
+  --about-me-main-text-font-size: calc(var(--about-me-box-h) * 0.044);
 }
 
 /* Media query to override DERIVED values for vertical screens (portrait orientation) */
@@ -127,4 +127,25 @@
 .about-me-main-text {
   font-size: var(--about-me-main-text-font-size);
   margin: 10px 0px;
+}
+
+.about-me-main-text a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
+@media (hover: hover) {
+  .about-me-main-text a:hover {
+    text-decoration: underline; /* Add underline on hover */
+  }
+}
+
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click with addClickAnimation() */
+.about-me-main-text a.active {
+  text-decoration: underline; /* Add underline on click */
 }
