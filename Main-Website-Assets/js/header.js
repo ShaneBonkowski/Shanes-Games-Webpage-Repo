@@ -50,7 +50,7 @@ export function createHeader(logoImageSrc) {
     "GitHub",
     "https://github.com/ShaneBonkowski",
     ["header-button-text", "github-text"],
-    ["fab", "fa-github"],
+    ["fab", "fa-github", "github-icon-header"],
     ["header-button-container", "github-button-container"],
     true
   );
