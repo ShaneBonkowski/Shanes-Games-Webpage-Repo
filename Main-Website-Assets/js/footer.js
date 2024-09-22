@@ -18,7 +18,7 @@ export function createFooter(parentElement = null) {
   const footerMainTextDiv = document.createElement("div");
   footerMainTextDiv.classList.add("footer-main-text");
   footerMainTextDiv.innerHTML = `
-Thanks for visiting Shane's Games by me (Shane)<br>
+Thanks for visiting Shane's Games!<br>
 `;
 
   const footerPrivacyPolicyTextDiv = document.createElement("div");
@@ -44,7 +44,7 @@ Thanks for visiting Shane's Games by me (Shane)<br>
     null,
     "https://github.com/ShaneBonkowski",
     [],
-    ["fab", "fa-github"],
+    ["fab", "fa-github", "github-icon-footer"],
     ["footer-button-container"],
     true
   );

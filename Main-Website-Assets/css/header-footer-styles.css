@@ -2,9 +2,13 @@
 :root {
   /* Sizes */
   --header-banner-h: 8vw;
-  --footer-banner-h: 14vw;
+  --footer-font-scale-factor: 14vw;
+  --footer-icon-size: 25px;
+  --footer-button-g: 25px;
   /* Edge Margins */
   --header-button-ml: 10px;
+  --footer-button-mt: 0px;
+  --footer-text-mb: 10vh;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -12,9 +16,13 @@
   :root {
     /* Sizes */
     --header-banner-h: 14.4vw;
-    --footer-banner-h: 25.2vw;
+    --footer-font-scale-factor: 30vw;
+    --footer-icon-size: 25px;
+    --footer-button-g: 30px;
     /* Edge Margins */
     --header-button-ml: 5px;
+    --footer-button-mt: 5px;
+    --footer-text-mb: 3vh;
   }
 }
 
@@ -29,7 +37,10 @@
   --sub-title-text-font-size: calc(var(--header-banner-h) * 0.15);
   --header-banner-mb: calc(var(--header-banner-h) * 0.18);
   /* Font Sizes */
-  --footer-main-text-font-size: calc(var(--footer-banner-h) * 0.13);
+  --footer-main-text-font-size: calc(var(--footer-font-scale-factor) * 0.13);
+  --footer-priv-policy-text-font-size: calc(
+    var(--footer-font-scale-factor) * 0.11
+  );
   --header-button-text-font-size: calc(var(--header-button-container-w) * 0.17);
 }
 
@@ -156,11 +167,11 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .fab.fa-github {
-  color: #ffffff; /* Set the color of the GitHub icon */
-  font-size: var(
-    --github-icon-size
-  ); /* Called font, but its really the size of the GitHub icon */
+  color: #ffffff;
   margin: 0px 8% 0px 0px;
+}
+.github-icon-header {
+  font-size: var(--github-icon-size);
 }
 
 /* about me button styling */
@@ -191,9 +202,8 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   background-color: var(--hide-color); /*Banner color*/
   color: var(--main-text-color); /*Text color on the banner*/
   width: 100%;
-  height: var(--footer-banner-h);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
 }
@@ -207,10 +217,11 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
   line-height: 1;
+  margin: var(--footer-text-mb) 0px 0px 0px;
 }
 
 .footer-priv-policy-text {
-  font-size: var(--footer-main-text-font-size);
+  font-size: var(--footer-priv-policy-text-font-size);
   text-align: center;
   color: var(--secondary-color);
   font-weight: normal;
@@ -218,7 +229,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
   line-height: 1;
-  margin: 0px 0px 10vh 0px;
+  margin: 0px 0px var(--footer-text-mb) 0px;
 }
 
 .footer-priv-policy-text a {
@@ -251,7 +262,8 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: var(--footer-button-g);
+  margin: var(--footer-button-mt) 0px var(--footer-button-mt) 0px;
 }
 
 .footer-button-container {
@@ -280,12 +292,16 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 
 .fas.fa-home {
   color: #ffffff;
-  font-size: var(--github-icon-size);
+  font-size: var(--footer-icon-size);
   margin: 0px 8% 0px 0px;
 }
 
 .fab.fa-linkedin {
-  color: #ffffff; /* Set the color of the GitHub icon */
-  font-size: var(--github-icon-size); /* icon size */
+  color: #ffffff;
+  font-size: var(--footer-icon-size);
   margin: 0px 8% 0px 0px;
+}
+
+.github-icon-footer {
+  font-size: var(--footer-icon-size);
 }
