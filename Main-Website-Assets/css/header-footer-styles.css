@@ -4,10 +4,6 @@
   --header-banner-h: 8vw;
   --footer-banner-h: 14vw;
   /* Edge Margins */
-  --title-container-ml: 3%;
-  --footer-main-text-ml: 50%;
-  --footer-main-text-mt: 30%;
-  --linkedIn-button-container-mb: 18%;
   --header-button-ml: 10px;
 }
 
@@ -18,7 +14,6 @@
     --header-banner-h: 14.4vw;
     --footer-banner-h: 25.2vw;
     /* Edge Margins */
-    --linkedIn-button-container-mb: 10%;
     --header-button-ml: 5px;
   }
 }
@@ -27,8 +22,6 @@
 :root {
   /* Sizes */
   --logo-image-size: calc(var(--header-banner-h) * (2 / 3));
-  --linkedin-button-container-w: calc(var(--footer-banner-h) * 0.65);
-  --linkedin-button-container-h: calc(var(--footer-banner-h) * 0.3);
   --header-button-container-w: calc(var(--header-banner-h) * 0.9);
   --header-button-container-h: calc(var(--header-banner-h) * 0.45);
   --github-icon-size: calc(var(--header-banner-h) * 0.19);
@@ -36,10 +29,9 @@
   --sub-title-text-font-size: calc(var(--header-banner-h) * 0.15);
   --header-banner-mb: calc(var(--header-banner-h) * 0.18);
   /* Font Sizes */
-  --linkedin-icon-size: calc(var(--linkedin-button-container-h) * 0.45);
   --footer-main-text-font-size: calc(var(--footer-banner-h) * 0.13);
+  --footer-priv-policy-text-font-size: calc(var(--footer-banner-h) * 0.11);
   --header-button-text-font-size: calc(var(--header-button-container-w) * 0.17);
-  --linkedIn-text-font-size: calc(var(--linkedin-button-container-h) * 0.3);
 }
 
 /* header.js styling */
@@ -61,7 +53,7 @@
   cursor: pointer; /* hover pointer */
   transition: transform 0.3s ease;
   margin: 8px 0px 0px 0px;
-  left: var(--title-container-ml);
+  left: var(--main-ml);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -204,28 +196,34 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column;
 }
 
 .footer-main-text {
-  position: absolute;
   font-size: var(--footer-main-text-font-size);
   text-align: center;
   color: var(--main-text-color);
-  left: var(--footer-main-text-ml);
-  top: var(--footer-main-text-mt);
   font-weight: normal;
-  transform: translate(
-    var(--centering-translation),
-    var(--centering-translation)
-  );
   width: 100%;
   white-space: pre-wrap; /* Preserve newline characters */
   display: block;
   line-height: 1;
 }
 
-.footer-main-text a {
-  color: var(--link-color);
+.footer-priv-policy-text {
+  font-size: var(--footer-main-text-font-size);
+  text-align: center;
+  color: var(--secondary-color);
+  font-weight: normal;
+  width: 100%;
+  white-space: pre-wrap; /* Preserve newline characters */
+  display: block;
+  line-height: 1;
+  margin: 0px 0px 10vh 0px;
+}
+
+.footer-priv-policy-text a {
+  color: var(--secondary-color);
   text-decoration: none; /* Remove the underline */
 }
 
@@ -233,14 +231,14 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
 @media (hover: hover) {
-  .footer-main-text a:hover {
+  .footer-priv-policy-text a:hover {
     text-decoration: underline; /* Add underline on hover */
   }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click with addClickAnimation() */
-.footer-main-text a.active {
+.footer-priv-policy-text a.active {
   text-decoration: underline; /* Add underline on click */
 }
 
@@ -248,17 +246,16 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   flex-grow: 1;
 }
 
-/* LinkedIn footer button styling */
-.linkedIn-button-container {
-  position: absolute;
-  width: var(--linkedin-button-container-w);
-  height: var(--linkedin-button-container-h);
-  background-color: var(--button-color); /* Button Color */
-  border-radius: var(--standard-border-radius);
-  transition: background-color 0.3s ease;
-  text-align: center;
-  right: var(--main-ml);
-  bottom: var(--linkedIn-button-container-mb);
+/* Footer buttons */
+.footer-buttons-parent {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -269,32 +266,27 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
 @media (hover: hover) {
-  .linkedIn-button-container:hover {
-    background-color: var(--button-hover-color);
-    color: var(--main-text-color);
+  .footer-button-container:hover {
+    transform: scale(1.1);
     cursor: pointer;
   }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click with addClickAnimation() */
-.linkedIn-button-container.active {
+.footer-button-container.active {
+  transform: scale(1.1);
   filter: brightness(0.8) invert(20%);
 }
 
-.linkedIn-text {
-  color: var(--main-text-color);
-  text-align: center;
-  font-size: var(--linkedIn-text-font-size);
-  font-weight: normal;
-}
-
-.linkedIn-button-link {
-  position: absolute;
+.fas.fa-home {
+  color: #ffffff;
+  font-size: var(--github-icon-size);
+  margin: 0px 8% 0px 0px;
 }
 
 .fab.fa-linkedin {
   color: #ffffff; /* Set the color of the GitHub icon */
-  font-size: var(--linkedin-icon-size); /* icon size */
+  font-size: var(--github-icon-size); /* icon size */
   margin: 0px 8% 0px 0px;
 }
