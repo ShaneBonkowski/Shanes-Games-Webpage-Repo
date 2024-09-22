@@ -8,7 +8,7 @@ import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js"
 
 /**
  * Creates a button with a container that, when clicked, redirects the user to the specified URL.
- * @param {string} text - The text content to be displayed on the button.
+ * @param {string} text - The text content to be displayed on the button if provided.
  * @param {string} url - The URL to redirect to when the button is clicked.
  * @param {string[]} [buttonTextClasses=[]] - An array of CSS classes to be added to the button text content.
  * @param {string[]} [iconClasses=[]] - An array of CSS classes to be added to the button icon element.
@@ -17,25 +17,21 @@ import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js"
  * @returns {HTMLDivElement} The created button container element.
  */
 export function createLinkButtonContainer(
-  text,
-  url,
+  text = null,
+  url = "https://shanebonkowski.com/",
   buttonTextClasses = [],
   iconClasses = [],
   containerClasses = [],
   openInNewTab = false
 ) {
   // Creates a button that on click takes you to a link.
-  // Initialize container and text
+  // Initialize container
   const buttonContainer = document.createElement("a");
   buttonContainer.classList.add(...containerClasses);
   buttonContainer.href = url;
   if (openInNewTab) {
     buttonContainer.target = "_blank";
   }
-
-  const buttonText = document.createElement("div");
-  buttonText.classList.add(...buttonTextClasses);
-  buttonText.textContent = text;
 
   // Optionally create button icon element
   if (iconClasses.length > 0) {
@@ -44,8 +40,13 @@ export function createLinkButtonContainer(
     buttonContainer.appendChild(iconElement);
   }
 
-  // Append children
-  buttonContainer.appendChild(buttonText);
+  // Optionally append text
+  if (text) {
+    const buttonText = document.createElement("div");
+    buttonText.classList.add(...buttonTextClasses);
+    buttonText.textContent = text;
+    buttonContainer.appendChild(buttonText);
+  }
 
   // Have a lil anim on click
   addClickAnimation(buttonContainer);

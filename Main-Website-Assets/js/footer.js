@@ -17,26 +17,55 @@ export function createFooter(parentElement = null) {
   // Create a div for the footer main text
   const footerMainTextDiv = document.createElement("div");
   footerMainTextDiv.classList.add("footer-main-text");
-  // footerMainTextDiv.textContent =
-  //   "Thanks for visiting!\nShane's Games by me (Shane)";
   footerMainTextDiv.innerHTML = `
-    Thanks for visiting Shane's Games by me (Shane)<br>
-    <a href="/Main-Website-Assets/privacy-policy.html">Privacy Policy</a>
+Thanks for visiting Shane's Games by me (Shane)<br>
 `;
 
-  // LinkedIn button
+  const footerPrivacyPolicyTextDiv = document.createElement("div");
+  footerPrivacyPolicyTextDiv.classList.add("footer-priv-policy-text");
+  footerPrivacyPolicyTextDiv.innerHTML = `
+<a href="/Main-Website-Assets/privacy-policy.html">Privacy Policy</a>
+`;
+
+  // Add buttons to footer
+  const footerButtonsParent = document.createElement("div");
+  footerButtonsParent.classList.add("footer-buttons-parent");
+
+  const homeButtonContainer = createLinkButtonContainer(
+    null,
+    "https://shanebonkowski.com/",
+    [],
+    ["fas", "fa-home"],
+    ["footer-button-container"],
+    // Do not open in new tab for home!
+    false
+  );
+  const githubButtonContainer = createLinkButtonContainer(
+    null,
+    "https://github.com/ShaneBonkowski",
+    [],
+    ["fab", "fa-github"],
+    ["footer-button-container"],
+    true
+  );
   const linkedInButtonContainer = createLinkButtonContainer(
-    "LinkedIn",
+    null,
     "https://www.linkedin.com/in/shanebonkowski/",
-    ["linkedIn-text"],
+    [],
     ["fab", "fa-linkedin"],
-    ["linkedIn-button-container"],
+    ["footer-button-container"],
     true
   );
 
   // Append elements to their containers
   footerContainer.appendChild(footerMainTextDiv);
-  footerContainer.appendChild(linkedInButtonContainer);
+
+  footerButtonsParent.appendChild(homeButtonContainer);
+  footerButtonsParent.appendChild(githubButtonContainer);
+  footerButtonsParent.appendChild(linkedInButtonContainer);
+  footerContainer.appendChild(footerButtonsParent);
+
+  footerContainer.appendChild(footerPrivacyPolicyTextDiv);
 
   // Create an empty div element that will fill blank space
   // before inserting the footer. This ensures that footer
