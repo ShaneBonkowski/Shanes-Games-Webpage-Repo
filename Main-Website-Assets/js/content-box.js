@@ -119,6 +119,16 @@ export const contentBoxes = [
     content_type: "writing",
     openInNewTab: false,
   },
+  {
+    imageUrl: "/writing/webps/My-Final-Thought.webp",
+    linkUrl: "/writing/My-Final-Thought.html",
+    title: "My Final Thought",
+    description:
+      "As I sit here and watch the unforgiving grains of sand trickle down from my hourglass, there is nothing left to do but ponder.",
+    search_tags: "Death, Bible, Hunting, Deer, Life, Universe, dad",
+    content_type: "writing",
+    openInNewTab: false,
+  },
 ];
 
 /**
