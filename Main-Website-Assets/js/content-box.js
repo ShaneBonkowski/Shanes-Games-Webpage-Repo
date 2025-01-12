@@ -129,6 +129,17 @@ export const contentBoxes = [
     content_type: "writing",
     openInNewTab: false,
   },
+  {
+    imageUrl: "/writing/webps/The-Lovers.webp",
+    linkUrl: "/writing/The-Lovers.html",
+    title: "The Lovers",
+    description:
+      "Deep within the hidden corridors of Genesis Labs, two scientists are developing what may go down as mankind’s final invention.",
+    search_tags:
+      "Love, Lovers, Bible, Adam, Eve, Universe, Nova, Lux, Mammon, Barachiel, Dr, Dr., Doctor, Scientist, AI, Artificial, Intelligence",
+    content_type: "writing",
+    openInNewTab: false,
+  },
 ];
 
 /**
