@@ -4,54 +4,49 @@
  * @author Shane Bonkowski
  */
 
-import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
+import { createYesNoBox } from "/Main-Website-Assets/js/yes-no-box.js";
 
 /**
  * Creates a cookie banner that tracks whether a user wants cookies or not.
  */
 export function createCookieBanner() {
-  const cookieBanner = document.getElementById("cookie-banner");
-  const enableCookiesBtn = document.getElementById("enable-cookies");
-  const disableCookiesBtn = document.getElementById("disable-cookies");
-
   // NOTE: cookiesEnabled true or false is stored in localStorage
   // so that even if a user clears all cookies, we still know if they
-  // want cookies or not. localStorage is a separate storage location from cookies.
+  // want cookies or not. localStorage is a separate storage location from
+  // cookies.
   let cookiesEnabled = localStorage.getItem("cookiesEnabled");
 
-  // Hide banner if cookie decision has already been made
+  // Skip creating the banner if the user has already made a choice
   if (cookiesEnabled === "true" || cookiesEnabled === "false") {
-    cookieBanner.style.display = "none";
-  }
-  // First time visiting site, and/or no decision has been
-  // made yet with cookies
-  else if (cookiesEnabled === null) {
-    // Do things here at some point?
+    return;
   }
 
-  // Hide banner and update cookie variable on click
-  if (enableCookiesBtn && disableCookiesBtn) {
-    enableCookiesBtn.addEventListener("click", () => {
+  // Create the cookie banner enable/disable box IF user has not agreed or disagreed
+  // to cookies yet
+  const cookieBanner = createYesNoBox(
+    "cookie-banner",
+    'This website uses cookies to ensure you get the best experience. By continuing to use this site, you accept our use of cookies. Learn more about our <a href="/Main-Website-Assets/cookie-policy.html">cookie policy</a> here.',
+    "enable-cookies",
+    "Enable Cookies",
+    () => {
+      // Inline lamda for enableCookies
       localStorage.setItem("cookiesEnabled", "true");
-      cookiesEnabled = "true";
       cookieBanner.style.display = "none";
       onCookieEnable();
-    });
-
-    disableCookiesBtn.addEventListener("click", () => {
+    },
+    "disable-cookies",
+    "Disable Cookies",
+    () => {
+      // Inline lamda for disableCookies
       localStorage.setItem("cookiesEnabled", "false");
-      cookiesEnabled = "false";
       cookieBanner.style.display = "none";
       onCookieDisable();
-    });
+    },
+    ["cookie-banner"], // Box classes
+    ["cookie-button-container"] // Button container classes
+  );
 
-    // Add click events for the cookie buttons to do
-    // an anim on click
-    addClickAnimation(enableCookiesBtn);
-    addClickAnimation(disableCookiesBtn);
-  } else {
-    console.error("Enable/Disable cookies buttons not found.");
-  }
+  document.body.appendChild(cookieBanner);
 }
 
 /**
