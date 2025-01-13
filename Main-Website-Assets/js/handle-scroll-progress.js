@@ -54,9 +54,15 @@ export function handleScrollProgress(pageName) {
   }
 
   // Save the scroll position as a user scrolls
+  // (only after they are done scrolling so that it is more performant)
+  let debounceTimeout;
   const saveScrollPosition = () => {
-    const scrollPosition = window.scrollY;
-    localStorage.setItem(progressKey, scrollPosition.toString());
+    clearTimeout(debounceTimeout); // Clear the previous timeout if scrolling continues
+    debounceTimeout = setTimeout(() => {
+      const scrollPosition = window.scrollY;
+      localStorage.setItem(progressKey, scrollPosition.toString());
+    }, 200); // Save after this many millisec of inactivity
   };
+
   window.addEventListener("scroll", saveScrollPosition);
 }
