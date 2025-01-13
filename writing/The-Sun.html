@@ -59,6 +59,10 @@
       rel="stylesheet"
       href="/writing/shared-writing-assets/css/writing-styles.css"
     />
+    <link
+      rel="stylesheet"
+      href="/Main-Website-Assets/css/scroll-progress-styles.css"
+    />
     <!-- Load in Font Awesome CDN to access GitHub, linkedin, etc. icons -->
     <link
       rel="stylesheet"
@@ -73,6 +77,7 @@
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
       import { createFooter } from "/Main-Website-Assets/js/footer.js";
       import { createArticle } from "/Main-Website-Assets/js/writing.js";
+      import { handleScrollProgress } from "/Main-Website-Assets/js/handle-scroll-progress.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -124,6 +129,7 @@ Until we meet again,
 
             createArticle(title, subtitle, date, body, body_phone, image_url);
             createFooter();
+            handleScrollProgress(title.replace(/ /g, "-"));
 
             // Apply click animation to all <a> elements
             const links = document.querySelectorAll("a");

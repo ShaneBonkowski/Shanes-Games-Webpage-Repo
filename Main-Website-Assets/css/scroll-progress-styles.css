@@ -1,44 +1,44 @@
 /* Define variables */
 :root {
   /* Sizes */
-  --cookie-banner-w: 40%;
-  --cookie-banner-mr: 8px;
-  --cookie-banner-mb: 8px;
-  --cookie-banner-border-radius: 10px;
-  --cookie-banner-padding: 16px;
+  --scroll-progress-w: 40%;
+  --scroll-progress-mr: 8px;
+  --scroll-progress-mb: 8px;
+  --scroll-progress-border-radius: 10px;
+  --scroll-progress-padding: 16px;
 }
 
 /* Media query to override values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Sizes */
-    --cookie-banner-w: auto;
-    --cookie-banner-mr: 0px;
-    --cookie-banner-mb: 0px;
-    --cookie-banner-border-radius: auto;
-    --cookie-banner-padding: 12px;
+    --scroll-progress-w: auto;
+    --scroll-progress-mr: 0px;
+    --scroll-progress-mb: 0px;
+    --scroll-progress-border-radius: auto;
+    --scroll-progress-padding: 12px;
   }
 }
 
-.cookie-banner {
+.scroll-progress {
   position: fixed;
   bottom: 0;
   right: 0;
-  margin: var(--cookie-banner-mb) var(--cookie-banner-mr)
-    var(--cookie-banner-mb) var(--cookie-banner-mr);
-  width: var(--cookie-banner-w);
+  margin: var(--scroll-progress-mb) var(--scroll-progress-mr)
+    var(--scroll-progress-mb) var(--scroll-progress-mr);
+  width: var(--scroll-progress-w);
   background-color: var(--info-banner-background-color);
-  padding: var(--cookie-banner-padding);
+  padding: var(--scroll-progress-padding);
   text-align: center;
   z-index: 10;
-  border-radius: var(--cookie-banner-border-radius);
+  border-radius: var(--scroll-progress-border-radius);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.cookie-banner p {
+.scroll-progress p {
   font-size: 16px;
   padding: 5px 20px 10px 20px;
   text-align: center;
@@ -46,7 +46,7 @@
   -webkit-text-size-adjust: none;
 }
 
-.cookie-banner a {
+.scroll-progress a {
   color: var(--link-color);
   text-decoration: none;
   font-weight: bold;
@@ -56,24 +56,24 @@
 if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
 @media (hover: hover) {
-  .cookie-banner a:hover {
+  .scroll-progress a:hover {
     text-decoration: underline; /* Add underline on hover */
   }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click with addClickAnimation() */
-.cookie-banner a.active {
+.scroll-progress a.active {
   text-decoration: underline; /* Add underline on click */
 }
 
-.cookie-button-container {
+.scroll-progress-button-container {
   display: flex;
   justify-content: space-between; /* Pushes buttons apart */
   width: 100%;
 }
 
-.cookie-banner button {
+.scroll-progress button {
   background-color: var(--button-color);
   color: var(--main-text-color);
   border: none;
@@ -85,7 +85,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   align-items: center; /* Center vertically */
 }
 
-.cookie-banner button:last-child {
+.scroll-progress button:last-child {
   margin-right: 0; /* Remove margin from last button */
 }
 
@@ -93,13 +93,13 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
 @media (hover: hover) {
-  .cookie-banner button:hover {
+  .scroll-progress button:hover {
     background-color: var(--button-hover-color);
   }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click with addClickAnimation() */
-.cookie-banner button.active {
+.scroll-progress button.active {
   filter: brightness(0.8) invert(25%);
 }
