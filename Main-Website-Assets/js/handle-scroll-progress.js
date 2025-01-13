@@ -24,30 +24,34 @@ export function handleScrollProgress(pageName) {
 
   if (savedProgress) {
     const scrollPosition = parseFloat(savedProgress);
+    // Must be an actually useful scroll position. Anything too small does not
+    // need to alert a user.
     if (!isNaN(scrollPosition)) {
-      // Create a yes/no box for a user to decide if they want
-      // to pick up where they left off
-      const scrollProgressBanner = createYesNoBox(
-        "scroll-progress",
-        "Pick up where you left off?",
-        "yes-scroll-progress",
-        "Yes",
-        () => {
-          // Inline lamda for "yes"
-          scrollProgressBanner.style.display = "none";
-          window.scrollTo({ top: scrollPosition, behavior: "smooth" });
-        },
-        "no-scroll-progress",
-        "No",
-        () => {
-          // Inline lamda for "no"
-          scrollProgressBanner.style.display = "none";
-        },
-        ["scroll-progress"], // Box classes
-        ["scroll-progress-button-container"] // Button container classes
-      );
+      if (scrollPosition > 50.0) {
+        // Create a yes/no box for a user to decide if they want
+        // to pick up where they left off
+        const scrollProgressBanner = createYesNoBox(
+          "scroll-progress",
+          "Pick up where you left off?",
+          "yes-scroll-progress",
+          "Yes",
+          () => {
+            // Inline lamda for "yes"
+            scrollProgressBanner.style.display = "none";
+            window.scrollTo({ top: scrollPosition, behavior: "smooth" });
+          },
+          "no-scroll-progress",
+          "No",
+          () => {
+            // Inline lamda for "no"
+            scrollProgressBanner.style.display = "none";
+          },
+          ["scroll-progress"], // Box classes
+          ["scroll-progress-button-container"] // Button container classes
+        );
 
-      document.body.appendChild(scrollProgressBanner);
+        document.body.appendChild(scrollProgressBanner);
+      }
     } else {
       console.error("Invalid saved progress value.");
     }
