@@ -74,7 +74,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .cookie-banner button {
-  background-color: #007bff;
+  background-color: var(--button-color);
   color: var(--main-text-color);
   border: none;
   padding: 10px 15px;
@@ -94,7 +94,7 @@ if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
 @media (hover: hover) {
   .cookie-banner button:hover {
-    background-color: #0056b3;
+    background-color: var(--button-hover-color);
   }
 }
 
