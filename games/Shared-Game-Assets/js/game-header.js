@@ -58,7 +58,7 @@ export function createGameHeader(gameName, gameIconSrc, gameTitleLeftMarginPx) {
   shanesGamesLogoContainer.appendChild(shanesGamesLogoTitle);
 
   // Add event listener to logo container, so it takes you to a link on click
-  shanesGamesLogoContainer.addEventListener("click", function () {
+  shanesGamesLogoContainer.addEventListener("pointerdown", function () {
     window.location.href = "/index.html"; // Redirect to index.html
   });
 

@@ -304,14 +304,9 @@ export function initContentSearchBar() {
     searchBarContainer.firstChild
   );
 
-  // If search button is pressed, then search
-  const searchButton = searchButtonContainer.querySelector(
-    ".content-search-button"
-  );
-  searchButton.addEventListener("click", () => {
-    // Have the event re-query to get these elements.
-    // Not necc. needed for a static site, but good practice
-    // for dynamic elements that can change often.
+  function queryAndSearch() {
+    // Re-query to get these elements. Not necc. needed for a static site,
+    // but good practice for dynamic elements that can change often.
     const searchButtonContainer = document.body.querySelector(
       ".content-search-container"
     );
@@ -322,6 +317,19 @@ export function initContentSearchBar() {
     // Search!
     const query = searchBar.value.trim();
     searchContent(query);
+  }
+
+  // If search button is pressed, then search
+  const searchButton = searchButtonContainer.querySelector(
+    ".content-search-button"
+  );
+  searchButton.addEventListener("pointerdown", queryAndSearch);
+
+  // If content type is changed, then search
+  const contentDropdownButtons =
+    contentDropdownBoxContainer.querySelectorAll("a");
+  contentDropdownButtons.forEach((button) => {
+    button.addEventListener("pointerdown", queryAndSearch);
   });
 
   // If enter is pressed while the search bar is selected, search

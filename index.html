@@ -79,11 +79,8 @@
     />
   </head>
   <body>
-    <!-- Overlay so that the background appears to have a semi-tranparent overlay on it to make it lighter -->
-    <!-- <div class="overlay-styler dark-overlay"></div> -->
-
-    <!-- Screen starts black and fades when page is openned -->
-    <div class="overlay-styler black-fade-overlay"></div>
+    <!-- Screen starts black and fades when page is openned using code below -->
+    <div id="black-fade-screen" class="overlay-styler black-fade-overlay"></div>
 
     <!-- Include the non-module scripts used -->
     <!-- here... -->
@@ -99,6 +96,7 @@
         postContentBoxRendering,
         initContentSearchBar,
       } from "/Main-Website-Assets/js/content-box.js";
+      import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 
       // Promisified version of the createContentBox function. This allows us to wait for
       // completion of content box creation before rendering the next one.
@@ -139,6 +137,11 @@
             // Create a search bar to filter for content.
             initContentSearchBar();
 
+            // Fade out black screen after a good amount has loaded in
+            const blackFadeScreen =
+              document.getElementById("black-fade-screen");
+            blackFadeScreen.classList.add("black-fade-overlay-play-anim");
+
             // Iterate over each content box data and create content boxes sequentially,
             // i.e wait for one to fully render in before calling the next one to render.
             contentBoxes
@@ -166,6 +169,10 @@
           .catch((error) => {
             console.error("Error loading logo image for header:", error);
           });
+
+        // Apply click animation to all <a> elements
+        const links = document.querySelectorAll("a");
+        addClickAnimation(links);
       };
     </script>
   </body>

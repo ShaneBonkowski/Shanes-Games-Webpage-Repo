@@ -33,8 +33,7 @@ export function addClickAnimation(elements, delay = 200) {
   elements.forEach((element) => {
     // Check if already initialized before adding event listeners
     if (!element.hasAttribute("data-click-animation")) {
-      element.addEventListener("click", handleClick);
-      element.addEventListener("touchstart", handleClick);
+      element.addEventListener("pointerdown", handleClick);
 
       // Mark as initialized
       element.setAttribute("data-click-animation", "true");

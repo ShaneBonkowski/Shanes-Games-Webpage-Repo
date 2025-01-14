@@ -65,6 +65,13 @@ export function addSelectionBox(
       if (checkbox !== input && input.checked) {
         checkbox.checked = false;
       }
+
+      // Also, user cannot turn off the given checkbox if there are other checkboxes tied
+      // to the given checkbox. This ensures at least one checkbox is always on for coupled
+      // selection boxes. So, if they tried turning it off, turn it back on.
+      if (!input.checked) {
+        input.checked = true;
+      }
     });
   });
 

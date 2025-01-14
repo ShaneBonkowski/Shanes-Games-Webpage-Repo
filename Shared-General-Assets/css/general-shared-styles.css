@@ -12,7 +12,10 @@
   background-color: black;
   opacity: 1; /* Initially fully opaque */
   z-index: 9999; /* Ensure it's on top of other content */
-  animation: fadeOutOverlay 1.5s forwards; /* Play fade-out animation */
+}
+
+.black-fade-overlay-play-anim {
+  animation: fadeOutOverlay 1.1s forwards; /* Play fade-out animation */
 }
 
 @keyframes fadeOutOverlay {

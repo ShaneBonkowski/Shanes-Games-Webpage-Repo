@@ -135,6 +135,12 @@ Until we meet again,
             const body_phone = null;
 
             createArticle(title, subtitle, date, body, body_phone, image_url);
+
+            // Fade out black screen after a good amount has loaded in
+            const blackFadeScreen =
+              document.getElementById("black-fade-screen");
+            blackFadeScreen.classList.add("black-fade-overlay-play-anim");
+
             createFooter();
             handleScrollProgress(title.replace(/ /g, "-"));
 
@@ -149,10 +155,7 @@ Until we meet again,
     </script>
   </head>
   <body>
-    <!-- Overlay so that the background appears to have a semi-tranparent overlay on it to make it lighter -->
-    <!-- <div class="overlay-styler dark-overlay"></div> -->
-
-    <!-- Screen starts black and fades when page is openned -->
-    <div class="overlay-styler black-fade-overlay"></div>
+    <!-- Screen starts black and fades when page is openned using code below -->
+    <div id="black-fade-screen" class="overlay-styler black-fade-overlay"></div>
   </body>
 </html>

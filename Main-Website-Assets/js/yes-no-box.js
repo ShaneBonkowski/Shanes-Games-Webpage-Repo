@@ -48,13 +48,13 @@ export function createYesNoBox(
   const yesButton = document.createElement("button");
   yesButton.id = yesButtonID;
   yesButton.textContent = yesButtonText;
-  yesButton.addEventListener("click", onYes);
+  yesButton.addEventListener("pointerdown", onYes);
   addClickAnimation(yesButton);
 
   const noButton = document.createElement("button");
   noButton.id = noButtonID;
   noButton.textContent = noButtonText;
-  noButton.addEventListener("click", onNo);
+  noButton.addEventListener("pointerdown", onNo);
   addClickAnimation(noButton);
 
   buttonContainer.appendChild(yesButton);
