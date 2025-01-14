@@ -100,10 +100,11 @@
     <!-- Call JS functions (using module so that we can import and call modules) -->
     <script type="module">
       // Import modules
-      import { LaunchGame } from "./js/game.js";
-      import { initUI } from "./js/init-ui.js";
-      import { createGameHeader } from "../Shared-Game-Assets/js/game-header.js";
+      import { LaunchGame } from "/games/Flip-Tile-Game/js/game.js";
+      import { initUI } from "/games/Flip-Tile-Game/js/init-ui.js";
+      import { createGameHeader } from "/games/Shared-Game-Assets/js/game-header.js";
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
+      import { gamesEntryHtmlLoadingScreenAnimations } from "/games/Shared-Game-Assets/js/loading.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
@@ -117,22 +118,7 @@
         LaunchGame();
 
         // Play loading anim after a good amount has loaded in
-        const gameLoadInOverlay = document.getElementById(
-          "game-load-in-overlay"
-        );
-        const gameLoadingContentImg = document.getElementById(
-          "game-loading-content-img"
-        );
-
-        gameLoadingContentImg.addEventListener("animationiteration", () => {
-          gameLoadingContentImg.classList.remove(
-            "game-loading-content-play-loading-anim"
-          );
-          gameLoadingContentImg.classList.add(
-            "game-loading-content-play-loaded-anim"
-          );
-          gameLoadInOverlay.classList.add("game-load-in-overlay-play-anim");
-        });
+        gamesEntryHtmlLoadingScreenAnimations();
 
         // Apply click animation to all <a> elements
         const links = document.querySelectorAll("a");
