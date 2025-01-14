@@ -163,7 +163,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 .game-loading-content-play-loading-anim {
-  animation: loadingAnim 0.75s infinite;
+  animation: loadingAnim 0.6s infinite;
 }
 
 .game-loading-content-play-loaded-anim {

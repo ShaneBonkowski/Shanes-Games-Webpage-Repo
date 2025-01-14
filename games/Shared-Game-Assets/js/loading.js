@@ -34,10 +34,13 @@ export function gamesEntryHtmlLoadingScreenAnimations() {
 
   const timeout = setTimeout(() => {
     // Set a timeout to call the desired function after the specified duration,
-    // if the event listeners for animationiteration() do not catch it.
+    // if the event listeners for animationiteration() do not catch it. Since the loading
+    // animation is only 0.6 seconds long, give it maximum 0.6 seconds to "catch up" which
+    // assumes worse case. If it doesnt catch up by this point, then just proceed with
+    // the next animation without trying to sync them up.
     console.log("Timeout reached, ending loading anim");
     playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
-  }, 3000); // ms
+  }, 600); // ms
 
   gameLoadingContentImg.addEventListener("animationiteration", function () {
     playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
@@ -45,6 +48,20 @@ export function gamesEntryHtmlLoadingScreenAnimations() {
   });
   gameLoadingContentImg.addEventListener(
     "webkitAnimationIteration", // For Safari pre-9 or other browser compatibility
+    function () {
+      playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
+      clearTimeout(timeout); // Clear the timeout since the event fired
+    }
+  );
+  gameLoadingContentImg.addEventListener(
+    "animationend", // Backup, this will fire when an animation or cycle of animation has ended
+    function () {
+      playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
+      clearTimeout(timeout); // Clear the timeout since the event fired
+    }
+  );
+  gameLoadingContentImg.addEventListener(
+    "webkitAnimationEnd", // More backup, this will fire when an animation or cycle of animation has ended
     function () {
       playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
       clearTimeout(timeout); // Clear the timeout since the event fired
