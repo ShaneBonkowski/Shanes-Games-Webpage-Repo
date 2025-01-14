@@ -6,7 +6,7 @@
   --game-header-height: 14vw;
   --header-icon-size: calc(var(--game-header-height) * (1 / 3));
   --game-logo-icon-size: calc(var(--game-header-height) * (1 / 2));
-  --loading-content-size: 20vw;
+  --game-loading-content-size: 20vw;
   /* Font Sizes */
   --logo-title-font-size: calc(var(--game-header-height) * 0.125);
   --logo-subtitle-font-size: calc(var(--game-header-height) * 0.085);
@@ -25,7 +25,7 @@
     --loading-logo-translate-y: 60%;
     /* Sizes */
     --game-header-height: 24vw;
-    --loading-content-size: 35vw;
+    --game-loading-content-size: 35vw;
     /* Edge Margins */
     --shanes-games-logo-container-for-games-top-margin: 3%;
   }
@@ -134,13 +134,16 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   background-color: black;
   opacity: 1; /* Initially fully opaque */
   z-index: 9999; /* Ensure it's on top of other content */
-  animation: fadeOutOverlay var(--load-screen-dur) forwards; /* Play fade-out animation */
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.loading-content {
+.game-load-in-overlay-play-anim {
+  animation: fadeOutOverlay var(--load-screen-dur) forwards; /* Play fade-out animation */
+}
+
+.game-loading-content {
   position: relative;
   text-align: center;
   color: white;
@@ -150,14 +153,21 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   align-items: center;
 }
 
-.loading-content img {
+.game-loading-content img {
   position: absolute;
-  width: var(--loading-content-size); /* Adjust size as needed */
+  width: var(--game-loading-content-size); /* Adjust size as needed */
   height: auto;
   pointer-events: none;
-  animation: loadingAnim var(--load-screen-dur) forwards;
   transform: scale(1);
   margin: 0px 0px var(--loading-logo-translate-y) 0px;
+}
+
+.game-loading-content-play-loading-anim {
+  animation: loadingAnim 0.75s infinite;
+}
+
+.game-loading-content-play-loaded-anim {
+  animation: loadedAnim var(--load-screen-dur) forwards;
 }
 
 @keyframes fadeOutOverlay {
@@ -173,6 +183,15 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 @keyframes loadingAnim {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+@keyframes loadedAnim {
   0% {
     transform: scale(1) rotate(0deg);
   }

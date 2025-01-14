@@ -45,7 +45,7 @@ export function createUIWindow(
   closeButton.classList.add(...closeButtonClasses);
   closeButton.textContent = "x";
   onClickXFunctions.forEach((func) => {
-    closeButton.addEventListener("click", func);
+    closeButton.addEventListener("pointerdown", func);
   });
 
   // Assemble the window components

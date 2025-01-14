@@ -84,7 +84,12 @@ export function initUI() {
     ["flip-tile-toggle-input-1"],
     ["flip-tile-toggle-label"],
     true, // start off with this one checked
-    null,
+    function (checked) {
+      // When box is checked, update the tile grid
+      if (checked) {
+        onClickUpdateTileGrid();
+      }
+    },
     true
   );
 
@@ -101,7 +106,12 @@ export function initUI() {
     ["flip-tile-toggle-input-2"],
     ["flip-tile-toggle-label"],
     false,
-    null,
+    function (checked) {
+      // When box is checked, update the tile grid
+      if (checked) {
+        onClickUpdateTileGrid();
+      }
+    },
     true
   );
 
@@ -118,7 +128,12 @@ export function initUI() {
     ["flip-tile-toggle-input-3"],
     ["flip-tile-toggle-label"],
     false,
-    null,
+    function (checked) {
+      // When box is checked, update the tile grid
+      if (checked) {
+        onClickUpdateTileGrid();
+      }
+    },
     true
   );
 

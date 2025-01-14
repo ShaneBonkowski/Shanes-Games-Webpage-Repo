@@ -22,7 +22,7 @@ export function createHeader(logoImageSrc) {
   titleContainer.classList.add("title-container");
 
   // Add event listener to title logo container, so it takes you to a link on click
-  titleContainer.addEventListener("click", function () {
+  titleContainer.addEventListener("pointerdown", function () {
     window.location.href = "/index.html"; // Redirect to index.html
   });
 

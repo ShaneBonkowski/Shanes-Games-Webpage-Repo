@@ -45,9 +45,7 @@ export function handleContentBoxHover() {
         title.classList.remove("content-button-click-effect");
       }, 200);
     }
-    button.addEventListener("click", handleClick);
-    button.addEventListener("touchstart", handleClick);
-    title.addEventListener("click", handleClick);
-    title.addEventListener("touchstart", handleClick);
+    button.addEventListener("pointerdown", handleClick);
+    title.addEventListener("pointerdown", handleClick);
   });
 }

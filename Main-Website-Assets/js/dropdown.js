@@ -39,20 +39,16 @@ export function createDropdown(options, classNames) {
       dropdownContent.classList.remove("content-dropdown-show"); // Close dropdown
     }
 
-    optionElement.addEventListener("click", selectOption);
-    optionElement.addEventListener("touchstart", selectOption);
+    optionElement.addEventListener("pointerdown", selectOption);
 
     addClickAnimation(optionElement);
     dropdownContent.appendChild(optionElement);
   });
 
   // Toggle dropdown visibility on button click and touchend
-  dropdownButton.addEventListener("click", () => {
-    dropdownContent.classList.toggle("content-dropdown-show");
-  });
-  dropdownButton.addEventListener("touchstart", (e) => {
-    // Prevent the weird behavior where phone clicks multiple times on one click
-    e.preventDefault();
+  dropdownButton.addEventListener("pointerdown", (e) => {
+    // // Prevent the weird behavior where phone clicks multiple times on one click
+    // e.preventDefault();
     dropdownContent.classList.toggle("content-dropdown-show");
   });
 
@@ -63,8 +59,7 @@ export function createDropdown(options, classNames) {
     }
   }
 
-  window.addEventListener("click", closeDropdown);
-  window.addEventListener("touchstart", closeDropdown);
+  window.addEventListener("pointerdown", closeDropdown);
 
   return dropdownContainer;
 }

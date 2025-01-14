@@ -74,18 +74,19 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <!-- Play anim where screen starts black with a loading screen 
-     and fades when page is openned -->
+    <!-- Loading screen fades when content is loaded using code below -->
     <div
+      id="game-load-in-overlay"
       class="game-load-in-overlay overlay-styler disable-browser-default-touch-actions"
     >
       <div
-        class="loading-content overlay-styler disable-browser-default-touch-actions"
+        class="game-loading-content overlay-styler disable-browser-default-touch-actions"
       >
         <img
+          id="game-loading-content-img"
           src="../../Shared-General-Assets/webps/Mars-circle.webp"
           alt="Loading Image"
-          class="disable-browser-default-touch-actions"
+          class="game-loading-content-play-loading-anim disable-browser-default-touch-actions"
         />
       </div>
     </div>
@@ -113,6 +114,24 @@
 
         // Add more functions here..
         // ...
+
+        // Play loading anim after a good amount has loaded in
+        const gameLoadInOverlay = document.getElementById(
+          "game-load-in-overlay"
+        );
+        const gameLoadingContentImg = document.getElementById(
+          "game-loading-content-img"
+        );
+
+        gameLoadingContentImg.addEventListener("animationiteration", () => {
+          gameLoadingContentImg.classList.remove(
+            "game-loading-content-play-loading-anim"
+          );
+          gameLoadingContentImg.classList.add(
+            "game-loading-content-play-loaded-anim"
+          );
+          gameLoadInOverlay.classList.add("game-load-in-overlay-play-anim");
+        });
 
         // Apply click animation to all <a> elements last
         const links = document.querySelectorAll("a");
