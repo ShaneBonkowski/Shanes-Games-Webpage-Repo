@@ -124,7 +124,13 @@
           "game-loading-content-img"
         );
 
-        gameLoadingContentImg.addEventListener("animationiteration", () => {
+        let hasLoadedAnimPlayed = false;
+        function playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay) {
+          if (hasLoadedAnimPlayed) {
+            console.log("played already");
+            return;
+          }
+
           gameLoadingContentImg.classList.remove(
             "game-loading-content-play-loading-anim"
           );
@@ -132,7 +138,32 @@
             "game-loading-content-play-loaded-anim"
           );
           gameLoadInOverlay.classList.add("game-load-in-overlay-play-anim");
-        });
+
+          // Mark the animation as played
+          hasLoadedAnimPlayed = true;
+        }
+
+        // Set a timeout to call the desired function after the specified duration,
+        // if the event listeners for animationiteration() do not catch it.
+        const timeout = setTimeout(() => {
+          console.log("Timeout reached, ending loading anim");
+          playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
+        }, 3000); // ms
+
+        gameLoadingContentImg.addEventListener(
+          "animationiteration",
+          function () {
+            playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
+            clearTimeout(timeout); // Clear the timeout since the event fired
+          }
+        );
+        gameLoadingContentImg.addEventListener(
+          "webkitAnimationIteration", // For Safari pre-9 or other browser compatibility
+          function () {
+            playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay);
+            clearTimeout(timeout); // Clear the timeout since the event fired
+          }
+        );
 
         // Apply click animation to all <a> elements
         const links = document.querySelectorAll("a");
