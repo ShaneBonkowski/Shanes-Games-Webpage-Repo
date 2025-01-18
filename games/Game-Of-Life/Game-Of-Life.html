@@ -97,7 +97,7 @@
     <!-- Call JS functions (using module so that we can import and call modules) -->
     <script type="module">
       // Import modules
-      import { LaunchGame } from "/games/Generic-Game-Blueprint/js/game.js";
+      import { LaunchGame } from "/games/Game-Of-Life/js/game.js";
       import { createGameHeader } from "/games/Shared-Game-Assets/js/game-header.js";
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
       import { gamesEntryHtmlLoadingScreenAnimations } from "/games/Shared-Game-Assets/js/loading.js";
@@ -105,7 +105,7 @@
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
         createGameHeader(
-          "Name",
+          "Game of Life",
           "./webps/game-logo.webp",
           -1 // gameTitleLeftMarginPx
         );

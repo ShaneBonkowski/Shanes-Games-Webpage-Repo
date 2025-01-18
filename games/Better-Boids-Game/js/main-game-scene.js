@@ -66,18 +66,7 @@ export class MainGameScene extends Generic2DGameScene {
     // NOTE: We store the last known window size so we can update boids positions etc.
     // based on this as the screen size changes
     this.lastKnownWindowSize = new Vec2(window.innerWidth, window.innerHeight);
-    const resizeObserver = new ResizeObserver((entries) => {
-      this.handleWindowResize();
-    });
-    resizeObserver.observe(document.documentElement);
-
-    // Also checking for resize or orientation change to try
-    // to handle edge cases that ResizeObserver misses!
-    window.addEventListener("resize", this.handleWindowResize.bind(this));
-    window.addEventListener(
-      "orientationchange",
-      this.handleWindowResize.bind(this)
-    );
+    this.setUpWindowResizeHandling();
 
     this.subscribeToEvents();
     this.disableScroll();
@@ -160,33 +149,6 @@ export class MainGameScene extends Generic2DGameScene {
 
     // Play sound!
     this.playDesiredSound("Button Click");
-  }
-
-  // Disable scrolling
-  disableScroll() {
-    document.addEventListener("touchmove", this.preventDefault.bind(this), {
-      passive: false,
-    });
-
-    document.addEventListener(
-      "mousewheel",
-      this.preventDefault.bind(this), // Bind 'this' to refer to the class instance
-      {
-        passive: false,
-      }
-    );
-  }
-
-  // Enable scrolling
-  enableScroll() {
-    //document.body.style.overflow = "";
-    document.removeEventListener("touchmove", preventDefault);
-    document.removeEventListener("mousewheel", preventDefault);
-  }
-
-  // Prevent default behavior of events (used in this case for disabling scroll)
-  preventDefault(event) {
-    //event.preventDefault();
   }
 
   subscribeToEvents() {
@@ -293,6 +255,23 @@ export class MainGameScene extends Generic2DGameScene {
         });
       },
       { capture: true }
+    );
+  }
+
+  setUpWindowResizeHandling() {
+    // Observe window resizing with ResizeObserver since it
+    // is good for snappy changes
+    const resizeObserver = new ResizeObserver((entries) => {
+      this.handleWindowResize();
+    });
+    resizeObserver.observe(document.documentElement);
+
+    // Also checking for resize or orientation change to try
+    // to handle edge cases that ResizeObserver misses!
+    window.addEventListener("resize", this.handleWindowResize.bind(this));
+    window.addEventListener(
+      "orientationchange",
+      this.handleWindowResize.bind(this)
     );
   }
 

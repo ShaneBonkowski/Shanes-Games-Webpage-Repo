@@ -8,6 +8,17 @@ import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.j
 // Array of content box data
 export const contentBoxes = [
   {
+    imageUrl: "/games/Game-Of-Life/webps/game-cover-art.webp",
+    linkUrl: "/games/Game-Of-Life/Game-Of-Life.html",
+    title: "Conway's Game of Life",
+    description:
+      "Classic Conway's Game of Life, with a twist. Experience the emergent world of cellular automata.",
+    search_tags:
+      "conway, conways, conway's, game, of, life, cell, cellular, automata",
+    content_type: "games",
+    openInNewTab: false,
+  },
+  {
     imageUrl: "/games/Better-Boids-Game/webps/Game-Cover-Picture.webp",
     linkUrl: "/games/Better-Boids-Game/Better-Boids.html",
     title: "Better Boids",

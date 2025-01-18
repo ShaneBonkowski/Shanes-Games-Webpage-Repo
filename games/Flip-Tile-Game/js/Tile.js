@@ -177,14 +177,14 @@ export class Tile extends GameObject {
     this.scene.tweens.add({
       targets: this.graphic,
       //angle: "+=360",
-      scaleX: this.size * 1.5,
-      scaleY: this.size * 1.5,
+      displayWidth: this.size * sharedTileAttrs.tileSpacingFactor,
+      displayHeight: this.size * sharedTileAttrs.tileSpacingFactor,
       duration: duration / 2, // /2 since yoyo doubles the time
-      ease: "Linear",
+      ease: "Sine.easeInOut",
       yoyo: true, // Return to original scale and rotation after the animation
       onUpdate: (tween, target) => {
         // Ensures that the size variable reflects the scale as it changes with the tween
-        this.size = target.scale;
+        this.size = target.displayWidth; // Assuming width == height
       },
       onComplete: () => {
         // Can click after all animations are done
@@ -250,19 +250,7 @@ export class Tile extends GameObject {
   findTileLocFromTileSpace() {
     let centerX = this.scene.game.canvas.width / 2;
     let centerY = this.scene.game.canvas.height / 2;
-    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
-
-    // for phones change the center location
-    if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.43;
-    }
-
-    let tileSpacing = this.scene.game.canvas.height / 5.8;
-
-    // for phones change the tile spacing
-    if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      tileSpacing = this.scene.game.canvas.height / 7.5;
-    }
+    let tileSpacing = this.size * sharedTileAttrs.tileSpacingFactor;
 
     // Calculate the starting position for the top-left tile in the grid
     let startGridX, startGridY;
@@ -286,12 +274,12 @@ export class Tile extends GameObject {
 
   calculateTileSize() {
     // Calculate the tile size based on the screen width
-    let tileSize = window.innerHeight * 0.0002 * 3;
+    let tileSize = window.innerHeight * 0.15;
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Phone screen has larger tile
     if (window.innerWidth <= 600 || isPortrait) {
-      tileSize = window.innerHeight * 0.00016 * 3;
+      tileSize = window.innerHeight * 0.09;
     }
 
     return tileSize;

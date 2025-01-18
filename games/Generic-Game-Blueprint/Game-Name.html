@@ -8,6 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
+    <!-- FIXME: update this and below with your game name -->
     <title>Game Name</title>
     <meta
       name="description"
@@ -71,6 +72,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <!-- FIXME: update this import with your game name css file -->
     <link rel="stylesheet" href="css/game-name-styles.css" />
   </head>
   <body>
@@ -97,6 +99,7 @@
     <!-- Call JS functions (using module so that we can import and call modules) -->
     <script type="module">
       // Import modules
+      // FIXME: update LaunchGame import with your game name -->
       import { LaunchGame } from "/games/Generic-Game-Blueprint/js/game.js";
       import { createGameHeader } from "/games/Shared-Game-Assets/js/game-header.js";
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
@@ -104,6 +107,7 @@
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
+        // FIXME: update createGameHeader with your game name -->
         createGameHeader(
           "Name",
           "./webps/game-logo.webp",

@@ -42,6 +42,7 @@ export const tileGridEventNames = {
 export const sharedTileAttrs = {
   clickTimer: 0.5, // click tile anim timer
   solvedTimer: 0.7, // how long solution animation takes, and how long to wait before revealing next puzzle in that case
+  tileSpacingFactor: 1.25, // Scale for how much space between tiles
 };
 
 // Pre-computed using \Python-Utils\mat-inv-mod.py, calling `python .\mat-inv-mod.py` from terminal
