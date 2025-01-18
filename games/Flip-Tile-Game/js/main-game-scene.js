@@ -1,9 +1,3 @@
-/**
- * @module TileMainGameScene
- *
- * @author Shane Bonkowski
- */
-
 import {
   instantiateTiles,
   TilePatternAttrs,

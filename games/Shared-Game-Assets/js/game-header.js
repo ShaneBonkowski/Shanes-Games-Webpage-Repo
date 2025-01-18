@@ -1,13 +1,3 @@
-/**
- * @fileOverview Creates the Game Header element for a given ShanesGames game.
- *
- * @description Specifically contains the function createGameHeader().
- *
- * @module GameHeader
- *
- * @author Shane Bonkowski
- */
-
 import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 
 /**

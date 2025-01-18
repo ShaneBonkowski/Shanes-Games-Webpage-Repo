@@ -1,9 +1,3 @@
-/**
- * @module Boid
- *
- * @author Shane Bonkowski
- */
-
 import { GameObject } from "/games/Shared-Game-Assets/js/game-object.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";

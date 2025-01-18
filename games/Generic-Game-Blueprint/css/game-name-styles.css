@@ -1,0 +1,16 @@
+/* Define variables for horizontal / computer screens */
+:root {
+  /* Define variables */
+}
+
+/* Media query to override CONSTANT values for vertical screens (portrait orientation) */
+@media screen and (orientation: portrait), (max-width: 600px) {
+  :root {
+    /* Define variables */
+  }
+}
+
+body {
+  /* Background-related styles for body are defined in the .html file 
+  since they are urgent and we want to guarentee those render in */
+}

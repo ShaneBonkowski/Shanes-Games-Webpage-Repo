@@ -6,8 +6,6 @@
  * @module MoreMath
  *
  * @author Shane Bonkowski
- *
- * @requires ShanesGames\games\Shared-Game-Assets\js\seedable-random.js
  */
 
 /**

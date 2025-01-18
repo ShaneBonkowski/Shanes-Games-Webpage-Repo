@@ -1,9 +1,3 @@
-/**
- * @module BoidSettings
- *
- * @author Shane Bonkowski
- */
-
 import { BoidFactors, boidEventNames } from "./boid-utils.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";

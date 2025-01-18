@@ -1,11 +1,3 @@
-/**
- * @fileOverview Creates Yes/No box for the main website. Useful for cookie agreement, etc.
- *
- * @module YesNoBox
- *
- * @author Shane Bonkowski
- */
-
 import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 
 /**

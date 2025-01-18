@@ -1,9 +1,3 @@
-/**
- * @module Buttons
- *
- * @author Shane Bonkowski
- */
-
 import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 
 /**

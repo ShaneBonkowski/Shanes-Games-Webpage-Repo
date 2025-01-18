@@ -1,10 +1,4 @@
 /**
- * @module Loading
- *
- * @author Shane Bonkowski
- */
-
-/**
  * Handles animations for the entry loading screen for a game html file.
  */
 export function gamesEntryHtmlLoadingScreenAnimations() {

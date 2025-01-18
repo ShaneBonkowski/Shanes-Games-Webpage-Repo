@@ -1,9 +1,3 @@
-/**
- * @module TileUtils
- *
- * @author Shane Bonkowski
- */
-
 import { Tile } from "./Tile.js";
 import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import { Matrix } from "../../Shared-Game-Assets/js/matrix.js";

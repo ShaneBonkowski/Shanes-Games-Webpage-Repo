@@ -1,9 +1,3 @@
-/**
- * @module ContentBox
- *
- * @author Shane Bonkowski
- */
-
 import { createFooter } from "/Main-Website-Assets/js/footer.js";
 import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 import { handleContentBoxHover } from "/Main-Website-Assets/js/content-box-hover-handling.js";

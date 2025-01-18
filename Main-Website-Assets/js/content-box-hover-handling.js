@@ -1,10 +1,4 @@
 /**
- * @module ContentBoxHover
- *
- * @author Shane Bonkowski
- */
-
-/**
  * Function to add neccesary event listeners etc. to content boxes so that they behave as desired on hover
  */
 export function handleContentBoxHover() {
