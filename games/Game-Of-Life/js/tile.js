@@ -26,6 +26,11 @@ export class Tile extends GameObject {
     // Add an event listener for pointer down events using phaser's event system
     this.graphic.on("pointerdown", () => {
       this.updateTileState();
+
+      // If not paused, pause when a player clicks to interact with the tiles
+      if (!this.scene.paused) {
+        this.scene.togglePause();
+      }
     });
 
     // Update mouse on hover
@@ -51,18 +56,26 @@ export class Tile extends GameObject {
     this.changeState(tileStates.OFF); // this will update the graphic too
   }
 
+  resetTile() {
+    this.qtyLivingNeighbors = 0;
+
+    this.updateSize();
+    this.updatePosition();
+    this.changeState(tileStates.OFF); // this will update the graphic too
+  }
+
   updateSize() {
     this.size = this.calculateSize();
   }
 
   calculateSize() {
     // Calculate the size based on the screen width
-    let size = window.innerHeight * 0.06;
+    let size = window.innerHeight * 0.035;
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Phone screen has larger boids
     if (window.innerWidth <= 600 || isPortrait) {
-      size = window.innerHeight * 0.03;
+      size = window.innerHeight * 0.018;
     }
 
     return size;
@@ -125,44 +138,52 @@ export class Tile extends GameObject {
     this.updateGraphic();
   }
 
-  getQtyLivingNeighbors(tiles, countCorners) {
+  getQtyLivingNeighbors(
+    tiles,
+    countCorners = true,
+    countTorusNeighbors = false
+  ) {
     let xWidth = tiles.length;
     let yWidth = tiles[0].length;
     this.qtyLivingNeighbors = 0;
-    let neighborTiles = [];
 
-    // Count corners -> check all 8 neighbors
+    // Define the directions for the 8 possible neighbors
+    const directions = countCorners
+      ? [
+          [-1, -1],
+          [-1, 0],
+          [-1, 1],
+          [0, -1],
+          [0, 1],
+          [1, -1],
+          [1, 0],
+          [1, 1],
+        ]
+      : [
+          [-1, 0],
+          [1, 0],
+          [0, -1],
+          [0, 1],
+        ];
+
     let thisRow = Math.floor(this.gridSpaceLoc.x);
     let thisCol = Math.floor(this.gridSpaceLoc.y);
-    if (countCorners) {
-      for (let row = thisRow - 1; row <= thisRow + 1; row++) {
-        for (let col = thisCol - 1; col <= thisCol + 1; col++) {
-          if (row >= 0 && row < xWidth && col >= 0 && col < yWidth) {
-            neighborTiles.push(tiles[row][col]);
-          }
-        }
-      }
-    } else {
-      // Otherwise, just check the 4 cardinal directions
-      if (thisRow - 1 >= 0) {
-        neighborTiles.push(tiles[thisRow - 1][thisCol]);
-      }
-      if (thisRow + 1 < xWidth) {
-        neighborTiles.push(tiles[thisRow + 1][thisCol]);
-      }
-      if (thisCol - 1 >= 0) {
-        neighborTiles.push(tiles[thisRow][thisCol - 1]);
-      }
-      if (thisCol + 1 < yWidth) {
-        neighborTiles.push(tiles[thisRow][thisCol + 1]);
-      }
-    }
 
-    // Iterate over the surrounding neighbors for this tile, and if alive, add
-    // 1 to neighbor count.
-    for (let tile of neighborTiles) {
-      if (tile.tileState == tileStates.ON) {
-        this.qtyLivingNeighbors++;
+    for (const [dx, dy] of directions) {
+      let row = thisRow + dx;
+      let col = thisCol + dy;
+
+      if (row >= 0 && row < xWidth && col >= 0 && col < yWidth) {
+        if (tiles[row][col].tileState == tileStates.ON) {
+          this.qtyLivingNeighbors++;
+        }
+      } else if (countTorusNeighbors) {
+        // Wrap around the grid
+        let wrappedRow = (row + xWidth) % xWidth;
+        let wrappedCol = (col + yWidth) % yWidth;
+        if (tiles[wrappedRow][wrappedCol].tileState == tileStates.ON) {
+          this.qtyLivingNeighbors++;
+        }
       }
     }
   }
@@ -194,7 +215,10 @@ export class Tile extends GameObject {
 
   changeState(newState) {
     this.tileState = newState;
+    this.updateColor();
+  }
 
+  updateColor() {
     if (this.tileState == tileStates.OFF) {
       this.updateGraphic(tileColors.OFF);
     } else {

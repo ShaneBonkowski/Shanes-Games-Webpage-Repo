@@ -12,7 +12,7 @@ export const contentBoxes = [
     linkUrl: "/games/Game-Of-Life/Game-Of-Life.html",
     title: "Conway's Game of Life",
     description:
-      "Classic Conway's Game of Life, with a twist. Experience the emergent world of cellular automata.",
+      "Experience the emergent world of cellular automata. Classic Conway's Game of Life with advanced customization options to create your own.",
     search_tags:
       "conway, conways, conway's, game, of, life, cell, cellular, automata",
     content_type: "games",

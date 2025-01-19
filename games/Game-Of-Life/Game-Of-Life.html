@@ -37,7 +37,6 @@
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("webps/Background.webp");
         background-repeat: repeat-y;
         /* Shift up a lil to fix the rendering bug seen on phone with 1px thick line */
         background-position: center calc(100% - 4px);
@@ -97,6 +96,7 @@
     <!-- Call JS functions (using module so that we can import and call modules) -->
     <script type="module">
       // Import modules
+      import { initUI } from "/games/Game-Of-Life/js/init-ui.js";
       import { LaunchGame } from "/games/Game-Of-Life/js/game.js";
       import { createGameHeader } from "/games/Shared-Game-Assets/js/game-header.js";
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
@@ -111,6 +111,7 @@
         );
 
         // Launch the game!
+        initUI();
         LaunchGame();
 
         // Add more functions here..

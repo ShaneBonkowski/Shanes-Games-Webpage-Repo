@@ -17,6 +17,7 @@ export class Generic2DGameScene extends Phaser.Scene {
     this.gameStarted = false;
     this.isInteracting = false; // is the  player actively interacting with the game?
     this.uiMenuOpen = false;
+    this.paused = false;
 
     this.sound_array = [];
     this.audioMuted = true; // Audio muted to start!
