@@ -10,10 +10,15 @@ export const tileColors = {
   ON: 0xffa500, // init to Orange
 };
 
+export const tileGridWidthPhone = 10;
+export const tileGridHeightPhone = 20;
+export const tileGridWidthComputer = 20;
+export const tileGridHeightComputer = 10;
+
 export const TileGridAttrs = {
   updateInterval: 5000, // ms
-  tileGridWidth: 20, // initial values
-  tileGridHeight: 10,
+  tileGridWidth: tileGridWidthComputer,
+  tileGridHeight: tileGridHeightComputer,
 };
 
 export function instantiateTiles(scene) {

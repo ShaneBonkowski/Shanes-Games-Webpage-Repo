@@ -1,6 +1,13 @@
 import { setZOrderForMainGameElements } from "./z-ordering.js";
 import { Generic2DGameScene } from "../../Shared-Game-Assets/js/game-scene-2d.js";
-import { instantiateTiles, TileGridAttrs } from "./tile-utils.js";
+import {
+  instantiateTiles,
+  TileGridAttrs,
+  tileGridWidthComputer,
+  tileGridHeightComputer,
+  tileGridWidthPhone,
+  tileGridHeightPhone,
+} from "./tile-utils.js";
 
 export const tiles = [];
 
@@ -23,15 +30,13 @@ export class MainGameScene extends Generic2DGameScene {
     this.disableScroll();
 
     // Initialize the game
-    if (tiles.length != 0) {
-      console.log("Error: tiles array is already populated");
-      this.destroyTiles();
-    }
+    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-    instantiateTiles(this).then((tiles_returned) => {
-      // Push new tiles into tiles array
-      tiles_returned.forEach((tile) => tiles.push(tile));
-    });
+    if (window.innerWidth <= 600 || isPortrait) {
+      this.setTileLayoutForPhone();
+    } else {
+      this.setLayoutForComputer();
+    }
 
     // After everything is loaded in, we can begin the game
     this.gameStarted = true;
@@ -100,6 +105,54 @@ export class MainGameScene extends Generic2DGameScene {
         }
       }
     }
+
+    // If it switches from landscape to portrait (aka phone) or vice versa,
+    // update the layout of the tile grid.
+    let isPortrait = window.matchMedia("(orientation: portrait)").matches;
+
+    if (window.innerWidth <= 600 || isPortrait) {
+      // Only update layout if it changed!
+      if (
+        TileGridAttrs.tileGridWidth != tileGridWidthPhone ||
+        TileGridAttrs.tileGridHeight != tileGridHeightPhone
+      ) {
+        this.setTileLayoutForPhone();
+      }
+    } else {
+      // Only update layout if it changed!
+      if (
+        TileGridAttrs.tileGridWidth != tileGridWidthComputer ||
+        TileGridAttrs.tileGridHeight != tileGridHeightComputer
+      ) {
+        this.setLayoutForComputer();
+      }
+    }
+  }
+
+  setTileLayoutForPhone() {
+    // Update layout for phone
+    TileGridAttrs.tileGridWidth = tileGridWidthPhone;
+    TileGridAttrs.tileGridHeight = tileGridHeightPhone;
+
+    // init or re-init all tiles
+    this.destroyTiles();
+    instantiateTiles(this).then((tiles_returned) => {
+      // Push new tiles into tiles array
+      tiles_returned.forEach((tile) => tiles.push(tile));
+    });
+  }
+
+  setLayoutForComputer() {
+    // Update layout for computer
+    TileGridAttrs.tileGridWidth = tileGridWidthComputer;
+    TileGridAttrs.tileGridHeight = tileGridHeightComputer;
+
+    // init or re-init all tiles
+    this.destroyTiles();
+    instantiateTiles(this).then((tiles_returned) => {
+      // Push new tiles into tiles array
+      tiles_returned.forEach((tile) => tiles.push(tile));
+    });
   }
 
   subscribeToEvents() {

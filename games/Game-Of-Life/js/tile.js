@@ -48,7 +48,7 @@ export class Tile extends GameObject {
 
     this.updateSize();
     this.updatePosition();
-    this.changeState(tileStates.ON); // this will update the graphic too
+    this.changeState(tileStates.OFF); // this will update the graphic too
   }
 
   updateSize() {
@@ -78,15 +78,17 @@ export class Tile extends GameObject {
     // Get the tile location from the grid location and screen size
     let centerX = this.scene.game.canvas.width / 2;
     let centerY = this.scene.game.canvas.height / 2;
+    let smallAmountForGrid = 5; // add small amount to create a "grid"
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-    // for phones change the center location
+    // for phones change the center location etc.
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.43;
+      centerY = this.scene.game.canvas.height * 0.46;
+      smallAmountForGrid = 6;
     }
 
     // Calculate the starting position for the bottom-left tile in the grid
-    let tileSpacing = this.size;
+    let tileSpacing = this.size + smallAmountForGrid;
     let startGridX, startGridY;
 
     if (TileGridAttrs.tileGridWidth % 2 === 0) {
@@ -198,5 +200,18 @@ export class Tile extends GameObject {
     } else {
       this.updateGraphic(tileColors.ON);
     }
+  }
+
+  destroy() {
+    // Remove the sprite from the scene
+    this.graphic.destroy();
+    this.graphic = null;
+
+    // // Remove text from the scene
+    // this.text.destroy();
+    // this.text = null;
+
+    // TODO: add particles or something when destroyed?
+    // ...
   }
 }
