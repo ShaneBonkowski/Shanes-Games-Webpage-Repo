@@ -209,16 +209,19 @@ export class Tile extends GameObject {
 
   handleConwayLifeIteration() {
     // Classic Conway's Game of Life rules:
-    // Live cell with 2 or 3 neighbors survives.
-    // i.e., a live cell with fewer than 2 live neighbors dies (underpopulation),
-    // and a live cell with more than 3 live neighbors dies (overpopulation).
+    // - Live cell with fewer than 2 live neighbors dies (underpopulation).
+    // - Live cell with more than 3 live neighbors dies (overpopulation).
+    // - Live cell with 2 or 3 neighbors survives.
+    // - Dead cell with 3 neighbors becomes alive (reproduction).
     if (this.tileState == tileStates.ON) {
-      if (this.qtyLivingNeighbors < 2 || this.qtyLivingNeighbors > 3) {
+      if (
+        this.qtyLivingNeighbors < TileGridAttrs.golUnderpopulationCriteria ||
+        this.qtyLivingNeighbors > TileGridAttrs.golOverpopulationCriteria
+      ) {
         this.changeState(tileStates.OFF);
       }
     } else if (this.tileState == tileStates.OFF) {
-      // Dead cell with 3 neighbors becomes alive (reproduction).
-      if (this.qtyLivingNeighbors == 3) {
+      if (this.qtyLivingNeighbors == TileGridAttrs.golRepoductionCritera) {
         this.changeState(tileStates.ON);
       }
     }
@@ -264,15 +267,14 @@ export class Tile extends GameObject {
   }
 
   playSpinAnim() {
-    // cannot click during animation
+    this.stopCurrentTileAnim();
     this.canClick = false;
 
     // Rotate the graphic 360 degrees
     this.currentTileAnim = this.scene.tweens.add({
       targets: this.graphic,
       angle: "+=360",
-      // Must be slower than update interval! so it doesnt bleed over
-      duration: TileGridAttrs.updateInterval * 0.8,
+      duration: 220,
       ease: "Linear",
       repeat: 0, // Do not repeat
       onComplete: () => {
@@ -282,12 +284,16 @@ export class Tile extends GameObject {
   }
 
   stopCurrentTileAnim() {
+    // Stop the anim if there is one
     if (this.currentTileAnim) {
       this.currentTileAnim.stop();
       this.currentTileAnim = null;
-    }
 
-    this.canClick = true;
+      // Ensure attrs that may have changed in the anim are reset
+      this.graphic.angle = 0;
+      this.graphic.scale = 1;
+      this.canClick = true;
+    }
   }
 
   destroy() {

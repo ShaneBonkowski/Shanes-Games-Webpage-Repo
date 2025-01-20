@@ -9,7 +9,7 @@
   --gol-info-header-mt: 5%;
   --gol-toggle-pause-button-container-mr: 50vw;
   --gol-toggle-pause-button-container-mb: 13vh;
-  --gol-advance-button-container-mr: 40vw;
+  --gol-advance-button-container-mr: 42vw;
   --gol-advance-button-container-mb: 13vh;
   --gol-reset-tiles-button-container-mr: 94vw;
   --gol-reset-tiles-button-container-mb: 13vh;
@@ -17,14 +17,16 @@
   --gol-settings-button-container-mr: 6vw;
   --gol-settings-button-container-mb: 20vh;
   --gol-ui-element-mt: 3vh;
-  --gol-toggle-disco-button-container-mr: 94vw;
-  --gol-toggle-disco-button-container-mb: 20vh;
-  /* Font */
+  --gol-toggle-disco-button-container-mr: 58vw;
+  --gol-toggle-disco-button-container-mb: 13vh;
+  --gol-slider-label-mt: 0%;
+  --gol-slider-hover-label-mr: -115%;
+  --gol-input-ml: 80%;
+  /* Font Sizes */
   --gol-button-text-size: calc(10vw * 0.175);
   --gol-ui-element-font-size: calc(10vw * 0.14);
-  --gol-settings-font-size: 2vw;
-  /* Font Sizes */
-  --gol-general-font-size: calc(10vw * 0.18);
+  --gol-settings-font-size: 1.8vw;
+  --gol-general-font-size: calc(10vw * 0.16);
   --gol-x-button-font-size: calc(10vw * 0.2);
   --gol-pop-gen-text-font-size: calc(10vh * 0.3);
   /* Sizes */
@@ -33,6 +35,7 @@
   --gol-icon-size: 75%;
   --gol-ui-element-h: 5vh;
   --gol-toggle-size: calc(10vw * 0.2);
+  --gol-input-slider-w: 15vw;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -53,9 +56,12 @@
     --gol-pop-gen-text-mt: 7%;
     --gol-settings-button-container-mr: 16vw;
     --gol-settings-button-container-mb: 18vh;
-    --gol-ui-element-mt: 5vh;
-    --gol-toggle-disco-button-container-mr: 84vw;
-    --gol-toggle-disco-button-container-mb: 18vh;
+    --gol-ui-element-mt: 2vh;
+    --gol-toggle-disco-button-container-mr: 65vw;
+    --gol-toggle-disco-button-container-mb: 9vh;
+    --gol-slider-label-mt: -43%;
+    --gol-slider-hover-label-mr: -145%;
+    --gol-input-ml: 105%;
     /* Font */
     --gol-button-text-size: calc(10vh * 0.2);
     --gol-ui-element-font-size: calc(10vw * 0.35);
@@ -63,12 +69,13 @@
     --gol-general-font-size: calc(10vw * 0.4);
     --gol-x-button-font-size: calc(10vw * 0.5);
     --gol-pop-gen-text-font-size: calc(10vh * 0.2);
-    --gol-settings-font-size: 4vw;
+    --gol-settings-font-size: 3.6vw;
     /* Sizes */
     --gol-button-w: calc(20vw * 0.85);
     --gol-button-h: calc(10vh * 0.43);
     --gol-icon-size: 75%;
     --gol-toggle-size: calc(10vh * 0.25);
+    --gol-input-slider-w: 28.5vw;
   }
 }
 
@@ -389,4 +396,62 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 .close-button.active {
   transform: scale(2.2);
   filter: brightness(0.8) invert(25%);
+}
+
+/* Slider styles */
+.slider-container {
+  position: relative;
+  pointer-events: none;
+  height: var(--gol-ui-element-h);
+  width: var(--gol-input-slider-w);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--gol-ui-element-mt) 0px 0px 0px;
+}
+
+.slider-label {
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+  font-size: var(--gol-ui-element-font-size);
+  white-space: nowrap;
+  color: white;
+}
+
+.slider-hover-label {
+  position: absolute;
+  right: var(--gol-slider-hover-label-mr);
+  display: none; /* Hide the label until we hover on it below */
+  font-size: var(--gol-ui-element-font-size);
+  white-space: nowrap;
+  color: white;
+}
+
+.slider-container:hover .slider-hover-label {
+  /* DONT do the @media (hover: hover) thing for fixing hovering */
+  /* on phone here. This is because we like how on the phone the */
+  /* hover label for the slider gets stuck when a player holds it. */
+  /* Theres a tiny side effect of making the value persist but thats */
+  /* fine since theyre likely to tap elsewhere to fix it soon after. */
+  display: block; /* Show the hover label when hovering over the slider container */
+}
+
+.touch-hover .slider-hover-label {
+  /* for touching on phone (see the eventListener adding that needs to occur in settings-menu.js for this to work) */
+  display: block;
+}
+
+input[type="range"] {
+  left: var(--gol-input-ml);
+  position: absolute;
+  cursor: pointer;
+  pointer-events: auto; /* Can click on this */
+  height: var(--gol-ui-element-h);
+  width: var(--gol-input-slider-w);
+}
+
+input[type="range"]:active {
+  /* Define styles for when the slider is being interacted with */
+  transform: scale(1.18); /* Increase the scale of the slider */
 }

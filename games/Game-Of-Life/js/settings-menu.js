@@ -7,13 +7,17 @@ import {
   uiMenuOpenHandler,
   uiMenuCloseHandler,
 } from "/games/Game-Of-Life/js/init-ui.js";
+import {
+  instantiateSlider,
+  initSliderEvents,
+} from "/Main-Website-Assets/js/slider.js";
 
 const initialSettingsPanelInfo = {
   htmlContent: `
-      <h2>Settings:</h2>
-      <p>
-          Customize Game of Life rules, parameters, and more!
-      </p>
+    <h2>Settings:</h2>
+    <p>
+        Customize Game of Life rules, parameters, color theme and more!
+    </p>
     `,
 };
 const toggleAutoPausePanelInfo = {
@@ -22,23 +26,59 @@ const toggleAutoPausePanelInfo = {
     <p>
         If enabled, automatically pause when clicking to add/subtract a cell. Enabled by default.
     </p>
-  `,
+    `,
 };
 const toggleInfiniteEdgesPanelInfo = {
   htmlContent: `
-      <h2>Infinite Edges:</h2>
-      <p>
-          If enabled, cells treat edges as a portal to the other side (Kind've like Pac-Man). Enabled by default.
-      </p>
+    <h2>Infinite Edges:</h2>
+    <p>
+        If enabled, cells treat edges as a portal to the other side (Kind've like Pac-Man). Enabled by default.
+    </p>
     `,
 };
 const countDiagonalNeighborsPanelInfo = {
   htmlContent: `
-        <h2>Diagonal Neighbors:</h2>
-        <p>
-            If enabled, cells treat other cells that are diagonal to them as neighbors. Enabled by default.
-        </p>
-      `,
+    <h2>Diagonal Neighbors:</h2>
+    <p>
+        If enabled, cells treat other cells that are diagonal to them as neighbors. Enabled by default.
+    </p>
+    `,
+};
+
+const updateIntervalPanelInfo = {
+  htmlContent: `
+    <h2>Cell Update Interval:</h2>
+    <p>
+        How many milliseconds to wait between cell updates. Lower value means quicker updates.
+    </p>
+    `,
+};
+
+const underpopulationPanelInfo = {
+  htmlContent: `
+    <h2>Underpopulation:</h2>
+    <p>
+        Any live cell with fewer than this many neighbors dies. Defaults to 2.
+    </p>
+    `,
+};
+
+const overpopulationPanelInfo = {
+  htmlContent: `
+    <h2>Overpopulation:</h2>
+    <p>
+        Any live cell with more than this many neighbors dies. Defaults to 3.
+    </p>
+    `,
+};
+
+const reproductionPanelInfo = {
+  htmlContent: `
+    <h2>Reproduction:</h2>
+    <p>
+        Any dead cell with exactly this many neighbors becomes alive. Defaults to 3.
+    </p>
+    `,
 };
 
 export function addGameOfLifeSettings() {
@@ -87,10 +127,10 @@ export function addGameOfLifeSettings() {
 
     // When freshly openning settings, update the settings side panel to
     // show the initial settings info
-    const settingsPanel = document.querySelector(".settings-side-panel");
-    if (settingsPanel != null) {
+    const settingsSidePanel = document.querySelector(".settings-side-panel");
+    if (settingsSidePanel != null) {
       updateSettingsSidePanel(
-        settingsPanel,
+        settingsSidePanel,
         initialSettingsPanelInfo.htmlContent
       );
     }
@@ -136,9 +176,9 @@ export function addGameOfLifeSettings() {
       }
 
       // Reveal panel info
-      const settingsPanel = document.querySelector(".settings-side-panel");
+      const settingsSidePanel = document.querySelector(".settings-side-panel");
       updateSettingsSidePanel(
-        settingsPanel,
+        settingsSidePanel,
         toggleAutoPausePanelInfo.htmlContent
       );
     }
@@ -168,9 +208,9 @@ export function addGameOfLifeSettings() {
       }
 
       // Reveal panel info
-      const settingsPanel = document.querySelector(".settings-side-panel");
+      const settingsSidePanel = document.querySelector(".settings-side-panel");
       updateSettingsSidePanel(
-        settingsPanel,
+        settingsSidePanel,
         toggleInfiniteEdgesPanelInfo.htmlContent
       );
     }
@@ -204,16 +244,89 @@ export function addGameOfLifeSettings() {
       }
 
       // Reveal panel info
-      const settingsPanel = document.querySelector(".settings-side-panel");
+      const settingsSidePanel = document.querySelector(".settings-side-panel");
       updateSettingsSidePanel(
-        settingsPanel,
+        settingsSidePanel,
         countDiagonalNeighborsPanelInfo.htmlContent
       );
     }
   );
 
   // Create sliders and their containers
-  // TODO here ...
+  const updateIntervalSpeedSliderContainer = instantiateSlider(
+    "Update Interval",
+    TileGridAttrs.updateInterval,
+    "10",
+    "1000",
+    "10"
+  );
+  initSliderEvents(updateIntervalSpeedSliderContainer, function (value) {
+    TileGridAttrs.updateInterval = value;
+  });
+  updateIntervalSpeedSliderContainer.addEventListener(
+    "pointerdown",
+    function () {
+      const settingsSidePanel = document.querySelector(".settings-side-panel");
+      updateSettingsSidePanel(
+        settingsSidePanel,
+        updateIntervalPanelInfo.htmlContent
+      );
+    }
+  );
+
+  const underpopulationSliderContainer = instantiateSlider(
+    "Underpopulation",
+    TileGridAttrs.golUnderpopulationCriteria,
+    "0",
+    "8",
+    "1"
+  );
+  initSliderEvents(underpopulationSliderContainer, function (value) {
+    TileGridAttrs.golUnderpopulationCriteria = value;
+  });
+  underpopulationSliderContainer.addEventListener("pointerdown", function () {
+    const settingsSidePanel = document.querySelector(".settings-side-panel");
+    updateSettingsSidePanel(
+      settingsSidePanel,
+      underpopulationPanelInfo.htmlContent
+    );
+  });
+
+  const overpopulationSliderContainer = instantiateSlider(
+    "Overpopulation",
+    TileGridAttrs.golOverpopulationCriteria,
+    "0",
+    "8",
+    "1"
+  );
+  initSliderEvents(overpopulationSliderContainer, function (value) {
+    TileGridAttrs.golOverpopulationCriteria = value;
+  });
+  overpopulationSliderContainer.addEventListener("pointerdown", function () {
+    const settingsSidePanel = document.querySelector(".settings-side-panel");
+    updateSettingsSidePanel(
+      settingsSidePanel,
+      overpopulationPanelInfo.htmlContent
+    );
+  });
+
+  const reproductionSliderContainer = instantiateSlider(
+    "Reproduction",
+    TileGridAttrs.golRepoductionCritera,
+    "0",
+    "8",
+    "1"
+  );
+  initSliderEvents(reproductionSliderContainer, function (value) {
+    TileGridAttrs.golRepoductionCritera = value;
+  });
+  reproductionSliderContainer.addEventListener("pointerdown", function () {
+    const settingsSidePanel = document.querySelector(".settings-side-panel");
+    updateSettingsSidePanel(
+      settingsSidePanel,
+      reproductionPanelInfo.htmlContent
+    );
+  });
 
   // When ui is open, hide certain UI, when it is closed, reveal them
   document.addEventListener(
@@ -232,6 +345,11 @@ export function addGameOfLifeSettings() {
   uiSettingsOptionsContainer.classList.add(
     "disable-browser-default-touch-actions"
   );
+
+  uiSettingsOptionsContainer.appendChild(updateIntervalSpeedSliderContainer);
+  uiSettingsOptionsContainer.appendChild(underpopulationSliderContainer);
+  uiSettingsOptionsContainer.appendChild(overpopulationSliderContainer);
+  uiSettingsOptionsContainer.appendChild(reproductionSliderContainer);
   uiSettingsOptionsContainer.appendChild(autoPauseToggleBoxContainer);
   uiSettingsOptionsContainer.appendChild(infiniteEdgesToggleBoxContainer);
   uiSettingsOptionsContainer.appendChild(

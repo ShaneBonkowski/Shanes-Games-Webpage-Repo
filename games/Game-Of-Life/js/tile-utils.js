@@ -16,11 +16,15 @@ export const tileGridHeightComputer = 15;
 
 export const TileGridAttrs = {
   updateInterval: 200, // ms
+  discoModeUpdateInterval: 2000, // ms
   tileGridWidth: tileGridWidthComputer,
   tileGridHeight: tileGridHeightComputer,
   autoPauseOnClick: true,
   infiniteEdges: true,
   countCornersAsNeighbors: true,
+  golUnderpopulationCriteria: 2, // <
+  golOverpopulationCriteria: 3, // >
+  golRepoductionCritera: 3, // =
 };
 
 export const TileAndBackgroundColors = [

@@ -28,8 +28,7 @@ export class MainGameScene extends Generic2DGameScene {
     this.currentColorThemeIndex = 0;
 
     this.discoMode = false;
-    this.discoModeCounter = 0;
-    this.partModeUpdateInterval = 6;
+    this.discoModeLastUpdateTime = 0;
 
     this.updatePopulation(0);
     this.updateGeneration(0);
@@ -82,12 +81,14 @@ export class MainGameScene extends Generic2DGameScene {
           this.lastUpdateTime = time;
           this.runGameOfLifeIteration();
 
-          // Disco mode: switch color theme every x iterations
+          // Disco mode: switch color theme every after discoModeUpdateInterval ms
           if (this.discoMode) {
-            this.discoModeCounter++;
-            if (this.discoModeCounter >= this.partModeUpdateInterval) {
+            if (
+              time - this.discoModeLastUpdateTime >=
+              TileGridAttrs.discoModeUpdateInterval
+            ) {
+              this.discoModeLastUpdateTime = time;
               this.advanceToNextColorTheme();
-              this.discoModeCounter = 0;
             }
           }
         }
@@ -443,10 +444,14 @@ export class MainGameScene extends Generic2DGameScene {
     );
 
     // Tile color is ON == TileAndBackgroundColors[i][0], OFF == TileAndBackgroundColors[i][1]
+    console.log("play spin");
     for (let row = 0; row < tiles.length; row++) {
       for (let col = 0; col < tiles[row].length; col++) {
         tiles[row][col].updateColor();
-        tiles[row][col].playSpinAnim();
+
+        // NOTE: the spin animation is kinda broken and doesnt
+        // look great, so for now not doing it
+        // tiles[row][col].playSpinAnim();
       }
     }
 
