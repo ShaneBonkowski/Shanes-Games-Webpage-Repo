@@ -14,20 +14,30 @@ export function setZOrderForSharedElements(game) {
   const advanceButtonContainer = document.querySelector(
     ".advance-button-container"
   );
+  const discoButtonContainer = document.querySelector(
+    ".toggle-disco-button-container"
+  );
   const resetTilesButtonContainer = document.querySelector(
     ".reset-tiles-button-container"
   );
+  const settingsButtonContainer = document.querySelector(
+    ".settings-button-container"
+  );
   const closeButtons = document.querySelectorAll(".close-button");
   const infoBoxs = document.querySelectorAll(".info-box");
+  const popGenText = document.querySelector(".pop-gen-text");
 
   // Set the z-index property for all other objs\
   // helloWorldBox.style.zIndex = "-1"; // far back
   game.canvas.style.zIndex = "0";
   gameHeader.style.zIndex = "2";
-  infoButtonContainer.style.zIndex = "3";
-  togglePauseButtonContainer.style.zIndex = "3";
-  advanceButtonContainer.style.zIndex = "3";
-  resetTilesButtonContainer.style.zIndex = "3";
+  popGenText.style.zIndex = "3";
+  infoButtonContainer.style.zIndex = "4";
+  togglePauseButtonContainer.style.zIndex = "4";
+  advanceButtonContainer.style.zIndex = "4";
+  resetTilesButtonContainer.style.zIndex = "4";
+  settingsButtonContainer.style.zIndex = "4";
+  discoButtonContainer.style.zIndex = "4";
 
   infoBoxs.forEach((infoBox) => {
     infoBox.style.zIndex = "6";

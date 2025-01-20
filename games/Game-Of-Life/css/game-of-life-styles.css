@@ -1,6 +1,8 @@
 /* Define variables */
 :root {
   /* Edge Margins */
+  --settings-side-panel-mt: 0%;
+  --settings-side-panel-bottom-half-mt: 0%;
   --gol-info-button-container-mr: 6vw;
   --gol-info-button-container-mb: 13vh;
   --gol-info-header-ml: 95%;
@@ -11,22 +13,33 @@
   --gol-advance-button-container-mb: 13vh;
   --gol-reset-tiles-button-container-mr: 94vw;
   --gol-reset-tiles-button-container-mb: 13vh;
+  --gol-pop-gen-text-mt: 7%;
+  --gol-settings-button-container-mr: 6vw;
+  --gol-settings-button-container-mb: 20vh;
+  --gol-ui-element-mt: 3vh;
+  --gol-toggle-disco-button-container-mr: 94vw;
+  --gol-toggle-disco-button-container-mb: 20vh;
   /* Font */
   --gol-button-text-size: calc(10vw * 0.175);
+  --gol-ui-element-font-size: calc(10vw * 0.14);
+  --gol-settings-font-size: 2vw;
   /* Font Sizes */
   --gol-general-font-size: calc(10vw * 0.18);
   --gol-x-button-font-size: calc(10vw * 0.2);
+  --gol-pop-gen-text-font-size: calc(10vh * 0.3);
   /* Sizes */
   --gol-button-w: calc(10vw * 0.75);
   --gol-button-h: calc(10vh * 0.8);
-  --toggle-pause-icon-size: 75%;
-  --advance-icon-size: 75%;
+  --gol-icon-size: 75%;
+  --gol-ui-element-h: 5vh;
+  --gol-toggle-size: calc(10vw * 0.2);
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
 @media screen and (orientation: portrait), (max-width: 600px) {
   :root {
     /* Edge Margins */
+    --settings-side-panel-mt: 3.5%;
     --gol-info-button-container-mr: 16vw;
     --gol-info-button-container-mb: 9vh;
     --gol-info-header-ml: 90%;
@@ -37,16 +50,25 @@
     --gol-advance-button-container-mb: 9vh;
     --gol-reset-tiles-button-container-mr: 84vw;
     --gol-reset-tiles-button-container-mb: 9vh;
+    --gol-pop-gen-text-mt: 7%;
+    --gol-settings-button-container-mr: 16vw;
+    --gol-settings-button-container-mb: 18vh;
+    --gol-ui-element-mt: 5vh;
+    --gol-toggle-disco-button-container-mr: 84vw;
+    --gol-toggle-disco-button-container-mb: 18vh;
     /* Font */
     --gol-button-text-size: calc(10vh * 0.2);
+    --gol-ui-element-font-size: calc(10vw * 0.35);
     /* Font Sizes */
     --gol-general-font-size: calc(10vw * 0.4);
     --gol-x-button-font-size: calc(10vw * 0.5);
+    --gol-pop-gen-text-font-size: calc(10vh * 0.2);
+    --gol-settings-font-size: 4vw;
     /* Sizes */
     --gol-button-w: calc(20vw * 0.85);
     --gol-button-h: calc(10vh * 0.43);
-    --toggle-pause-icon-size: 75%;
-    --advance-icon-size: 75%;
+    --gol-icon-size: 75%;
+    --gol-toggle-size: calc(10vh * 0.25);
   }
 }
 
@@ -75,6 +97,32 @@ a.active {
   text-decoration: underline; /* Add underline on click */
 }
 
+/* Population/generation text */
+.pop-gen-text-container {
+  user-select: none; /* Prevent text highlighting */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  top: var(--gol-pop-gen-text-mt);
+  width: 100%;
+}
+
+.pop-gen-text {
+  user-select: none; /* Prevent text highlighting */
+  text-align: center;
+  color: var(--main-text-color);
+  font-size: var(--gol-pop-gen-text-font-size);
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
+  margin: 3px 0;
+}
+
+.pop-gen-text-grow {
+  transform: scale(1.2); /* Grow the text */
+}
+
 /* Buttons */
 .gol-button {
   position: absolute;
@@ -99,6 +147,27 @@ a.active {
   filter: brightness(0.6);
 }
 
+/* Dicso mode button  */
+.toggle-disco-button-container {
+  position: fixed;
+  right: var(--gol-toggle-disco-button-container-mr);
+  bottom: var(--gol-toggle-disco-button-container-mb);
+}
+
+.fas.fa-gift {
+  position: relative;
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
+}
+
+.fas.fa-circle-stop {
+  position: relative;
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
+}
+
 /* Pause-play button */
 .toggle-pause-button-container {
   position: fixed;
@@ -108,15 +177,15 @@ a.active {
 
 .fas.fa-pause {
   position: relative;
-  color: #000000;
-  font-size: var(--toggle-pause-icon-size);
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
   margin: 0 0 0 0; /* Adjust margin as needed */
 }
 
 .fas.fa-play {
   position: relative;
-  color: #000000;
-  font-size: var(--toggle-pause-icon-size);
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
   margin: 0 0 0 0; /* Adjust margin as needed */
 }
 
@@ -129,8 +198,8 @@ a.active {
 
 .fas.fa-chevron-right {
   position: relative;
-  color: #000000;
-  font-size: var(--advance-icon-size);
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
   margin: 0 0 0 0; /* Adjust margin as needed */
 }
 
@@ -221,6 +290,89 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   pointer-events: auto;
   transform: scale(1.6);
   transition: transform 0.3s ease;
+}
+
+/* Settings screen styles */
+.settings-content-container {
+  margin: 0px 5% 0px 5%;
+  text-align: center;
+  color: white;
+  font-size: var(--gol-settings-font-size);
+}
+
+.settings-side-panel {
+  position: relative;
+  top: var(--settings-side-panel-mt);
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 10px;
+  box-sizing: border-box;
+  display: none; /* hide at first */
+  align-items: center;
+}
+
+.settings-side-panel-bottom-half {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  align-items: center;
+  margin: var(--settings-side-panel-bottom-half-mt) 0px 0px 0px;
+}
+
+@media screen and (orientation: portrait), (max-width: 600px) {
+  /* Different format for phone */
+  .settings-side-panel-bottom-half {
+    align-items: flex-start;
+  }
+}
+
+.ui-settings-options-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 0px 0px 0px 5%;
+}
+
+.settings-button-container {
+  position: fixed;
+  right: var(--gol-settings-button-container-mr);
+  bottom: var(--gol-settings-button-container-mb);
+}
+
+.fas.fa-gear {
+  position: relative;
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
+}
+
+/* Toggle box styles */
+.toggle-box-container {
+  height: var(--gol-ui-element-h);
+  display: flex;
+  align-items: center;
+  position: relative;
+  align-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: var(--gol-ui-element-mt) 0px 0px 0px;
+}
+
+.toggle-label {
+  margin-left: calc(var(--gol-toggle-size) * 0.5);
+  font-size: var(--gol-ui-element-font-size);
+  white-space: nowrap;
+  color: white;
+}
+
+.toggle-input {
+  width: var(--gol-toggle-size);
+  height: var(--gol-toggle-size);
+  cursor: pointer;
 }
 
 /* Only hover if the browser supports hover. Aka

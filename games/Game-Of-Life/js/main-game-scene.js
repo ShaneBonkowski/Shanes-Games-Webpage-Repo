@@ -1,5 +1,8 @@
 import { setZOrderForMainGameElements } from "./z-ordering.js";
-import { Generic2DGameScene } from "../../Shared-Game-Assets/js/game-scene-2d.js";
+import {
+  Generic2DGameScene,
+  genericGameEventNames,
+} from "../../Shared-Game-Assets/js/game-scene-2d.js";
 import {
   instantiateTiles,
   TileGridAttrs,
@@ -9,6 +12,8 @@ import {
   tileGridHeightPhone,
   tileColors,
   TileAndBackgroundColors,
+  tileStates,
+  gameOfLifeTypes,
 } from "./tile-utils.js";
 import { gameOfLifeEventNames } from "./init-ui.js";
 
@@ -19,10 +24,18 @@ export class MainGameScene extends Generic2DGameScene {
     super({ key: "MainGameScene" });
 
     this.lastUpdateTime = 0;
+    this.gameOfLifeType = gameOfLifeTypes.CONWAY;
     this.currentColorThemeIndex = 0;
-    this.partyMode = true;
-    this.partyModeCounter = 0;
+
+    this.discoMode = false;
+    this.discoModeCounter = 0;
     this.partModeUpdateInterval = 6;
+
+    this.updatePopulation(0);
+    this.updateGeneration(0);
+
+    // Let game know ui menu closed to start
+    this.onUiMenuClosed();
   }
 
   preload() {
@@ -45,6 +58,14 @@ export class MainGameScene extends Generic2DGameScene {
       this.setLayoutForComputer();
     }
 
+    // If there is local storage with currentColorThemeIndex, set
+    // this.currentColorThemeIndex to that to start!
+    if (localStorage.getItem("currentColorThemeIndex")) {
+      this.currentColorThemeIndex = parseInt(
+        localStorage.getItem("currentColorThemeIndex")
+      );
+    }
+
     this.updateColorTheme();
 
     // After everything is loaded in, we can begin the game
@@ -59,14 +80,14 @@ export class MainGameScene extends Generic2DGameScene {
         // Perform tile grid updates on TileGridAttrs.updateInterval
         if (time - this.lastUpdateTime >= TileGridAttrs.updateInterval) {
           this.lastUpdateTime = time;
-          this.runClassicConwayGameOfLifeIteration();
+          this.runGameOfLifeIteration();
 
-          // Party mode: switch color theme every x iterations
-          if (this.partyMode) {
-            this.partyModeCounter++;
-            if (this.partyModeCounter >= this.partModeUpdateInterval) {
+          // Disco mode: switch color theme every x iterations
+          if (this.discoMode) {
+            this.discoModeCounter++;
+            if (this.discoModeCounter >= this.partModeUpdateInterval) {
               this.advanceToNextColorTheme();
-              this.partyModeCounter = 0;
+              this.discoModeCounter = 0;
             }
           }
         }
@@ -74,9 +95,76 @@ export class MainGameScene extends Generic2DGameScene {
     }
   }
 
-  runClassicConwayGameOfLifeIteration() {
-    this.checkForNeighborTiles(true, true);
-    this.handleConwayLifeIteration();
+  runGameOfLifeIteration() {
+    // Run the life iteration
+    this.checkForNeighborTiles(
+      TileGridAttrs.countCornersAsNeighbors,
+      TileGridAttrs.infiniteEdges
+    );
+    if (this.gameOfLifeType == gameOfLifeTypes.CONWAY) {
+      this.handleConwayLifeIteration();
+    } else {
+      console.error(`Unknown game of life type: ${gameOfLifeType}`);
+    }
+
+    // Update the populalation and generation count
+    this.updateGeneration(this.generation + 1);
+
+    let newPopulation = 0;
+    for (let row = 0; row < tiles.length; row++) {
+      for (let col = 0; col < tiles[row].length; col++) {
+        if (tiles[row][col].tileState == tileStates.ON) {
+          newPopulation++;
+        }
+      }
+    }
+    this.updatePopulation(newPopulation);
+  }
+
+  updateGeneration(newGenerationVal) {
+    // Cap to safe values
+    if (newGenerationVal > Number.MAX_SAFE_INTEGER - 10) {
+      newGenerationVal = 0;
+    }
+
+    // Only fire an event if the generation value actually changed
+    if (newGenerationVal != this.generation) {
+      document.dispatchEvent(
+        new CustomEvent(gameOfLifeEventNames.onGenChange, {
+          detail: { message: newGenerationVal.toString() },
+        })
+      );
+    }
+
+    this.generation = newGenerationVal;
+  }
+
+  updatePopulation(newPopulationVal) {
+    // Cap to safe values
+    if (newPopulationVal > Number.MAX_SAFE_INTEGER - 10) {
+      newPopulationVal = 0;
+    }
+
+    // Only fire an event if the population value actually changed
+    if (newPopulationVal != this.population) {
+      document.dispatchEvent(
+        new CustomEvent(gameOfLifeEventNames.onPopChange, {
+          detail: { message: newPopulationVal.toString() },
+        })
+      );
+    }
+
+    this.population = newPopulationVal;
+
+    if (this.population == 0) {
+      // If the population is 0, pause the game if it is not already
+      if (!this.paused) {
+        this.togglePause();
+      }
+    }
+
+    // Advance button may need changed if population/pause state changes!
+    this.handleAdvanceButtonState();
   }
 
   checkForNeighborTiles(countCorners, countTorusNeighbors) {
@@ -183,12 +271,21 @@ export class MainGameScene extends Generic2DGameScene {
         tiles[row][col].resetTile();
       }
     }
+
+    // Fresh reset on generation and population as well
+    this.updatePopulation(0);
+    this.updateGeneration(0);
   }
 
   subscribeToEvents() {
     document.addEventListener(
       gameOfLifeEventNames.togglePause,
       this.togglePause.bind(this)
+    );
+
+    document.addEventListener(
+      gameOfLifeEventNames.toggleDisco,
+      this.toggleDisco.bind(this)
     );
 
     document.addEventListener(
@@ -200,6 +297,23 @@ export class MainGameScene extends Generic2DGameScene {
       gameOfLifeEventNames.resetTiles,
       this.resetTiles.bind(this)
     );
+
+    document.addEventListener(
+      genericGameEventNames.uiMenuOpen,
+      this.onUiMenuOpen.bind(this)
+    );
+    document.addEventListener(
+      genericGameEventNames.uiMenuClosed,
+      this.onUiMenuClosed.bind(this)
+    );
+  }
+
+  onUiMenuOpen() {
+    this.uiMenuOpen = true;
+  }
+
+  onUiMenuClosed() {
+    this.uiMenuOpen = false;
   }
 
   togglePause() {
@@ -208,6 +322,11 @@ export class MainGameScene extends Generic2DGameScene {
   }
 
   handleTogglePauseUpdates() {
+    this.handlePauseButtonVisual();
+    this.handleAdvanceButtonState();
+  }
+
+  handlePauseButtonVisual() {
     // Update icon of togglePause button based on state
     const togglePauseButtonContainer = document.querySelector(
       ".toggle-pause-button-container"
@@ -223,24 +342,61 @@ export class MainGameScene extends Generic2DGameScene {
     } else {
       togglePauseButtonIcon.classList.add("fa-pause");
     }
+  }
 
-    // Disable the advance button if paused
+  handleAdvanceButtonState() {
+    // Can only advance while game is NOT running, and while there is > 0 population.
+    if (this.paused && this.population > 0) {
+      this.enableAdvanceButton();
+    } else {
+      this.disableAdvanceButton();
+    }
+  }
+
+  disableAdvanceButton() {
     const advanceButtonContainer = document.querySelector(
       ".advance-button-container"
     );
     const advanceButton = advanceButtonContainer.querySelector(".gol-button");
-    if (this.paused) {
-      advanceButtonContainer.classList.remove("gol-disabled-button-container");
-      advanceButton.classList.remove("gol-disabled-button");
-    } else {
-      advanceButtonContainer.classList.add("gol-disabled-button-container");
-      advanceButton.classList.add("gol-disabled-button");
-    }
+    advanceButtonContainer.classList.add("gol-disabled-button-container");
+    advanceButton.classList.add("gol-disabled-button");
+  }
+
+  enableAdvanceButton() {
+    const advanceButtonContainer = document.querySelector(
+      ".advance-button-container"
+    );
+    const advanceButton = advanceButtonContainer.querySelector(".gol-button");
+    advanceButtonContainer.classList.remove("gol-disabled-button-container");
+    advanceButton.classList.remove("gol-disabled-button");
   }
 
   clickAdvance() {
     if (this.paused) {
-      this.runClassicConwayGameOfLifeIteration();
+      this.runGameOfLifeIteration();
+    }
+  }
+
+  toggleDisco() {
+    this.discoMode = !this.discoMode;
+    this.handleDiscoButtonVisual();
+  }
+
+  handleDiscoButtonVisual() {
+    // Update icon of togglePause button based on state
+    const toggleDiscoButtonContainer = document.querySelector(
+      ".toggle-disco-button-container"
+    );
+    const toggleDiscoButton =
+      toggleDiscoButtonContainer.querySelector(".gol-button");
+    const toggleDiscoButtonIcon = toggleDiscoButton.querySelector(".fas");
+
+    toggleDiscoButtonIcon.classList.remove("fa-circle-stop", "fa-gift");
+    if (this.discoMode) {
+      // Show "turn off" icon if disco is playing
+      toggleDiscoButtonIcon.classList.add("fa-circle-stop");
+    } else {
+      toggleDiscoButtonIcon.classList.add("fa-gift");
     }
   }
 
@@ -275,15 +431,22 @@ export class MainGameScene extends Generic2DGameScene {
   }
 
   updateColorTheme() {
+    // Update the ON/OFF colors
+    tileColors.ON = TileAndBackgroundColors[this.currentColorThemeIndex][0];
+    tileColors.OFF = TileAndBackgroundColors[this.currentColorThemeIndex][1];
+
+    // Write this.currentColorThemeIndex to localStorage so that
+    // the color theme persists on page reload etc.
+    localStorage.setItem(
+      "currentColorThemeIndex",
+      this.currentColorThemeIndex.toString()
+    );
+
     // Tile color is ON == TileAndBackgroundColors[i][0], OFF == TileAndBackgroundColors[i][1]
     for (let row = 0; row < tiles.length; row++) {
       for (let col = 0; col < tiles[row].length; col++) {
-        // Update the ON/OFF colors
-        tileColors.ON = TileAndBackgroundColors[this.currentColorThemeIndex][0];
-        tileColors.OFF =
-          TileAndBackgroundColors[this.currentColorThemeIndex][1];
-
         tiles[row][col].updateColor();
+        tiles[row][col].playSpinAnim();
       }
     }
 

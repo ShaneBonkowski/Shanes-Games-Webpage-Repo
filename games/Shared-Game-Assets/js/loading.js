@@ -10,7 +10,7 @@ export function gamesEntryHtmlLoadingScreenAnimations() {
   let hasLoadedAnimPlayed = false;
   function playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay) {
     if (hasLoadedAnimPlayed) {
-      console.log("played already");
+      // console.log("Loaded anim played already, not playing again");
       return;
     }
 

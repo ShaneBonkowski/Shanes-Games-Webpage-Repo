@@ -116,14 +116,14 @@ a.active {
 
 .fas.fa-volume-xmark {
   position: relative;
-  color: #000000;
+  color: var(--secondary-color);
   font-size: var(--mute-icon-size);
   margin: 0 0 0 0; /* Adjust margin as needed */
 }
 
 .fas.fa-volume-high {
   position: relative;
-  color: #000000;
+  color: var(--secondary-color);
   font-size: var(--mute-icon-size);
   margin: 0 0 0 0; /* Adjust margin as needed */
 }

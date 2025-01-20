@@ -1,15 +1,67 @@
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
+import { addGameOfLifeSettings } from "./settings-menu.js";
 
 export const gameOfLifeEventNames = {
   togglePause: "togglePause",
   clickAdvance: "clickAdvance",
   resetTiles: "resetTiles",
+  onPopChange: "onPopChange",
+  onGenChange: "onGenChange",
+  toggleDisco: "toggleDisco",
 };
 
 export function initUI() {
   addInfoBox();
+
+  // Population and generation Text
+  const textContainer = document.createElement("div");
+  textContainer.classList.add("pop-gen-text-container");
+
+  const textElementPop = document.createElement("div");
+  textElementPop.textContent = "Population: 0";
+  textElementPop.id = "popText";
+  textElementPop.classList.add("pop-gen-text");
+  textContainer.appendChild(textElementPop);
+
+  const textElementGen = document.createElement("div");
+  textElementGen.textContent = "Generation: 0";
+  textElementGen.id = "genText";
+  textElementGen.classList.add("pop-gen-text");
+  textContainer.appendChild(textElementGen);
+
+  document.body.appendChild(textContainer);
+
+  // When the pop or gen change occurs, update the text
+  document.addEventListener(gameOfLifeEventNames.onPopChange, function (event) {
+    // parse the event message field to get the new population
+    const newPopulation = parseInt(event.detail.message);
+    textElementPop.textContent = "Population: " + newPopulation;
+
+    // // Animate the text to grow and shrink
+    // // Add CSS class to grow the text
+    // textElementPop.classList.add("pop-gen-text-grow");
+
+    // // After a delay, remove the CSS class to shrink the text
+    // setTimeout(function () {
+    //   textElementPop.classList.remove("pop-gen-text-grow");
+    // }, 200);
+  });
+  document.addEventListener(gameOfLifeEventNames.onGenChange, function (event) {
+    // parse the event message field to get the new generation
+    const newGeneration = parseInt(event.detail.message);
+    textElementGen.textContent = "Generation: " + newGeneration;
+
+    // // Animate the text to grow and shrink
+    // // Add CSS class to grow the text
+    // textElementGen.classList.add("pop-gen-text-grow");
+
+    // // After a delay, remove the CSS class to shrink the text
+    // setTimeout(function () {
+    //   textElementGen.classList.remove("pop-gen-text-grow");
+    // }, 200);
+  });
 
   // Advance to next iteration button
   function onClickAdvance() {
@@ -63,6 +115,33 @@ export function initUI() {
   );
   document.body.appendChild(togglePauseButtonContainer);
 
+  // Disco Mode Button
+  function onClickToggleDisco() {
+    let customEvent = new CustomEvent(gameOfLifeEventNames.toggleDisco, {
+      detail: {
+        message: "Toggle disco button clicked",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  }
+  const toggleDiscoButtonContainer = createFunctionButtonContainer(
+    "toggleDiscoButtonContainer",
+    "toggleDiscoButton",
+    "../Flip-Tile-Game/webps/Button.webp",
+    "Disco",
+    "",
+    [onClickToggleDisco],
+    ["toggle-disco-button-container"],
+    ["gol-icon-img"],
+    ["gol-icon-text"],
+    ["gol-button"],
+    ["fas", "fa-gift"]
+  );
+  toggleDiscoButtonContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
+  document.body.appendChild(toggleDiscoButtonContainer);
+
   // Reset tiles Button
   function onClickResetTiles() {
     let customEvent = new CustomEvent(gameOfLifeEventNames.resetTiles, {
@@ -89,6 +168,9 @@ export function initUI() {
     "disable-browser-default-touch-actions"
   );
   document.body.appendChild(resetTilesButtonContainer);
+
+  // Settings menu + button
+  addGameOfLifeSettings();
 }
 
 function addInfoBox() {
@@ -148,44 +230,6 @@ function addInfoBox() {
     uiMenuCloseHandler
   );
 
-  function hideButtons() {
-    // Button
-    const buttons = document.querySelectorAll(".gol-button");
-    buttons.forEach((button) => {
-      button.style.display = "none";
-    });
-  }
-
-  function showButtons() {
-    // Button
-    const buttons = document.querySelectorAll(".gol-button");
-    buttons.forEach((button) => {
-      button.style.display = "block";
-    });
-  }
-
-  function hideGameBanner() {
-    const gameHeader = document.querySelector(".game-header-banner");
-    gameHeader.style.display = "none";
-  }
-
-  function showGameBanner() {
-    const gameHeader = document.querySelector(".game-header-banner");
-    gameHeader.style.display = "flex";
-  }
-
-  // Event listener for UI menu open event
-  function uiMenuOpenHandler() {
-    hideButtons();
-    hideGameBanner();
-  }
-
-  // Event listener for UI menu close event
-  function uiMenuCloseHandler() {
-    showButtons();
-    showGameBanner();
-  }
-
   // Show the info Window when the button is clicked
   function onClickInfo() {
     let customEvent = new CustomEvent(genericGameEventNames.uiMenuOpen, {
@@ -211,4 +255,53 @@ function addInfoBox() {
   function closeInfoWindow() {
     infoWindow.style.display = "none";
   }
+}
+
+export function uiMenuOpenHandler() {
+  hideButtons();
+  hideGameBanner();
+  hideGameText();
+}
+
+// Event listener for UI menu close event
+export function uiMenuCloseHandler() {
+  showButtons();
+  showGameBanner();
+  showGameText();
+}
+
+function hideGameText() {
+  const popGenTextContainer = document.querySelector(".pop-gen-text-container");
+  popGenTextContainer.style.display = "none";
+}
+
+function showGameText() {
+  const popGenTextContainer = document.querySelector(".pop-gen-text-container");
+  popGenTextContainer.style.display = "flex";
+}
+
+function hideButtons() {
+  // Button
+  const buttons = document.querySelectorAll(".gol-button");
+  buttons.forEach((button) => {
+    button.style.display = "none";
+  });
+}
+
+function showButtons() {
+  // Button
+  const buttons = document.querySelectorAll(".gol-button");
+  buttons.forEach((button) => {
+    button.style.display = "block";
+  });
+}
+
+function hideGameBanner() {
+  const gameHeader = document.querySelector(".game-header-banner");
+  gameHeader.style.display = "none";
+}
+
+function showGameBanner() {
+  const gameHeader = document.querySelector(".game-header-banner");
+  gameHeader.style.display = "flex";
 }

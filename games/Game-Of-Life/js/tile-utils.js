@@ -5,6 +5,10 @@ export const tileStates = {
   OFF: 0,
 };
 
+export const gameOfLifeTypes = {
+  CONWAY: "Conway's Game of Life",
+};
+
 export const tileGridWidthPhone = 15;
 export const tileGridHeightPhone = 30;
 export const tileGridWidthComputer = 40;
@@ -14,6 +18,9 @@ export const TileGridAttrs = {
   updateInterval: 200, // ms
   tileGridWidth: tileGridWidthComputer,
   tileGridHeight: tileGridHeightComputer,
+  autoPauseOnClick: true,
+  infiniteEdges: true,
+  countCornersAsNeighbors: true,
 };
 
 export const TileAndBackgroundColors = [

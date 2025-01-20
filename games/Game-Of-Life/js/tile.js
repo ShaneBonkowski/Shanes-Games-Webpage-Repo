@@ -25,11 +25,15 @@ export class Tile extends GameObject {
   subscribeToEvents() {
     // Add an event listener for pointer down events using phaser's event system
     this.graphic.on("pointerdown", () => {
-      this.updateTileState();
+      // Cannot click a tile if ui menu is open!
+      if (this.canClick && !this.scene.uiMenuOpen) {
+        this.onClickToggleTileState();
 
-      // If not paused, pause when a player clicks to interact with the tiles
-      if (!this.scene.paused) {
-        this.scene.togglePause();
+        // If not paused, pause when a player clicks to interact with the tiles.
+        // ONLY IF TileGridAttrs.autoPauseOnClick is true!
+        if (!this.scene.paused && TileGridAttrs.autoPauseOnClick) {
+          this.scene.togglePause();
+        }
       }
     });
 
@@ -44,6 +48,8 @@ export class Tile extends GameObject {
 
   initTile() {
     this.qtyLivingNeighbors = 0; // For storing qty of neighbors prior to update loop
+    this.canClick = true;
+    this.currentTileAnim = null;
 
     // Init the graphics
     let tileSpriteName = "Tile Blank";
@@ -51,16 +57,14 @@ export class Tile extends GameObject {
     this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
     this.graphic.setInteractive(); // make it so this graphic can be clicked on etc.
 
-    this.updateSize();
-    this.updatePosition();
-    this.changeState(tileStates.OFF); // this will update the graphic too
+    this.changeState(tileStates.OFF); // this will update the graphic, position, etc. too
   }
 
   resetTile() {
     this.qtyLivingNeighbors = 0;
+    this.canClick = true;
+    this.currentTileAnim = null;
 
-    this.updateSize();
-    this.updatePosition();
     this.changeState(tileStates.OFF); // this will update the graphic too
   }
 
@@ -69,6 +73,17 @@ export class Tile extends GameObject {
   }
 
   calculateSize() {
+    let size = this.calculateDefaultSize();
+
+    // Add extra for a tile in the ON state
+    if (this.tileState == tileStates.ON) {
+      size = this.calculateMaxSize(size);
+    }
+
+    return size;
+  }
+
+  calculateDefaultSize() {
     // Calculate the size based on the screen width
     let size = window.innerHeight * 0.035;
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
@@ -81,6 +96,11 @@ export class Tile extends GameObject {
     return size;
   }
 
+  calculateMaxSize(size) {
+    // "max" size is just the size of an ON state tile since it is larger
+    return size * 1.15;
+  }
+
   updatePosition() {
     let newPosition = this.calculateTilePosition();
     this.physicsBody2D.position.x = newPosition.x;
@@ -91,17 +111,18 @@ export class Tile extends GameObject {
     // Get the tile location from the grid location and screen size
     let centerX = this.scene.game.canvas.width / 2;
     let centerY = this.scene.game.canvas.height / 2;
-    let smallAmountForGrid = 5; // add small amount to create a "grid"
+    let smallAmountForGrid = 0; // allows me to add small amount to create a buffer for the "grid"
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // for phones change the center location etc.
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
       centerY = this.scene.game.canvas.height * 0.46;
-      smallAmountForGrid = 6;
+      smallAmountForGrid = 0;
     }
 
     // Calculate the starting position for the bottom-left tile in the grid
-    let tileSpacing = this.size + smallAmountForGrid;
+    let maxSize = this.calculateMaxSize(this.calculateDefaultSize());
+    let tileSpacing = maxSize + smallAmountForGrid;
     let startGridX, startGridY;
 
     if (TileGridAttrs.tileGridWidth % 2 === 0) {
@@ -133,9 +154,7 @@ export class Tile extends GameObject {
 
   handleWindowResize() {
     // Reinitialize the object and graphic on resize
-    this.updateSize();
-    this.updatePosition();
-    this.updateGraphic();
+    this.updateVisuals();
   }
 
   getQtyLivingNeighbors(
@@ -205,16 +224,34 @@ export class Tile extends GameObject {
     }
   }
 
-  updateTileState() {
+  onClickToggleTileState() {
+    // Change from on to off and vice versa
     if (this.tileState == tileStates.ON) {
       this.changeState(tileStates.OFF);
     } else {
       this.changeState(tileStates.ON);
     }
+
+    // When a user clicks, update the population with the new state
+    if (this.tileState == tileStates.ON) {
+      this.scene.updatePopulation(this.scene.population + 1);
+    } else {
+      this.scene.updatePopulation(this.scene.population - 1);
+    }
   }
 
   changeState(newState) {
+    // Make sure no anim is playing prior to updating tile state!
+    this.stopCurrentTileAnim();
+
+    // Change the state
     this.tileState = newState;
+    this.updateVisuals();
+  }
+
+  updateVisuals() {
+    this.updateSize();
+    this.updatePosition();
     this.updateColor();
   }
 
@@ -224,6 +261,33 @@ export class Tile extends GameObject {
     } else {
       this.updateGraphic(tileColors.ON);
     }
+  }
+
+  playSpinAnim() {
+    // cannot click during animation
+    this.canClick = false;
+
+    // Rotate the graphic 360 degrees
+    this.currentTileAnim = this.scene.tweens.add({
+      targets: this.graphic,
+      angle: "+=360",
+      // Must be slower than update interval! so it doesnt bleed over
+      duration: TileGridAttrs.updateInterval * 0.8,
+      ease: "Linear",
+      repeat: 0, // Do not repeat
+      onComplete: () => {
+        this.stopCurrentTileAnim();
+      },
+    });
+  }
+
+  stopCurrentTileAnim() {
+    if (this.currentTileAnim) {
+      this.currentTileAnim.stop();
+      this.currentTileAnim = null;
+    }
+
+    this.canClick = true;
   }
 
   destroy() {
