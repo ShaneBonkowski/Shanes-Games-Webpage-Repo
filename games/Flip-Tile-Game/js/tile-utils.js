@@ -7,6 +7,8 @@ import {
 } from "../../Shared-Game-Assets/js/seedable-random.js";
 import { intendedNewTileAttrs } from "./main-game-scene.js";
 
+const unseededRandom = new SeededRandom();
+
 export const tileStates = {
   RED: 0,
   BLUE: 1,
@@ -27,7 +29,7 @@ export const scoring = {
 
 export const TilePatternAttrs = {
   tileCount: 9, // initial values
-  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more-math instead of seedable-random
+  seed: unseededRandom.getRandomInt(1, 10000), // UNSEEDED getRandomInt func.
   qtyStatesBeingUsed: 2, // init
   difficultyLevel: difficulty.EASY,
 };

@@ -17,6 +17,9 @@ export function setZOrderForSharedElements(game) {
   const discoButtonContainer = document.querySelector(
     ".toggle-disco-button-container"
   );
+  const automaticButtonContainer = document.querySelector(
+    ".toggle-automatic-button-container"
+  );
   const resetTilesButtonContainer = document.querySelector(
     ".reset-tiles-button-container"
   );
@@ -38,6 +41,7 @@ export function setZOrderForSharedElements(game) {
   resetTilesButtonContainer.style.zIndex = "4";
   settingsButtonContainer.style.zIndex = "4";
   discoButtonContainer.style.zIndex = "4";
+  automaticButtonContainer.style.zIndex = "4";
 
   infoBoxs.forEach((infoBox) => {
     infoBox.style.zIndex = "6";

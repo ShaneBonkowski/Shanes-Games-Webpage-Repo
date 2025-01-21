@@ -9,19 +9,22 @@
   --gol-info-header-mt: 5%;
   --gol-toggle-pause-button-container-mr: 50vw;
   --gol-toggle-pause-button-container-mb: 13vh;
-  --gol-advance-button-container-mr: 42vw;
+  --gol-advance-button-container-mr: 42.2vw;
   --gol-advance-button-container-mb: 13vh;
   --gol-reset-tiles-button-container-mr: 94vw;
   --gol-reset-tiles-button-container-mb: 13vh;
-  --gol-pop-gen-text-mt: 7%;
+  --gol-pop-gen-text-container-mb: 4.5%;
+  --gol-pop-gen-text-container-mr: 24.1vw;
   --gol-settings-button-container-mr: 6vw;
-  --gol-settings-button-container-mb: 20vh;
+  --gol-settings-button-container-mb: 21.6vh;
   --gol-ui-element-mt: 3vh;
-  --gol-toggle-disco-button-container-mr: 58vw;
+  --gol-toggle-disco-button-container-mr: 57.8vw;
   --gol-toggle-disco-button-container-mb: 13vh;
   --gol-slider-label-mt: 0%;
-  --gol-slider-hover-label-mr: -115%;
-  --gol-input-ml: 80%;
+  --gol-slider-hover-label-ml: 80%;
+  --gol-input-ml: 10%;
+  --gol-toggle-automatic-button-container-mr: 94vw;
+  --gol-toggle-automatic-button-container-mb: 21.6vh;
   /* Font Sizes */
   --gol-button-text-size: calc(10vw * 0.175);
   --gol-ui-element-font-size: calc(10vw * 0.14);
@@ -35,7 +38,7 @@
   --gol-icon-size: 75%;
   --gol-ui-element-h: 5vh;
   --gol-toggle-size: calc(10vw * 0.2);
-  --gol-input-slider-w: 15vw;
+  --gol-input-slider-w: 60vw;
 }
 
 /* Media query to override CONSTANT values for vertical screens (portrait orientation) */
@@ -43,25 +46,28 @@
   :root {
     /* Edge Margins */
     --settings-side-panel-mt: 3.5%;
-    --gol-info-button-container-mr: 16vw;
+    --gol-info-button-container-mr: 12vw;
     --gol-info-button-container-mb: 9vh;
     --gol-info-header-ml: 90%;
     --gol-info-header-mt: 5%;
     --gol-toggle-pause-button-container-mr: 50vw;
     --gol-toggle-pause-button-container-mb: 9vh;
-    --gol-advance-button-container-mr: 35vw;
+    --gol-advance-button-container-mr: 31vw;
     --gol-advance-button-container-mb: 9vh;
-    --gol-reset-tiles-button-container-mr: 84vw;
+    --gol-reset-tiles-button-container-mr: 88vw;
     --gol-reset-tiles-button-container-mb: 9vh;
-    --gol-pop-gen-text-mt: 7%;
-    --gol-settings-button-container-mr: 16vw;
-    --gol-settings-button-container-mb: 18vh;
+    --gol-pop-gen-text-container-mb: 11%;
+    --gol-pop-gen-text-container-mr: 50vw;
+    --gol-settings-button-container-mr: 12vw;
+    --gol-settings-button-container-mb: 14.2vh;
     --gol-ui-element-mt: 2vh;
-    --gol-toggle-disco-button-container-mr: 65vw;
+    --gol-toggle-disco-button-container-mr: 69vw;
     --gol-toggle-disco-button-container-mb: 9vh;
     --gol-slider-label-mt: -43%;
-    --gol-slider-hover-label-mr: -145%;
-    --gol-input-ml: 105%;
+    --gol-slider-hover-label-ml: 80%;
+    --gol-input-ml: 12%;
+    --gol-toggle-automatic-button-container-mr: 88vw;
+    --gol-toggle-automatic-button-container-mb: 14.2vh;
     /* Font */
     --gol-button-text-size: calc(10vh * 0.2);
     --gol-ui-element-font-size: calc(10vw * 0.35);
@@ -75,7 +81,7 @@
     --gol-button-h: calc(10vh * 0.43);
     --gol-icon-size: 75%;
     --gol-toggle-size: calc(10vh * 0.25);
-    --gol-input-slider-w: 28.5vw;
+    --gol-input-slider-w: 42vw;
   }
 }
 
@@ -112,8 +118,9 @@ a.active {
   justify-content: flex-start;
   align-items: center;
   position: absolute;
-  top: var(--gol-pop-gen-text-mt);
-  width: 100%;
+  bottom: var(--gol-pop-gen-text-container-mb);
+  right: var(--gol-pop-gen-text-container-mr);
+  transform: translate(50%, 0%);
 }
 
 .pop-gen-text {
@@ -154,7 +161,7 @@ a.active {
   filter: brightness(0.6);
 }
 
-/* Dicso mode button  */
+/* Disco mode button  */
 .toggle-disco-button-container {
   position: fixed;
   right: var(--gol-toggle-disco-button-container-mr);
@@ -162,6 +169,27 @@ a.active {
 }
 
 .fas.fa-gift {
+  position: relative;
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
+}
+
+.fas.fa-ban {
+  position: relative;
+  color: var(--secondary-color);
+  font-size: var(--gol-icon-size);
+  margin: 0 0 0 0; /* Adjust margin as needed */
+}
+
+/* Automatic mode button  */
+.toggle-automatic-button-container {
+  position: fixed;
+  right: var(--gol-toggle-automatic-button-container-mr);
+  bottom: var(--gol-toggle-automatic-button-container-mb);
+}
+
+.fas.fa-robot {
   position: relative;
   color: var(--secondary-color);
   font-size: var(--gol-icon-size);
@@ -222,15 +250,14 @@ if this has a mouse. This prevents an issue where
 touchscreens are causing hover to get stuck */
 @media (hover: hover) {
   .gol-button:hover {
-    transform: translate(-50%, 0%) scale(1.2);
+    filter: brightness(0.8);
   }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
 event listener to add and delete this CSS style on click with addClickAnimation() */
 .gol-button.active {
-  transform: translate(-50%, 0%) scale(1.2);
-  filter: brightness(0.8);
+  filter: brightness(0.6);
 }
 
 .gol-icon-img,
@@ -400,32 +427,29 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 
 /* Slider styles */
 .slider-container {
-  position: relative;
+  width: auto;
   pointer-events: none;
-  height: var(--gol-ui-element-h);
-  width: var(--gol-input-slider-w);
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin: var(--gol-ui-element-mt) 0px 0px 0px;
 }
 
 .slider-label {
-  position: absolute;
-  left: 0;
   pointer-events: none;
   font-size: var(--gol-ui-element-font-size);
   white-space: nowrap;
   color: white;
+  margin: 0px 0px 0px 0px;
 }
 
 .slider-hover-label {
   position: absolute;
-  right: var(--gol-slider-hover-label-mr);
   display: none; /* Hide the label until we hover on it below */
   font-size: var(--gol-ui-element-font-size);
   white-space: nowrap;
   color: white;
+  margin: 0px 0px 0px var(--gol-slider-hover-label-ml);
 }
 
 .slider-container:hover .slider-hover-label {
@@ -443,15 +467,14 @@ event listener to add and delete this CSS style on click with addClickAnimation(
 }
 
 input[type="range"] {
-  left: var(--gol-input-ml);
-  position: absolute;
   cursor: pointer;
   pointer-events: auto; /* Can click on this */
   height: var(--gol-ui-element-h);
   width: var(--gol-input-slider-w);
+  margin: 0px 0px 0px var(--gol-input-ml);
 }
 
 input[type="range"]:active {
   /* Define styles for when the slider is being interacted with */
-  transform: scale(1.18); /* Increase the scale of the slider */
+  transform: scale(1.18);
 }

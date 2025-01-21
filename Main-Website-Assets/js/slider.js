@@ -29,16 +29,17 @@ export function instantiateSlider(
   slider.setAttribute("max", max);
   slider.setAttribute("step", step);
   slider.value = value;
-  sliderContainer.appendChild(slider);
 
   const label = document.createElement("label");
   label.textContent = name;
   label.classList.add(sliderLabelClass);
-  sliderContainer.appendChild(label);
 
   const hoverLabel = document.createElement("div");
   hoverLabel.classList.add(sliderHoverLabel);
   hoverLabel.textContent = slider.value; // init hover text
+
+  sliderContainer.appendChild(label);
+  sliderContainer.appendChild(slider);
   sliderContainer.appendChild(hoverLabel);
 
   return sliderContainer;

@@ -88,7 +88,7 @@ export class Tile extends GameObject {
     let size = window.innerHeight * 0.035;
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
-    // Phone screen has larger boids
+    // Phone screen has larger
     if (window.innerWidth <= 600 || isPortrait) {
       size = window.innerHeight * 0.018;
     }
@@ -116,7 +116,7 @@ export class Tile extends GameObject {
 
     // for phones change the center location etc.
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.46;
+      centerY = this.scene.game.canvas.height * 0.44;
       smallAmountForGrid = 0;
     }
 

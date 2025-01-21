@@ -10,15 +10,17 @@ import {
 } from "./tile-utils.js";
 import { setZOrderForMainGameElements } from "./z-ordering.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
-import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
+import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
 import { ui_vars } from "./init-ui.js";
 import { showMessage } from "../../Shared-Game-Assets/js/phaser-message.js";
 import { Generic2DGameScene } from "../../Shared-Game-Assets/js/game-scene-2d.js";
 import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
+const unseededRandom = new SeededRandom();
+
 export const intendedNewTileAttrs = {
   tileCount: 9, // initial values
-  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more-math instead of seedable-random
+  seed: unseededRandom.getRandomInt(1, 10000), // UNSEEDED getRandomInt func
   qtyStatesBeingUsed: 2, // init
   difficultyLevel: difficulty.EASY,
 };
@@ -255,7 +257,7 @@ export class MainGameScene extends Generic2DGameScene {
     }
   }
 
-  updateIntendedSeed(seedProvided = more_math.getRandomInt(1, 100000)) {
+  updateIntendedSeed(seedProvided = unseededRandom.getRandomInt(1, 100000)) {
     intendedNewTileAttrs.seed = seedProvided;
   }
 

@@ -14,10 +14,16 @@ import {
   TileAndBackgroundColors,
   tileStates,
   gameOfLifeTypes,
+  cgolTileShapes,
+  gameOfLifeShape,
 } from "./tile-utils.js";
 import { gameOfLifeEventNames } from "./init-ui.js";
+import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
+import { vignetteFade } from "../../Shared-Game-Assets/js/vignette.js";
 
 export const tiles = [];
+
+const unseededRandom = new SeededRandom();
 
 export class MainGameScene extends Generic2DGameScene {
   constructor() {
@@ -25,10 +31,12 @@ export class MainGameScene extends Generic2DGameScene {
 
     this.lastUpdateTime = 0;
     this.gameOfLifeType = gameOfLifeTypes.CONWAY;
-    this.currentColorThemeIndex = 0;
 
     this.discoMode = false;
     this.discoModeLastUpdateTime = 0;
+
+    this.autoPlayMode = false;
+    this.autoPlayModeLastUpdateTime = 0;
 
     this.updatePopulation(0);
     this.updateGeneration(0);
@@ -58,14 +66,19 @@ export class MainGameScene extends Generic2DGameScene {
     }
 
     // If there is local storage with currentColorThemeIndex, set
-    // this.currentColorThemeIndex to that to start!
+    // TileGridAttrs.currentColorThemeIndex to that to start!
     if (localStorage.getItem("currentColorThemeIndex")) {
-      this.currentColorThemeIndex = parseInt(
+      TileGridAttrs.currentColorThemeIndex = parseInt(
         localStorage.getItem("currentColorThemeIndex")
       );
     }
-
     this.updateColorTheme();
+
+    // Dispatch a custom event saying that color change just occured
+    // due to the game class, not the slider.
+    document.dispatchEvent(
+      new Event(gameOfLifeEventNames.changeColorThemeFromMainGame)
+    );
 
     // After everything is loaded in, we can begin the game
     this.gameStarted = true;
@@ -79,7 +92,24 @@ export class MainGameScene extends Generic2DGameScene {
         // Perform tile grid updates on TileGridAttrs.updateInterval
         if (time - this.lastUpdateTime >= TileGridAttrs.updateInterval) {
           this.lastUpdateTime = time;
-          this.runGameOfLifeIteration();
+
+          // Auto mode: automatically place shapes if the criteria fits
+          if (this.autoPlayMode) {
+            // Every 2 seconds, if the population is below some threshold, place a shape
+            if (
+              time - this.autoPlayModeLastUpdateTime >= 2000 &&
+              this.population < 30
+            ) {
+              this.autoPlayModeLastUpdateTime = time;
+              this.placeRandomShape();
+            }
+            // Otherwise, in case the population has grown static, place a shape no matter what
+            // after 5 seconds
+            else if (time - this.autoPlayModeLastUpdateTime >= 5000) {
+              this.autoPlayModeLastUpdateTime = time;
+              this.placeRandomShape();
+            }
+          }
 
           // Disco mode: switch color theme every after discoModeUpdateInterval ms
           if (this.discoMode) {
@@ -89,8 +119,20 @@ export class MainGameScene extends Generic2DGameScene {
             ) {
               this.discoModeLastUpdateTime = time;
               this.advanceToNextColorTheme();
+
+              // Dispatch a custom event saying that disco mode just caused
+              // a color change.
+              document.dispatchEvent(
+                new Event(gameOfLifeEventNames.changeColorThemeFromMainGame)
+              );
+
+              // // Play a vignette animation (make it nearly as long as the disco mode interval)
+              // vignetteFade(TileGridAttrs.discoModeUpdateInterval); // ms
             }
           }
+
+          // Run the iteration last so it can handle things like population count etc.
+          this.runGameOfLifeIteration();
         }
       }
     }
@@ -110,7 +152,10 @@ export class MainGameScene extends Generic2DGameScene {
 
     // Update the populalation and generation count
     this.updateGeneration(this.generation + 1);
+    this.getAndUpdatePopulation();
+  }
 
+  getAndUpdatePopulation() {
     let newPopulation = 0;
     for (let row = 0; row < tiles.length; row++) {
       for (let col = 0; col < tiles[row].length; col++) {
@@ -157,8 +202,9 @@ export class MainGameScene extends Generic2DGameScene {
 
     this.population = newPopulationVal;
 
-    if (this.population == 0) {
-      // If the population is 0, pause the game if it is not already
+    // If the population is 0, pause the game if it is not already.
+    // ONLY IF NOT IN AUTOPLAY MODE!
+    if (this.population == 0 && !this.autoPlayMode) {
       if (!this.paused) {
         this.togglePause();
       }
@@ -290,6 +336,11 @@ export class MainGameScene extends Generic2DGameScene {
     );
 
     document.addEventListener(
+      gameOfLifeEventNames.toggleAutomatic,
+      this.toggleAutoPlay.bind(this)
+    );
+
+    document.addEventListener(
       gameOfLifeEventNames.clickAdvance,
       this.clickAdvance.bind(this)
     );
@@ -306,6 +357,14 @@ export class MainGameScene extends Generic2DGameScene {
     document.addEventListener(
       genericGameEventNames.uiMenuClosed,
       this.onUiMenuClosed.bind(this)
+    );
+
+    // Update color theme if color theme changes via slider
+    document.addEventListener(
+      gameOfLifeEventNames.changeColorThemeFromSlider,
+      function (event) {
+        this.onSetColorThemeSlider();
+      }.bind(this)
     );
   }
 
@@ -378,6 +437,107 @@ export class MainGameScene extends Generic2DGameScene {
     }
   }
 
+  placeRandomShape() {
+    // Get a random shape
+    let cgolTileShapeKeys = Object.keys(cgolTileShapes);
+    let randomShapeIndex = unseededRandom.getRandomInt(
+      0,
+      cgolTileShapeKeys.length - 1
+    );
+    let randomShape = new gameOfLifeShape(cgolTileShapeKeys[randomShapeIndex]);
+
+    // console.log(cgolTileShapeKeys[randomShapeIndex]);
+    // console.log(randomShape.shapeTileSpace);
+
+    // Random shape has a shapeTileSpace indicating which tiles to turn on/off,
+    // starting from the top left. Need to find a random location on the real tileGridSpace
+    // that can fit the shape!
+    let tileSpaceWidth = tiles.length;
+    let tileSpaceHeight = tiles[0].length;
+
+    let shapeWidth = randomShape.getWidth();
+    let shapeHeight = randomShape.getHeight();
+
+    // Pick a random x coordinate between 0 and tileSpaceWidth - shapeWidth, so that the shape
+    // can always fit. Do similar for the y coordinate, but bound the lower bound since y counts downward.
+    // This logic works because we draw the tile from top left to bottom right.
+    let upperBoundX = tileSpaceWidth - shapeWidth;
+    if (upperBoundX <= 0) {
+      console.error("Shape is larger than the tile grid! Not placing shape.");
+      return;
+    }
+    let randomX = unseededRandom.getRandomInt(0, upperBoundX);
+
+    let lowerBoundY = shapeHeight;
+    if (lowerBoundY >= tileSpaceHeight) {
+      console.error("Shape is larger than the tile grid! Not placing shape.");
+      return;
+    }
+    let randomY = unseededRandom.getRandomInt(lowerBoundY - 1, tileSpaceHeight);
+
+    // Spawn in the shape from the randomX and randomY location!
+    randomShape.iterateOverTileSpace((shape, shapeX, shapeY) => {
+      let tileSpawnLocX = randomX + shapeX;
+      let tileSpawnLocY = randomY - shapeY; // minus since it goes top left to bottom right
+
+      if (tileSpawnLocX >= tileSpaceWidth || tileSpawnLocY >= tileSpaceHeight) {
+        // Skip this iteration
+        console.error(
+          "Shape placement out of bounds. Cannot place at",
+          tileSpawnLocX,
+          tileSpawnLocY
+        );
+        console.log("Debug info about the shape:");
+        console.log("Top left coordinate x, y: ", randomX, randomY);
+        console.log("Shape width, height", shapeWidth, shapeHeight);
+        console.log(
+          "Tile Gridspace Width, height",
+          tileSpaceWidth,
+          tileSpaceHeight
+        );
+        return;
+      }
+
+      // Only add to the grid, dont remove anything!
+      let tile = tiles[tileSpawnLocX][tileSpawnLocY];
+      if (
+        tile.tileState == tileStates.OFF &&
+        shape.getStateAtCoords(shapeX, shapeY) == tileStates.ON
+      ) {
+        tile.changeState(tileStates.ON);
+      }
+    });
+  }
+
+  toggleAutoPlay() {
+    this.autoPlayMode = !this.autoPlayMode;
+    this.handleAutoPlayButtonVisual();
+
+    // If the game is paused, unpause it if autoplay is turned on
+    if (this.paused && this.autoPlayMode) {
+      this.togglePause();
+    }
+  }
+
+  handleAutoPlayButtonVisual() {
+    // Update icon of toggleAutomatic button based on state
+    const toggleAutomaticButtonContainer = document.querySelector(
+      ".toggle-automatic-button-container"
+    );
+    const toggleAutomaticButton =
+      toggleAutomaticButtonContainer.querySelector(".gol-button");
+    const toggleAutomaticButtonIcon =
+      toggleAutomaticButton.querySelector(".fas");
+
+    toggleAutomaticButtonIcon.classList.remove("fa-circle-stop", "fa-robot");
+    if (this.autoPlayMode) {
+      // Show "turn off" icon if automatic is playing
+      toggleAutomaticButtonIcon.classList.add("fa-circle-stop");
+    } else {
+      toggleAutomaticButtonIcon.classList.add("fa-robot");
+    }
+  }
+
   toggleDisco() {
     this.discoMode = !this.discoMode;
     this.handleDiscoButtonVisual();
@@ -392,10 +552,10 @@ export class MainGameScene extends Generic2DGameScene {
       toggleDiscoButtonContainer.querySelector(".gol-button");
     const toggleDiscoButtonIcon = toggleDiscoButton.querySelector(".fas");
 
-    toggleDiscoButtonIcon.classList.remove("fa-circle-stop", "fa-gift");
+    toggleDiscoButtonIcon.classList.remove("fa-ban", "fa-gift");
     if (this.discoMode) {
       // Show "turn off" icon if disco is playing
-      toggleDiscoButtonIcon.classList.add("fa-circle-stop");
+      toggleDiscoButtonIcon.classList.add("fa-ban");
     } else {
       toggleDiscoButtonIcon.classList.add("fa-gift");
     }
@@ -415,36 +575,50 @@ export class MainGameScene extends Generic2DGameScene {
     return `#${hex.toString(16).padStart(6, "0")}`;
   }
 
+  onSetColorThemeSlider() {
+    // Turn off disco mode if its on already, since if a player is using the slider
+    // then they dont want disco mode to be playing
+    if (this.discoMode) {
+      this.toggleDisco();
+    }
+
+    this.updateColorTheme();
+  }
+
   advanceToNextColorTheme() {
-    this.currentColorThemeIndex++;
-    if (this.currentColorThemeIndex > TileAndBackgroundColors.length - 1) {
-      this.currentColorThemeIndex = 0;
+    TileGridAttrs.currentColorThemeIndex++;
+    if (
+      TileGridAttrs.currentColorThemeIndex >
+      TileAndBackgroundColors.length - 1
+    ) {
+      TileGridAttrs.currentColorThemeIndex = 0;
     }
     this.updateColorTheme();
   }
 
   decreaseToPreviousColorTheme() {
-    this.currentColorThemeIndex--;
-    if (this.currentColorThemeIndex < 0) {
-      this.currentColorThemeIndex = TileAndBackgroundColors.length - 1;
+    TileGridAttrs.currentColorThemeIndex--;
+    if (TileGridAttrs.currentColorThemeIndex < 0) {
+      TileGridAttrs.currentColorThemeIndex = TileAndBackgroundColors.length - 1;
     }
     this.updateColorTheme();
   }
 
   updateColorTheme() {
     // Update the ON/OFF colors
-    tileColors.ON = TileAndBackgroundColors[this.currentColorThemeIndex][0];
-    tileColors.OFF = TileAndBackgroundColors[this.currentColorThemeIndex][1];
+    tileColors.ON =
+      TileAndBackgroundColors[TileGridAttrs.currentColorThemeIndex][0];
+    tileColors.OFF =
+      TileAndBackgroundColors[TileGridAttrs.currentColorThemeIndex][1];
 
-    // Write this.currentColorThemeIndex to localStorage so that
+    // Write TileGridAttrs.currentColorThemeIndex to localStorage so that
     // the color theme persists on page reload etc.
     localStorage.setItem(
       "currentColorThemeIndex",
-      this.currentColorThemeIndex.toString()
+      TileGridAttrs.currentColorThemeIndex.toString()
     );
 
     // Tile color is ON == TileAndBackgroundColors[i][0], OFF == TileAndBackgroundColors[i][1]
-    console.log("play spin");
     for (let row = 0; row < tiles.length; row++) {
       for (let col = 0; col < tiles[row].length; col++) {
         tiles[row][col].updateColor();
@@ -457,7 +631,7 @@ export class MainGameScene extends Generic2DGameScene {
 
     // Background color is TileAndBackgroundColors[i][2]
     document.body.style.backgroundColor = this.hexToCssColor(
-      TileAndBackgroundColors[this.currentColorThemeIndex][2]
+      TileAndBackgroundColors[TileGridAttrs.currentColorThemeIndex][2]
     );
   }
 }

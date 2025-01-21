@@ -123,6 +123,8 @@ export class Boid extends GameObject {
         { capture: true }
       );
 
+      // When the user lifts their finger off the screen, or stops clicking, the
+      // leader boid should dissapear
       document.addEventListener(
         "pointerup",
         function () {

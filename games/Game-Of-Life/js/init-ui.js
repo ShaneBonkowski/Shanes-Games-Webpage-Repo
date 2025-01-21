@@ -10,6 +10,9 @@ export const gameOfLifeEventNames = {
   onPopChange: "onPopChange",
   onGenChange: "onGenChange",
   toggleDisco: "toggleDisco",
+  toggleAutomatic: "toggleAutomatic",
+  changeColorThemeFromSlider: "changeColorThemeFromSlider",
+  changeColorThemeFromMainGame: "changeColorThemeFromMainGame",
 };
 
 export function initUI() {
@@ -141,6 +144,33 @@ export function initUI() {
     "disable-browser-default-touch-actions"
   );
   document.body.appendChild(toggleDiscoButtonContainer);
+
+  // Automatic Mode Button
+  function onClickToggleAutomatic() {
+    let customEvent = new CustomEvent(gameOfLifeEventNames.toggleAutomatic, {
+      detail: {
+        message: "Toggle automatic button clicked",
+      },
+    });
+    document.dispatchEvent(customEvent);
+  }
+  const toggleAutomaticButtonContainer = createFunctionButtonContainer(
+    "toggleAutomaticButtonContainer",
+    "toggleAutomaticButton",
+    "../Flip-Tile-Game/webps/Button.webp",
+    "Automatic",
+    "",
+    [onClickToggleAutomatic],
+    ["toggle-automatic-button-container"],
+    ["gol-icon-img"],
+    ["gol-icon-text"],
+    ["gol-button"],
+    ["fas", "fa-robot"]
+  );
+  toggleAutomaticButtonContainer.classList.add(
+    "disable-browser-default-touch-actions"
+  );
+  document.body.appendChild(toggleAutomaticButtonContainer);
 
   // Reset tiles Button
   function onClickResetTiles() {

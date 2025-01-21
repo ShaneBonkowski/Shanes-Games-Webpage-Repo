@@ -2,10 +2,14 @@ import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import { addSelectionBox } from "../../../Main-Website-Assets/js/selection-box.js";
 import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
-import { TileGridAttrs } from "/games/Game-Of-Life/js/tile-utils.js";
+import {
+  TileGridAttrs,
+  TileAndBackgroundColors,
+} from "/games/Game-Of-Life/js/tile-utils.js";
 import {
   uiMenuOpenHandler,
   uiMenuCloseHandler,
+  gameOfLifeEventNames,
 } from "/games/Game-Of-Life/js/init-ui.js";
 import {
   instantiateSlider,
@@ -77,6 +81,15 @@ const reproductionPanelInfo = {
     <h2>Reproduction:</h2>
     <p>
         Any dead cell with exactly this many neighbors becomes alive. Defaults to 3.
+    </p>
+    `,
+};
+
+const colorThemePanelInfo = {
+  htmlContent: `
+    <h2>Color Theme:</h2>
+    <p>
+        Select the color theme for the Game of Life cell space.
     </p>
     `,
 };
@@ -328,6 +341,39 @@ export function addGameOfLifeSettings() {
     );
   });
 
+  const colorThemeSliderContainer = instantiateSlider(
+    "Color Theme",
+    TileGridAttrs.currentColorThemeIndex,
+    "0",
+    `${TileAndBackgroundColors.length - 1}`, // Cannot go larger than how many color themes there are
+    "1"
+  );
+  initSliderEvents(colorThemeSliderContainer, function (value) {
+    TileGridAttrs.currentColorThemeIndex = value;
+
+    // Dispatch a custom event for specifically the color theme slider
+    document.dispatchEvent(
+      new Event(gameOfLifeEventNames.changeColorThemeFromSlider)
+    );
+  });
+  colorThemeSliderContainer.addEventListener("pointerdown", function () {
+    const settingsSidePanel = document.querySelector(".settings-side-panel");
+    updateSettingsSidePanel(settingsSidePanel, colorThemePanelInfo.htmlContent);
+  });
+  document.addEventListener(
+    gameOfLifeEventNames.changeColorThemeFromMainGame,
+    function () {
+      // Set the value of the colorThemeSliderContainer slider to currentColorThemeIndex
+      const slider = colorThemeSliderContainer.querySelector("input");
+      slider.value = TileGridAttrs.currentColorThemeIndex;
+
+      const hoverLabel = colorThemeSliderContainer.querySelector(
+        ".slider-hover-label"
+      );
+      hoverLabel.textContent = slider.value;
+    }
+  );
+
   // When ui is open, hide certain UI, when it is closed, reveal them
   document.addEventListener(
     genericGameEventNames.uiMenuOpen,
@@ -346,6 +392,7 @@ export function addGameOfLifeSettings() {
     "disable-browser-default-touch-actions"
   );
 
+  uiSettingsOptionsContainer.appendChild(colorThemeSliderContainer);
   uiSettingsOptionsContainer.appendChild(updateIntervalSpeedSliderContainer);
   uiSettingsOptionsContainer.appendChild(underpopulationSliderContainer);
   uiSettingsOptionsContainer.appendChild(overpopulationSliderContainer);
