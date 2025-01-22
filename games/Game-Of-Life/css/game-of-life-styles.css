@@ -47,27 +47,27 @@
     /* Edge Margins */
     --settings-side-panel-mt: 3.5%;
     --gol-info-button-container-mr: 12vw;
-    --gol-info-button-container-mb: 9vh;
+    --gol-info-button-container-mb: 6vh;
     --gol-info-header-ml: 90%;
     --gol-info-header-mt: 5%;
     --gol-toggle-pause-button-container-mr: 50vw;
-    --gol-toggle-pause-button-container-mb: 9vh;
+    --gol-toggle-pause-button-container-mb: 6vh;
     --gol-advance-button-container-mr: 31vw;
-    --gol-advance-button-container-mb: 9vh;
+    --gol-advance-button-container-mb: 6vh;
     --gol-reset-tiles-button-container-mr: 88vw;
-    --gol-reset-tiles-button-container-mb: 9vh;
-    --gol-pop-gen-text-container-mb: 11vh;
+    --gol-reset-tiles-button-container-mb: 6vh;
+    --gol-pop-gen-text-container-mb: 8vh;
     --gol-pop-gen-text-container-mr: 50vw;
     --gol-settings-button-container-mr: 12vw;
-    --gol-settings-button-container-mb: 14.2vh;
+    --gol-settings-button-container-mb: 11.2vh;
     --gol-ui-element-mt: 2vh;
     --gol-toggle-disco-button-container-mr: 69vw;
-    --gol-toggle-disco-button-container-mb: 9vh;
+    --gol-toggle-disco-button-container-mb: 6vh;
     --gol-slider-label-mt: -43%;
     --gol-slider-hover-label-ml: 80%;
     --gol-input-ml: 12%;
     --gol-toggle-automatic-button-container-mr: 88vw;
-    --gol-toggle-automatic-button-container-mb: 14.2vh;
+    --gol-toggle-automatic-button-container-mb: 11.2vh;
     /* Font */
     --gol-button-text-size: calc(10vh * 0.2);
     --gol-ui-element-font-size: calc(10vw * 0.35);
