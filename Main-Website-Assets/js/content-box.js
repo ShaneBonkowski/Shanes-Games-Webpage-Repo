@@ -8,7 +8,7 @@ import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.j
 // Array of content box data
 export const contentBoxes = [
   {
-    imageUrl: "/games/Game-Of-Life/webps/game-cover-art.webp",
+    imageUrl: "/games/Game-Of-Life/webps/game-of-life-cover.webp",
     linkUrl: "/games/Game-Of-Life/Game-Of-Life.html",
     title: "Conway's Game of Life",
     description:
