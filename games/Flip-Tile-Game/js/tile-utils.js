@@ -1,9 +1,3 @@
-/**
- * @module TileUtils
- *
- * @author Shane Bonkowski
- */
-
 import { Tile } from "./Tile.js";
 import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import { Matrix } from "../../Shared-Game-Assets/js/matrix.js";
@@ -12,6 +6,8 @@ import {
   randomType,
 } from "../../Shared-Game-Assets/js/seedable-random.js";
 import { intendedNewTileAttrs } from "./main-game-scene.js";
+
+const unseededRandom = new SeededRandom();
 
 export const tileStates = {
   RED: 0,
@@ -33,7 +29,7 @@ export const scoring = {
 
 export const TilePatternAttrs = {
   tileCount: 9, // initial values
-  seed: more_math.getRandomInt(1, 10000), // UNSEEDED getRandomInt func from more-math instead of seedable-random
+  seed: unseededRandom.getRandomInt(1, 10000), // UNSEEDED getRandomInt func.
   qtyStatesBeingUsed: 2, // init
   difficultyLevel: difficulty.EASY,
 };
@@ -48,6 +44,7 @@ export const tileGridEventNames = {
 export const sharedTileAttrs = {
   clickTimer: 0.5, // click tile anim timer
   solvedTimer: 0.7, // how long solution animation takes, and how long to wait before revealing next puzzle in that case
+  tileSpacingFactor: 1.25, // Scale for how much space between tiles
 };
 
 // Pre-computed using \Python-Utils\mat-inv-mod.py, calling `python .\mat-inv-mod.py` from terminal

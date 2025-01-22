@@ -1,12 +1,4 @@
 /**
- * @module FirestoreCloudFunctionAPI
- *
- * @author Shane Bonkowski
- *
- * Interacts with firestore cloud functions defined in functions/index.js
- */
-
-/**
  * Fetches the Google Analytics Measurement ID from the cloud function.
  *
  * @returns {Promise<string|null>} A promise that resolves with the Measurement ID if fetched successfully, or null if there was an error.

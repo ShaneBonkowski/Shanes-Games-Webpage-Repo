@@ -1,9 +1,3 @@
-/**
- * @module Footer
- *
- * @author Shane Bonkowski
- */
-
 import { createLinkButtonContainer } from "./buttons.js";
 /**
  * Creates a footer for the website.

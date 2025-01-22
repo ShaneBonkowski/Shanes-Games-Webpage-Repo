@@ -1,9 +1,3 @@
-/**
- * @module GameNameZOrdering
- *
- * @author Author Name
- */
-
 export function setZOrderForSharedElements(game) {
   // Set the depth of the game canvas to be all the way in the back
   game.canvas.style.position = "absolute";

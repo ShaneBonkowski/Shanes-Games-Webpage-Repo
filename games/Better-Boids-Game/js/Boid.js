@@ -1,9 +1,3 @@
-/**
- * @module Boid
- *
- * @author Shane Bonkowski
- */
-
 import { GameObject } from "/games/Shared-Game-Assets/js/game-object.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
@@ -129,6 +123,8 @@ export class Boid extends GameObject {
         { capture: true }
       );
 
+      // When the user lifts their finger off the screen, or stops clicking, the
+      // leader boid should dissapear
       document.addEventListener(
         "pointerup",
         function () {
@@ -141,12 +137,12 @@ export class Boid extends GameObject {
 
   calculateBoidSize() {
     // Calculate the boid size based on the screen width
-    let boidSize = window.innerWidth * 0.00009 * 3;
+    let boidSize = window.innerHeight * 0.15;
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // Phone screen has larger boids
     if (window.innerWidth <= 600 || isPortrait) {
-      boidSize = window.innerWidth * 0.00026 * 3;
+      boidSize = window.innerHeight * 0.1;
     }
 
     return boidSize;

@@ -3,14 +3,14 @@
   /* Colors */
   --main-color: rgb(0, 0, 0);
   --hide-color: rgba(0, 0, 0, 0);
-  --secondary-color: #333;
+  --secondary-color: #454545;
   --main-text-color: white;
   --button-hover-color: #555555b0;
   --info-banner-background-color: rgba(187, 187, 187, 0.957);
   --panel-color: rgba(23, 23, 23, 0.75);
   --button-color: rgba(40, 40, 40, 0.75);
   --main-background-overlay-color: rgba(0, 0, 0, 0.9);
-  --link-color: rgb(51, 129, 155);
+  --link-color: rgb(105, 218, 255);
   /* Transformations */
   --centering-translation: -50%;
   /* Edge Margins */

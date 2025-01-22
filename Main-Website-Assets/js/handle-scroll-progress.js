@@ -1,12 +1,3 @@
-/**
- * @fileOverview Handles saving and loading of scroll position. Great for users jumping to the
- * last location they were at when reading a story.
- *
- * @module HandleScrollProgress
- *
- * @author Shane Bonkowski
- */
-
 import { createYesNoBox } from "/Main-Website-Assets/js/yes-no-box.js";
 
 /**

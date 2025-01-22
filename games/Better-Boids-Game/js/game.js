@@ -1,9 +1,3 @@
-/**
- * @module BoidGame
- *
- * @author Shane Bonkowski
- */
-
 import { setZOrderForSharedElements } from "./z-ordering.js";
 import { MainGameScene } from "./main-game-scene.js"; // note: this imports the class, NOT the instance of the class. Use scene.isInteracting for e.g. to access that variable of the main game scene
 

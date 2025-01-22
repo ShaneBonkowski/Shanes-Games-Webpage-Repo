@@ -1,9 +1,3 @@
-/**
- * @module CookieBanner
- *
- * @author Shane Bonkowski
- */
-
 import { createYesNoBox } from "/Main-Website-Assets/js/yes-no-box.js";
 
 /**

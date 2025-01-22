@@ -8,23 +8,21 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no"
     />
-    <!-- FIXME: update this and below with your game name -->
-    <title>Game Name</title>
+    <title>Game of Life</title>
     <meta
       name="description"
       content="Games, art, writing, and more by Shane Bonkowski."
     />
 
     <!-- Open Graph Meta Tags (for social media and previews) -->
-    <meta property="og:title" content="Game Name" />
+    <meta property="og:title" content="Game of Life" />
     <meta
       property="og:description"
       content="Games, art, writing, and more by Shane Bonkowski."
     />
-    <!-- FIXME: update this image to the game cover image! -->
     <meta
       property="og:image"
-      content="/Main-Website-Assets/webps/Coming-Soon-Image-Option-2.webp"
+      content="/games/Game-Of-Life/webps/game-of-life-cover.webp"
     />
     <meta
       property="og:url"
@@ -39,7 +37,6 @@
         padding: 0;
         position: relative;
         background-color: black;
-        background-image: url("webps/Background.webp");
         background-repeat: repeat-y;
         /* Shift up a lil to fix the rendering bug seen on phone with 1px thick line */
         background-position: center calc(100% - 4px);
@@ -73,8 +70,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <!-- FIXME: update this import with your game name css file -->
-    <link rel="stylesheet" href="css/game-name-styles.css" />
+    <link rel="stylesheet" href="css/game-of-life-styles.css" />
   </head>
   <body>
     <!-- Loading screen fades when content is loaded using code below -->
@@ -100,22 +96,22 @@
     <!-- Call JS functions (using module so that we can import and call modules) -->
     <script type="module">
       // Import modules
-      // FIXME: update LaunchGame import with your game name -->
-      import { LaunchGame } from "/games/Generic-Game-Blueprint/js/game.js";
+      import { initUI } from "/games/Game-Of-Life/js/init-ui.js";
+      import { LaunchGame } from "/games/Game-Of-Life/js/game.js";
       import { createGameHeader } from "/games/Shared-Game-Assets/js/game-header.js";
       import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
       import { gamesEntryHtmlLoadingScreenAnimations } from "/games/Shared-Game-Assets/js/loading.js";
 
       // Wait for window (aka all content) to load in before calling functions
       window.onload = function () {
-        // FIXME: update createGameHeader with your game name -->
         createGameHeader(
-          "Name",
-          "./webps/game-logo.webp",
+          "Game of Life",
+          "./webps/game-of-life-logo.webp",
           -1 // gameTitleLeftMarginPx
         );
 
         // Launch the game!
+        initUI();
         LaunchGame();
 
         // Add more functions here..

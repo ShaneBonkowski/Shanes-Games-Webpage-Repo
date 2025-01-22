@@ -9,7 +9,6 @@
   /* Margins */
   --bb-slider-hover-label-mr: -115%;
   --bb-input-ml: 70%;
-  /* Translations */
   --bb-slider-label-mt: 0%;
   /* Font Sizes */
   --bb-slider-font-size: calc(10vw * 0.14);
@@ -26,7 +25,6 @@
     /* Margins */
     --bb-input-ml: 0%;
     --bb-slider-hover-label-mr: 0%;
-    /* Translations */
     --bb-slider-label-mt: -43%;
     /* Font Sizes */
     --bb-slider-font-size: calc(10vw * 0.35);
@@ -101,7 +99,7 @@ body {
 /*  on phone here. This is because we like how on the phone the 
 hover label for the slider gets stuck when a player holds it.
 Theres a tiny side effect of making the value persist but thats
-fine since theyre likely to tap elsewjere to fix it soon after. */
+fine since theyre likely to tap elsewhere to fix it soon after. */
 .slider-container:hover .slider-hover-label {
   display: block; /* Show the hover label when hovering over the slider container */
 }

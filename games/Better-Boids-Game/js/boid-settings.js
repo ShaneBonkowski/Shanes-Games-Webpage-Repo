@@ -1,14 +1,12 @@
-/**
- * @module BoidSettings
- *
- * @author Shane Bonkowski
- */
-
 import { BoidFactors, boidEventNames } from "./boid-utils.js";
 import { createUIWindow } from "../../../Main-Website-Assets/js/window.js";
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import { addSelectionBox } from "../../../Main-Website-Assets/js/selection-box.js";
 import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
+import {
+  instantiateSlider,
+  initSliderEvents,
+} from "/Main-Website-Assets/js/slider.js";
 
 const velocityPanelInfo = {
   imagePath: "./webps/Velocity-Graphic.webp",
@@ -164,53 +162,90 @@ export function addBoidSettings() {
     BoidFactors.speed,
     "0.05",
     "1",
-    "0.05",
-    settingsSidePanel,
-    velocityPanelInfo
+    "0.05"
   );
+  initSliderEvents(speedSliderContainer, function (value) {
+    BoidFactors.speed = value;
+
+    // Dispatch a custom event for specifically the speed slider
+    document.dispatchEvent(new Event(boidEventNames.onSpeedChange));
+  });
+  speedSliderContainer.addEventListener("pointerdown", function () {
+    updateSettingsSidePanel(
+      velocityPanelInfo.imagePath,
+      velocityPanelInfo.htmlContent
+    );
+  });
 
   const alignmentSliderContainer = instantiateSlider(
     "Alignment",
     BoidFactors.alignmentFactor,
     "0",
     "1",
-    "0.001",
-    settingsSidePanel,
-    alignmentPanelInfo
+    "0.001"
   );
+  initSliderEvents(alignmentSliderContainer, function (value) {
+    BoidFactors.alignmentFactor = value;
+  });
+  alignmentSliderContainer.addEventListener("pointerdown", function () {
+    updateSettingsSidePanel(
+      alignmentPanelInfo.imagePath,
+      alignmentPanelInfo.htmlContent
+    );
+  });
 
   const cohesionSliderContainer = instantiateSlider(
     "Cohesion",
     BoidFactors.cohesionFactor,
     "0",
     "1",
-    "0.001",
-    settingsSidePanel,
-    cohesionPanelInfo
+    "0.001"
   );
+  initSliderEvents(cohesionSliderContainer, function (value) {
+    BoidFactors.cohesionFactor = value;
+  });
+  cohesionSliderContainer.addEventListener("pointerdown", function () {
+    updateSettingsSidePanel(
+      cohesionPanelInfo.imagePath,
+      cohesionPanelInfo.htmlContent
+    );
+  });
 
   const radiusSliderContainer = instantiateSlider(
     "Flock Radius",
     BoidFactors.flockSearchRadius,
     `${BoidFactors.boidProtectedRadius + 5}`, // Cannot go smaller than protected radius with some buffer
     "500",
-    "1",
-    settingsSidePanel,
-    radiusPanelInfo
+    "1"
   );
+  initSliderEvents(radiusSliderContainer, function (value) {
+    BoidFactors.flockSearchRadius = value;
+  });
+  radiusSliderContainer.addEventListener("pointerdown", function () {
+    updateSettingsSidePanel(
+      radiusPanelInfo.imagePath,
+      radiusPanelInfo.htmlContent
+    );
+  });
 
   const separationSliderContainer = instantiateSlider(
     "Separation",
     BoidFactors.separationFactor,
     "0",
     "1",
-    "0.001",
-    settingsSidePanel,
-    separationPanelInfo
+    "0.001"
   );
+  initSliderEvents(separationSliderContainer, function (value) {
+    BoidFactors.separationFactor = value;
+  });
+  separationSliderContainer.addEventListener("pointerdown", function () {
+    updateSettingsSidePanel(
+      separationPanelInfo.imagePath,
+      separationPanelInfo.htmlContent
+    );
+  });
 
   addFlockRadiusIndicator(radiusSliderContainer);
-  addTouchEventListenersToSliders();
 
   // Leader Toggle Box
   const leaderToggleBoxContainer = document.createElement("div");
@@ -236,9 +271,7 @@ export function addBoidSettings() {
       }
 
       // Reveal leader panel info
-      const settingsPanel = document.querySelector(".settings-side-panel");
       updateSettingsSidePanel(
-        settingsPanel,
         leaderPanelInfo.imagePath,
         leaderPanelInfo.htmlContent
       );
@@ -320,72 +353,6 @@ export function addBoidSettings() {
     showGameBanner();
   }
 
-  function addTouchEventListenersToSliders() {
-    // Add touch event listeners to slider containers so that we can show the hover text
-    // if someone on a phone touches on a slider.
-    const sliderContainers = document.querySelectorAll(".slider-container");
-
-    // When someone touches the slider, add the touch-hover class to it so it can hover,
-    // then on touch end remove this class so it doesnt interfere with anything
-    sliderContainers.forEach(
-      function (container) {
-        // Add when touch starts
-        container.addEventListener(
-          "touchstart",
-          function (event) {
-            container.classList.add("touch-hover");
-          }.bind(this)
-        );
-
-        // Remove when the touch ends
-        container.addEventListener("touchend", function (event) {
-          container.classList.remove("touch-hover");
-        });
-      }.bind(this)
-    );
-  }
-
-  function instantiateSlider(
-    name,
-    value,
-    min,
-    max,
-    step,
-    panelProvided,
-    panelInfoProvided
-  ) {
-    const sliderContainer = document.createElement("div");
-    sliderContainer.classList.add("slider-container");
-
-    const slider = document.createElement("input");
-    slider.setAttribute("type", "range");
-    slider.setAttribute("min", min);
-    slider.setAttribute("max", max);
-    slider.setAttribute("step", step);
-    slider.value = value;
-    sliderContainer.appendChild(slider);
-
-    const label = document.createElement("label");
-    label.textContent = name;
-    label.classList.add("slider-label");
-    sliderContainer.appendChild(label);
-
-    const hoverLabel = document.createElement("div");
-    hoverLabel.classList.add("slider-hover-label");
-    hoverLabel.textContent = slider.value; // init hover text
-    sliderContainer.appendChild(hoverLabel);
-
-    initSliderEvents(
-      slider,
-      name,
-      hoverLabel,
-      panelProvided,
-      panelInfoProvided
-    );
-
-    return sliderContainer;
-  }
-
   function addFlockRadiusIndicator(radiusSliderContainer) {
     // Create the circle element to represent the flock radius
     const circle = document.createElement("div");
@@ -463,100 +430,6 @@ export function addBoidSettings() {
     }
   }
 
-  // Function to update the factor values
-  function updateFactor(factorName, value) {
-    switch (factorName) {
-      case "Max Speed":
-        BoidFactors.speed = value;
-
-        // Dispatch a custom event for specifically the speed slider
-        document.dispatchEvent(new Event(boidEventNames.onSpeedChange));
-        break;
-      case "Alignment":
-        BoidFactors.alignmentFactor = value;
-        break;
-      case "Cohesion":
-        BoidFactors.cohesionFactor = value;
-        break;
-      case "Flock Radius":
-        BoidFactors.flockSearchRadius = value;
-        break;
-      case "Separation":
-        BoidFactors.separationFactor = value;
-        break;
-      default:
-        break;
-    }
-  }
-
-  function initSliderEvents(
-    slider,
-    name,
-    hoverLabel,
-    panelProvided,
-    panelInfoProvided
-  ) {
-    // When a user clicks on the slider, update the handle of the slider to be where the player touched
-    slider.addEventListener(
-      "pointerdown",
-      function (event) {
-        updateSliderHandle(event, slider, name);
-      }.bind(this)
-    );
-
-    slider.addEventListener(
-      "pointermove",
-      function (event) {
-        // If we left-click and drag with a mouse, OR if it is not a mouse (aka it is a pointer for a phone)
-        // then assume this is a drag event where we want the slider to be dragged.
-        if (event.pointerType === "mouse" ? event.buttons === 1 : true) {
-          updateSliderHandle(event, slider, name);
-        }
-      }.bind(this)
-    );
-
-    // Add input event listeners to each slider to update slider value
-    slider.addEventListener("input", function () {
-      updateFactor(name, parseFloat(slider.value));
-      hoverLabel.textContent = slider.value;
-    });
-
-    // Reveal only the provided panel when interacted with
-    slider.addEventListener("pointerdown", function () {
-      // Reveal provided panel info
-      updateSettingsSidePanel(
-        panelProvided,
-        panelInfoProvided.imagePath,
-        panelInfoProvided.htmlContent
-      );
-    });
-  }
-
-  function updateSliderHandle(event, slider, name) {
-    // Calculate and update slider value based on pointer location
-    let newValue = calculateNewValue(event.clientX, slider);
-    slider.value = newValue;
-
-    // Dispatch the input event to trigger any input event listeners (such as the updateFactor() for e.g. function that gets triggered during input events)
-    slider.dispatchEvent(new Event("input"));
-  }
-
-  function calculateNewValue(clientX, slider) {
-    // Calculate the position of the click or touch relative to the slider
-    let rect = slider.getBoundingClientRect();
-    let offsetX = clientX - rect.left;
-    let sliderWidth = rect.width;
-
-    // Calculate the new value based on the position of the click or touch
-    let min = parseFloat(slider.min);
-    let max = parseFloat(slider.max);
-    let range = max - min;
-    let ratio = Math.min(1, Math.max(0, offsetX / sliderWidth));
-    let newValue = min + ratio * range;
-
-    return newValue;
-  }
-
   function createSettingsSidePanel(imagePath, htmlContent) {
     const panel = document.createElement("div");
     panel.classList.add("settings-side-panel");
@@ -580,8 +453,9 @@ export function addBoidSettings() {
     return panel;
   }
 
-  function updateSettingsSidePanel(panel, imagePath, htmlContent) {
+  function updateSettingsSidePanel(imagePath, htmlContent) {
     // Select the existing content container and image
+    const panel = document.querySelector(".settings-side-panel");
     const contentContainer = panel.querySelector(".settings-content-container");
     const image = panel.querySelector("img");
 

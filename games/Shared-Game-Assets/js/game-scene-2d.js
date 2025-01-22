@@ -17,6 +17,7 @@ export class Generic2DGameScene extends Phaser.Scene {
     this.gameStarted = false;
     this.isInteracting = false; // is the  player actively interacting with the game?
     this.uiMenuOpen = false;
+    this.paused = false;
 
     this.sound_array = [];
     this.audioMuted = true; // Audio muted to start!
@@ -64,5 +65,32 @@ export class Generic2DGameScene extends Phaser.Scene {
         }
       }
     });
+  }
+
+  // Disable scrolling
+  disableScroll() {
+    document.addEventListener("touchmove", this.preventDefault.bind(this), {
+      passive: false,
+    });
+
+    document.addEventListener(
+      "mousewheel",
+      this.preventDefault.bind(this), // Bind 'this' to refer to the class instance
+      {
+        passive: false,
+      }
+    );
+  }
+
+  // Enable scrolling
+  enableScroll() {
+    //document.body.style.overflow = "";
+    document.removeEventListener("touchmove", preventDefault);
+    document.removeEventListener("mousewheel", preventDefault);
+  }
+
+  // Prevent default behavior of events (used in this case for disabling scroll)
+  preventDefault(event) {
+    //event.preventDefault();
   }
 }

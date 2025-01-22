@@ -1,11 +1,3 @@
-/**
- * @fileOverview Command line script to create a local test server for development on Shanes Games.
- *
- * @module LocalTestServer
- *
- * @author Shane Bonkowski
- */
-
 const http = require("http");
 const fs = require("fs");
 const path = require("path");

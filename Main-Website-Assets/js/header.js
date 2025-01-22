@@ -1,9 +1,3 @@
-/**
- * @module Header
- *
- * @author Shane Bonkowski
- */
-
 import { createLinkButtonContainer } from "./buttons.js";
 import { createImage } from "../../Shared-General-Assets/js/asset-promises.js";
 import { addClickAnimation } from "../../Shared-General-Assets/js/click-animation.js";

@@ -8,6 +8,7 @@
   /* Font Sizes */
   --bb-content-font-size: calc(10vw * 0.2);
   --bb-info-button-font-size: calc(10vw * 0.2);
+  --bb-x-button-font-size: calc(10vw * 0.2);
   --mute-icon-size: 75%;
 }
 
@@ -19,6 +20,7 @@
     /* Font Sizes */
     --bb-content-font-size: calc(10vw * 0.44);
     --bb-info-button-font-size: calc(10vh * 0.25);
+    --bb-x-button-font-size: calc(10vw * 0.5);
     /* Edge Margins */
     --bb-info-header-ml: 90%;
     --bb-info-header-mt: 5%;
@@ -175,9 +177,11 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   position: relative;
   left: var(--bb-info-header-ml);
   top: var(--bb-info-header-mt);
-  font-size: var(--bb-content-font-size);
+  font-size: var(--bb-x-button-font-size);
   color: var(--main-text-color);
   pointer-events: auto;
+  width: 0%;
+  height: 0%;
 }
 
 .info-content {

@@ -1,9 +1,3 @@
-/**
- * @module TileInitUI
- *
- * @author Shane Bonkowski
- */
-
 import { createFunctionButtonContainer } from "../../../Main-Website-Assets/js/buttons.js";
 import {
   tileGridEventNames,

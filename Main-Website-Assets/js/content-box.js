@@ -1,9 +1,3 @@
-/**
- * @module ContentBox
- *
- * @author Shane Bonkowski
- */
-
 import { createFooter } from "/Main-Website-Assets/js/footer.js";
 import { addClickAnimation } from "/Shared-General-Assets/js/click-animation.js";
 import { handleContentBoxHover } from "/Main-Website-Assets/js/content-box-hover-handling.js";
@@ -13,6 +7,17 @@ import { createFunctionButtonContainer } from "/Main-Website-Assets/js/buttons.j
 
 // Array of content box data
 export const contentBoxes = [
+  {
+    imageUrl: "/games/Game-Of-Life/webps/game-of-life-cover.webp",
+    linkUrl: "/games/Game-Of-Life/Game-Of-Life.html",
+    title: "Conway's Game of Life",
+    description:
+      "Experience the emergent world of cellular automata. Classic Conway's Game of Life with advanced customization options to create your own.",
+    search_tags:
+      "conway, conways, conway's, game, of, life, cell, cellular, automata",
+    content_type: "games",
+    openInNewTab: false,
+  },
   {
     imageUrl: "/games/Better-Boids-Game/webps/Game-Cover-Picture.webp",
     linkUrl: "/games/Better-Boids-Game/Better-Boids.html",

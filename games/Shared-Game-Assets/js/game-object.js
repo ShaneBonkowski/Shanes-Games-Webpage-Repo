@@ -60,7 +60,7 @@ export class GameObject {
     return GameObject.instances.find((instance) => instance.id === id) || null;
   }
 
-  updateGraphic() {
+  updateGraphic(newColor = null) {
     if (this.graphic != null) {
       // Set graphic to be where the physics body is located
       if (this.physicsBody2D != null) {
@@ -68,8 +68,13 @@ export class GameObject {
         this.graphic.y = this.physicsBody2D.position.y;
       }
 
+      if (newColor != null) {
+        this.graphic.setTint(newColor);
+      }
+
       // Update size of graphic
-      this.graphic.setScale(this.size);
+      //this.graphic.setScale(this.size);
+      this.graphic.setDisplaySize(this.size, this.size);
     }
   }
 

@@ -18,7 +18,7 @@ export class SeededRandom {
    * Creates a new SeededRandom instance with the specified seed.
    * @param {number} seed - The seed value. Use randomType.UNSEEDED_RANDOM for "real", unseeded randomness.
    */
-  constructor(seed) {
+  constructor(seed = randomType.UNSEEDED_RANDOM) {
     this.seed = seed;
   }
 
@@ -37,7 +37,14 @@ export class SeededRandom {
       x ^= x >> 17;
       x ^= x << 5;
       this.seed = x;
-      return (x >>> 0) / ((1 << 31) >>> 0);
+      let randVal = (x >>> 0) / ((1 << 31) >>> 0);
+
+      // Dont let random exceed (or equal) 1.
+      // This causes issues sometimes, so keep it exclusive on the upper bound.
+      if (randVal >= 1) {
+        randVal = 0.999;
+      }
+      return randVal;
     }
   }
 
@@ -54,12 +61,21 @@ export class SeededRandom {
   /**
    * Generates a pseudo-random integer within the specified range.
    * @param {number} min - The minimum value (inclusive).
-   * @param {number} max - The maximum value (inclusive).
+   * @param {number} max - The maximum value (exclusive).
    * @returns {number} A pseudo-random integer within the specified range.
    */
   getRandomInt(min, max) {
+    if (max <= min) {
+      console.error(
+        "Max is less than min. Max and min are as follows:",
+        max,
+        min
+      );
+      return -1;
+    }
+
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(this.random() * (max - min + 1)) + min;
+    return Math.floor(this.random() * (max - min)) + min;
   }
 }

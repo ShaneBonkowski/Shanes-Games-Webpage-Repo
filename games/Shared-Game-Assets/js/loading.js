@@ -1,10 +1,4 @@
 /**
- * @module Loading
- *
- * @author Shane Bonkowski
- */
-
-/**
  * Handles animations for the entry loading screen for a game html file.
  */
 export function gamesEntryHtmlLoadingScreenAnimations() {
@@ -16,7 +10,7 @@ export function gamesEntryHtmlLoadingScreenAnimations() {
   let hasLoadedAnimPlayed = false;
   function playLoadedAnim(gameLoadingContentImg, gameLoadInOverlay) {
     if (hasLoadedAnimPlayed) {
-      console.log("played already");
+      // console.log("Loaded anim played already, not playing again");
       return;
     }
 
