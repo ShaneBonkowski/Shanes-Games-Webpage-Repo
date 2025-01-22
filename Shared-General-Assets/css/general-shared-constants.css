@@ -11,6 +11,7 @@
   --button-color: rgba(40, 40, 40, 0.75);
   --main-background-overlay-color: rgba(0, 0, 0, 0.9);
   --link-color: rgb(105, 218, 255);
+  --link-color-dark: rgb(0, 122, 163);
   /* Transformations */
   --centering-translation: -50%;
   /* Edge Margins */
