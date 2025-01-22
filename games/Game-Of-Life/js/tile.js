@@ -90,7 +90,7 @@ export class Tile extends GameObject {
 
     // Phone screen has larger
     if (window.innerWidth <= 600 || isPortrait) {
-      size = window.innerHeight * 0.018;
+      size = window.innerHeight * 0.021;
     }
 
     return size;
@@ -116,7 +116,7 @@ export class Tile extends GameObject {
 
     // for phones change the center location etc.
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.44;
+      centerY = this.scene.game.canvas.height * 0.42;
       smallAmountForGrid = 0;
     }
 
