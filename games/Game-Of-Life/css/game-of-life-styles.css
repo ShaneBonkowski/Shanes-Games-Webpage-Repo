@@ -117,7 +117,7 @@ a.active {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  position: absolute;
+  position: fixed;
   bottom: var(--gol-pop-gen-text-container-mb);
   right: var(--gol-pop-gen-text-container-mr);
   transform: translate(50%, 0%);
