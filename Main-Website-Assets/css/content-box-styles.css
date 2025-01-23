@@ -74,15 +74,22 @@ a.content-box-button-link-anchor {
 
 .content-button {
   cursor: pointer;
-  transition: transform 0.3s, opacity 0.3s;
   border-radius: var(--standard-border-radius);
   width: var(--content-button-w);
   height: var(--content-button-h);
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
 .content-button-hover-effect {
-  transform: scale(1.05);
+  /* leave blank */
+}
+@media (hover: hover) {
+  .content-button-hover-effect {
+    transform: scale(1.05);
+  }
 }
 
 /* What to do when clicked. Check the actual JS that adds an
@@ -126,9 +133,17 @@ a.title-link-anchor {
   line-height: 1;
 }
 
+/* Only hover if the browser supports hover. Aka
+if this has a mouse. This prevents an issue where
+touchscreens are causing hover to get stuck */
 .content-title-hover-effect {
-  text-decoration: underline;
-  cursor: pointer;
+  /* leave blank */
+}
+@media (hover: hover) {
+  .content-title-hover-effect {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 .content-description-text {

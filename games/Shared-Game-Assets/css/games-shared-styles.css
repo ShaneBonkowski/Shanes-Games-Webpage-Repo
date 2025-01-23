@@ -69,7 +69,7 @@
   position: relative; /* Position wrt to its parent */
   pointer-events: auto; /* Can click this to go back to main menu */
   cursor: pointer; /* hover pointer */
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
