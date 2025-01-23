@@ -146,6 +146,13 @@ touchscreens are causing hover to get stuck */
   }
 }
 
+/* What to do when clicked. Check the actual JS that adds an
+event listener to add and delete this CSS style on click with addClickAnimation() */
+.content-title-click-effect {
+  filter: brightness(0.9) invert(10%);
+  text-decoration: underline;
+}
+
 .content-description-text {
   font-size: var(--content-description-text-font-size);
   text-align: left;
