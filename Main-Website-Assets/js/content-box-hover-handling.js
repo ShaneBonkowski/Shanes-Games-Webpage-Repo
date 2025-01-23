@@ -2,27 +2,41 @@
  * Function to add neccesary event listeners etc. to content boxes so that they behave as desired on hover
  */
 export function handleContentBoxHover() {
-  // Get all content boxes in the scene
   let contentBoxes = document.querySelectorAll(".content-box");
 
-  // Iterate over each content box
   contentBoxes.forEach(function (box) {
-    // Get references to the button and title elements contained within this box (aka children)
     const button = box.querySelector(".content-button");
     const title = box.querySelector(".content-title");
 
     // Add event listeners to synchronize hover effects, such that when we hover over either
     // the button or the title, both of them have their hover effects occur.
-    button.addEventListener("mouseenter", handleHover);
-    button.addEventListener("mouseleave", handleHover);
-    title.addEventListener("mouseenter", handleHover);
-    title.addEventListener("mouseleave", handleHover);
+    let hoverTimeout;
 
-    // Function to handle hover effects
-    function handleHover() {
-      button.classList.toggle("content-button-hover-effect");
-      title.classList.toggle("content-title-hover-effect");
-    }
+    button.addEventListener("pointerenter", () => {
+      clearTimeout(hoverTimeout);
+      button.classList.add("content-button-hover-effect");
+      title.classList.add("content-title-hover-effect");
+    });
+
+    button.addEventListener("pointerleave", () => {
+      hoverTimeout = setTimeout(() => {
+        button.classList.remove("content-button-hover-effect");
+        title.classList.remove("content-title-hover-effect");
+      }, 10); // Delay of 100ms
+    });
+
+    title.addEventListener("pointerenter", () => {
+      clearTimeout(hoverTimeout);
+      button.classList.add("content-button-hover-effect");
+      title.classList.add("content-title-hover-effect");
+    });
+
+    title.addEventListener("pointerleave", () => {
+      hoverTimeout = setTimeout(() => {
+        button.classList.remove("content-button-hover-effect");
+        title.classList.remove("content-title-hover-effect");
+      }, 10); // Delay of 100ms
+    });
 
     // Handle click here too and have a lil anim on click
     // Note: addClickAnimation(...) is not used here because

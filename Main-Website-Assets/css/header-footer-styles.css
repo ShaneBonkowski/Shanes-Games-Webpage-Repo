@@ -61,7 +61,7 @@
   position: relative;
   pointer-events: auto; /* Can click this to go back to main menu */
   cursor: pointer; /* hover pointer */
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
   margin: 8px 0px 0px 0px;
   left: var(--main-ml);
   display: flex;
@@ -122,7 +122,7 @@ h1.title-text-style {
   height: var(--header-button-container-h);
   background-color: var(--button-color); /* Button Color */
   border-radius: var(--standard-border-radius);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
   text-align: center;
   display: flex;
   justify-content: center;

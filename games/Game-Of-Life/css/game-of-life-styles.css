@@ -147,7 +147,7 @@ a.active {
   color: var(--main-color);
   font-size: var(--gol-button-text-size);
   transform: translate(-50%, 0%);
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
   cursor: pointer;
   pointer-events: auto;
 }
@@ -266,7 +266,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
 .gol-icon-text {
@@ -323,7 +323,7 @@ event listener to add and delete this CSS style on click with addClickAnimation(
   cursor: pointer;
   pointer-events: auto;
   transform: scale(1.6);
-  transition: transform 0.3s ease;
+  transition: transform 0.1s ease;
 }
 
 /* Settings screen styles */
