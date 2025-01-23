@@ -46,11 +46,11 @@ export function handleContentBoxHover() {
       // Add 'active' class to apply effects on click.
       // Then remove it soon after
       button.classList.add("content-button-click-effect");
-      title.classList.add("content-button-click-effect");
+      title.classList.add("content-title-click-effect");
 
       setTimeout(() => {
         button.classList.remove("content-button-click-effect");
-        title.classList.remove("content-button-click-effect");
+        title.classList.remove("content-title-click-effect");
       }, 200);
     }
     button.addEventListener("pointerdown", handleClick);
