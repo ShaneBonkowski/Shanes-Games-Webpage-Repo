@@ -30,14 +30,14 @@ export const TileGridAttrs = {
 
 export const TileAndBackgroundColors = [
   // Each sub-array contains [ON color, OFF color, background color]
-  [0x7161ef, 0xff69b4, 0xffc0cb], // Purple on hot pink, pink background
-  [0xff00ff, 0x8b008b, 0x0a2472], // Magenta on dark magenta, navy background
-  [0x00ffff, 0x008b8b, 0x0d00a4], // Cyan on dark cyan, dark blue background
   [0x000000, 0xa9a9a9, 0xd3d3d3], // Black on dark grey, light grey background
   [0xffffff, 0x808080, 0x000000], // White on grey, black background
   [0x52b788, 0x2d6a4f, 0x081c15], // Green on dark green, darker green background
   [0x70e000, 0x758e4f, 0x000000], // Bright green on light green, dark background
   [0xffffff, 0x2e8b57, 0x155d27], // White on sea green, dark green background
+  [0x7161ef, 0xff69b4, 0xffc0cb], // Purple on hot pink, pink background
+  [0xff00ff, 0x8b008b, 0x0a2472], // Magenta on dark magenta, navy background
+  [0x00ffff, 0x008b8b, 0x0d00a4], // Cyan on dark cyan, dark blue background
 ];
 
 export const tileColors = {
