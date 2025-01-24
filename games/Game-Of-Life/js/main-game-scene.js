@@ -247,6 +247,10 @@ export class MainGameScene extends Generic2DGameScene {
       "orientationchange",
       this.handleWindowResize.bind(this)
     );
+    document.addEventListener(
+      genericGameEventNames.uiMenuClosed,
+      this.handleWindowResize.bind(this)
+    );
   }
 
   // Function to handle window resize event
