@@ -19,16 +19,27 @@ export function LaunchGame() {
 
   const game = new Phaser.Game(config);
 
-  updateBodySizeWithWindowResize();
+  updateBodySizeWithWindowResize(game);
   setZOrderForSharedElements(game);
 }
 
-function updateBodySizeWithWindowResize() {
+function updateBodySizeWithWindowResize(game) {
   // Want body of document to == inner width / height.
   // This is so that banners / search bar etc. dont affect screen size.
   function updateBodySize() {
-    document.body.style.width = window.innerWidth + "px";
-    document.body.style.height = window.innerHeight + "px";
+    const viewportWidth = window.innerWidth;
+    const viewportHeight =
+      window.innerHeight > document.documentElement.clientHeight
+        ? document.documentElement.clientHeight
+        : window.innerHeight;
+
+    document.body.style.width = `${viewportWidth}px`;
+    document.body.style.height = `${viewportHeight}px`;
+
+    // Adjust Phaser canvas size
+    if (game && game.scale) {
+      game.scale.resize(viewportWidth, viewportHeight);
+    }
   }
 
   // Initial update
