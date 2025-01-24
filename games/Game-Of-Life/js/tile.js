@@ -109,14 +109,14 @@ export class Tile extends GameObject {
 
   calculateTilePosition() {
     // Get the tile location from the grid location and screen size
-    let centerX = this.scene.game.canvas.width / 2;
-    let centerY = this.scene.game.canvas.height / 2;
+    let centerX = window.innerWidth / 2;
+    let centerY = window.innerHeight / 2;
     let smallAmountForGrid = 0; // allows me to add small amount to create a buffer for the "grid"
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // for phones change the center location etc.
-    if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.48;
+    if (window.innerWidth <= 600 || isPortrait) {
+      centerY = window.innerHeight * 0.47;
       smallAmountForGrid = 0;
     }
 
