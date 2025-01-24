@@ -116,7 +116,7 @@ export class Tile extends GameObject {
 
     // for phones change the center location etc.
     if (this.scene.game.canvas.width <= 600 || isPortrait) {
-      centerY = this.scene.game.canvas.height * 0.43;
+      centerY = this.scene.game.canvas.height * 0.48;
       smallAmountForGrid = 0;
     }
 
