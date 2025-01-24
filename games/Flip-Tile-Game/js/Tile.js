@@ -79,7 +79,7 @@ export class Tile extends GameObject {
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
 
     // for phones change the font size
-    if (this.scene.game.canvas.width <= 600 || isPortrait) {
+    if (window.innerWidth <= 600 || isPortrait) {
       fontSize = 24;
     }
     this.text.setFontSize(fontSize);
@@ -248,8 +248,8 @@ export class Tile extends GameObject {
   }
 
   findTileLocFromTileSpace() {
-    let centerX = this.scene.game.canvas.width / 2;
-    let centerY = this.scene.game.canvas.height / 2;
+    let centerX = window.innerWidth / 2;
+    let centerY = window.innerHeight / 2;
     let tileSpacing = this.size * sharedTileAttrs.tileSpacingFactor;
 
     // Calculate the starting position for the top-left tile in the grid

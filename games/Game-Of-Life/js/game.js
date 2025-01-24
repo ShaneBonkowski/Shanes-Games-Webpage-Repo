@@ -35,12 +35,6 @@ function updateBodySizeWithWindowResize(game) {
 
     document.body.style.width = `${viewportWidth}px`;
     document.body.style.height = `${viewportHeight}px`;
-
-    // // Adjust Phaser canvas size
-    // if (game) {
-    //   game.canvas.style.width = `${viewportWidth}px`;
-    //   game.canvas.style.height = `${viewportHeight}px`;
-    // }
   }
 
   // Initial update
