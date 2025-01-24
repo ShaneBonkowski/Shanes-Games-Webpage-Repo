@@ -251,6 +251,9 @@ export class MainGameScene extends Generic2DGameScene {
       genericGameEventNames.uiMenuClosed,
       this.handleWindowResize.bind(this)
     );
+    document.addEventListener(genericGameEventNames.uiMenuClosed, () => {
+      window.scrollTo(0, 0);
+    });
   }
 
   // Function to handle window resize event
