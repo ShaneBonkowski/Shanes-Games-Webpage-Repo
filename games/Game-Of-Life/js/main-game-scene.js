@@ -46,6 +46,12 @@ export class MainGameScene extends Generic2DGameScene {
     this.dragManager = new DragManager();
     this.zoomManager = new ZoomManager();
 
+    // Make it so that we cannot zoom while dragging and vice versa
+    this.dragManager.onStartDrag = this.zoomManager.blockZoom;
+    this.dragManager.onStopDrag = this.zoomManager.unblockZoom;
+    this.zoomManager.onStartZoom = this.dragManager.blockDrag;
+    this.zoomManager.onStopZoom = this.dragManager.unblockDrag;
+
     // Let game know ui menu closed to start
     this.onUiMenuClosed();
   }

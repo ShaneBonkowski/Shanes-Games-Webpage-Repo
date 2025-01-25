@@ -2,7 +2,9 @@ import { MoreMath } from "./more-math.js";
 
 export class ZoomManager {
   constructor(
+    onStartZoom = null,
     onZoom = null,
+    onStopZoom = null,
     tickRate = 16.67, // 16.67ms ~= 60hz
     zoomRate = 0.06
   ) {
@@ -11,7 +13,10 @@ export class ZoomManager {
     this.zoomRate = zoomRate;
     this.tickRate = tickRate; // Maximum frequency in milliseconds
     this.lastCallTime = 0;
+
+    this.onStartZoom = onStartZoom;
     this.onZoom = onZoom;
+    this.onStopZoom = onStopZoom;
 
     this.attachListeners();
   }
@@ -32,14 +37,18 @@ export class ZoomManager {
     event.preventDefault(); // Prevent page scroll
   }
 
-  startPinch(event) {
+  startZoom(event) {
     // Record initial distance between touches for pinch gesture
     if (event.touches.length === 2) {
       this.initialPinchDistance = this.getPinchDistance(event);
+
+      if (this.onStartZoom != null) {
+        this.onStartZoom();
+      }
     }
   }
 
-  handlePinch(event) {
+  handleZoom(event) {
     // Handle pinch gesture (calculate zoom based on pinch distance change)
     if (event.touches.length === 2 && this.initialPinchDistance !== null) {
       const currentDistance = this.getPinchDistance(event);
@@ -54,8 +63,12 @@ export class ZoomManager {
     }
   }
 
-  endPinch() {
+  stopZoom() {
     this.initialPinchDistance = null;
+
+    if (this.onStopZoom != null) {
+      this.onStopZoom();
+    }
   }
 
   updateZoom(delta) {
@@ -105,13 +118,13 @@ export class ZoomManager {
     );
 
     // Touch events for pinch-to-zoom
-    window.addEventListener("touchstart", this.startPinch.bind(this), {
+    window.addEventListener("touchstart", this.startZoom.bind(this), {
       passive: false,
     });
-    window.addEventListener("touchmove", this.handlePinch.bind(this), {
+    window.addEventListener("touchmove", this.handleZoom.bind(this), {
       passive: false,
     });
-    window.addEventListener("touchend", this.endPinch.bind(this), {
+    window.addEventListener("touchend", this.stopZoom.bind(this), {
       passive: false,
     });
   }
