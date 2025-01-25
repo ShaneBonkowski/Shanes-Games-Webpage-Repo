@@ -27,12 +27,17 @@ export class DragManager {
     this.dragOffsetY = 0;
 
     this.isDragging = false;
+    this.dragBlocked = false;
     this.dragStartX = 0;
     this.dragStartY = 0;
     this.dragTarget = null;
   }
 
   startDrag(event) {
+    // Only start drag if there's exactly 1 touch (finger) or 1 pointer event
+    if (this.dragBlocked || (event.touches && event.touches.length !== 1))
+      return;
+
     this.isDragging = true;
     const { clientX, clientY } = this.getEventPosition(event);
     this.dragStartX = clientX;
@@ -47,7 +52,13 @@ export class DragManager {
   }
 
   drag(event) {
-    if (!this.isDragging) return;
+    // Only handle drag if there's exactly 1 touch (finger) or 1 pointer event
+    if (
+      this.dragBlocked ||
+      !this.isDragging ||
+      (event.touches && event.touches.length !== 1)
+    )
+      return;
 
     const { clientX, clientY } = this.getEventPosition(event);
     const deltaX = (clientX - this.dragStartX) * this.dragRate;
@@ -81,6 +92,14 @@ export class DragManager {
     if (this.onStopDrag != null) {
       this.onStopDrag();
     }
+  }
+
+  blockDrag() {
+    this.dragBlocked = true;
+  }
+
+  unblockDrag() {
+    this.dragBlocked = false;
   }
 
   getEventPosition(event) {

@@ -181,11 +181,6 @@ export class Tile extends GameObject {
     return new Vec2(tileX, tileY);
   }
 
-  onTileLayoutChange() {
-    // Reinitialize the object and graphic on resize
-    this.updateVisuals();
-  }
-
   getQtyLivingNeighbors(
     tiles,
     countCorners = true,
@@ -278,21 +273,20 @@ export class Tile extends GameObject {
 
     // Change the state
     this.tileState = newState;
-    this.updateVisuals();
   }
 
-  updateVisuals() {
-    this.updatePosition();
-    this.updateSize();
-    this.updateColor();
-  }
-
-  updateColor() {
+  renderTileGraphics() {
+    this.updateVisualAttrs();
     if (this.tileState == tileStates.OFF) {
       this.updateGraphic(tileColors.OFF);
     } else {
       this.updateGraphic(tileColors.ON);
     }
+  }
+
+  updateVisualAttrs() {
+    this.updatePosition();
+    this.updateSize();
   }
 
   playSpinAnim() {
