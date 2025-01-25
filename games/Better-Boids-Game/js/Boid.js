@@ -1,7 +1,7 @@
 import { GameObject } from "/games/Shared-Game-Assets/js/game-object.js";
 import { Physics } from "../../Shared-Game-Assets/js/physics.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
-import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
+import { MoreMath } from "../../Shared-Game-Assets/js/more-math.js";
 import { BoidFactors, boidEventNames } from "./boid-utils.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
 
@@ -211,12 +211,12 @@ export class Boid extends GameObject {
 
       // Lerp toward desired velocity
       let lerpFactor = 0.1;
-      this.physicsBody2D.velocity.x = more_math.lerp(
+      this.physicsBody2D.velocity.x = MoreMath.lerp(
         this.physicsBody2D.velocity.x,
         desired_velocity.x,
         lerpFactor
       );
-      this.physicsBody2D.velocity.y = more_math.lerp(
+      this.physicsBody2D.velocity.y = MoreMath.lerp(
         this.physicsBody2D.velocity.y,
         desired_velocity.y,
         lerpFactor

@@ -1,5 +1,6 @@
 import { GameObject } from "/games/Shared-Game-Assets/js/game-object.js";
 import { Vec2 } from "../../Shared-Game-Assets/js/vector.js";
+import { MoreMath } from "../../Shared-Game-Assets/js/more-math.js";
 import { tileStates, TileGridAttrs, tileColors } from "./tile-utils.js";
 
 export class Tile extends GameObject {
@@ -23,18 +24,30 @@ export class Tile extends GameObject {
   }
 
   subscribeToEvents() {
-    // Add an event listener for pointer down events using phaser's event system
-    this.graphic.on("pointerdown", () => {
-      // Cannot click a tile if ui menu is open!
+    // Click must start and end on the same tile to count as a tile click...
+    // This helps ensure dragging doesnt accidentally trigger tiles.
+    this.graphic.on("pointerdown", (pointer) => {
       if (this.canClick && !this.scene.uiMenuOpen) {
+        this.initialClickOnThisTile = true;
+      }
+    });
+
+    this.graphic.on("pointerup", (pointer) => {
+      if (
+        this.canClick &&
+        !this.scene.uiMenuOpen &&
+        this.initialClickOnThisTile
+      ) {
+        // Toggle tile state only if the click started and ended on this tile
         this.onClickToggleTileState();
 
-        // If not paused, pause when a player clicks to interact with the tiles.
-        // ONLY IF TileGridAttrs.autoPauseOnClick is true!
+        // Autopause the game if specified to do such
         if (!this.scene.paused && TileGridAttrs.autoPauseOnClick) {
           this.scene.togglePause();
         }
       }
+
+      this.initialClickOnThisTile = false; // Reset state
     });
 
     // Update mouse on hover
@@ -47,6 +60,7 @@ export class Tile extends GameObject {
   }
 
   initTile() {
+    this.initialClickOnThisTile = false;
     this.qtyLivingNeighbors = 0; // For storing qty of neighbors prior to update loop
     this.canClick = true;
     this.currentTileAnim = null;
@@ -93,6 +107,9 @@ export class Tile extends GameObject {
       size = window.innerHeight * 0.022;
     }
 
+    // Scale according to zoom!
+    size = size * this.scene.zoomManager.zoomOffset;
+
     return size;
   }
 
@@ -119,6 +136,18 @@ export class Tile extends GameObject {
       centerY = window.innerHeight * 0.47;
       smallAmountForGrid = 0;
     }
+
+    // Add in any drag offset, but clamp to within screen bounds
+    centerX = MoreMath.clamp(
+      centerX + this.scene.dragManager.dragOffsetX,
+      0,
+      window.innerWidth
+    );
+    centerY = MoreMath.clamp(
+      centerY + this.scene.dragManager.dragOffsetY,
+      0,
+      window.innerHeight
+    );
 
     // Calculate the starting position for the bottom-left tile in the grid
     let maxSize = this.calculateMaxSize(this.calculateDefaultSize());
@@ -152,7 +181,7 @@ export class Tile extends GameObject {
     return new Vec2(tileX, tileY);
   }
 
-  handleWindowResize() {
+  onTileLayoutChange() {
     // Reinitialize the object and graphic on resize
     this.updateVisuals();
   }
@@ -253,8 +282,8 @@ export class Tile extends GameObject {
   }
 
   updateVisuals() {
-    this.updateSize();
     this.updatePosition();
+    this.updateSize();
     this.updateColor();
   }
 

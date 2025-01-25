@@ -11,7 +11,7 @@
 /**
  * Provides additional mathematical utility functions.
  */
-export class more_math {
+export class MoreMath {
   /**
    * Performs linear interpolation between two values.
    * @param {number} start - The starting value.
@@ -21,5 +21,16 @@ export class more_math {
    */
   static lerp(start, end, t) {
     return (1 - t) * start + t * end;
+  }
+
+  /**
+   * Clamps a value between a minimum and maximum value.
+   * @param {number} value - The value to be clamped.
+   * @param {number} min - The minimum value.
+   * @param {number} max - The maximum value.
+   * @returns {number} The clamped value.
+   */
+  static clamp(value, min, max) {
+    return Math.max(min, Math.min(value, max));
   }
 }
