@@ -28,7 +28,7 @@ export function setZOrderForSharedElements(game) {
   );
   const closeButtons = document.querySelectorAll(".close-button");
   const infoBoxs = document.querySelectorAll(".info-box");
-  const popGenText = document.querySelector(".pop-gen-text");
+  const popGenText = document.querySelector(".pop-gen-text-container");
 
   // Set the z-index property for all other objs\
   // helloWorldBox.style.zIndex = "-1"; // far back

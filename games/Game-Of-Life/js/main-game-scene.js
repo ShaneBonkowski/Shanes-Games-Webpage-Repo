@@ -19,7 +19,8 @@ import {
 } from "./tile-utils.js";
 import { gameOfLifeEventNames } from "./init-ui.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
-import { vignetteFade } from "../../Shared-Game-Assets/js/vignette.js";
+import { DragManager } from "../../Shared-Game-Assets/js/drag-handler.js";
+import { ZoomManager } from "../../Shared-Game-Assets/js/zoom-handler.js";
 
 export const tiles = [];
 
@@ -31,15 +32,17 @@ export class MainGameScene extends Generic2DGameScene {
 
     this.lastUpdateTime = 0;
     this.gameOfLifeType = gameOfLifeTypes.CONWAY;
-
     this.discoMode = false;
     this.discoModeLastUpdateTime = 0;
-
     this.autoPlayMode = false;
     this.autoPlayModeLastUpdateTime = 0;
 
     this.updatePopulation(0);
     this.updateGeneration(0);
+
+    this.onZoomOrDrag = this.onZoomOrDrag.bind(this);
+    this.dragManager = new DragManager(null, this.onZoomOrDrag, null);
+    this.zoomManager = new ZoomManager(this.onZoomOrDrag);
 
     // Let game know ui menu closed to start
     this.onUiMenuClosed();
@@ -236,29 +239,36 @@ export class MainGameScene extends Generic2DGameScene {
     // Observe window resizing with ResizeObserver since it
     // is good for snappy changes
     const resizeObserver = new ResizeObserver((entries) => {
-      this.handleWindowResize();
+      this.onTileLayoutChange();
     });
     resizeObserver.observe(document.documentElement);
 
     // Also checking for resize or orientation change to try
     // to handle edge cases that ResizeObserver misses!
-    window.addEventListener("resize", this.handleWindowResize.bind(this));
+    window.addEventListener("resize", this.onTileLayoutChange.bind(this));
     window.addEventListener(
       "orientationchange",
-      this.handleWindowResize.bind(this)
+      this.onTileLayoutChange.bind(this)
     );
   }
 
-  // Function to handle window resize event
-  handleWindowResize() {
-    // Handle tiles for window resize
+  onZoomOrDrag() {
+    // Cant zoom or drag if menu is open
+    if (this.uiMenuOpen) {
+      return;
+    }
+
+    this.onTileLayoutChange();
+  }
+
+  onTileLayoutChange() {
     for (let row = 0; row < tiles.length; row++) {
       for (let col = 0; col < tiles[row].length; col++) {
         let tile = tiles[row][col];
 
         // Make sure tile exists
         if (tile) {
-          tile.handleWindowResize();
+          tile.onTileLayoutChange();
         }
       }
     }
@@ -313,6 +323,10 @@ export class MainGameScene extends Generic2DGameScene {
   }
 
   resetTiles() {
+    // reset zoom and drag to 0
+    this.dragManager.resetDrag();
+    this.zoomManager.resetZoom();
+
     for (let row = 0; row < tiles.length; row++) {
       for (let col = 0; col < tiles[row].length; col++) {
         tiles[row][col].resetTile();

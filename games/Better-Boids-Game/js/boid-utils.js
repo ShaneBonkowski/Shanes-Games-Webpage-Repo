@@ -1,5 +1,4 @@
 import { Boid } from "./Boid.js";
-import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
 
 // Define constants for the boids rules

@@ -1,11 +1,6 @@
 import { Tile } from "./Tile.js";
-import { more_math } from "../../Shared-Game-Assets/js/more-math.js";
 import { Matrix } from "../../Shared-Game-Assets/js/matrix.js";
-import {
-  SeededRandom,
-  randomType,
-} from "../../Shared-Game-Assets/js/seedable-random.js";
-import { intendedNewTileAttrs } from "./main-game-scene.js";
+import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
 
 const unseededRandom = new SeededRandom();
 
