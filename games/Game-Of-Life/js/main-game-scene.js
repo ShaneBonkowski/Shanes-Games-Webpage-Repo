@@ -30,7 +30,10 @@ export class MainGameScene extends Generic2DGameScene {
   constructor() {
     super({ key: "MainGameScene" });
 
-    this.lastUpdateTime = 0;
+    this.renderUpdateInterval = 16.67; // ~= 60hz
+    this.lastRenderUpdateTime = 0;
+    this.lastGameStateUpdateTime = 0;
+
     this.gameOfLifeType = gameOfLifeTypes.CONWAY;
     this.discoMode = false;
     this.discoModeLastUpdateTime = 0;
@@ -40,9 +43,8 @@ export class MainGameScene extends Generic2DGameScene {
     this.updatePopulation(0);
     this.updateGeneration(0);
 
-    this.onZoomOrDrag = this.onZoomOrDrag.bind(this);
-    this.dragManager = new DragManager(null, this.onZoomOrDrag, null);
-    this.zoomManager = new ZoomManager(this.onZoomOrDrag);
+    this.dragManager = new DragManager();
+    this.zoomManager = new ZoomManager();
 
     // Let game know ui menu closed to start
     this.onUiMenuClosed();
@@ -75,7 +77,7 @@ export class MainGameScene extends Generic2DGameScene {
         localStorage.getItem("currentColorThemeIndex")
       );
     }
-    this.updateColorTheme();
+    this.updateColorThemeAttrs();
 
     // Dispatch a custom event saying that color change just occured
     // due to the game class, not the slider.
@@ -93,8 +95,11 @@ export class MainGameScene extends Generic2DGameScene {
     if (this.gameStarted) {
       if (this.paused == false) {
         // Perform tile grid updates on TileGridAttrs.updateInterval
-        if (time - this.lastUpdateTime >= TileGridAttrs.updateInterval) {
-          this.lastUpdateTime = time;
+        if (
+          time - this.lastGameStateUpdateTime >=
+          TileGridAttrs.updateInterval
+        ) {
+          this.lastGameStateUpdateTime = time;
 
           // Auto mode: automatically place shapes if the criteria fits
           if (this.autoPlayMode) {
@@ -138,7 +143,28 @@ export class MainGameScene extends Generic2DGameScene {
           this.runGameOfLifeIteration();
         }
       }
+
+      // "render" pass to update all visuals
+      if (time - this.lastRenderUpdateTime >= this.renderUpdateInterval) {
+        this.lastRenderUpdateTime = time;
+
+        this.renderPass();
+      }
     }
+  }
+
+  renderPass() {
+    // Update tile graphics / color etc.
+    for (let row = 0; row < tiles.length; row++) {
+      for (let col = 0; col < tiles[row].length; col++) {
+        tiles[row][col].renderTileGraphics();
+      }
+    }
+
+    // Set background color -> TileAndBackgroundColors[i][2]
+    document.body.style.backgroundColor = this.hexToCssColor(
+      TileAndBackgroundColors[TileGridAttrs.currentColorThemeIndex][2]
+    );
   }
 
   runGameOfLifeIteration() {
@@ -239,40 +265,20 @@ export class MainGameScene extends Generic2DGameScene {
     // Observe window resizing with ResizeObserver since it
     // is good for snappy changes
     const resizeObserver = new ResizeObserver((entries) => {
-      this.onTileLayoutChange();
+      this.onWindowResize();
     });
     resizeObserver.observe(document.documentElement);
 
     // Also checking for resize or orientation change to try
     // to handle edge cases that ResizeObserver misses!
-    window.addEventListener("resize", this.onTileLayoutChange.bind(this));
+    window.addEventListener("resize", this.onWindowResize.bind(this));
     window.addEventListener(
       "orientationchange",
-      this.onTileLayoutChange.bind(this)
+      this.onWindowResize.bind(this)
     );
   }
 
-  onZoomOrDrag() {
-    // Cant zoom or drag if menu is open
-    if (this.uiMenuOpen) {
-      return;
-    }
-
-    this.onTileLayoutChange();
-  }
-
-  onTileLayoutChange() {
-    for (let row = 0; row < tiles.length; row++) {
-      for (let col = 0; col < tiles[row].length; col++) {
-        let tile = tiles[row][col];
-
-        // Make sure tile exists
-        if (tile) {
-          tile.onTileLayoutChange();
-        }
-      }
-    }
-
+  onWindowResize() {
     // If it switches from landscape to portrait (aka phone) or vice versa,
     // update the layout of the tile grid.
     let isPortrait = window.matchMedia("(orientation: portrait)").matches;
@@ -384,10 +390,14 @@ export class MainGameScene extends Generic2DGameScene {
 
   onUiMenuOpen() {
     this.uiMenuOpen = true;
+    this.dragManager.blockDrag();
+    this.zoomManager.blockZoom();
   }
 
   onUiMenuClosed() {
     this.uiMenuOpen = false;
+    this.dragManager.unblockDrag();
+    this.zoomManager.unblockZoom();
   }
 
   togglePause() {
@@ -596,7 +606,7 @@ export class MainGameScene extends Generic2DGameScene {
       this.toggleDisco();
     }
 
-    this.updateColorTheme();
+    this.updateColorThemeAttrs();
   }
 
   advanceToNextColorTheme() {
@@ -607,7 +617,7 @@ export class MainGameScene extends Generic2DGameScene {
     ) {
       TileGridAttrs.currentColorThemeIndex = 0;
     }
-    this.updateColorTheme();
+    this.updateColorThemeAttrs();
   }
 
   decreaseToPreviousColorTheme() {
@@ -615,10 +625,13 @@ export class MainGameScene extends Generic2DGameScene {
     if (TileGridAttrs.currentColorThemeIndex < 0) {
       TileGridAttrs.currentColorThemeIndex = TileAndBackgroundColors.length - 1;
     }
-    this.updateColorTheme();
+    this.updateColorThemeAttrs();
   }
 
-  updateColorTheme() {
+  updateColorThemeAttrs() {
+    // Set values for the color theme on change... note rendering to actually update the colors
+    //  is handled in the render pass.
+
     // Update the ON/OFF colors
     tileColors.ON =
       TileAndBackgroundColors[TileGridAttrs.currentColorThemeIndex][0];
@@ -630,22 +643,6 @@ export class MainGameScene extends Generic2DGameScene {
     localStorage.setItem(
       "currentColorThemeIndex",
       TileGridAttrs.currentColorThemeIndex.toString()
-    );
-
-    // Tile color is ON == TileAndBackgroundColors[i][0], OFF == TileAndBackgroundColors[i][1]
-    for (let row = 0; row < tiles.length; row++) {
-      for (let col = 0; col < tiles[row].length; col++) {
-        tiles[row][col].updateColor();
-
-        // NOTE: the spin animation is kinda broken and doesnt
-        // look great, so for now not doing it
-        // tiles[row][col].playSpinAnim();
-      }
-    }
-
-    // Background color is TileAndBackgroundColors[i][2]
-    document.body.style.backgroundColor = this.hexToCssColor(
-      TileAndBackgroundColors[TileGridAttrs.currentColorThemeIndex][2]
     );
   }
 }

@@ -22,6 +22,7 @@ export class ZoomManager {
 
   initialize() {
     this.zoomOffset = 1;
+    this.zoomBlocked = false;
     this.initialPinchDistance = null;
   }
 
@@ -58,6 +59,8 @@ export class ZoomManager {
   }
 
   updateZoom(delta) {
+    if (this.zoomBlocked) return;
+
     this.zoomOffset += delta;
     this.zoomOffset = MoreMath.clamp(this.zoomOffset, 0.1, 5);
 
@@ -80,6 +83,14 @@ export class ZoomManager {
     const dx = touch2.clientX - touch1.clientX;
     const dy = touch2.clientY - touch1.clientY;
     return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  blockZoom() {
+    this.zoomBlocked = true;
+  }
+
+  unblockZoom() {
+    this.zoomBlocked = false;
   }
 
   attachListeners() {
