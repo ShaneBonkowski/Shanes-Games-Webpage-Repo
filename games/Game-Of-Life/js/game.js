@@ -3,7 +3,6 @@ import { setZOrderForSharedElements } from "./z-ordering.js";
 // Use scene.isInteracting for e.g. to access that variable of
 // the main game scene
 import { MainGameScene } from "./main-game-scene.js";
-import { genericGameEventNames } from "/games/Shared-Game-Assets/js/game-scene-2d.js";
 
 export function LaunchGame() {
   const config = {
@@ -44,5 +43,4 @@ function updateBodySizeWithWindowResize(game) {
   // Handle resize events to adjust body size
   window.addEventListener("resize", updateBodySize);
   window.addEventListener("orientationchange", updateBodySize);
-  document.addEventListener(genericGameEventNames.uiMenuClosed, updateBodySize);
 }

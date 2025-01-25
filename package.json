@@ -1,0 +1,11 @@
+{
+  "name": "shanesgames",
+  "version": "1.0.0",
+  "description": "Shane's Games Website",
+  "scripts": {
+    "start": "node ./Local-Testing/local-test-server.cjs"
+  },
+  "author": "Shane Bonkowski",
+  "license": "MIT",
+  "type": "module"
+}

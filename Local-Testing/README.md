@@ -18,6 +18,12 @@ The JavaScript file `local-test-server.js` creates a local test server that allo
 node .\Local-Testing\local-test-server.js
 ```
 
+OR (because I have defined it in package.json), call:
+
+```bash
+npm start
+```
+
 4. Once the server is running, you should see a message indicating that the server is live and listening on a specific port. The default port is `3000`.
 
 5. Open a web browser and go to the following URL:

@@ -34,16 +34,18 @@ jobs:
 
       - name: Remove Unnecessary Files From Build
         run: |
-          rm -rf .git*       
+          rm -rf .git*
           rm -rf .github # Remove GitHub Actions files and folders
-          rm -rf README* 
-          rm -rf LICENSE* 
-          rm -rf ./*/*.md  
+          rm -rf README*
+          rm -rf LICENSE*
+          rm -rf ./*/*.md
           rm -rf ./*/*.png # We use the webp for images, not pngs!
           rm -rf **/*.py # Python files are just for utils, not for the actual site
-          rm -rf **/*.pyc 
+          rm -rf **/*.pyc
           rm -rf .DS_Store # Remove macOS specific hidden files
           rm -rf **/Generic-Game-Blueprint
+          rm -rf **/JS-Tests
+          rm -rf package.json
 
       - name: Create Deploy Directory
         run: mkdir deploy
