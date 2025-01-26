@@ -32,6 +32,8 @@ export class GestureManager {
 
   initializeZoom() {
     this.zoomOffset = 1;
+
+    this.isZooming = false;
     this.zoomBlocked = false;
     this.initialPinchDistance = null;
   }
@@ -80,11 +82,11 @@ export class GestureManager {
     };
 
     // 1 finger down, then pointer down means drag
-    if (Object.keys(this.activePointers).length === 1) {
+    if (Object.keys(this.activePointers).length == 1) {
       this.startDrag(event);
     }
     // Otherwise, 2 fingers down means zoom
-    else if (Object.keys(this.activePointers).length === 2) {
+    else if (Object.keys(this.activePointers).length == 2) {
       this.startZoom(event);
     }
   }
@@ -96,9 +98,9 @@ export class GestureManager {
       this.activePointers[event.pointerId].y = event.clientY;
 
       if (this.isZooming) {
-        this.zoom(event);
+        this.handleZoom(event);
       } else if (this.isDragging) {
-        this.drag(event);
+        this.handleDrag(event);
       }
     }
   }
@@ -123,12 +125,9 @@ export class GestureManager {
     const { clientX, clientY } = this.getEventPosition();
     this.dragStartX = clientX;
     this.dragStartY = clientY;
-
-    // Block zooming while dragging
-    this.blockZoom();
   }
 
-  drag(event) {
+  handleDrag(event) {
     // Only handle drag if there's exactly 1 touch (finger).
     if (
       this.dragBlocked ||
@@ -151,17 +150,13 @@ export class GestureManager {
 
   stopDrag(event) {
     this.isDragging = false;
-    this.dragTarget = null;
-
-    // Allow zooming when dragging is done
-    this.unblockZoom();
   }
 
-  blockDrag(event = null) {
+  blockDrag() {
     this.dragBlocked = true;
   }
 
-  unblockDrag(event = null) {
+  unblockDrag() {
     this.dragBlocked = false;
   }
 
@@ -179,15 +174,18 @@ export class GestureManager {
       return;
     }
 
+    this.isZooming = true;
     this.initialPinchDistance = this.getPinchDistance();
-
-    // Block dragging while zooming
-    this.blockDrag();
   }
 
   handleWheel(event) {
+    // Wheel does not care if it "isZooming" because it doesnt rely on pointer events
+    if (this.zoomBlocked) {
+      return;
+    }
+
     const delta = event.deltaY > 0 ? -1 : 1; // Scroll down is negative, up is positive
-    this.updateZoom(event, delta * this.zoomRate);
+    this.updateZoom(delta * this.zoomRate);
     event.preventDefault(); // Prevent page scroll
   }
 
@@ -195,6 +193,7 @@ export class GestureManager {
     // Handle pinch gesture (calculate zoom based on pinch distance change)
     if (
       this.zoomBlocked ||
+      !this.isZooming ||
       this.initialPinchDistance == null ||
       Object.keys(this.activePointers).length !== 2
     ) {
@@ -207,12 +206,12 @@ export class GestureManager {
     // If the pinch distance changes above some threshold, update zoom
     if (Math.abs(deltaDistance) > 5) {
       const zoomDelta = deltaDistance > 0 ? 1 : -1;
-      this.updateZoom(event, zoomDelta * this.zoomRate);
+      this.updateZoom(zoomDelta * this.zoomRate);
       this.initialPinchDistance = currentDistance; // Update initial pinch distance
     }
   }
 
-  updateZoom(event, delta) {
+  updateZoom(delta) {
     if (this.zoomBlocked) return;
 
     this.zoomOffset += delta;
@@ -222,10 +221,8 @@ export class GestureManager {
   }
 
   stopZoom(event) {
+    this.isZooming = false;
     this.initialPinchDistance = null;
-
-    // Allow dragging when zooming is done
-    this.unblockDrag();
   }
 
   getPinchDistance() {
@@ -235,11 +232,11 @@ export class GestureManager {
     return Math.sqrt(dx * dx + dy * dy);
   }
 
-  blockZoom(event = null) {
+  blockZoom() {
     this.zoomBlocked = true;
   }
 
-  unblockZoom(event = null) {
+  unblockZoom() {
     this.zoomBlocked = false;
   }
 }
