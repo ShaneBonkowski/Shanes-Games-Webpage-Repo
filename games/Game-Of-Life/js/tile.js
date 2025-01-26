@@ -23,6 +23,24 @@ export class Tile extends GameObject {
     this.subscribeToEvents();
   }
 
+  onPointerUp(pointer) {
+    if (
+      this.canClick &&
+      !this.scene.uiMenuOpen &&
+      this.initialClickOnThisTile
+    ) {
+      // Toggle tile state only if the click started and ended on this tile
+      this.onClickToggleTileState();
+
+      // Autopause the game if specified to do such
+      if (!this.scene.paused && TileGridAttrs.autoPauseOnClick) {
+        this.scene.togglePause();
+      }
+    }
+
+    this.initialClickOnThisTile = false; // Reset state
+  }
+
   subscribeToEvents() {
     // Click must start and end on the same tile to count as a tile click...
     // This helps ensure dragging doesnt accidentally trigger tiles.
@@ -33,21 +51,10 @@ export class Tile extends GameObject {
     });
 
     this.graphic.on("pointerup", (pointer) => {
-      if (
-        this.canClick &&
-        !this.scene.uiMenuOpen &&
-        this.initialClickOnThisTile
-      ) {
-        // Toggle tile state only if the click started and ended on this tile
-        this.onClickToggleTileState();
-
-        // Autopause the game if specified to do such
-        if (!this.scene.paused && TileGridAttrs.autoPauseOnClick) {
-          this.scene.togglePause();
-        }
-      }
-
-      this.initialClickOnThisTile = false; // Reset state
+      this.onPointerUp(pointer);
+    });
+    this.graphic.on("pointercancel", (pointer) => {
+      this.onPointerUp(pointer);
     });
 
     // Update mouse on hover

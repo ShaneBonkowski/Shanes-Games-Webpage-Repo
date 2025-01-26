@@ -127,9 +127,16 @@ export class Boid extends GameObject {
       // leader boid should dissapear
       document.addEventListener(
         "pointerup",
-        function () {
+        () => {
           this.disable();
-        }.bind(this),
+        },
+        { capture: true }
+      );
+      document.addEventListener(
+        "pointercancel",
+        () => {
+          this.disable();
+        },
         { capture: true }
       );
     }
