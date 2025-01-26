@@ -39,27 +39,36 @@ export class ZoomManager {
 
   startZoom(event) {
     // Record initial distance between touches for pinch gesture
-    if (event.touches.length === 2) {
-      this.initialPinchDistance = this.getPinchDistance(event);
+    if (this.zoomBlocked || !event.touches || event.touches.length !== 2) {
+      return;
+    }
 
-      if (this.onStartZoom != null) {
-        this.onStartZoom();
-      }
+    this.initialPinchDistance = this.getPinchDistance(event);
+
+    if (this.onStartZoom != null) {
+      this.onStartZoom();
     }
   }
 
   handleZoom(event) {
     // Handle pinch gesture (calculate zoom based on pinch distance change)
-    if (event.touches.length === 2 && this.initialPinchDistance !== null) {
-      const currentDistance = this.getPinchDistance(event);
-      const deltaDistance = currentDistance - this.initialPinchDistance;
+    if (
+      this.zoomBlocked ||
+      !event.touches ||
+      event.touches.length !== 2 ||
+      this.initialPinchDistance == null
+    ) {
+      return;
+    }
 
-      // If the pinch distance changes above some threshold, update zoom
-      if (Math.abs(deltaDistance) > 5) {
-        const zoomDelta = deltaDistance > 0 ? 1 : -1;
-        this.updateZoom(zoomDelta * this.zoomRate);
-        this.initialPinchDistance = currentDistance; // Update initial pinch distance
-      }
+    const currentDistance = this.getPinchDistance(event);
+    const deltaDistance = currentDistance - this.initialPinchDistance;
+
+    // If the pinch distance changes above some threshold, update zoom
+    if (Math.abs(deltaDistance) > 5) {
+      const zoomDelta = deltaDistance > 0 ? 1 : -1;
+      this.updateZoom(zoomDelta * this.zoomRate);
+      this.initialPinchDistance = currentDistance; // Update initial pinch distance
     }
   }
 

@@ -35,7 +35,7 @@ export class DragManager {
 
   startDrag(event) {
     // Only start drag if there's exactly 1 touch (finger) or 1 pointer event
-    if (this.dragBlocked || (event.touches && event.touches.length !== 1))
+    if (this.dragBlocked || !event.touches || event.touches.length !== 1)
       return;
 
     this.isDragging = true;
@@ -56,7 +56,8 @@ export class DragManager {
     if (
       this.dragBlocked ||
       !this.isDragging ||
-      (event.touches && event.touches.length !== 1)
+      !event.touches ||
+      event.touches.length !== 1
     )
       return;
 
