@@ -34,8 +34,8 @@ export class DragManager {
   }
 
   startDrag(event) {
-    // Only start drag if there's exactly 1 touch (finger) or 1 pointer event
-    if (this.dragBlocked || !event.touches || event.touches.length !== 1)
+    // Only start drag if there's exactly 1 touch (finger) for phone.
+    if (this.dragBlocked || (event.touches && event.touches.length !== 1))
       return;
 
     this.isDragging = true;
@@ -52,12 +52,11 @@ export class DragManager {
   }
 
   drag(event) {
-    // Only handle drag if there's exactly 1 touch (finger) or 1 pointer event
+    // Only handle drag if there's exactly 1 touch (finger) for phone
     if (
       this.dragBlocked ||
       !this.isDragging ||
-      !event.touches ||
-      event.touches.length !== 1
+      (event.touches && event.touches.length !== 1)
     )
       return;
 
@@ -104,7 +103,7 @@ export class DragManager {
   }
 
   getEventPosition(event) {
-    if (event.touches && event.touches[0]) {
+    if (event.touches && event.touches.length == 1) {
       return {
         clientX: event.touches[0].clientX,
         clientY: event.touches[0].clientY,
