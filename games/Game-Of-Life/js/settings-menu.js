@@ -326,7 +326,9 @@ export function addGameOfLifeSettings() {
   const reproductionSliderContainer = instantiateSlider(
     "Reproduction",
     TileGridAttrs.golRepoductionCritera,
-    "0",
+    // NOTE: cannot have 0 birth criteria, since the search
+    // has been optimized to never search dead cells without neighbors.
+    "1",
     "8",
     "1"
   );
