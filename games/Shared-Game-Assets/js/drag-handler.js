@@ -47,7 +47,7 @@ export class DragManager {
     this.dragTarget = event.target;
 
     if (this.onStartDrag != null) {
-      this.onStartDrag();
+      this.onStartDrag(event);
     }
   }
 
@@ -77,7 +77,7 @@ export class DragManager {
       this.onDrag != null &&
       (!this.lastCallTime || now - this.lastCallTime >= this.tickRate)
     ) {
-      this.onDrag();
+      this.onDrag(event);
       this.lastCallTime = now;
     }
 
@@ -85,20 +85,25 @@ export class DragManager {
     // console.log(`OffsetX: ${this.dragOffsetX}, OffsetY: ${this.dragOffsetY}`);
   }
 
-  stopDrag() {
+  stopDrag(event) {
     this.isDragging = false;
     this.dragTarget = null;
 
     if (this.onStopDrag != null) {
-      this.onStopDrag();
+      this.onStopDrag(event);
     }
   }
 
-  blockDrag() {
+  blockDrag(event = null) {
     this.dragBlocked = true;
+
+    if (event != null) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
   }
 
-  unblockDrag() {
+  unblockDrag(event = null) {
     this.dragBlocked = false;
   }
 
