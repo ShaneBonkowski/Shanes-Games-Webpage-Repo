@@ -114,7 +114,7 @@ export class Tile extends GameObject {
     }
 
     // Scale according to zoom!
-    size = size * this.scene.zoomManager.zoomOffset;
+    size = size * this.scene.gestureManager.zoomOffset;
 
     return size;
   }
@@ -145,12 +145,12 @@ export class Tile extends GameObject {
 
     // Add in any drag offset, but clamp to within screen bounds
     centerX = MoreMath.clamp(
-      centerX + this.scene.dragManager.dragOffsetX,
+      centerX + this.scene.gestureManager.dragOffsetX,
       0,
       window.innerWidth
     );
     centerY = MoreMath.clamp(
-      centerY + this.scene.dragManager.dragOffsetY,
+      centerY + this.scene.gestureManager.dragOffsetY,
       0,
       window.innerHeight
     );
