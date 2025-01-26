@@ -33,7 +33,7 @@ export class ZoomManager {
 
   handleWheel(event) {
     const delta = event.deltaY > 0 ? -1 : 1; // Scroll down is negative, up is positive
-    this.updateZoom(delta * this.zoomRate);
+    this.updateZoom(event, delta * this.zoomRate);
     event.preventDefault(); // Prevent page scroll
   }
 
@@ -46,7 +46,7 @@ export class ZoomManager {
     this.initialPinchDistance = this.getPinchDistance(event);
 
     if (this.onStartZoom != null) {
-      this.onStartZoom();
+      this.onStartZoom(event);
     }
   }
 
@@ -66,20 +66,20 @@ export class ZoomManager {
     // If the pinch distance changes above some threshold, update zoom
     if (Math.abs(deltaDistance) > 5) {
       const zoomDelta = deltaDistance > 0 ? 1 : -1;
-      this.updateZoom(zoomDelta * this.zoomRate);
+      this.updateZoom(event, zoomDelta * this.zoomRate);
       this.initialPinchDistance = currentDistance; // Update initial pinch distance
     }
   }
 
-  stopZoom() {
+  stopZoom(event) {
     this.initialPinchDistance = null;
 
     if (this.onStopZoom != null) {
-      this.onStopZoom();
+      this.onStopZoom(event);
     }
   }
 
-  updateZoom(delta) {
+  updateZoom(event, delta) {
     if (this.zoomBlocked) return;
 
     this.zoomOffset += delta;
@@ -91,7 +91,7 @@ export class ZoomManager {
       this.onZoom != null &&
       (!this.lastCallTime || now - this.lastCallTime >= this.tickRate)
     ) {
-      this.onZoom();
+      this.onZoom(event);
       this.lastCallTime = now;
     }
 
@@ -106,11 +106,16 @@ export class ZoomManager {
     return Math.sqrt(dx * dx + dy * dy);
   }
 
-  blockZoom() {
+  blockZoom(event = null) {
     this.zoomBlocked = true;
+
+    if (event != null) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
   }
 
-  unblockZoom() {
+  unblockZoom(event = null) {
     this.zoomBlocked = false;
   }
 

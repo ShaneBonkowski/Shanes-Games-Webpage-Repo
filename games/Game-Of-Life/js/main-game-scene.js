@@ -277,6 +277,7 @@ export class MainGameScene extends Generic2DGameScene {
       );
     }
 
+    // Only check these tiles for game of life changes (more efficient)
     return toCheckTileGridSpaceLocs;
   }
 
@@ -284,8 +285,6 @@ export class MainGameScene extends Generic2DGameScene {
     for (let loc of toCheckTileGridSpaceLocs) {
       let [x, y] = loc;
       let tile = tiles[x][y];
-
-      // Can safely add without further checking because the OFF state is 0
       tile.handleConwayLifeIteration();
     }
   }
