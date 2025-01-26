@@ -39,7 +39,7 @@ export class ZoomManager {
 
   startZoom(event) {
     // Record initial distance between touches for pinch gesture
-    if (this.zoomBlocked || !event.touches || event.touches.length !== 2) {
+    if (this.zoomBlocked || (event.touches && event.touches.length !== 2)) {
       return;
     }
 
@@ -54,9 +54,8 @@ export class ZoomManager {
     // Handle pinch gesture (calculate zoom based on pinch distance change)
     if (
       this.zoomBlocked ||
-      !event.touches ||
-      event.touches.length !== 2 ||
-      this.initialPinchDistance == null
+      this.initialPinchDistance == null ||
+      (event.touches && event.touches.length !== 2)
     ) {
       return;
     }
