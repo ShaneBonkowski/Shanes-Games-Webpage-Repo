@@ -377,36 +377,13 @@ export function addBoidSettings() {
 
     // Listen for pointer event to hide the circle when the slider is released.
     // This tries to catch the general case of a finger or a mouse.
-    inputRange.addEventListener(
-      "pointerup",
-      function () {
-        if (circle.style.display !== "none") {
-          circle.style.display = "none";
-        }
-      }.bind(this)
-    );
-
-    // Listen for touchend event to hide the circle when the slider is released.
-    // This is backup if a browser cannot detect pointerup.
-    inputRange.addEventListener(
-      "touchend",
-      function () {
-        if (circle.style.display !== "none") {
-          circle.style.display = "none";
-        }
-      }.bind(this)
-    );
-
-    // Listen for mouseup event to hide the circle when the slider is released.
-    // This is backup if a browser cannot detect pointerup.
-    inputRange.addEventListener(
-      "mouseup",
-      function () {
-        if (circle.style.display !== "none") {
-          circle.style.display = "none";
-        }
-      }.bind(this)
-    );
+    function onPointerUp() {
+      if (circle.style.display !== "none") {
+        circle.style.display = "none";
+      }
+    }
+    inputRange.addEventListener("pointerup", onPointerUp);
+    inputRange.addEventListener("pointercancel", onPointerUp);
   }
 
   function updateFlockRadiusIndicator(circle, radius) {

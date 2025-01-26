@@ -215,7 +215,14 @@ export class MainGameScene extends Generic2DGameScene {
         this.isInteracting = false;
       }.bind(this),
       { capture: true }
-    ); // Bind 'this' to refer to the class instance
+    );
+    document.addEventListener(
+      "pointercancel",
+      function () {
+        this.isInteracting = false;
+      }.bind(this),
+      { capture: true }
+    );
 
     // Custom event that fires whenever pointer is held down longer than threshold during a click.
     // Pretty much for any "long" click tasks, like hold for this long to call this function.
@@ -249,8 +256,12 @@ export class MainGameScene extends Generic2DGameScene {
           // Remove the event listener so that we only listen for pointerup once.
           // For reference, we re-listen for pointerup each time we hold down again.
           document.removeEventListener("pointerup", pointerUpListener);
+          document.removeEventListener("pointercancel", pointerUpListener);
         };
         document.addEventListener("pointerup", pointerUpListener, {
+          once: true,
+        });
+        document.addEventListener("pointercancel", pointerUpListener, {
           once: true,
         });
       },
