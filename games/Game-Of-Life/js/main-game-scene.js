@@ -16,6 +16,8 @@ import {
   gameOfLifeTypes,
   cgolTileShapes,
   gameOfLifeShape,
+  tilespaceSet,
+  LivingTilespaceSet,
 } from "./tile-utils.js";
 import { gameOfLifeEventNames } from "./init-ui.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
@@ -40,6 +42,7 @@ export class MainGameScene extends Generic2DGameScene {
     this.autoPlayMode = false;
     this.autoPlayModeLastUpdateTime = 0;
 
+    this.livingTilespaceSet = new LivingTilespaceSet();
     this.updatePopulation(0);
     this.updateGeneration(0);
 
@@ -175,31 +178,19 @@ export class MainGameScene extends Generic2DGameScene {
 
   runGameOfLifeIteration() {
     // Run the life iteration
-    this.checkForNeighborTiles(
+    let toCheckTileGridSpaceLocs = this.checkForNeighborTiles(
       TileGridAttrs.countCornersAsNeighbors,
       TileGridAttrs.infiniteEdges
     );
+
     if (this.gameOfLifeType == gameOfLifeTypes.CONWAY) {
-      this.handleConwayLifeIteration();
+      this.handleConwayLifeIteration(toCheckTileGridSpaceLocs);
     } else {
       console.error(`Unknown game of life type: ${gameOfLifeType}`);
     }
 
-    // Update the populalation and generation count
+    // Update the generation count
     this.updateGeneration(this.generation + 1);
-    this.getAndUpdatePopulation();
-  }
-
-  getAndUpdatePopulation() {
-    let newPopulation = 0;
-    for (let row = 0; row < tiles.length; row++) {
-      for (let col = 0; col < tiles[row].length; col++) {
-        if (tiles[row][col].tileState == tileStates.ON) {
-          newPopulation++;
-        }
-      }
-    }
-    this.updatePopulation(newPopulation);
   }
 
   updateGeneration(newGenerationVal) {
@@ -250,20 +241,52 @@ export class MainGameScene extends Generic2DGameScene {
   }
 
   checkForNeighborTiles(countCorners, countTorusNeighbors) {
-    for (let row = 0; row < tiles.length; row++) {
-      for (let col = 0; col < tiles[row].length; col++) {
-        let tile = tiles[row][col];
-        tile.getQtyLivingNeighbors(tiles, countCorners, countTorusNeighbors);
+    // Check all living tiles and their surrounding neighbors to see how many living
+    // neighbors they have. This is the optimal way of checking, since vast spans of
+    // dead cells will never change state, so we can skip them.
+    let livingTileGridSpaceLocs = this.livingTilespaceSet.getTilespaceArray();
+    let toCheckTilespaceSet = new tilespaceSet();
+
+    // Add living tiles and their neighbors to the toCheckTilespaceSet
+    for (let loc of livingTileGridSpaceLocs) {
+      let [x, y] = loc;
+
+      // Add the living tile itself
+      toCheckTilespaceSet.add(tiles[x][y]);
+
+      // Add its neighbors
+      let neighborTiles = tiles[x][y].getNeighbors(
+        tiles,
+        countCorners,
+        countTorusNeighbors
+      );
+
+      for (let neighborTile of neighborTiles) {
+        toCheckTilespaceSet.add(neighborTile);
       }
     }
+
+    // Iterate over tiles to check and get their qty living neighbors
+    let toCheckTileGridSpaceLocs = toCheckTilespaceSet.getTilespaceArray();
+    for (let loc of toCheckTileGridSpaceLocs) {
+      let [x, y] = loc;
+      tiles[x][y].getQtyLivingNeighbors(
+        tiles,
+        countCorners,
+        countTorusNeighbors
+      );
+    }
+
+    return toCheckTileGridSpaceLocs;
   }
 
-  handleConwayLifeIteration() {
-    for (let row = 0; row < tiles.length; row++) {
-      for (let col = 0; col < tiles[row].length; col++) {
-        let tile = tiles[row][col];
-        tile.handleConwayLifeIteration();
-      }
+  handleConwayLifeIteration(toCheckTileGridSpaceLocs) {
+    for (let loc of toCheckTileGridSpaceLocs) {
+      let [x, y] = loc;
+      let tile = tiles[x][y];
+
+      // Can safely add without further checking because the OFF state is 0
+      tile.handleConwayLifeIteration();
     }
   }
 
@@ -346,6 +369,7 @@ export class MainGameScene extends Generic2DGameScene {
     }
 
     // Fresh reset on generation and population as well
+    this.livingTilespaceSet.clear();
     this.updatePopulation(0);
     this.updateGeneration(0);
   }

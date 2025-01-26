@@ -202,3 +202,53 @@ export class gameOfLifeShape {
     }
   }
 }
+
+export class tilespaceSet {
+  constructor() {
+    this.tilespace = new Set();
+  }
+
+  clear() {
+    this.tilespace = new Set();
+  }
+
+  serializeCoords(x, y) {
+    // Helper function to serialize coordinates for storage
+    return JSON.stringify([x, y]);
+  }
+
+  deserializeCoords(coord) {
+    // Helper function to deserialize coordinates
+    return JSON.parse(coord);
+  }
+
+  add(tile) {
+    const coords = this.serializeCoords(
+      tile.gridSpaceLoc.x,
+      tile.gridSpaceLoc.y
+    );
+    this.tilespace.add(coords);
+  }
+
+  delete(tile) {
+    const coords = this.serializeCoords(
+      tile.gridSpaceLoc.x,
+      tile.gridSpaceLoc.y
+    );
+    this.tilespace.delete(coords);
+  }
+
+  getTilespaceArray() {
+    return Array.from(this.tilespace).map(this.deserializeCoords);
+  }
+}
+
+export class LivingTilespaceSet extends tilespaceSet {
+  updateLivingTilespace(tile) {
+    if (tile.tileState === tileStates.ON) {
+      this.add(tile);
+    } else if (tile.tileState === tileStates.OFF) {
+      this.delete(tile);
+    }
+  }
+}

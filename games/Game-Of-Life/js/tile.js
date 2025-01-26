@@ -71,7 +71,10 @@ export class Tile extends GameObject {
     this.graphic.setOrigin(0.5, 0.5); // Set the anchor point to the center
     this.graphic.setInteractive(); // make it so this graphic can be clicked on etc.
 
-    this.changeState(tileStates.OFF); // this will update the graphic, position, etc. too
+    // Start in off and then change to off. This is so that any necc. vars are updated, without
+    // the game thinking the state "changed" from ON to OFF for e.g.
+    this.tileState = tileStates.OFF;
+    this.changeState(tileStates.OFF);
   }
 
   resetTile() {
@@ -79,7 +82,10 @@ export class Tile extends GameObject {
     this.canClick = true;
     this.currentTileAnim = null;
 
-    this.changeState(tileStates.OFF); // this will update the graphic too
+    // Start in off and then change to off. This is so that any necc. vars are updated, without
+    // the game thinking the state "changed" from ON to OFF for e.g.
+    this.tileState = tileStates.OFF;
+    this.changeState(tileStates.OFF);
   }
 
   updateSize() {
@@ -181,14 +187,15 @@ export class Tile extends GameObject {
     return new Vec2(tileX, tileY);
   }
 
-  getQtyLivingNeighbors(
+  getNeighbors(
     tiles,
     countCorners = true,
-    countTorusNeighbors = false
+    countTorusNeighbors = false,
+    onNeighborTile = null
   ) {
     let xWidth = tiles.length;
     let yWidth = tiles[0].length;
-    this.qtyLivingNeighbors = 0;
+    let neighborTiles = [];
 
     // Define the directions for the 8 possible neighbors
     const directions = countCorners
@@ -217,17 +224,45 @@ export class Tile extends GameObject {
       let col = thisCol + dy;
 
       if (row >= 0 && row < xWidth && col >= 0 && col < yWidth) {
-        if (tiles[row][col].tileState == tileStates.ON) {
-          this.qtyLivingNeighbors++;
+        neighborTiles.push(tiles[row][col]);
+
+        if (onNeighborTile) {
+          onNeighborTile(tiles[row][col]);
         }
       } else if (countTorusNeighbors) {
         // Wrap around the grid
         let wrappedRow = (row + xWidth) % xWidth;
         let wrappedCol = (col + yWidth) % yWidth;
-        if (tiles[wrappedRow][wrappedCol].tileState == tileStates.ON) {
-          this.qtyLivingNeighbors++;
+        neighborTiles.push(tiles[wrappedRow][wrappedCol]);
+
+        if (onNeighborTile) {
+          onNeighborTile(tiles[wrappedRow][wrappedCol]);
         }
       }
+    }
+
+    return neighborTiles;
+  }
+
+  getQtyLivingNeighbors(
+    tiles,
+    countCorners = true,
+    countTorusNeighbors = false
+  ) {
+    this.qtyLivingNeighbors = 0;
+
+    this.getNeighbors(
+      tiles,
+      countCorners,
+      countTorusNeighbors,
+      this.updateLivingNeighborCount.bind(this)
+    );
+  }
+
+  updateLivingNeighborCount(otherTile) {
+    // If the neighbor is living, add to this tile's qty
+    if (otherTile.tileState == tileStates.ON) {
+      this.qtyLivingNeighbors++;
     }
   }
 
@@ -249,6 +284,8 @@ export class Tile extends GameObject {
         this.changeState(tileStates.ON);
       }
     }
+
+    return this.tileState;
   }
 
   onClickToggleTileState() {
@@ -258,21 +295,24 @@ export class Tile extends GameObject {
     } else {
       this.changeState(tileStates.ON);
     }
-
-    // When a user clicks, update the population with the new state
-    if (this.tileState == tileStates.ON) {
-      this.scene.updatePopulation(this.scene.population + 1);
-    } else {
-      this.scene.updatePopulation(this.scene.population - 1);
-    }
   }
 
   changeState(newState) {
     // Make sure no anim is playing prior to updating tile state!
     this.stopCurrentTileAnim();
 
+    // If state changed, update population.
+    if (this.tileState != newState) {
+      if (newState == tileStates.ON) {
+        this.scene.updatePopulation(this.scene.population + 1);
+      } else {
+        this.scene.updatePopulation(this.scene.population - 1);
+      }
+    }
+
     // Change the state
     this.tileState = newState;
+    this.scene.livingTilespaceSet.updateLivingTilespace(this);
   }
 
   renderTileGraphics() {
