@@ -21,8 +21,7 @@ import {
 } from "./tile-utils.js";
 import { gameOfLifeEventNames } from "./init-ui.js";
 import { SeededRandom } from "../../Shared-Game-Assets/js/seedable-random.js";
-import { DragManager } from "../../Shared-Game-Assets/js/drag-handler.js";
-import { ZoomManager } from "../../Shared-Game-Assets/js/zoom-handler.js";
+import { GestureManager } from "../../Shared-Game-Assets/js/gesture-manager.js";
 
 export const tiles = [];
 
@@ -46,14 +45,7 @@ export class MainGameScene extends Generic2DGameScene {
     this.updatePopulation(0);
     this.updateGeneration(0);
 
-    this.dragManager = new DragManager();
-    this.zoomManager = new ZoomManager();
-
-    // Make it so that we cannot zoom while dragging and vice versa
-    this.dragManager.onStartDrag = this.zoomManager.blockZoom;
-    this.dragManager.onStopDrag = this.zoomManager.unblockZoom;
-    this.zoomManager.onStartZoom = this.dragManager.blockDrag;
-    this.zoomManager.onStopZoom = this.dragManager.unblockDrag;
+    this.gestureManager = new GestureManager();
 
     // Let game know ui menu closed to start
     this.onUiMenuClosed();
@@ -358,8 +350,8 @@ export class MainGameScene extends Generic2DGameScene {
 
   resetTiles() {
     // reset zoom and drag to 0
-    this.dragManager.resetDrag();
-    this.zoomManager.resetZoom();
+    this.gestureManager.resetDrag();
+    this.gestureManager.resetZoom();
 
     for (let row = 0; row < tiles.length; row++) {
       for (let col = 0; col < tiles[row].length; col++) {
@@ -419,14 +411,14 @@ export class MainGameScene extends Generic2DGameScene {
 
   onUiMenuOpen() {
     this.uiMenuOpen = true;
-    this.dragManager.blockDrag();
-    this.zoomManager.blockZoom();
+    this.gestureManager.blockDrag();
+    this.gestureManager.blockZoom();
   }
 
   onUiMenuClosed() {
     this.uiMenuOpen = false;
-    this.dragManager.unblockDrag();
-    this.zoomManager.unblockZoom();
+    this.gestureManager.unblockDrag();
+    this.gestureManager.unblockZoom();
   }
 
   togglePause() {
