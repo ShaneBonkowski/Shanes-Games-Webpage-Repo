@@ -110,7 +110,7 @@ export class Tile extends GameObject {
   updateSize() {
     let targetSize = this.calculateSize();
     if (this.size != null) {
-      this.size = MoreMath.lerpWithThreshold(this.size, targetSize, 0.25, 0.5);
+      this.size = MoreMath.lerpWithThreshold(this.size, targetSize, 1, 1.5);
     } else {
       this.size = targetSize;
     }
@@ -155,8 +155,8 @@ export class Tile extends GameObject {
       this.physicsBody2D.position.x = MoreMath.lerpWithThreshold(
         this.physicsBody2D.position.x,
         newPosition.x,
-        0.5,
-        0.75
+        0.35,
+        0.5
       );
     } else {
       this.physicsBody2D.position.x = newPosition.x;
@@ -166,8 +166,8 @@ export class Tile extends GameObject {
       this.physicsBody2D.position.y = MoreMath.lerpWithThreshold(
         this.physicsBody2D.position.y,
         newPosition.y,
-        0.5,
-        0.75
+        0.35,
+        0.5
       );
     } else {
       this.physicsBody2D.position.y = newPosition.y;

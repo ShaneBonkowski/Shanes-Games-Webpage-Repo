@@ -25,7 +25,7 @@ export class MoreMath {
 
   /**
    * Performs linear interpolation between two values with a threshold.
-   * If the difference between start and end exceeds the threshold, it jumps to the end value.
+   * If the difference between start and end is lower than the threshold, it jumps to the end value.
    * @param {number} start - The starting value.
    * @param {number} end - The ending value.
    * @param {number} t - The interpolation parameter. Should be between 0 and 1.
@@ -35,8 +35,8 @@ export class MoreMath {
   static lerpWithThreshold(start, end, t, threshold) {
     const difference = Math.abs(end - start);
 
-    // If the difference exceeds the threshold, jump to the end value
-    if (difference > threshold) {
+    // If the difference is lower than the threshold, jump to the end value
+    if (difference < threshold) {
       return end;
     }
 
