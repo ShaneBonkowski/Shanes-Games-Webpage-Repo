@@ -45,7 +45,13 @@ export class Tile extends GameObject {
     // Click must start and end on the same tile to count as a tile click...
     // This helps ensure dragging doesnt accidentally trigger tiles.
     this.graphic.on("pointerdown", (pointer) => {
-      if (this.canClick && !this.scene.uiMenuOpen) {
+      if (
+        // Make sure the canvas was clicked on! Not e.g. a ui DOM element like a button.
+        // This fixes issues where you can click a tile through a button.
+        pointer.target == this.scene.game.canvas &&
+        this.canClick &&
+        !this.scene.uiMenuOpen
+      ) {
         this.initialClickOnThisTile = true;
       }
     });
@@ -82,6 +88,12 @@ export class Tile extends GameObject {
     // the game thinking the state "changed" from ON to OFF for e.g.
     this.tileState = tileStates.OFF;
     this.changeState(tileStates.OFF);
+
+    // Set position and size
+    let initialPos = this.calculateTilePosition();
+    this.physicsBody2D.position.x = initialPos.x;
+    this.physicsBody2D.position.y = initialPos.y;
+    this.size = this.calculateSize();
   }
 
   resetTile() {
@@ -96,7 +108,12 @@ export class Tile extends GameObject {
   }
 
   updateSize() {
-    this.size = this.calculateSize();
+    let targetSize = this.calculateSize();
+    if (this.size != null) {
+      this.size = MoreMath.lerp(this.size, targetSize, 0.25);
+    } else {
+      this.size = targetSize;
+    }
   }
 
   calculateSize() {
@@ -133,8 +150,29 @@ export class Tile extends GameObject {
 
   updatePosition() {
     let newPosition = this.calculateTilePosition();
-    this.physicsBody2D.position.x = newPosition.x;
-    this.physicsBody2D.position.y = newPosition.y;
+
+    if (this.physicsBody2D.position.x != null) {
+      this.physicsBody2D.position.x = MoreMath.lerp(
+        this.physicsBody2D.position.x,
+        newPosition.x,
+        0.5
+      );
+    } else {
+      this.physicsBody2D.position.x = newPosition.x;
+    }
+
+    if (this.physicsBody2D.position.y != null) {
+      this.physicsBody2D.position.y = MoreMath.lerp(
+        this.physicsBody2D.position.y,
+        newPosition.y,
+        0.5
+      );
+    } else {
+      this.physicsBody2D.position.y = newPosition.y;
+    }
+
+    // this.physicsBody2D.position.x = newPosition.x;
+    // this.physicsBody2D.position.y = newPosition.y;
   }
 
   calculateTilePosition() {

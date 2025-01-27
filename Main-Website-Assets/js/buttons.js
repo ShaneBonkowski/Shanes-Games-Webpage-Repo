@@ -109,7 +109,13 @@ export function createFunctionButtonContainer(
   }
 
   onClickButtonFunctions.forEach((func) => {
-    button.addEventListener("pointerdown", func);
+    button.addEventListener(
+      "pointerdown",
+      (event) => {
+        func();
+      },
+      { capture: true }
+    );
   });
 
   // Have a lil anim on click
