@@ -1,7 +1,8 @@
 import { MoreMath } from "./more-math.js";
+import { throttle } from "./throttle.js";
 
 export class GestureManager {
-  constructor(dragRate = 0.5, zoomRate = 0.06) {
+  constructor(dragRate = 0.75, zoomRate = 0.15) {
     this.activePointers = {};
     this.dragRate = dragRate;
     this.zoomRate = zoomRate;
@@ -39,10 +40,12 @@ export class GestureManager {
   }
 
   addEventListeners() {
+    let throttleInterval = 100; // ms
+
     // Mouse wheel for zoom
     window.addEventListener(
       "wheel",
-      this.handleWheel.bind(this),
+      throttle((event) => this.handleWheel(event), throttleInterval),
       // passive = false informs the event that we might call preventDefault() inside it
       {
         passive: false,
@@ -57,7 +60,8 @@ export class GestureManager {
     );
     window.addEventListener(
       "pointermove",
-      (event) => this.handlePointerMove(event),
+      // Throttle so that it doesnt run so often
+      throttle((event) => this.handlePointerMove(event), throttleInterval),
       { passive: false }
     );
     window.addEventListener(
