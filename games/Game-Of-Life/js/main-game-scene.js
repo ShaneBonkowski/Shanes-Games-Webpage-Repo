@@ -31,7 +31,7 @@ export class MainGameScene extends Generic2DGameScene {
   constructor() {
     super({ key: "MainGameScene" });
 
-    this.renderUpdateInterval = 16.67; // ~= 60hz
+    this.renderUpdateInterval = 33; // ~= 30hz
     this.lastRenderUpdateTime = 0;
     this.lastGameStateUpdateTime = 0;
 
