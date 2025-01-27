@@ -48,7 +48,7 @@ export class Tile extends GameObject {
       if (
         // Make sure the canvas was clicked on! Not e.g. a ui DOM element like a button.
         // This fixes issues where you can click a tile through a button.
-        pointer.target == this.scene.game.canvas &&
+        pointer.event.target == this.scene.game.canvas &&
         this.canClick &&
         !this.scene.uiMenuOpen
       ) {
@@ -155,8 +155,8 @@ export class Tile extends GameObject {
       this.physicsBody2D.position.x = MoreMath.lerpWithThreshold(
         this.physicsBody2D.position.x,
         newPosition.x,
-        0.35,
-        0.5
+        0.5,
+        0.75
       );
     } else {
       this.physicsBody2D.position.x = newPosition.x;
@@ -166,8 +166,8 @@ export class Tile extends GameObject {
       this.physicsBody2D.position.y = MoreMath.lerpWithThreshold(
         this.physicsBody2D.position.y,
         newPosition.y,
-        0.35,
-        0.5
+        0.5,
+        0.75
       );
     } else {
       this.physicsBody2D.position.y = newPosition.y;
