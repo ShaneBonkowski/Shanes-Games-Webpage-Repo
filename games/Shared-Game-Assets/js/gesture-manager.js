@@ -113,10 +113,13 @@ export class GestureManager {
     // Remove pointer from the set of active pointers
     delete this.activePointers[event.pointerId];
 
-    if (this.isZooming) {
-      this.stopZoom(event);
-    } else if (this.isDragging) {
-      this.stopDrag(event);
+    // Only stop if there are 0 fingers on the screen!
+    if (Object.keys(this.activePointers).length === 0) {
+      if (this.isZooming) {
+        this.stopZoom(event);
+      } else if (this.isDragging) {
+        this.stopDrag(event);
+      }
     }
   }
 
