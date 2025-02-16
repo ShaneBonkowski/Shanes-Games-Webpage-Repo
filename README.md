@@ -1,4 +1,5 @@
 # Shane's Games
+<B>DEPRECATED:</B> moved to [shane-bonkowski-dot-com](https://github.com/ShaneBonkowski/shane-bonkowski-dot-com).
 
 Welcome to Shane's Games! This repository contains the source code for Shane's Games website and most of the games featured on the platform.
 
